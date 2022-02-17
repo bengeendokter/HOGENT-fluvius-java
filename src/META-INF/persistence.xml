@@ -4,8 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>domein.Test</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ID372119_g10.db.webhosting.be?serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value="ID372119_g10"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="Zcm@p2ZKKNsmGh!"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
