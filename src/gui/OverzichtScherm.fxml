@@ -2,70 +2,68 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 
-
-<fx:root type="Pane" prefHeight="500.0" prefWidth="703.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+<fx:root prefHeight="500.0" prefWidth="703.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region prefHeight="57.0" prefWidth="710.0" style="-fx-background-color: #b2d235;" />
-      <ImageView fitHeight="119.0" fitWidth="125.0" layoutX="61.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <Region fx:id="groeneBalk" prefHeight="57.0" prefWidth="710.0" style="-fx-background-color: #b2d235;" />
+      <ImageView fx:id="imgCD" fitHeight="119.0" fitWidth="125.0" layoutX="61.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/CD.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="119.0" fitWidth="125.0" layoutX="209.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgUD" fitHeight="119.0" fitWidth="125.0" layoutX="209.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/UD.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="125.0" layoutX="355.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgDD" fitHeight="111.0" fitWidth="125.0" layoutX="355.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/DD.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="125.0" layoutX="504.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRD" fitHeight="111.0" fitWidth="125.0" layoutX="504.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/RD.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="110.0" fitWidth="125.0" layoutX="61.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgCC" fitHeight="110.0" fitWidth="125.0" layoutX="61.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/CC.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="110.0" fitWidth="125.0" layoutX="209.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgUC" fitHeight="110.0" fitWidth="125.0" layoutX="209.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/UC.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="110.0" fitWidth="125.0" layoutX="355.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgDC" fitHeight="110.0" fitWidth="125.0" layoutX="355.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/DC.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="148.0" layoutX="504.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRC" fitHeight="111.0" fitWidth="148.0" layoutX="504.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/RC.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="136.0" fitWidth="125.0" layoutX="61.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgCS" fitHeight="136.0" fitWidth="125.0" layoutX="61.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/CA.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="146.0" layoutX="209.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgUS" fitHeight="111.0" fitWidth="146.0" layoutX="209.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/UA.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="145.0" layoutX="355.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgDS" fitHeight="111.0" fitWidth="145.0" layoutX="355.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/DA.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="125.0" layoutX="504.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRS" fitHeight="111.0" fitWidth="125.0" layoutX="504.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/RA.png" />
          </image>
