@@ -12,25 +12,25 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="788.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region layoutX="244.0" layoutY="70.0" prefHeight="426.0" prefWidth="302.0" style="-fx-background-color: white;" />
-      <Button fx:id="btnMeldAan" layoutX="267.0" layoutY="372.0" mnemonicParsing="false" onAction="#meldAan" prefHeight="25.0" prefWidth="255.0" style="-fx-background-color: #004C69;" text="Meld aan" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
+      <Region fx:id="witVlak" layoutX="244.0" layoutY="70.0" prefHeight="426.0" prefWidth="302.0" style="-fx-background-color: white;" />
       <Label fx:id="lblGebruiker" layoutX="46.0" layoutY="245.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtGebruikersnaam" layoutX="267.0" layoutY="278.0" prefHeight="25.0" prefWidth="255.0" promptText="Gebruikersnaam" style="-fx-background-color: #F2F4F8;" />
+      <Button fx:id="btnMeldAan" layoutX="267.0" layoutY="372.0" mnemonicParsing="false" onAction="#meldAan" prefHeight="25.0" prefWidth="255.0" style="-fx-background-color: #004C69;" text="Meld aan" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
       <PasswordField fx:id="pssWachtwoord" layoutX="267.0" layoutY="323.0" prefHeight="25.0" prefWidth="255.0" promptText="Wachtwoord" style="-fx-background-color: #F2F4F8;" />
-      <Label layoutX="330.0" layoutY="207.0" text="Meld aan" textFill="#b2d235">
+      <TextField fx:id="txtGebruikersnaam" layoutX="267.0" layoutY="278.0" prefHeight="25.0" prefWidth="255.0" promptText="Gebruikersnaam" style="-fx-background-color: #F2F4F8;" />
+      <Label fx:id="lblMeldAan" layoutX="330.0" layoutY="207.0" text="Meld aan" textFill="#b2d235">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="294.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="294.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../SDP2/Mockups/logo.png" />
          </image>
