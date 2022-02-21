@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -38,6 +39,14 @@ public class OverzichtSchermController extends Pane {
 	private ImageView imgDS;
 	@FXML
 	private ImageView imgRS;
+	@FXML
+	private Label lblNaamIngelogdeGebruiker;
+	@FXML
+	private Label lblFunctieIngelogdeGebruiker;
+	@FXML
+	private ImageView logo;
+	@FXML
+	private ImageView ventje;
 
 	public OverzichtSchermController() {
 
@@ -75,6 +84,12 @@ public class OverzichtSchermController extends Pane {
 			imgUS.toFront();
 			imgDS.toFront();
 			imgRS.toFront();
+			lblNaamIngelogdeGebruiker.toFront();
+			lblFunctieIngelogdeGebruiker.toFront();
+			// Dit wil nog niet
+			ventje.toFront();
+			logo.toFront();
+			
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);

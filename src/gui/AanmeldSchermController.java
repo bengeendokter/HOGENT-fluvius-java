@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Shadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -63,6 +65,8 @@ public class AanmeldSchermController extends Pane {
 					this.getChildren().add(circle);
 				}
 			}
+			
+			witVlak.setEffect(new DropShadow(10, Color.LIGHTGRAY));
 			witVlak.toFront();
 			lblGebruiker.toFront();
 			lblMeldAan.toFront();
