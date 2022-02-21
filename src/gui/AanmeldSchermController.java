@@ -41,6 +41,7 @@ public class AanmeldSchermController extends Pane {
 
 	@FXML
 	private PasswordField pssWachtwoord;
+	
 
 	public AanmeldSchermController() {
 
