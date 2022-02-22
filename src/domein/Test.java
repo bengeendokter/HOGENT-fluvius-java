@@ -31,6 +31,11 @@ public class Test implements Serializable{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Test [id=" + id + ", test=" + test + "]";
+	}
+
 	public Test(String test) {
 		this.test = test;
 	}
