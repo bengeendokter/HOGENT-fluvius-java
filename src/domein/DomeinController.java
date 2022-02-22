@@ -1,6 +1,8 @@
 package domein;
 
 
+import java.util.Date;
+
 import repository.GenericDaoJpa;
 
 public class DomeinController {
@@ -14,7 +16,7 @@ public class DomeinController {
 		
 		//Haal gebruiker op
 		Gebruiker gebruiker = gebruikerDao.get(gebruikersnaam);
-		GenericDaoJpa.commitTransaction();
+		
 		
 		//Gebruiker niet gevonden
 		if(gebruiker == null)
@@ -36,10 +38,12 @@ public class DomeinController {
 		
 		//aanmelden geslaagd
 		aangemeldeGebruiker = gebruiker;
+		//insert geslaagde aanmeldpoging
+		GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
+		aanmeldPogingDao.insert(new AanmeldPoging(aangemeldeGebruiker, new Date(), true, aangemeldeGebruiker.getRol(), aangemeldeGebruiker.getStatus(), 0));
+		GenericDaoJpa.commitTransaction();
 		System.out.println(gebruiker.toString());
+		GenericDaoJpa.closePersistency();
 	}
 	
-	public void close() {
-        GenericDaoJpa.closePersistency();
-    }
 }

@@ -26,8 +26,8 @@ public class Gebruiker implements Serializable {
 	}
 	
 	
-	public String getWachtwoord() {
-		return wachtwoord;
+	public String getGebruikersnaam() {
+		return gebruikersnaam;
 	}
 	
 	public String getStatus() {

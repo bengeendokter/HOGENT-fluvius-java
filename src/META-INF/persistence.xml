@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>domein.Test</class>
     <class>domein.Gebruiker</class>
+    <class>domein.AanmeldPoging</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="ID372119_g10"/>
