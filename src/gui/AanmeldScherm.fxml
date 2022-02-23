@@ -35,9 +35,9 @@
             <Image url="@../images/logo.png" />
          </image>
       </ImageView>
-      <Label fx:id="foutmelding" layoutX="282.0" layoutY="352.0" prefHeight="17.0" prefWidth="183.0" text="Label" textFill="#f7ab13">
+      <Label fx:id="foutmelding" layoutX="282.0" layoutY="352.0" prefHeight="17.0" prefWidth="239.0" text="Label" textFill="#f7ab13">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="9.0" />
          </font>
       </Label>
    </children>
