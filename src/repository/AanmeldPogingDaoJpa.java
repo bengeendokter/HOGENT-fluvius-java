@@ -1,9 +1,12 @@
 package repository;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
 import domein.AanmeldPoging;
+import domein.Gebruiker;
 
 public class AanmeldPogingDaoJpa extends GenericDaoJpa<AanmeldPoging> implements AanmeldPogingDao  {
     public AanmeldPogingDaoJpa() {
@@ -11,14 +14,8 @@ public class AanmeldPogingDaoJpa extends GenericDaoJpa<AanmeldPoging> implements
     }
 
     @Override
-    public AanmeldPoging getLaatsteAanmeldPogingByGebruikersnaam(String gebruikersnaam) throws EntityNotFoundException {
-        try {
-            return em.createNamedQuery("Aanmeldpoging.findByGebruikersnaam", AanmeldPoging.class)
-                 .setParameter("gebruikersnaam", gebruikersnaam)
-                .getSingleResult();
-        } catch (NoResultException ex) {
-            throw new EntityNotFoundException();
-        } 
+    public AanmeldPoging getLaatsteAanmeldPogingByGebruikersnaam(Gebruiker gebruiker) throws EntityNotFoundException {
+        return em.createNamedQuery("aanmeldpoging.findByGebruiker", AanmeldPoging.class).setParameter("gebruiker", gebruiker).getResultList().stream().findFirst().orElse(null);//
     }
 }
 

@@ -19,8 +19,8 @@ import javax.persistence.TemporalType;
 @Table(name = "Aanmeldpoging")
 @IdClass(AanmeldPogingId.class)
 @NamedQueries({
-    @NamedQuery(name = "Aanmeldpoging.findByGebruikersnaam",
-                         query = "select top 1 a from Aanmeldpoging a where a.gebruikersnaam = :gebruikersnaam")            
+    @NamedQuery(name = "aanmeldpoging.findByGebruiker",
+                         query = "select entity from domein.AanmeldPoging entity where entity.gebruiker = :gebruiker order by entity.tijdstip desc")//         
 })
 public class AanmeldPoging implements Serializable{
 
@@ -44,6 +44,10 @@ public class AanmeldPoging implements Serializable{
 	@Column(name = "aantalFoutievePogingen")
 	private int poging;
 
+	public int getPoging() {
+		return poging;
+	}
+
 	public AanmeldPoging(Gebruiker gebruiker, Date tijdstip, boolean success, String rol, String status, int poging) {
 		this.gebruiker = gebruiker;
 		this.tijdstip = tijdstip;
@@ -54,5 +58,11 @@ public class AanmeldPoging implements Serializable{
 	}
 
 	protected AanmeldPoging() {
+	}
+	
+	@Override
+	public String toString() {
+		return "AanmeldPoging [gebruiker=" + gebruiker + ", tijdstip=" + tijdstip + ", success=" + success + ", rol="
+				+ rol + ", status=" + status + ", poging=" + poging + "]";
 	}
 }

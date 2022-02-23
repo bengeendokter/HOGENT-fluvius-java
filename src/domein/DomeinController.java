@@ -2,11 +2,13 @@ package domein;
 
 
 import java.util.Date;
+import java.util.List;
 
 import exceptions.GebruikerBestaatNietException;
 import exceptions.GebruikerGeblokkeerdException;
 import exceptions.OngeldigeWachtwoordException;
 import exceptions.VerkeerdeRolException;
+import repository.AanmeldPogingDaoJpa;
 import repository.GenericDaoJpa;
 
 public class DomeinController {
@@ -63,29 +65,51 @@ public class DomeinController {
         }  catch (VerkeerdeRolException e) {
         	
         	registreerVerkeerdeAanmeldPoging(gebruiker);
-            GenericDaoJpa.commitTransaction();
             System.out.println("verkeerde rol");
             throw new VerkeerdeRolException();
             
         }catch (GebruikerGeblokkeerdException e) {
         	
         	registreerVerkeerdeAanmeldPoging(gebruiker);
-        	System.out.println("geblokkeerd");
-        	GenericDaoJpa.commitTransaction();
+        	System.out.println("geblokkeerd");	
         	throw new GebruikerGeblokkeerdException();
         	
         } catch (OngeldigeWachtwoordException e) {
 
         	registreerVerkeerdeAanmeldPoging(gebruiker);
         	System.out.println("ww is fout");
-        	GenericDaoJpa.commitTransaction();
         	throw new OngeldigeWachtwoordException();
         }
     }
     
     private void registreerVerkeerdeAanmeldPoging(Gebruiker gebruiker)
     {
+    	try
+    	{
+    		AanmeldPogingDaoJpa aanmeldpogingDao = new AanmeldPogingDaoJpa();
+    		AanmeldPoging ap = aanmeldpogingDao.getLaatsteAanmeldPogingByGebruikersnaam(gebruiker);
+    
+    		int aanmeldPogingnummer = 1;
+    		if(ap != null)
+    		{
+    			aanmeldPogingnummer += ap.getPoging();
+    		}
+    		
+    		if(aanmeldPogingnummer == 3)//blokkeer gebruiker
+    		{
+    			gebruiker.setStatus("GEBLOKKEERD");
+    		}
+    		aanmeldpogingDao.insert(new AanmeldPoging(gebruiker, new Date(), false, gebruiker.getRol(), gebruiker.getStatus(), aanmeldPogingnummer));
+
+    	}
+    	catch(Exception e)
+    	{
+    		GenericDaoJpa.rollbackTransaction();
+    		System.out.println("Registreren verkeerde aanmeldpoging mislukt");
+    		return;
+    	}
     	
+    	GenericDaoJpa.commitTransaction();
     }
     
     public Gebruiker getAangemeldeGebruiker() {
