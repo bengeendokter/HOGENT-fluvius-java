@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,6 +18,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Aanmeldpoging")
 @IdClass(AanmeldPogingId.class)
+@NamedQueries({
+    @NamedQuery(name = "Aanmeldpoging.findByGebruikersnaam",
+                         query = "select top 1 a from Aanmeldpoging a where a.gebruikersnaam = :gebruikersnaam")            
+})
 public class AanmeldPoging implements Serializable{
 
 	private static final long serialVersionUID = 1L;
