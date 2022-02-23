@@ -1,58 +1,52 @@
 package testen;
 
+
+import java.util.Date;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import domein.DomeinController;
+import exceptions.GebruikerBestaatNietException;
+import exceptions.GebruikerGeblokkeerdException;
+import exceptions.OngeldigeWachtwoordException;
 
 public class DomeinTest {
-	//Bestaande gebruikers in de databank
-	//JanJansens, 123456789
-	//JansensJan, 987654321
+	private static DomeinController dc =  new DomeinController();
 	
-	//vraag aan de factory een entityManager
-    EntityManager entityManager =  JPAUtil.getEntityManagerFactory().createEntityManager();
-    
-    ////start een transactie
-    entityManager.getTransaction().begin();
+	
+	@AfterAll
+	public static void after() {
+		dc.sluitPersistentie();
+	}
+	
 
-    Docent docent  = entityManager.find(Docent.class, 2L);
+	@ParameterizedTest
+	@CsvSource({"JanJansens, 123456789"})
+	public void meldAan_bestaandGebruikerJuisteGegevens_Login(String naam, String paswoord) {
+		System.out.println(new Date());
+		Assertions.assertDoesNotThrow(() -> {
+			dc.meldAan(naam, paswoord);
+			});
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"JanJansens, 1234"})
+	public void meldAan_bestaandGebruikerFouteGegevens_Exception(String naam, String paswoord) {
 		
-	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void controleerGebruiker(int pins, int total) {
-		
-	}
-	
-	
-	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void meldAan_bestaandGebruikerJuisteGegevensGeldigPoging_Login(int pins, int total) {
-		Assertions.assertEquals(true, true);
+		Assertions.assertThrows(OngeldigeWachtwoordException.class, () -> dc.meldAan(naam, paswoord));
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void meldAan_bestaandGebruikerFouteGegevensGeldigPoging_Exception(int pins, int total) {
-		Assertions.assertEquals(true, true);
+	@CsvSource({"JansensJan, 987654321"})
+	public void meldAan_geblokkeerdGebruiker_Exception(String naam, String paswoord) {
+		Assertions.assertThrows(GebruikerGeblokkeerdException.class, () -> dc.meldAan(naam, paswoord));
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void meldAan_onbestaandGebruikerGeldigPoging_Exception(int pins, int total) {
-		Assertions.assertEquals(true, true);
+	@CsvSource({"Jan, 1234"})
+	public void meldAan_onbestaandGebruiker_Exception(String naam, String paswoord) {
+		Assertions.assertThrows(GebruikerBestaatNietException.class, () -> dc.meldAan(naam, paswoord));
 	}
-	
-	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void meldAan_bestaandGebruikerFouteGegevensOngeldigPoging_Exception(int pins, int total) {
-		Assertions.assertEquals(true, true);
-	}
-	
-	@ParameterizedTest
-	@CsvSource({"0, 0", "1,20"})
-	public void meldAan_onbestaandGebruikerOngeldigPoging_Exception(int pins, int total) {
-		Assertions.assertEquals(true, true);
-	}
-	
-	
 }

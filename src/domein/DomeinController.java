@@ -49,8 +49,14 @@ public class DomeinController {
             aanmeldPogingDao.insert(new AanmeldPoging(aangemeldeGebruiker, new Date(), true, aangemeldeGebruiker.getRol(), aangemeldeGebruiker.getStatus(), 0));
             GenericDaoJpa.commitTransaction();
             System.out.println(gebruiker.toString());
-            GenericDaoJpa.closePersistency();
-        } catch (GebruikerBestaatNietException e) {
+
+            //GenericDaoJpa.closePersistency();
+        }  catch (GebruikerBestaatNietException e) {
+            GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
+            if (aangemeldeGebruiker != null) {
+                aanmeldPogingDao.insert(new AanmeldPoging(aangemeldeGebruiker, new Date(), false, aangemeldeGebruiker.getRol(), aangemeldeGebruiker.getStatus(), 1));
+            }
+
             GenericDaoJpa.commitTransaction();
             
             System.out.println("bestaat niet");
@@ -79,6 +85,10 @@ public class DomeinController {
     
     public Gebruiker getAangemeldeGebruiker() {
     	return this.aangemeldeGebruiker;
+    }
+    
+    public void sluitPersistentie() {
+    	GenericDaoJpa.closePersistency();
     }
     
 }
