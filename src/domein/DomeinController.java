@@ -21,18 +21,28 @@ public class DomeinController {
 		//Gebruiker niet gevonden
 		if(gebruiker == null)
 		{
+			GenericDaoJpa.closePersistency();
 			throw new IllegalArgumentException(String.format("Onbestaande gebruikersnaam opgegeven"));
 		}
 		
 		//status van gebruiker is geblokkeerd
 		if(gebruiker.getStatus().equals("ACTIEF") == false)
 		{
+			GenericDaoJpa.closePersistency();
 			throw new IllegalArgumentException(String.format("Deze gebruiker is geblokkeerd"));
+		}
+		
+		//gebruiker is geen mvo ccordinator
+		if(gebruiker.getRol().equals("MVO coördinator") == false)
+		{
+			GenericDaoJpa.closePersistency();
+			throw new IllegalArgumentException(String.format("Deze gebruiker is geen MVO coördinator"));
 		}
 		
 		//wachtwoord fout
 		if(gebruiker.controleerWachtwoord(wachtwoord) == false)
 		{
+			GenericDaoJpa.closePersistency();
 			throw new IllegalArgumentException(String.format("Opgegeven wachtwoord is incorrect"));
 		}
 		
