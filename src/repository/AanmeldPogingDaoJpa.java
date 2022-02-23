@@ -14,7 +14,7 @@ public class AanmeldPogingDaoJpa extends GenericDaoJpa<AanmeldPoging> implements
     }
 
     @Override
-    public AanmeldPoging getLaatsteAanmeldPogingByGebruikersnaam(Gebruiker gebruiker) throws EntityNotFoundException {
+    public AanmeldPoging getLaatsteAanmeldPogingByGebruikersnaam(Gebruiker gebruiker){
         return em.createNamedQuery("aanmeldpoging.findByGebruiker", AanmeldPoging.class).setParameter("gebruiker", gebruiker).getResultList().stream().findFirst().orElse(null);//
     }
 }

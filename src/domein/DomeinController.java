@@ -84,31 +84,21 @@ public class DomeinController {
     
     private void registreerVerkeerdeAanmeldPoging(Gebruiker gebruiker)
     {
-    	try
-    	{
-    		AanmeldPogingDaoJpa aanmeldpogingDao = new AanmeldPogingDaoJpa();
-    		AanmeldPoging ap = aanmeldpogingDao.getLaatsteAanmeldPogingByGebruikersnaam(gebruiker);
+    	AanmeldPogingDaoJpa aanmeldpogingDao = new AanmeldPogingDaoJpa();
+    	AanmeldPoging ap = aanmeldpogingDao.getLaatsteAanmeldPogingByGebruikersnaam(gebruiker);
     
-    		int aanmeldPogingnummer = 1;
-    		if(ap != null)
-    		{
-    			aanmeldPogingnummer += ap.getPoging();
-    		}
-    		
-    		if(aanmeldPogingnummer == 3)//blokkeer gebruiker
-    		{
-    			gebruiker.setStatus("GEBLOKKEERD");
-    		}
-    		aanmeldpogingDao.insert(new AanmeldPoging(gebruiker, new Date(), false, gebruiker.getRol(), gebruiker.getStatus(), aanmeldPogingnummer));
-
-    	}
-    	catch(Exception e)
+    	int aanmeldPogingnummer = 1;
+    	if(ap != null)
     	{
-    		GenericDaoJpa.rollbackTransaction();
-    		System.out.println("Registreren verkeerde aanmeldpoging mislukt");
-    		return;
+    		aanmeldPogingnummer += ap.getPoging();
+    	}
+    		
+    	if(aanmeldPogingnummer == 3)//blokkeer gebruiker
+    	{
+    			gebruiker.setStatus("GEBLOKKEERD");
     	}
     	
+    	aanmeldpogingDao.insert(new AanmeldPoging(gebruiker, new Date(), false, gebruiker.getRol(), gebruiker.getStatus(), aanmeldPogingnummer));
     	GenericDaoJpa.commitTransaction();
     }
     
