@@ -3,6 +3,9 @@ package domein;
 
 import java.util.Date;
 
+import exceptions.GebruikerBestaatNietException;
+import exceptions.GebruikerGeblokkeerdException;
+import exceptions.OngeldigeWachtwoordException;
 import repository.GenericDaoJpa;
 
 public class DomeinController {
@@ -22,7 +25,7 @@ public class DomeinController {
             //Gebruiker niet gevonden
             if(gebruiker == null)
             {
-                throw new IllegalArgumentException(String.format("Onbestaande gebruikersnaam opgegeven"));
+                throw new GebruikerBestaatNietException();
             }
             
             aangemeldeGebruiker = gebruiker;
@@ -30,13 +33,13 @@ public class DomeinController {
             //status van gebruiker is geblokkeerd
             if(gebruiker.getStatus().equals("ACTIEF") == false)
             {
-                throw new IllegalArgumentException(String.format("Deze gebruiker is geblokkeerd"));
+                throw new GebruikerGeblokkeerdException();
             }
             
             //wachtwoord fout
             if(gebruiker.controleerWachtwoord(wachtwoord) == false)
             {
-                throw new IllegalArgumentException(String.format("Opgegeven wachtwoord is incorrect"));
+                throw new OngeldigeWachtwoordException();
             }
             
             //aanmelden geslaagd
@@ -47,14 +50,30 @@ public class DomeinController {
             GenericDaoJpa.commitTransaction();
             System.out.println(gebruiker.toString());
             GenericDaoJpa.closePersistency();
-        } catch (IllegalArgumentException e) {
-            GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
-            if (aangemeldeGebruiker != null) {
-                aanmeldPogingDao.insert(new AanmeldPoging(aangemeldeGebruiker, new Date(), false, aangemeldeGebruiker.getRol(), aangemeldeGebruiker.getStatus(), 1));
-            }
+        } catch (GebruikerBestaatNietException e) {
             GenericDaoJpa.commitTransaction();
             
-            throw new IllegalArgumentException();
+            System.out.println("bestaat niet");
+            
+            throw new GebruikerBestaatNietException();
+        } catch (GebruikerGeblokkeerdException e) {
+            // TODO
+        	// FoutiefAanmeldPoging klasse maken + in databank zetten
+        	
+        	 System.out.println("geblokkeerd");
+        	
+        	GenericDaoJpa.commitTransaction();
+        	
+        	throw new GebruikerGeblokkeerdException();
+        } catch (OngeldigeWachtwoordException e) {
+        	// TODO
+        	// FoutiefAanmeldPoging klasse maken + in databank zetten
+        	
+        	System.out.println("ww is fout");
+        	
+        	GenericDaoJpa.commitTransaction();
+        	
+        	throw new OngeldigeWachtwoordException();
         }
     }
     
