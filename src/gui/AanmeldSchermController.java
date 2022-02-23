@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+
+import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,14 +41,19 @@ public class AanmeldSchermController extends Pane {
 
 	@FXML
 	private PasswordField pssWachtwoord;
+	
+	private DomeinController dc;
 
-	public AanmeldSchermController() {
+	public AanmeldSchermController(DomeinController dc) {
 
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AanmeldScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 		try {
 			loader.load();
+			
+			this.dc = dc;
 			txtGebruikersnaam.setPromptText("Gebruikersnaam");
 			pssWachtwoord.setPromptText("Wachtwoord");
 			btnMeldAan.setText("Meld aan");
@@ -82,6 +89,9 @@ public class AanmeldSchermController extends Pane {
 	@FXML
 	public void meldAan(ActionEvent event) {
 		try {
+			
+			dc.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
+			
 			OverzichtSchermController vs = new OverzichtSchermController();
 			Scene scene = new Scene(vs);
 			Stage stage = (Stage) this.getScene().getWindow();
