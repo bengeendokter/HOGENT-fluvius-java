@@ -54,6 +54,8 @@ public class AanmeldSchermController extends Pane {
 			loader.load();
 			
 			this.dc = dc;
+			
+			// Veldjes invullen
 			txtGebruikersnaam.setPromptText("Gebruikersnaam");
 			pssWachtwoord.setPromptText("Wachtwoord");
 			btnMeldAan.setText("Meld aan");
