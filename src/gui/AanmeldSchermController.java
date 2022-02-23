@@ -46,6 +46,11 @@ public class AanmeldSchermController extends Pane {
 	
 	@FXML
 	private Label foutmelding;
+	
+	@FXML
+	private Circle circle;
+	@FXML
+	private Label uitroepteken;
 
 	private DomeinController dc;
 
@@ -88,6 +93,8 @@ public class AanmeldSchermController extends Pane {
 			txtGebruikersnaam.toFront();
 			pssWachtwoord.toFront();
 			foutmelding.setVisible(false);
+			circle.setVisible(false);
+			uitroepteken.setVisible(false);
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -115,6 +122,10 @@ public class AanmeldSchermController extends Pane {
 			foutmelding.setText("Wachtwoord of gebruikersnaam is onjuist.");
 			foutmelding.setVisible(true);
 			foutmelding.toFront();
+			circle.setVisible(true);
+			uitroepteken.setVisible(true);
+			circle.toFront();
+			uitroepteken.toFront();
 			
 //			Alert boodschap = new Alert(AlertType.ERROR);
 //			boodschap.setTitle("Foutmelding");

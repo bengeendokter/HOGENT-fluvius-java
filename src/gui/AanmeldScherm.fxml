@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="788.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
@@ -38,6 +39,12 @@
       <Label fx:id="foutmelding" layoutX="282.0" layoutY="352.0" prefHeight="17.0" prefWidth="239.0" text="Label" textFill="#f7ab13">
          <font>
             <Font name="System Bold" size="9.0" />
+         </font>
+      </Label>
+      <Circle fx:id="circle" fill="#f7ab13" layoutX="275.0" layoutY="361.0" radius="5.0" stroke="#f7ab13" strokeType="INSIDE" />
+      <Label fx:id="uitroepteken" layoutX="274.0" layoutY="355.0" text="!" textFill="WHITE">
+         <font>
+            <Font size="8.0" />
          </font>
       </Label>
    </children>
