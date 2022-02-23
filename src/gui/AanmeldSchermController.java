@@ -44,10 +44,9 @@ public class AanmeldSchermController extends Pane {
 	@FXML
 	private PasswordField pssWachtwoord;
 	
-<<<<<<< HEAD
-=======
+
 	private DomeinController dc;
->>>>>>> refs/heads/Aanmelden_Gui
+
 
 	public AanmeldSchermController(DomeinController dc) {
 
