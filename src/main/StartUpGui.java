@@ -6,6 +6,7 @@ import gui.AanmeldSchermController;
 import gui.OverzichtSchermController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -19,6 +20,10 @@ public class StartUpGui extends Application{
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			
+			Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
+			primaryStage.getIcons().add(icon);
+			
 			primaryStage.show();
 			
 		} catch(Exception e) {
