@@ -34,6 +34,11 @@ public class Gebruiker implements Serializable {
 		return status;
 	}
 	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
 	public String getRol() {
 		return rol;
 	}

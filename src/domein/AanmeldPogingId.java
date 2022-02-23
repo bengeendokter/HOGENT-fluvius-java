@@ -18,6 +18,22 @@ public class AanmeldPogingId implements Serializable {
 		this.gebruiker = gebruiker;
 		this.tijdstip = tijdstip;
 	}
+	
+	public String getGebruiker() {
+		return gebruiker;
+	}
+
+	public void setGebruiker(String gebruiker) {
+		this.gebruiker = gebruiker;
+	}
+
+	public Date getTijdstip() {
+		return tijdstip;
+	}
+
+	public void setTijdstip(Date tijdstip) {
+		this.tijdstip = tijdstip;
+	}
 
 	@Override
 	public int hashCode() {
