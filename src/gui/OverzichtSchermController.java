@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import domein.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -47,15 +48,19 @@ public class OverzichtSchermController extends Pane {
 	private ImageView logo;
 	@FXML
 	private ImageView ventje;
+	
+	DomeinController dc;
 
-	public OverzichtSchermController() {
+	public OverzichtSchermController(DomeinController dc) {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/OverzichtScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 		try {
 			loader.load();
-
+			
+			this.dc = dc;
+			
 			// Achtergrond maken
 			for (int r = -20; r < 860; r = r + 100) {
 				for (int i = 0; i < 860; i = i + 80) {
@@ -85,7 +90,9 @@ public class OverzichtSchermController extends Pane {
 			imgDS.toFront();
 			imgRS.toFront();
 			lblNaamIngelogdeGebruiker.toFront();
+			lblNaamIngelogdeGebruiker.setText(dc.getAangemeldeGebruiker().getGebruikersnaam());
 			lblFunctieIngelogdeGebruiker.toFront();
+			lblFunctieIngelogdeGebruiker.setText(dc.getAangemeldeGebruiker().getRol());
 			// Dit wil nog niet
 			ventje.toFront();
 			logo.toFront();

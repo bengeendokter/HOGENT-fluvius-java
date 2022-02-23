@@ -110,7 +110,7 @@ public class AanmeldSchermController extends Pane {
 			
 			dc.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
 			
-			OverzichtSchermController vs = new OverzichtSchermController();
+			OverzichtSchermController vs = new OverzichtSchermController(dc);
 			Scene scene = new Scene(vs);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setResizable(false);
@@ -127,10 +127,6 @@ public class AanmeldSchermController extends Pane {
 			circle.toFront();
 			uitroepteken.toFront();
 			
-//			Alert boodschap = new Alert(AlertType.ERROR);
-//			boodschap.setTitle("Foutmelding");
-//			boodschap.setContentText(e.getMessage());
-//			boodschap.showAndWait();
 		}
 	}
 

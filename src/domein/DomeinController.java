@@ -58,4 +58,8 @@ public class DomeinController {
         }
     }
     
+    public Gebruiker getAangemeldeGebruiker() {
+    	return this.aangemeldeGebruiker;
+    }
+    
 }
