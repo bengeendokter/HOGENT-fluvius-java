@@ -9,6 +9,7 @@ import exceptions.GebruikerGeblokkeerdException;
 import exceptions.OngeldigeWachtwoordException;
 import exceptions.VerkeerdeRolException;
 import repository.AanmeldPogingDaoJpa;
+import repository.GebruikerDaoJpa;
 import repository.GenericDaoJpa;
 
 public class DomeinController {
@@ -17,11 +18,11 @@ public class DomeinController {
     public void meldAan(String gebruikersnaam, String wachtwoord) 
     {
         
-        GenericDaoJpa<Gebruiker> gebruikerDao = new GenericDaoJpa<>(Gebruiker.class);
+    	GebruikerDaoJpa gJpa = new GebruikerDaoJpa();
         GenericDaoJpa.startTransaction();
         
         //Haal gebruiker op
-        Gebruiker gebruiker = gebruikerDao.get(gebruikersnaam);
+        Gebruiker gebruiker = gJpa.getByName(gebruikersnaam);
         
         try {
             //Gebruiker niet gevonden

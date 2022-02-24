@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -17,7 +20,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Aanmeldpoging")
-@IdClass(AanmeldPogingId.class)
 @NamedQueries({
     @NamedQuery(name = "aanmeldpoging.findByGebruiker",
                          query = "select entity from domein.AanmeldPoging entity where entity.gebruiker = :gebruiker order by entity.tijdstip desc")//         
@@ -27,11 +29,13 @@ public class AanmeldPoging implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@OneToOne
-	@JoinColumn(name = "gebruikersnaam")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int aanmeldID;
+	
+	@ManyToOne
+	@JoinColumn(name="gebruikerID")
 	private Gebruiker gebruiker;
 	
-	@Id
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tijdstip;
 	

@@ -1,8 +1,6 @@
 package testen;
 
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -22,21 +20,10 @@ public class DomeinTest {
 	public static void after() {
 		dc.sluitPersistentie();
 	}
-	
-	@AfterEach
-	public void afterEach() {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-	}
-	
 
 	@ParameterizedTest
 	@CsvSource({"JanJansens, 123456789"})
 	public void meldAan_bestaandGebruikerJuisteGegevens_Login(String naam, String paswoord) {
-		System.out.println(new Date());
 		Assertions.assertDoesNotThrow(() -> {
 			dc.meldAan(naam, paswoord);
 			});
@@ -58,6 +45,8 @@ public class DomeinTest {
 	@ParameterizedTest
 	@CsvSource({"Jan, 1234"})
 	public void meldAan_onbestaandGebruiker_Exception(String naam, String paswoord) {
-		Assertions.assertThrows(GebruikerBestaatNietException.class, () -> dc.meldAan(naam, paswoord));
+		Assertions.assertThrows(GebruikerBestaatNietException.class, () -> {
+			dc.meldAan(naam, paswoord);
+		});
 	}
 }

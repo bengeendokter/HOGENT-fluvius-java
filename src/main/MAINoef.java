@@ -2,9 +2,16 @@ package main;
 
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 
+import domein.AanmeldPoging;
+import domein.Gebruiker;
 import domein.Test;
+import repository.AanmeldPogingDaoJpa;
+import repository.GebruikerDao;
+import repository.GebruikerDaoJpa;
 import util.JPAUtil;
 
 public class MAINoef {
@@ -20,9 +27,17 @@ public class MAINoef {
         ////start een transactie
         entityManager.getTransaction().begin();
         
+        /*
+    	GebruikerDaoJpa gebruikerDao = new GebruikerDaoJpa();
+    	Gebruiker g = gebruikerDao.getByName("JanJansens");
+    	
+    	AanmeldPoging aPoging = new AanmeldPoging(g, new Date() , false, g.getRol(), g.getStatus(), 0);*/
+    	
+      
+        Gebruiker gebruiker2 = new Gebruiker("JansensJan", "123456789", "MVO coördinator", "GEBKLOKKEERD");
+        
         ////persisteer de objecten
-        entityManager.persist(test1);
-        entityManager.persist(test2);
+        entityManager.persist(gebruiker2);
         
         //commit
         entityManager.getTransaction().commit();

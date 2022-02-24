@@ -3,24 +3,54 @@ package domein;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Gebruiker")
+@NamedQueries({
+    @NamedQuery(
+    		name = "gebruiker.findByNaam",
+            query = "select g from domein.Gebruiker g where g.gebruikersnaam = :naam"
+    		),
+    @NamedQuery(
+    		name = "gebruiker.findById",
+    		query = "select g from domein.Gebruiker g where g.gebruikerID = :id"
+    		)      
+})
 public class Gebruiker implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gebruikerID;
+	
+	@Column(unique=true)
 	private String gebruikersnaam;
 	private String wachtwoord;
 	private String rol;
 	private String status;
+	
+	
+	public Gebruiker(String gebruikersnaam, String wachtwoord, String rol, String status) {
+		this.gebruikersnaam = gebruikersnaam;
+		this.wachtwoord = wachtwoord;
+		this.rol = rol;
+		this.status = status;
+	}
+	
+	protected Gebruiker() {
+		
+	}
 
-	
-	
+
 	public boolean controleerWachtwoord(String wachtwoord) {
 		return this.wachtwoord.equals(wachtwoord);
 	}
