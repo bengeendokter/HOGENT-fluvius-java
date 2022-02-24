@@ -106,5 +106,8 @@ public class DomeinController {
     	return this.aangemeldeGebruiker;
     }
     
+    public void sluitPersistentie() {
+    	GenericDaoJpa.closePersistency();
+    }
 
 }

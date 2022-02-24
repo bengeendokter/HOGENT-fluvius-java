@@ -17,7 +17,7 @@ public class DomeinTest {
 	
 	
 	@AfterAll
-	public static void after() {
+	public void after() {
 		dc.sluitPersistentie();
 	}
 	
