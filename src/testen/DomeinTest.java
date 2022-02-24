@@ -37,7 +37,7 @@ public class DomeinTest {
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"JansensJan, 987654321"})
+	@CsvSource({"block, 123456789"})
 	public void meldAan_geblokkeerdGebruiker_Exception(String naam, String paswoord) {
 		Assertions.assertThrows(GebruikerGeblokkeerdException.class, () -> dc.meldAan(naam, paswoord));
 	}

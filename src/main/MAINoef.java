@@ -34,7 +34,7 @@ public class MAINoef {
     	AanmeldPoging aPoging = new AanmeldPoging(g, new Date() , false, g.getRol(), g.getStatus(), 0);*/
     	
       
-        Gebruiker gebruiker2 = new Gebruiker("JansensJan", "123456789", "MVO coördinator", "GEBKLOKKEERD");
+        Gebruiker gebruiker2 = new Gebruiker("block", "123456789", "MVO coördinator", "GEBKLOKKEERD");
         
         ////persisteer de objecten
         entityManager.persist(gebruiker2);
