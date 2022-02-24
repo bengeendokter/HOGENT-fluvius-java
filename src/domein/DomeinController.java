@@ -93,7 +93,7 @@ public class DomeinController {
     		aanmeldPogingnummer += ap.getPoging();
     	}
     		
-    	if(aanmeldPogingnummer == 3)//blokkeer gebruiker
+    	if(aanmeldPogingnummer >= 3)//blokkeer gebruiker
     	{
     			gebruiker.setStatus("GEBLOKKEERD");
     	}

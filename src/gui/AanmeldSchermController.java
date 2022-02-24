@@ -53,6 +53,7 @@ public class AanmeldSchermController extends Pane {
 	private Label uitroepteken;
 
 	private DomeinController dc;
+	
 
 
 	public AanmeldSchermController(DomeinController dc) {
@@ -106,28 +107,41 @@ public class AanmeldSchermController extends Pane {
 
 	@FXML
 	public void meldAan(ActionEvent event) {
-		try {
-			
-			dc.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
-			
-			OverzichtSchermController vs = new OverzichtSchermController(dc);
-			Scene scene = new Scene(vs);
-			Stage stage = (Stage) this.getScene().getWindow();
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.show();
 
-		} catch (IllegalArgumentException e) {
-			
-			foutmelding.setText("Wachtwoord of gebruikersnaam is onjuist.");
-			foutmelding.setVisible(true);
-			foutmelding.toFront();
-			circle.setVisible(true);
-			uitroepteken.setVisible(true);
-			circle.toFront();
-			uitroepteken.toFront();
-			
+			try {
+
+				btnMeldAan.setVisible(false);
+				dc.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
+				
+				OverzichtSchermController vs = new OverzichtSchermController(dc);
+				Scene scene = new Scene(vs);
+				Stage stage = (Stage) this.getScene().getWindow();
+				stage.setResizable(false);
+				stage.setScene(scene);
+				stage.show();
+				
+			} catch (IllegalArgumentException e) {
+				
+				foutmelding.setText("Wachtwoord of gebruikersnaam is onjuist.");
+				foutmelding.setVisible(true);
+				foutmelding.toFront();
+				circle.setVisible(true);
+				uitroepteken.setVisible(true);
+				circle.toFront();
+				uitroepteken.toFront();
+				
+			} finally {
+				try {
+					Thread.sleep(1000);
+					btnMeldAan.setVisible(true);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 		}
-	}
+		
+	
 
 }
