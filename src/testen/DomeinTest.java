@@ -2,8 +2,10 @@ package testen;
 
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -17,8 +19,17 @@ public class DomeinTest {
 	
 	
 	@AfterAll
-	public void after() {
+	public static void after() {
 		dc.sluitPersistentie();
+	}
+	
+	@AfterEach
+	public void afterEach() {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	}
 	
 
