@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -16,10 +17,8 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "gebruiker.findByNaam", query = "select g from domein.Gebruiker g where g.gebruikersnaam = :naam"),
 		@NamedQuery(name = "gebruiker.findById", query = "select g from domein.Gebruiker g where g.gebruikerID = :id")})
-public class Gebruiker
+public class Gebruiker implements Serializable
 {
-	
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
 	@Id

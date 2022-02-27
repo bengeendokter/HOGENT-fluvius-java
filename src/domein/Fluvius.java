@@ -1,23 +1,28 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Entity;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import repository.GenericDaoJpa;
 
+@Entity
 public class Fluvius
 {
-	
 	private ObservableList<Categorie> categorien;
 	private ObservableList<MvoDoelstelling> doelstellingen;
+	
 	private GenericDaoJpa categorieDao;
 	private GenericDaoJpa mvoDoelstellingDao;
 
 	public Fluvius()
 	{
-
+		categorieDao = new GenericDaoJpa<Categorie>(Categorie.class);
+		mvoDoelstellingDao = new GenericDaoJpa<MvoDoelstelling>(MvoDoelstelling.class);
 	}
 
 	public void voegCategorieToe(Categorie categorie)
