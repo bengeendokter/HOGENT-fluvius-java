@@ -20,7 +20,7 @@ public class DomeinController
 	
 	public Gebruiker getAangemeldeGebruiker()
 	{
-		return this.aangemeldeGebruiker;
+		return aangemeldeGebruiker;
 	}
 	
 	public void sluitPersistentie()

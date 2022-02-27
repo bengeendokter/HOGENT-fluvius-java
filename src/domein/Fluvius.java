@@ -2,6 +2,7 @@ package domein;
 
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import repository.GenericDaoJpa;
@@ -9,8 +10,8 @@ import repository.GenericDaoJpa;
 public class Fluvius
 {
 	
-	private List<Categorie> categorien;
-	private List<MvoDoelstelling> doelstellingen;
+	private ObservableList<Categorie> categorien;
+	private ObservableList<MvoDoelstelling> doelstellingen;
 	private GenericDaoJpa categorieDao;
 	private GenericDaoJpa mvoDoelstellingDao;
 
@@ -29,16 +30,14 @@ public class Fluvius
 		categorien.remove(categorie);
 	}
 	
-	// TODO werk uit plus unmodifiable
 	public ObservableList<Categorie> geefCategorien()
 	{
-		return (ObservableList<Categorie>) categorien;
+		return FXCollections.unmodifiableObservableList(categorien);
 	}
-	
-	// TODO
+
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
-		throw new UnsupportedOperationException();
+		categorien.addListener(listener);
 	}
 	
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
@@ -56,16 +55,13 @@ public class Fluvius
 		categorie.wijzigDoelstellingen(doelstellingen);
 	}
 	
-	// TODO werk uit plus unmodifiable
 	public ObservableList<MvoDoelstelling> geefDoelstellingen()
 	{
-		return (ObservableList<MvoDoelstelling>) doelstellingen;
+		return FXCollections.unmodifiableObservableList(doelstellingen);
 	}
 	
-	// TODO
 	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)
 	{
-		throw new UnsupportedOperationException();
+		doelstellingen.addListener(listener);
 	}
-	
 }
