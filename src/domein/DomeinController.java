@@ -38,7 +38,7 @@ public class DomeinController {
             }
             
             //rol van gebruiker is onjuist
-            if(gebruiker.getRol().equals("MVO coördinator") == false)
+            if(gebruiker.getRol().equals("MVO coï¿½rdinator") == false)
             {
                 throw new VerkeerdeRolException();
             }

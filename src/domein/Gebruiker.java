@@ -24,7 +24,7 @@ import javax.persistence.Table;
     		query = "select g from domein.Gebruiker g where g.gebruikerID = :id"
     		)      
 })
-public class Gebruiker implements Serializable {
+public class Gebruiker {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -54,7 +54,6 @@ public class Gebruiker implements Serializable {
 	public boolean controleerWachtwoord(String wachtwoord) {
 		return this.wachtwoord.equals(wachtwoord);
 	}
-	
 	
 	public String getGebruikersnaam() {
 		return gebruikersnaam;
