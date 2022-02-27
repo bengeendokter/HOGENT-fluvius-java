@@ -12,8 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class OverzichtSchermController extends Pane {
-
+public class OverzichtSchermController extends Pane
+{
+	
 	@FXML
 	private Region groeneBalk;
 	@FXML
@@ -50,20 +51,24 @@ public class OverzichtSchermController extends Pane {
 	private ImageView ventje;
 	
 	DomeinController dc;
-
-	public OverzichtSchermController(DomeinController dc) {
-
+	
+	public OverzichtSchermController(DomeinController dc)
+	{
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/OverzichtScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-		try {
+		try
+		{
 			loader.load();
 			
 			this.dc = dc;
 			
 			// Achtergrond maken
-			for (int r = -20; r < 860; r = r + 100) {
-				for (int i = 0; i < 860; i = i + 80) {
+			for(int r = -20; r < 860; r = r + 100)
+			{
+				for(int i = 0; i < 860; i = i + 80)
+				{
 					Circle circle = new Circle();
 					circle.setCenterX(i);
 					circle.setCenterY(r);
@@ -97,10 +102,11 @@ public class OverzichtSchermController extends Pane {
 			ventje.toFront();
 			logo.toFront();
 			
-
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			throw new RuntimeException(e);
 		}
-
+		
 	}
 }

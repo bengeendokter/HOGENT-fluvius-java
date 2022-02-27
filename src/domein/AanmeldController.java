@@ -12,8 +12,7 @@ import repository.GenericDaoJpa;
 
 public class AanmeldController
 {
-	private Gebruiker aangemeldeGebruiker;
-
+	
 	public DomeinController meldAan(String gebruikersnaam, String wachtwoord)
 	{
 		
@@ -50,14 +49,15 @@ public class AanmeldController
 			}
 			
 			//aanmelden geslaagd
-			aangemeldeGebruiker = gebruiker;
+			
 			//insert geslaagde aanmeldpoging
 			GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
-			aanmeldPogingDao.insert(new AanmeldPoging(aangemeldeGebruiker, new Date(), true,
-					aangemeldeGebruiker.getRol(), aangemeldeGebruiker.getStatus(), 0));
+			aanmeldPogingDao.insert(
+					new AanmeldPoging(gebruiker, new Date(), true, gebruiker.getRol(), gebruiker.getStatus(), 0));
 			GenericDaoJpa.commitTransaction();
 			System.out.println(gebruiker.toString());
 			
+			return new DomeinController(gebruiker);
 		}
 		catch(GebruikerBestaatNietException e)
 		{
@@ -90,8 +90,6 @@ public class AanmeldController
 			System.out.println("ww is fout");
 			throw new OngeldigeWachtwoordException();
 		}
-		
-		return null;
 	}
 	
 	private void registreerVerkeerdeAanmeldPoging(Gebruiker gebruiker)

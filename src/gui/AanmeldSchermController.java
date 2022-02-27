@@ -20,13 +20,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class AanmeldSchermController extends Pane {
-
+public class AanmeldSchermController extends Pane
+{
+	
 	@FXML
 	private Region witVlak;
 	@FXML
 	private Label lblGebruiker;
-
+	
 	@FXML
 	private Label lblMeldAan;
 	@FXML
@@ -34,10 +35,10 @@ public class AanmeldSchermController extends Pane {
 	
 	@FXML
 	private Button btnMeldAan;
-
+	
 	@FXML
 	private TextField txtGebruikersnaam;
-
+	
 	@FXML
 	private PasswordField pssWachtwoord;
 	
@@ -48,18 +49,17 @@ public class AanmeldSchermController extends Pane {
 	private Circle circle;
 	@FXML
 	private Label uitroepteken;
-
+	
 	private AanmeldController aanmeldController;
 	
-
-
-	public AanmeldSchermController(AanmeldController aanmeldController) {
-
+	public AanmeldSchermController(AanmeldController aanmeldController)
+	{
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AanmeldScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-		try {
+		try
+		{
 			loader.load();
 			
 			this.aanmeldController = aanmeldController;
@@ -68,10 +68,12 @@ public class AanmeldSchermController extends Pane {
 			txtGebruikersnaam.setPromptText("Gebruikersnaam");
 			pssWachtwoord.setPromptText("Wachtwoord");
 			btnMeldAan.setText("Meld aan");
-
+			
 			// Achtergrond maken
-			for (int r = -20; r < 860; r = r + 100) {
-				for (int i = 0; i < 860; i = i + 80) {
+			for(int r = -20; r < 860; r = r + 100)
+			{
+				for(int i = 0; i < 860; i = i + 80)
+				{
 					Circle circle = new Circle();
 					circle.setCenterX(i);
 					circle.setCenterY(r);
@@ -93,52 +95,60 @@ public class AanmeldSchermController extends Pane {
 			foutmelding.setVisible(false);
 			circle.setVisible(false);
 			uitroepteken.setVisible(false);
-
-		} catch (IOException e) {
+			
+		}
+		catch(IOException e)
+		{
 			throw new RuntimeException(e);
 		}
-
 		
-
 	}
-
-	@FXML
-	public void meldAan(ActionEvent event) {
-
-			try {
-
-				btnMeldAan.setVisible(false);
-				DomeinController domeinController = aanmeldController.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
-				
-				OverzichtSchermController vs = new OverzichtSchermController(domeinController);
-				Scene scene = new Scene(vs);
-				Stage stage = (Stage) this.getScene().getWindow();
-				stage.setResizable(false);
-				stage.setScene(scene);
-				stage.show();
-				
-			} catch (IllegalArgumentException e) {
-				
-				foutmelding.setText("Wachtwoord of gebruikersnaam is onjuist.");
-				foutmelding.setVisible(true);
-				foutmelding.toFront();
-				circle.setVisible(true);
-				uitroepteken.setVisible(true);
-				circle.toFront();
-				uitroepteken.toFront();
-				
-			} finally {
-				try {
-					Thread.sleep(1000);
-					btnMeldAan.setVisible(true);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		
 	
-
+	@FXML
+	public void meldAan(ActionEvent event)
+	{
+		
+		try
+		{
+			
+			btnMeldAan.setVisible(false);
+			DomeinController domeinController = aanmeldController.meldAan(txtGebruikersnaam.getText(),
+					pssWachtwoord.getText());
+			
+			OverzichtSchermController vs = new OverzichtSchermController(domeinController);
+			Scene scene = new Scene(vs);
+			Stage stage = (Stage) this.getScene().getWindow();
+			stage.setResizable(false);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		catch(IllegalArgumentException e)
+		{
+			
+			foutmelding.setText("Wachtwoord of gebruikersnaam is onjuist.");
+			foutmelding.setVisible(true);
+			foutmelding.toFront();
+			circle.setVisible(true);
+			uitroepteken.setVisible(true);
+			circle.toFront();
+			uitroepteken.toFront();
+			
+		}
+		finally
+		{
+			try
+			{
+				Thread.sleep(1000);
+				btnMeldAan.setVisible(true);
+			}
+			catch(InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
 }

@@ -6,7 +6,10 @@ public class DomeinController
 {
 	private Gebruiker aangemeldeGebruiker;
 	
-	
+	public DomeinController(Gebruiker aangemeldeGebruiker)
+	{
+		this.aangemeldeGebruiker = aangemeldeGebruiker;
+	}
 	
 	public Gebruiker getAangemeldeGebruiker()
 	{

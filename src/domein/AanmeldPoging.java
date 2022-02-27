@@ -19,19 +19,19 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Aanmeldpoging")
 @NamedQueries({
-    @NamedQuery(name = "aanmeldpoging.findByGebruiker",
-                         query = "select entity from domein.AanmeldPoging entity where entity.gebruiker = :gebruiker order by entity.tijdstip desc")//         
+		@NamedQuery(name = "aanmeldpoging.findByGebruiker", query = "select entity from domein.AanmeldPoging entity where entity.gebruiker = :gebruiker order by entity.tijdstip desc")//         
 })
-public class AanmeldPoging implements Serializable{
-
+public class AanmeldPoging implements Serializable
+{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int aanmeldID;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int aanmeldID;
 	
 	@ManyToOne
-	@JoinColumn(name="gebruikerID")
+	@JoinColumn(name = "gebruikerID")
 	private Gebruiker gebruiker;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -39,18 +39,20 @@ public class AanmeldPoging implements Serializable{
 	
 	@Column(name = "isSuccesvol")
 	private boolean success;
-
+	
 	private String rol;
 	private String status;
 	
 	@Column(name = "aantalFoutievePogingen")
 	private int poging;
-
-	public int getPoging() {
+	
+	public int getPoging()
+	{
 		return poging;
 	}
-
-	public AanmeldPoging(Gebruiker gebruiker, Date tijdstip, boolean success, String rol, String status, int poging) {
+	
+	public AanmeldPoging(Gebruiker gebruiker, Date tijdstip, boolean success, String rol, String status, int poging)
+	{
 		this.gebruiker = gebruiker;
 		this.tijdstip = tijdstip;
 		this.success = success;
@@ -58,12 +60,14 @@ public class AanmeldPoging implements Serializable{
 		this.status = status;
 		this.poging = poging;
 	}
-
-	protected AanmeldPoging() {
+	
+	protected AanmeldPoging()
+	{
 	}
 	
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "AanmeldPoging [gebruiker=" + gebruiker + ", tijdstip=" + tijdstip + ", success=" + success + ", rol="
 				+ rol + ", status=" + status + ", poging=" + poging + "]";
 	}

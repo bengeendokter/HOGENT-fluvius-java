@@ -9,53 +9,57 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Test implements Serializable{
-
+public class Test implements Serializable
+{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
- // Commentaar van Yigit
+	// Commentaar van Yigit
 	//Cas
 	// Ben
 	//Mert
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	
 	private String test;
 	
-	protected Test() {
+	protected Test()
+	{
 		
 	}
 	
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Test [id=" + id + ", test=" + test + "]";
 	}
-
-	public Test(String test) {
+	
+	public Test(String test)
+	{
 		this.test = test;
 	}
-
+	
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(id);
 	}
-
+	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object obj)
+	{
+		if(this == obj)
 			return true;
-		if (obj == null)
+		if(obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if(getClass() != obj.getClass())
 			return false;
 		Test other = (Test) obj;
 		return id == other.id;
 	}
-	
 	
 }

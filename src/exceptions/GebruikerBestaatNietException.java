@@ -1,18 +1,19 @@
 package exceptions;
 
-public class GebruikerBestaatNietException extends IllegalArgumentException {
-
+public class GebruikerBestaatNietException extends IllegalArgumentException
+{
+	
 	private static final long serialVersionUID = 1L;
-
-	public GebruikerBestaatNietException() {
+	
+	public GebruikerBestaatNietException()
+	{
 		super("Het gegeven gebruikersnaam bestaat niet");
 	}
-
-	public GebruikerBestaatNietException(String s) {
+	
+	public GebruikerBestaatNietException(String s)
+	{
 		super(s);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 }

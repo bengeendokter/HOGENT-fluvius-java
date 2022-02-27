@@ -1,14 +1,17 @@
 package exceptions;
 
-public class VerkeerdeRolException extends IllegalArgumentException {
-
+public class VerkeerdeRolException extends IllegalArgumentException
+{
+	
 	private static final long serialVersionUID = 1L;
-
-	public VerkeerdeRolException() {
+	
+	public VerkeerdeRolException()
+	{
 		super("Deze gebruiker heeft niet de juiste rol");
 	}
-
-	public VerkeerdeRolException(String s) {
+	
+	public VerkeerdeRolException(String s)
+	{
 		super(s);
 		// TODO Auto-generated constructor stub
 	}
