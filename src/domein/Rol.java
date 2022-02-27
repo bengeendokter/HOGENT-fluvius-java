@@ -1,17 +1,30 @@
 package domein;
 
-public class Rol
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Rol implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	
-	private String rol;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int rolID;
+	
+	private String naam;
 	
 	public Rol(String rol)
 	{
-		this.rol = rol;
+		this.naam = rol;
 	}
 
 	public String getRol()
 	{
-		return rol;
+		return naam;
 	}
 }
