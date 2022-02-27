@@ -15,6 +15,7 @@ public class DomeinController
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
+		fluvius = new Fluvius();
 	}
 	
 	public Gebruiker getAangemeldeGebruiker()
@@ -29,42 +30,42 @@ public class DomeinController
 
 	public void voegCategorieToe(Categorie categorie)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.voegCategorieToe(categorie);
 	}
 
 	public void verwijderCategorie(Categorie categorie)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.verwijderCategorie(categorie);
 	}
 
 	public ObservableList<Categorie> geefCategorien()
 	{
-		throw new UnsupportedOperationException();
+		return fluvius.geefCategorien();
 	}
 
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.voegCategorieObserverToe(listener);
 	}
 
 	public ObservableList<MvoDoelstelling> geefDoelstellingen()
 	{
-		throw new UnsupportedOperationException();
+		return fluvius.geefDoelstellingen();
 	}
 
 	public void wijzigCategorieNaam(Categorie categorie, String naam)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.wijzigCategorieNaam(categorie, naam);
 	}
 
 	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.wijzigCategorieRollen(categorie, rollen);
 	}
 
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
 	{
-		throw new UnsupportedOperationException();
+		fluvius.wijzigCategorieDoelstellingen(categorie, doelstellingen);
 	}
 	
 }

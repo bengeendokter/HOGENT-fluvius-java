@@ -7,7 +7,11 @@ public class Rol
 	
 	public Rol(String rol)
 	{
-		throw new UnsupportedOperationException();
+		this.rol = rol;
 	}
-	
+
+	public String getRol()
+	{
+		return rol;
+	}
 }

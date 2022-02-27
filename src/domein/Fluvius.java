@@ -1,6 +1,5 @@
 package domein;
 
-import java.util.Collection;
 import java.util.List;
 
 import javafx.collections.ListChangeListener;
@@ -10,26 +9,33 @@ import repository.GenericDaoJpa;
 public class Fluvius
 {
 	
-	private Collection<Categorie> categorien;
+	private List<Categorie> categorien;
+	private List<MvoDoelstelling> doelstellingen;
 	private GenericDaoJpa categorieDao;
 	private GenericDaoJpa mvoDoelstellingDao;
-	private Collection<MvoDoelstelling> doelstellingen;
-	
+
+	public Fluvius()
+	{
+
+	}
+
 	public void voegCategorieToe(Categorie categorie)
 	{
-		throw new UnsupportedOperationException();
+		categorien.add(categorie);
 	}
 	
 	public void verwijderCategorie(Categorie categorie)
 	{
-		throw new UnsupportedOperationException();
+		categorien.remove(categorie);
 	}
 	
+	// TODO werk uit plus unmodifiable
 	public ObservableList<Categorie> geefCategorien()
 	{
-		throw new UnsupportedOperationException();
+		return (ObservableList<Categorie>) categorien;
 	}
 	
+	// TODO
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		throw new UnsupportedOperationException();
@@ -37,24 +43,26 @@ public class Fluvius
 	
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
-		throw new UnsupportedOperationException();
+		categorie.setNaam(nieuweNaam);
 	}
 	
 	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
 	{
-		throw new UnsupportedOperationException();
+		categorie.wijzigRollen(rollen);
 	}
 	
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
 	{
-		throw new UnsupportedOperationException();
+		categorie.wijzigDoelstellingen(doelstellingen);
 	}
 	
+	// TODO werk uit plus unmodifiable
 	public ObservableList<MvoDoelstelling> geefDoelstellingen()
 	{
-		throw new UnsupportedOperationException();
+		return (ObservableList<MvoDoelstelling>) doelstellingen;
 	}
 	
+	// TODO
 	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)
 	{
 		throw new UnsupportedOperationException();

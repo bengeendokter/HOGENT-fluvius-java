@@ -4,10 +4,14 @@ public class MvoDoelstelling
 {
 	
 	private String naam;
-	
+
 	public MvoDoelstelling(String naam)
 	{
-		throw new UnsupportedOperationException();
+		this.naam = naam;
 	}
-	
+
+	public String getNaam()
+	{
+		return naam;
+	}
 }
