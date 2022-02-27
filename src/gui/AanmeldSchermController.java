@@ -144,7 +144,6 @@ public class AanmeldSchermController extends Pane
 			}
 			catch(InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

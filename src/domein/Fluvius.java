@@ -1,6 +1,5 @@
 package domein;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,6 +7,7 @@ import javax.persistence.Entity;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import repository.GenericDao;
 import repository.GenericDaoJpa;
 
 @Entity
@@ -16,13 +16,24 @@ public class Fluvius
 	private ObservableList<Categorie> categorien;
 	private ObservableList<MvoDoelstelling> doelstellingen;
 	
-	private GenericDaoJpa categorieDao;
-	private GenericDaoJpa mvoDoelstellingDao;
-
+	private GenericDao<Categorie> categorieRepo;
+	private GenericDao<MvoDoelstelling> mvoDoelstellingRepo;
+	
+	// TODO gebruik Repo attributen bij alle methodes
 	public Fluvius()
 	{
-		categorieDao = new GenericDaoJpa<Categorie>(Categorie.class);
-		mvoDoelstellingDao = new GenericDaoJpa<MvoDoelstelling>(MvoDoelstelling.class);
+		setCategorieRepo(new GenericDaoJpa<>(Categorie.class));
+		setMvoDoelstellingRepo(new GenericDaoJpa<>(MvoDoelstelling.class));
+	}
+	
+	public void setCategorieRepo(GenericDao<Categorie> mock)
+	{
+		categorieRepo = mock;
+	}
+	
+	public void setMvoDoelstellingRepo(GenericDao<MvoDoelstelling> mock)
+	{
+		mvoDoelstellingRepo = mock;
 	}
 
 	public void voegCategorieToe(Categorie categorie)
@@ -35,9 +46,9 @@ public class Fluvius
 		categorien.remove(categorie);
 	}
 	
-	public ObservableList<Categorie> geefCategorien()
+	public ObservableList<Categorie> getCategorien()
 	{
-		return FXCollections.unmodifiableObservableList(categorien);
+		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>) categorieRepo.findAll());
 	}
 
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
@@ -60,9 +71,9 @@ public class Fluvius
 		categorie.wijzigDoelstellingen(doelstellingen);
 	}
 	
-	public ObservableList<MvoDoelstelling> geefDoelstellingen()
+	public ObservableList<MvoDoelstelling> getDoelstellingen()
 	{
-		return FXCollections.unmodifiableObservableList(doelstellingen);
+		return FXCollections.unmodifiableObservableList((ObservableList<MvoDoelstelling>) mvoDoelstellingRepo.findAll());
 	}
 	
 	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)

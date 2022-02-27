@@ -38,9 +38,9 @@ public class DomeinController
 		fluvius.verwijderCategorie(categorie);
 	}
 
-	public ObservableList<Categorie> geefCategorien()
+	public ObservableList<Categorie> getCategorien()
 	{
-		return fluvius.geefCategorien();
+		return fluvius.getCategorien();
 	}
 
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
@@ -48,9 +48,9 @@ public class DomeinController
 		fluvius.voegCategorieObserverToe(listener);
 	}
 
-	public ObservableList<MvoDoelstelling> geefDoelstellingen()
+	public ObservableList<MvoDoelstelling> getDoelstellingen()
 	{
-		return fluvius.geefDoelstellingen();
+		return fluvius.getDoelstellingen();
 	}
 
 	public void wijzigCategorieNaam(Categorie categorie, String naam)
