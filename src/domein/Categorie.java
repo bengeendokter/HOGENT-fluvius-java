@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import repository.GenericDao;
 import repository.GenericDaoJpa;
 
@@ -33,19 +31,25 @@ public class Categorie implements Serializable
 	private List<Rol> rollen;
 
 	private GenericDao<MvoDoelstelling> mvoDoelstellingRepo;
+	private GenericDao<Rol> rolRepo;
 	
-	// TODO gebruik Repo attributen bij alle methodes
 	public Categorie(String naam, List<MvoDoelstelling> doelstellingen, List<Rol> rollen)
 	{
 		setNaam(naam);
 		wijzigDoelstellingen(doelstellingen);
 		wijzigRollen(rollen);
 		setMvoDoelstellingRepo(new GenericDaoJpa<>(MvoDoelstelling.class));
+		setRolRepo(new GenericDaoJpa<>(Rol.class));
 	}
 	
 	public void setMvoDoelstellingRepo(GenericDao<MvoDoelstelling> mock)
 	{
 		mvoDoelstellingRepo = mock;
+	}
+	
+	public void setRolRepo(GenericDao<Rol> mock)
+	{
+		rolRepo = mock;
 	}
 
 	public final void setNaam(String naam)
@@ -63,24 +67,26 @@ public class Categorie implements Serializable
 		return naam;
 	}
 	
+	public List<MvoDoelstelling> getDoelstellingen()
+	{
+		return mvoDoelstellingRepo.findAll();
+	}
+	
+	public List<Rol> getRollen()
+	{
+		return rolRepo.findAll();
+	}
+	
+	// TODO gebruik Repo attributen bij wijzig methodes
 	public void wijzigDoelstellingen(List<MvoDoelstelling> doelstellingen)
 	{
 		this.doelstellingen = doelstellingen;
-	}
-	
-	public ObservableList<MvoDoelstelling> getDoelstellingen()
-	{
-		return FXCollections.unmodifiableObservableList((ObservableList<MvoDoelstelling>) mvoDoelstellingRepo.findAll());
+		mvoDoelstellingRepo.update(doelstellingen);
 	}
 
 	public void wijzigRollen(List<Rol> rollen)
 	{
 		this.rollen = rollen;
-	}
-	
-	public List<Rol> getRollen()
-	{
-		return rollen;
 	}
 
 	@Override

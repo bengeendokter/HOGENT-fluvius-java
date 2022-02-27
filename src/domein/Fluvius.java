@@ -19,7 +19,6 @@ public class Fluvius
 	private GenericDao<Categorie> categorieRepo;
 	private GenericDao<MvoDoelstelling> mvoDoelstellingRepo;
 	
-	// TODO gebruik Repo attributen bij alle methodes
 	public Fluvius()
 	{
 		setCategorieRepo(new GenericDaoJpa<>(Categorie.class));
@@ -35,27 +34,40 @@ public class Fluvius
 	{
 		mvoDoelstellingRepo = mock;
 	}
-
-	public void voegCategorieToe(Categorie categorie)
-	{
-		categorien.add(categorie);
-	}
-	
-	public void verwijderCategorie(Categorie categorie)
-	{
-		categorien.remove(categorie);
-	}
 	
 	public ObservableList<Categorie> getCategorien()
 	{
 		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>) categorieRepo.findAll());
 	}
 
+	public ObservableList<MvoDoelstelling> getDoelstellingen()
+	{
+		return FXCollections.unmodifiableObservableList((ObservableList<MvoDoelstelling>) mvoDoelstellingRepo.findAll());
+	}
+	
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		categorien.addListener(listener);
 	}
 	
+	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)
+	{
+		doelstellingen.addListener(listener);
+	}
+	
+	// TODO gebruik Repo attributen bij voeg toe en verwijder methodes
+	public void voegCategorieToe(Categorie categorie)
+	{
+		categorien.add(categorie);
+		categorieRepo.insert(categorie);
+	}
+	
+	public void verwijderCategorie(Categorie categorie)
+	{
+		categorien.remove(categorie);
+		categorieRepo.delete(categorie);
+	}
+
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
 		categorie.setNaam(nieuweNaam);
@@ -69,15 +81,5 @@ public class Fluvius
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
 	{
 		categorie.wijzigDoelstellingen(doelstellingen);
-	}
-	
-	public ObservableList<MvoDoelstelling> getDoelstellingen()
-	{
-		return FXCollections.unmodifiableObservableList((ObservableList<MvoDoelstelling>) mvoDoelstellingRepo.findAll());
-	}
-	
-	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)
-	{
-		doelstellingen.addListener(listener);
 	}
 }
