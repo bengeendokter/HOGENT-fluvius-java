@@ -1,12 +1,12 @@
 package main;
 
-import domein.DomeinController;
+import domein.AanmeldController;
 
 public class AanmeldenConsoleMain {
 
 	public static void main(String[] args) {
-		DomeinController dc = new DomeinController();
-		dc.meldAan("yeet", "123456789");
+		AanmeldController aanmeldController = new AanmeldController();
+		aanmeldController.meldAan("yeet", "123456789");
 
 	}
 

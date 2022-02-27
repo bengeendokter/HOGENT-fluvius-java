@@ -2,25 +2,22 @@ package gui;
 
 import java.io.IOException;
 
+import domein.AanmeldController;
 import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Shadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class AanmeldSchermController extends Pane {
@@ -52,11 +49,11 @@ public class AanmeldSchermController extends Pane {
 	@FXML
 	private Label uitroepteken;
 
-	private DomeinController dc;
+	private AanmeldController aanmeldController;
 	
 
 
-	public AanmeldSchermController(DomeinController dc) {
+	public AanmeldSchermController(AanmeldController aanmeldController) {
 
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AanmeldScherm.fxml"));
@@ -65,7 +62,7 @@ public class AanmeldSchermController extends Pane {
 		try {
 			loader.load();
 			
-			this.dc = dc;
+			this.aanmeldController = aanmeldController;
 			
 			// Veldjes invullen
 			txtGebruikersnaam.setPromptText("Gebruikersnaam");
@@ -111,9 +108,9 @@ public class AanmeldSchermController extends Pane {
 			try {
 
 				btnMeldAan.setVisible(false);
-				dc.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
+				DomeinController domeinController = aanmeldController.meldAan(txtGebruikersnaam.getText(), pssWachtwoord.getText());
 				
-				OverzichtSchermController vs = new OverzichtSchermController(dc);
+				OverzichtSchermController vs = new OverzichtSchermController(domeinController);
 				Scene scene = new Scene(vs);
 				Stage stage = (Stage) this.getScene().getWindow();
 				stage.setResizable(false);

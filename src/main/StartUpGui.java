@@ -1,13 +1,11 @@
 package main;
 
 
-import domein.DomeinController;
+import domein.AanmeldController;
 import gui.AanmeldSchermController;
-import gui.OverzichtSchermController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
@@ -15,8 +13,8 @@ public class StartUpGui extends Application{
 
 	public void start(Stage primaryStage) {
 		try {
-			DomeinController dc = new DomeinController();
-			AanmeldSchermController root = new AanmeldSchermController(dc);
+			AanmeldController aanmeldController = new AanmeldController();
+			AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);

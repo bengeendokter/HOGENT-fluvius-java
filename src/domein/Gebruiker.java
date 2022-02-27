@@ -1,6 +1,5 @@
 package domein;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -26,6 +25,7 @@ import javax.persistence.Table;
 })
 public class Gebruiker {
 
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
 	@Id

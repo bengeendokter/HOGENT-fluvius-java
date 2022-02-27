@@ -1,10 +1,5 @@
 package repository;
 
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.NoResultException;
-
 import domein.AanmeldPoging;
 import domein.Gebruiker;
 

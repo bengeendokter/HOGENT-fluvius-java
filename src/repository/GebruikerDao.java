@@ -1,6 +1,5 @@
 package repository;
 
-import domein.AanmeldPoging;
 import domein.Gebruiker;
 
 public interface GebruikerDao extends GenericDao<Gebruiker>  {

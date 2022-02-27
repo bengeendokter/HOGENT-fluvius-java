@@ -1,10 +1,11 @@
 package domein;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import repository.*;
+import repository.GenericDaoJpa;
 
 public class Fluvius
 {
