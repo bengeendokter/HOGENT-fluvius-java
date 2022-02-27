@@ -13,7 +13,6 @@ public class VerkeerdeRolException extends IllegalArgumentException
 	public VerkeerdeRolException(String s)
 	{
 		super(s);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

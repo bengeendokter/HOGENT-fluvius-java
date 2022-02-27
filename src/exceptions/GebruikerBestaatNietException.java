@@ -7,13 +7,12 @@ public class GebruikerBestaatNietException extends IllegalArgumentException
 	
 	public GebruikerBestaatNietException()
 	{
-		super("Het gegeven gebruikersnaam bestaat niet");
+		super("De gegeven gebruikersnaam bestaat niet");
 	}
 	
 	public GebruikerBestaatNietException(String s)
 	{
 		super(s);
-		// TODO Auto-generated constructor stub
 	}
 	
 }
