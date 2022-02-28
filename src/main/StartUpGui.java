@@ -14,8 +14,8 @@ public class StartUpGui extends Application
 	{
 		try
 		{
-			boolean populateTheDB = true;
-//			boolean populateTheDB = false;
+//			boolean populateTheDB = true;
+			boolean populateTheDB = false;
 			AanmeldController aanmeldController = new AanmeldController(populateTheDB);
 			AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
 			Scene scene = new Scene(root);

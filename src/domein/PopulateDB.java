@@ -11,6 +11,7 @@ public class PopulateDB
 		GebruikerDaoJpa.startTransaction();
 		
 		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
+		gebruikerRepo.insert(new Gebruiker("block", "123456789", "MVO coördinator", "GEBLOKKEERD"));
 		
 		GebruikerDaoJpa.commitTransaction();
 	}

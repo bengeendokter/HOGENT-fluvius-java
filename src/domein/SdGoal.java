@@ -2,6 +2,7 @@ package domein;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +17,12 @@ public class SdGoal implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idSDG")
 	private int sdGoalID;
 	
+	private String afbeeldingnaam;
 	private String naam;
+	private int parentSDG_id;
 
 	public SdGoal(String naam)
 	{
