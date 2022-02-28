@@ -33,6 +33,7 @@ public class GenericDaoJpa<T> implements GenericDao<T>
 	public static void commitTransaction()
 	{
 		em.getTransaction().commit();
+		System.out.println("Transaction commited");
 	}
 	
 	public static void rollbackTransaction()

@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -9,11 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categorie")
+@NamedQueries({
+	@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.Categorie c where c.naam = :naam")})
 public class Categorie implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +42,11 @@ public class Categorie implements Serializable
 		setNaam(naam);
 		wijzigDoelstellingen(sdGoals);
 //		wijzigRollen(rollen);
+	}
+	
+	public Categorie(String naam)
+	{
+		this(naam, new ArrayList<>());
 	}
 	
 	protected Categorie()
@@ -98,5 +108,11 @@ public class Categorie implements Serializable
 		}
 		Categorie other = (Categorie) obj;
 		return Objects.equals(naam, other.naam);
+	}
+
+	@Override
+	public String toString()
+	{
+		return naam;
 	}
 }

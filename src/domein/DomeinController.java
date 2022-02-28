@@ -3,8 +3,6 @@ package domein;
 import java.util.List;
 
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import repository.GenericDaoJpa;
 
 public class DomeinController
 {
@@ -22,40 +20,57 @@ public class DomeinController
 	{
 		return aangemeldeGebruiker;
 	}
-	
-	public void sluitPersistentie()
-	{
-		GenericDaoJpa.closePersistency();
-	}
 
-	public void voegCategorieToe(Categorie categorie)
+//	public void voegCategorieToe(Categorie categorie)
+//	{
+//		fluvius.voegCategorieToe(categorie);
+//	}
+	
+	public void voegCategorieToe(String categorie)
 	{
+		System.out.printf("Voeg categorie %s toe%n", categorie);
 		fluvius.voegCategorieToe(categorie);
 	}
 
-	public void verwijderCategorie(Categorie categorie)
+//	public void verwijderCategorie(Categorie categorie)
+//	{
+//		fluvius.verwijderCategorie(categorie);
+//	}
+	
+	public void verwijderCategorie(String categorie)
 	{
+		System.out.printf("Verwijder categorie %s%n", categorie);
 		fluvius.verwijderCategorie(categorie);
 	}
 
-	public ObservableList<Categorie> getCategorien()
+//	public ObservableList<Categorie> getCategorien()
+//	{
+//		return fluvius.getCategorien();
+//	}
+	
+	public List<String> geefCategorien()
 	{
-		return fluvius.getCategorien();
+		return fluvius.geefCategorien();
 	}
 
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		fluvius.voegCategorieObserverToe(listener);
 	}
-
-	public ObservableList<SdGoal> getDoelstellingen()
+	
+//	public ObservableList<SdGoal> getSdGoals()
+//	{
+//		return fluvius.getSdGoals();
+//	}
+	
+	public List<String> geefSdGoals()
 	{
-		return fluvius.getDoelstellingen();
+		return fluvius.geefSdGoals();
 	}
 
-	public void wijzigCategorieNaam(Categorie categorie, String naam)
+	public void wijzigCategorieNaam(String oldName, String newName)
 	{
-		fluvius.wijzigCategorieNaam(categorie, naam);
+		fluvius.wijzigCategorieNaam(oldName, newName);
 	}
 
 //	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
@@ -63,9 +78,14 @@ public class DomeinController
 //		fluvius.wijzigCategorieRollen(categorie, rollen);
 //	}
 
-	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> doelstellingen)
+//	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
+//	{
+//		fluvius.wijzigCategorieDoelstellingen(categorie, sdGoals);
+//	}
+	
+	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoals)
 	{
-		fluvius.wijzigCategorieDoelstellingen(categorie, doelstellingen);
+		fluvius.wijzigCategorieDoelstellingen(naam, sdGoals);
 	}
 	
 }
