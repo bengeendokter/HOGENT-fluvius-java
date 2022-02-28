@@ -19,6 +19,7 @@ public class MvoDoelstelling implements Serializable
 	private int mvoDoelstellingID;
 	
 	private String naam;
+	private String afbeeldingnaam = null;
 
 	public MvoDoelstelling(String naam)
 	{

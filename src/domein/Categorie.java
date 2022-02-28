@@ -28,6 +28,7 @@ public class Categorie implements Serializable
 	private int categorieID;
 	
 	private String naam;
+	private String afbeeldingnaam;
 	
 	@OneToMany
 	private List<SdGoal> sdGoals;

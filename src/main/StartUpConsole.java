@@ -12,7 +12,7 @@ public class StartUpConsole
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		
 		dc.voegCategorieToe("Sociaal");
-//		dc.verwijderCategorie("Sociaal");
+		dc.verwijderCategorie("Sociaal");
 //		dc.voegCategorieToe("Klimaat");
 	}
 	
