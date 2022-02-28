@@ -48,7 +48,7 @@ public class DomeinController
 		fluvius.voegCategorieObserverToe(listener);
 	}
 
-	public ObservableList<MvoDoelstelling> getDoelstellingen()
+	public ObservableList<SdGoal> getDoelstellingen()
 	{
 		return fluvius.getDoelstellingen();
 	}
@@ -63,7 +63,7 @@ public class DomeinController
 //		fluvius.wijzigCategorieRollen(categorie, rollen);
 //	}
 
-	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
+	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> doelstellingen)
 	{
 		fluvius.wijzigCategorieDoelstellingen(categorie, doelstellingen);
 	}

@@ -21,6 +21,7 @@
   <class>domein.Categorie</class>
   <class>domein.Rol</class>
   <class>domein.MvoDoelstelling</class>
+  <class>domein.SdGoal</class>
   <properties>
     <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/fluvius_local?serverTimezone=UTC"/>
     <property name="javax.persistence.jdbc.user" value="root"/>

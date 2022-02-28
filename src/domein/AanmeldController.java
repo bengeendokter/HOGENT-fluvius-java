@@ -63,7 +63,7 @@ public class AanmeldController
 			
 			//aanmelden geslaagd
 			
-			//insert geslaagde aanmeldpoging
+			//insert geslaagde aanmeld poging
 			GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
 			aanmeldPogingDao.insert(
 					new AanmeldPoging(gebruiker, new Date(), true, gebruiker.getRol(), gebruiker.getStatus(), 0));

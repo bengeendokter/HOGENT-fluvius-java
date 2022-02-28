@@ -9,28 +9,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Rol")
-public class Rol implements Serializable
+@Table(name = "SDG")
+public class SdGoal implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int rolID;
+	private int sdGoalID;
 	
 	private String naam;
-	
-	public Rol(String rol)
+
+	public SdGoal(String naam)
 	{
-		this.naam = rol;
+		this.naam = naam;
 	}
 	
-	protected Rol()
+	protected SdGoal()
 	{
 
 	}
-	
-	public String getRol()
+
+	public String getNaam()
 	{
 		return naam;
 	}

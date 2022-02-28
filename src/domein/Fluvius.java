@@ -11,15 +11,15 @@ import repository.GenericDaoJpa;
 public class Fluvius
 {
 	private ObservableList<Categorie> categorien;
-	private ObservableList<MvoDoelstelling> doelstellingen;
+	private ObservableList<SdGoal> doelstellingen;
 	
 	private GenericDao<Categorie> categorieRepo;
-	private GenericDao<MvoDoelstelling> mvoDoelstellingRepo;
+	private GenericDao<SdGoal> sdGoals;
 	
 	public Fluvius()
 	{
 		setCategorieRepo(new GenericDaoJpa<>(Categorie.class));
-		setMvoDoelstellingRepo(new GenericDaoJpa<>(MvoDoelstelling.class));
+		setMvoDoelstellingRepo(new GenericDaoJpa<>(SdGoal.class));
 	}
 	
 	public void setCategorieRepo(GenericDao<Categorie> mock)
@@ -27,9 +27,9 @@ public class Fluvius
 		categorieRepo = mock;
 	}
 	
-	public void setMvoDoelstellingRepo(GenericDao<MvoDoelstelling> mock)
+	public void setMvoDoelstellingRepo(GenericDao<SdGoal> mock)
 	{
-		mvoDoelstellingRepo = mock;
+		sdGoals = mock;
 	}
 	
 	public ObservableList<Categorie> getCategorien()
@@ -38,9 +38,9 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList(categorien);
 	}
 
-	public ObservableList<MvoDoelstelling> getDoelstellingen()
+	public ObservableList<SdGoal> getDoelstellingen()
 	{
-		doelstellingen = FXCollections.observableArrayList(mvoDoelstellingRepo.findAll());
+		doelstellingen = FXCollections.observableArrayList(sdGoals.findAll());
 		return FXCollections.unmodifiableObservableList(doelstellingen);
 	}
 	
@@ -49,7 +49,7 @@ public class Fluvius
 		categorien.addListener(listener);
 	}
 	
-	public void voegDoelstellingObserverToe(ListChangeListener<MvoDoelstelling> listener)
+	public void voegDoelstellingObserverToe(ListChangeListener<SdGoal> listener)
 	{
 		doelstellingen.addListener(listener);
 	}
@@ -79,9 +79,9 @@ public class Fluvius
 //		getCategorien();
 //	}
 	
-	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
+	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
 	{
-		categorie.wijzigDoelstellingen(doelstellingen);
+		categorie.wijzigDoelstellingen(sdGoals);
 		getCategorien();
 	}
 }

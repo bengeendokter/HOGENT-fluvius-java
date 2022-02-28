@@ -10,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Categorie")
 public class Categorie implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -23,17 +25,17 @@ public class Categorie implements Serializable
 	private String naam;
 	
 	@OneToMany
-	private List<MvoDoelstelling> doelstellingen;
+	private List<SdGoal> sdGoals;
 	
 //	@OneToMany
 //	private List<Rol> rollen;
 	
-	public Categorie(String naam, List<MvoDoelstelling> doelstellingen
+	public Categorie(String naam, List<SdGoal> sdGoals
 //			, List<Rol> rollen
 			)
 	{
 		setNaam(naam);
-		wijzigDoelstellingen(doelstellingen);
+		wijzigDoelstellingen(sdGoals);
 //		wijzigRollen(rollen);
 	}
 	
@@ -57,9 +59,9 @@ public class Categorie implements Serializable
 		return naam;
 	}
 	
-	public List<MvoDoelstelling> getDoelstellingen()
+	public List<SdGoal> getDoelstellingen()
 	{
-		return Collections.unmodifiableList(doelstellingen);
+		return Collections.unmodifiableList(sdGoals);
 	}
 	
 //	public List<Rol> getRollen()
@@ -67,9 +69,9 @@ public class Categorie implements Serializable
 //		return Collections.unmodifiableList(rollen);
 //	}
 	
-	public void wijzigDoelstellingen(List<MvoDoelstelling> doelstellingen)
+	public void wijzigDoelstellingen(List<SdGoal> sdGoals)
 	{
-		this.doelstellingen = doelstellingen;
+		this.sdGoals = sdGoals;
 	}
 
 //	public void wijzigRollen(List<Rol> rollen)
