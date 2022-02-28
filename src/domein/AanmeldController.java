@@ -13,6 +13,19 @@ import repository.GenericDaoJpa;
 public class AanmeldController
 {
 	
+	public AanmeldController()
+	{
+		this(false);
+	}
+	
+	public AanmeldController(boolean withInit)
+	{
+		if(withInit)
+		{
+			new PopulateDB().run();
+		}
+	}
+	
 	public DomeinController meldAan(String gebruikersnaam, String wachtwoord)
 	{
 		

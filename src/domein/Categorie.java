@@ -25,14 +25,21 @@ public class Categorie implements Serializable
 	@OneToMany
 	private List<MvoDoelstelling> doelstellingen;
 	
-	@OneToMany
-	private List<Rol> rollen;
+//	@OneToMany
+//	private List<Rol> rollen;
 	
-	public Categorie(String naam, List<MvoDoelstelling> doelstellingen, List<Rol> rollen)
+	public Categorie(String naam, List<MvoDoelstelling> doelstellingen
+//			, List<Rol> rollen
+			)
 	{
 		setNaam(naam);
 		wijzigDoelstellingen(doelstellingen);
-		wijzigRollen(rollen);
+//		wijzigRollen(rollen);
+	}
+	
+	protected Categorie()
+	{
+		
 	}
 
 	public final void setNaam(String naam)
@@ -55,20 +62,20 @@ public class Categorie implements Serializable
 		return Collections.unmodifiableList(doelstellingen);
 	}
 	
-	public List<Rol> getRollen()
-	{
-		return Collections.unmodifiableList(rollen);
-	}
+//	public List<Rol> getRollen()
+//	{
+//		return Collections.unmodifiableList(rollen);
+//	}
 	
 	public void wijzigDoelstellingen(List<MvoDoelstelling> doelstellingen)
 	{
 		this.doelstellingen = doelstellingen;
 	}
 
-	public void wijzigRollen(List<Rol> rollen)
-	{
-		this.rollen = rollen;
-	}
+//	public void wijzigRollen(List<Rol> rollen)
+//	{
+//		this.rollen = rollen;
+//	}
 
 	@Override
 	public int hashCode()

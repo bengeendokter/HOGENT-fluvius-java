@@ -22,7 +22,12 @@ public class Rol implements Serializable
 	{
 		this.naam = rol;
 	}
+	
+	protected Rol()
+	{
 
+	}
+	
 	public String getRol()
 	{
 		return naam;

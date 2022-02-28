@@ -22,6 +22,11 @@ public class MvoDoelstelling implements Serializable
 	{
 		this.naam = naam;
 	}
+	
+	protected MvoDoelstelling()
+	{
+
+	}
 
 	public String getNaam()
 	{

@@ -58,10 +58,10 @@ public class DomeinController
 		fluvius.wijzigCategorieNaam(categorie, naam);
 	}
 
-	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
-	{
-		fluvius.wijzigCategorieRollen(categorie, rollen);
-	}
+//	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
+//	{
+//		fluvius.wijzigCategorieRollen(categorie, rollen);
+//	}
 
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
 	{

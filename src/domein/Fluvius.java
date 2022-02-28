@@ -73,11 +73,11 @@ public class Fluvius
 		getCategorien();
 	}
 	
-	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
-	{
-		categorie.wijzigRollen(rollen);
-		getCategorien();
-	}
+//	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
+//	{
+//		categorie.wijzigRollen(rollen);
+//		getCategorien();
+//	}
 	
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<MvoDoelstelling> doelstellingen)
 	{
