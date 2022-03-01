@@ -32,6 +32,8 @@ public class Categorie implements Serializable
 	@Column(unique=true)
 	private String naam;
 	private String afbeeldingnaam;
+
+	private String icon;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<SdGoal> sdGoals;
@@ -62,7 +64,7 @@ public class Categorie implements Serializable
 	{
 		if(naam == null || naam.isBlank())
 		{
-			throw new IllegalArgumentException("De naam van Rol mag niet leeg zijn");
+			throw new IllegalArgumentException("De naam van de Categorie mag niet leeg zijn");
 		}
 		
 		this.naam = naam;
@@ -71,6 +73,17 @@ public class Categorie implements Serializable
 	public String getNaam()
 	{
 		return naam;
+	}
+
+
+	public String getAfbeeldingnaam()
+	{
+		return afbeeldingnaam;
+	}
+
+	public String getIcon()
+	{
+		return icon;
 	}
 	
 	public List<SdGoal> getDoelstellingen()

@@ -52,6 +52,7 @@ public class Fluvius
 	
 	public ObservableList<Categorie> getCategorien()
 	{
+		setCategorien();
 		System.out.println("Alle Categoriën ophalen");
 		return FXCollections.unmodifiableObservableList(categorien);
 	}
