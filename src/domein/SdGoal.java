@@ -26,6 +26,7 @@ public class SdGoal implements Serializable
 	
 	private String afbeeldingnaam;
 	private String naam;
+	private String icon;
 	private int parentSDG_id;
 
 	public SdGoal(String naam)
@@ -36,6 +37,36 @@ public class SdGoal implements Serializable
 	protected SdGoal()
 	{
 
+	}
+
+	public String getAfbeeldingnaam()
+	{
+		return afbeeldingnaam;
+	}
+
+	public void setAfbeeldingnaam(String afbeeldingnaam)
+	{
+		this.afbeeldingnaam = afbeeldingnaam;
+	}
+
+	public String getIcon()
+	{
+		return icon;
+	}
+
+	public void setIcon(String icon)
+	{
+		this.icon = icon;
+	}
+
+	public int getParentSDG_id()
+	{
+		return parentSDG_id;
+	}
+
+	public void setParentSDG_id(int parentSDG_id)
+	{
+		this.parentSDG_id = parentSDG_id;
 	}
 
 	public String getNaam()
