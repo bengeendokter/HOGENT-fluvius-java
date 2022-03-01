@@ -3,6 +3,7 @@ package domein;
 import java.util.List;
 
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 public class DomeinController
 {
@@ -13,9 +14,14 @@ public class DomeinController
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
-		fluvius = new Fluvius();
+		setFluvius(new Fluvius());
+		
 	}
 	
+	public void setFluvius(Fluvius fluvius) {
+		this.fluvius = fluvius;
+	}
+
 	public Gebruiker getAangemeldeGebruiker()
 	{
 		return aangemeldeGebruiker;
@@ -43,10 +49,10 @@ public class DomeinController
 		fluvius.verwijderCategorie(categorie);
 	}
 
-//	public ObservableList<Categorie> getCategorien()
-//	{
-//		return fluvius.getCategorien();
-//	}
+	public ObservableList<Categorie> getCategorien()
+	{
+		return fluvius.getCategorien();
+	}
 	
 	public List<String> geefCategorien()
 	{
