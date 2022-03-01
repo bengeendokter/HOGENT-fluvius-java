@@ -1,9 +1,6 @@
 package domein;
 
-import java.net.UnknownHostException;
 import java.util.Date;
-
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 import exceptions.GebruikerBestaatNietException;
 import exceptions.GebruikerGeblokkeerdException;

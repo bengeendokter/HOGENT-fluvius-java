@@ -1,8 +1,5 @@
 package domein;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -173,4 +170,18 @@ public class Fluvius
 		
 		wijzigCategorieDoelstellingen(categorie, sdGoals);
 	}
+	
+	public void setCategorieIcon(String categorieNaam, String icon)
+	{
+		Categorie categorie = categorieRepo.getByNaam(categorieNaam);
+		categorie.setNaam(categorieNaam);
+	}
+	
+	public String getCategorieIcon(String categorieNaam)
+	{
+		Categorie categorie = categorieRepo.getByNaam(categorieNaam);
+		return categorie.getIcon();
+	}
+	
+	
 }

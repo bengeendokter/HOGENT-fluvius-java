@@ -94,4 +94,14 @@ public class DomeinController
 		fluvius.wijzigCategorieDoelstellingen(naam, sdGoals);
 	}
 	
+	
+	public void setCategorieIcon(String categorieNaam, String icon)
+	{
+		fluvius.setCategorieIcon(categorieNaam, icon);
+	}
+	
+	public String getCategorieIcon(String categorieNaam)
+	{
+		return fluvius.getCategorieIcon(categorieNaam);
+	}
 }
