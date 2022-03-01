@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import domein.Categorie;
@@ -108,7 +109,7 @@ public class CategorieFrameController extends Pane {
 	private TabPane tabPane;
 	
 	//lijst met namen/paths van iconen
-	private List<String> iconen = (List<String>) Arrays.asList(new String[] {"file:src/imagesCat/people.png", "file:src/imagesCat/partnership.png", "file:src/imagesCat/peace.png", "file:src/imagesCat/planet.jpg", "file:src/imagesCat/prosperity.jpg"});
+	private List<String> iconen = (List<String>) Arrays.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png", "file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
 	
 	/*private List<ImageView> iconen = (List<ImageView>) Arrays.asList(new ImageView[] {
 			new ImageView(new Image("file:src/imagesCat/people.png", 50, 50, true, true)), 
@@ -200,11 +201,32 @@ public class CategorieFrameController extends Pane {
 		//als je bij het initeel starten direct op de verwijder knop klikt, dan wordt de eerste verwijderd
 		listCategorieen.getSelectionModel().selectFirst();
 		
+		listKiesSdGoal.setItems(dc.getSdGoals().filtered(s -> s.getIcon() != null).sorted(Comparator.comparing(SdGoal::getAfbeeldingnaam)));
+		//FXCollections.observableList(
+		
+		
+		listKiesSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
+            private ImageView imageView = new ImageView();
+            @Override
+            public void updateItem(SdGoal sdg, boolean empty) {
+                super.updateItem(sdg, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                	setText(sdg.getNaam());
+                	imageView.setImage(new Image(sdg.getIcon(), 50, 50, true, true));
+                    
+                    setGraphic(imageView);
+                }
+            }
+        });
+		
+
 		/*
 		//overzicht van eerste categorie tonen
 		naamCategorie.setText(dc.geefCategorien().stream().findFirst().get().getNaam());
 		
-		//listSdGoal.setItems(FXCollections.observableList(dc.geefCategorien().stream().findFirst().get().getDoelstellingen().stream().map(d -> d.getNaam()).collect(Collectors.toList())));
 		listSdGoal.setItems(FXCollections.observableList(dc.geefCategorien().stream().findFirst().get().getDoelstellingen().stream().collect(Collectors.toList())));
 		
 		//eerste keer overzicht tonen moet ook iconen tonen van SdGoal's van de categorie
@@ -225,7 +247,7 @@ public class CategorieFrameController extends Pane {
             }
         });
 		
-		catIcoon.setImage(new Image(dc.geefCategorien().stream().findFirst().get().getIcoon(), 50, 50, true, true));
+		catIcoon.setImage(new Image(dc.geefCategorien().stream().findFirst().get().getIcoon(), 50, 50, true, true));*/
 		
 		listKiesSdGoal.getSelectionModel().selectFirst();
 		
@@ -233,7 +255,7 @@ public class CategorieFrameController extends Pane {
         addListener((observableValue, oldValue, newValue) -> {
            if (newValue != null) {
 
-                   if (newValue.getIcoon() != null) {
+                   if (newValue.getIcon() != null) {
                 	   SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
                        System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
                        
@@ -252,7 +274,7 @@ public class CategorieFrameController extends Pane {
                                    setGraphic(null);
                                } else {
                                	setText(name.getNaam());
-                               	imageView.setImage(new Image(name.getIcoon(), 25, 25, true, true));
+                               	imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
                                    
                                    setGraphic(imageView);
                                }
@@ -265,7 +287,7 @@ public class CategorieFrameController extends Pane {
            }
         });
 		
-		listCategorieen.getSelectionModel().selectedItemProperty().
+		/*listCategorieen.getSelectionModel().selectedItemProperty().
         addListener((observableValue, oldValue, newValue) -> {
            if (newValue != null) {
                 Categorie cat = listCategorieen.getSelectionModel().getSelectedItem();
@@ -308,31 +330,36 @@ public class CategorieFrameController extends Pane {
                 	listSdGoal.setVisible(false);
                 }   
            }
-        });
+        });*/
 		
 		//---------------
-		listKiesSdGoal.setItems(SdGoals);
 		
+//hoeft niet meer
+		//listKiesSdGoal.setItems(SdGoals);
+		
+//hoeft niet meer
 		//iconen toevoegen bij elk element van de lijst van SdGoal's
-		listKiesSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
-            private ImageView imageView = new ImageView();
-            @Override
-            public void updateItem(SdGoal name, boolean empty) {
-                super.updateItem(name, empty);
-                if (empty) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                	setText(name.getNaam());
-                	imageView.setImage(new Image(name.getIcoon(), 25, 25, true, true));
-                    
-                    setGraphic(imageView);
-                }
-            }
-        });
+//		listKiesSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
+//            private ImageView imageView = new ImageView();
+//            @Override
+//            public void updateItem(SdGoal name, boolean empty) {
+//                super.updateItem(name, empty);
+//                if (empty) {
+//                    setText(null);
+//                    setGraphic(null);
+//                } else {
+//                	setText(name.getNaam());
+//                	imageView.setImage(new Image(name.getIcoon(), 25, 25, true, true));
+//                    
+//                    setGraphic(imageView);
+//                }
+//            }
+//        });
 		
+		
+//al gedaan, is dit overbodig?
 		//eerste element in listview selecteren omdat anders "oldvalue" null wordt
-		listKiesSdGoal.getSelectionModel().selectFirst();
+		/*listKiesSdGoal.getSelectionModel().selectFirst();*/
 		
 		//listIcoon opvullen met iconen
 		listIcoon.setItems(FXCollections.observableList(iconen));
@@ -366,7 +393,7 @@ public class CategorieFrameController extends Pane {
                        catIcoon.setImage(new Image(icoonPath, 25, 25, true, true));
            
            }
-        });*/
+        });
 		
 		
 	}
@@ -596,12 +623,134 @@ public class CategorieFrameController extends Pane {
 	// Event Listener on Button[#btnAddCategorie].onAction
 		@FXML
 		public void addCategorie(ActionEvent event) {
+			vartextCat.setText("Maak nieuwe categorie");
+			naamCategorie.clear();
 
+//			
+			catBewerken.setDisable(true);
+			catBewerken.setVisible(false);
+			catVerwijderen.setDisable(true);
+			catVerwijderen.setVisible(false);
+			
+			listIcoon.setVisible(true);
+			btnRemoveSdGoal.setVisible(true);
+//			
+			catAnnuleer.setVisible(true);
+			catOpslaan.setVisible(true);
+//			
+			kiesIcoon.setVisible(true);
+			labelKiesSdGoal.setVisible(true);
+			listSdGoal.setVisible(true);
+//			
+			listKiesSdGoal.setVisible(true);
+//			
+			listSdGoal.getItems().clear();
+//			
+			//placeholder als er geen SdGoal(') is/zijn geselecteerd
+			listSdGoal.setPlaceholder(new Label("Geen SdGoal('s)"));
 		}
 		
 		@FXML
 		public void catOpslaan(ActionEvent event) {
-
+			//maak nieuwe categorie bij Aanmaken
+			if (vartextCat.getText().equals("Maak nieuwe categorie")) {
+//TODO		//nog geen doelstellingkeuze, alleen naam categorie
+				
+				//error handling naam categorie
+				if (naamCategorie.getText().isEmpty() || naamCategorie.getText().isBlank()) {
+					catError.setVisible(true);
+					naamCategorie.setStyle("-fx-border-color:red");
+				} else {
+					
+//TODO					//naam is niet uniek
+//					if (dc.geefCategorien().stream().map(c -> c.getNaam()).anyMatch(naam -> naam.equals(naamCategorie.getText()))) {
+//						naamCategorie.setStyle("-fx-border-color:red");
+//						catError.setVisible(true);
+//						catError.setText("Naam moet uniek zijn");
+//						catError.setStyle("-fx-text-fill: red");
+//					} else {
+						//categorie moet een unieke naam, lijst met minstens 1 SdGoal en een icoon/image hebben
+	//TODO					//intern een error geven en zettin in error veld OF
+	//TODO					//direct een error geven voor alle gevallen (wel lastig bij uitbreiding)
+						
+						dc.voegCategorieToe(naamCategorie.getText(), new ArrayList<SdGoal>(listSdGoal.getItems().stream().collect(Collectors.toList())), catIcoon.getImage().getUrl());
+						
+						//listCategorieen.getSelectionModel().selectLast();
+						
+						
+						
+						
+						//alles terug goed zetten
+						naamCategorie.setStyle("-fx-border-color:none");
+						
+						vartextCat.setText("Overzicht categorie");
+						
+						catBewerken.setDisable(false);
+						catBewerken.setVisible(true);
+						catVerwijderen.setDisable(false);
+						catVerwijderen.setVisible(true);
+						
+						listSdGoal.setVisible(true);
+						
+						catError.setVisible(false);
+						catError.setStyle("-fx-text-fill: black");
+						
+						//laatste toegevoegde categorie gegevens tonen
+//						listCategorieen.getSelectionModel().selectLast();
+//						Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
+//						naamCategorie.setText(c.getNaam());
+//						catIcoon.setImage(new Image(c.getIcon(), 50, 50, true, true));
+//						listSdGoal.setItems(FXCollections.observableList(c.getDoelstellingen().stream().collect(Collectors.toList())));
+						
+						kiesIcoon.setVisible(false);
+						labelKiesSdGoal.setVisible(false);
+						
+						listIcoon.setVisible(false);
+						listKiesSdGoal.setVisible(false);
+						
+						btnRemoveSdGoal.setVisible(false);
+						catAnnuleer.setVisible(false);
+						catOpslaan.setVisible(false);
+								
+					//}
+					
+					
+				}
+			}
+//			
+//				
+//				//gegevens wijzigen bij Wijzigen
+//			} else if (vartextCat.getText().equals("Wijzig categorie")) {
+//				//wijzigen (naam, lijst SdGoal's en icoon)
+	////TODO		
+//				//categorie bijhouden zoals in ontwerp?
+//				//categorie van geselecteerde item zoeken via namedquery?
+//				
+//				/*dc.wijzigCategorieNaam(null, getAccessibleHelp());
+//				dc.wijzigCategorieDoelstellingen(null, null);
+//				-> dc.wijzigIcoon();*/
+//				
+//				//alles terug goed zetten
+//				vartextCat.setText("Overzicht categorie");
+//				catBewerken.setDisable(false);
+//				
+//				kiesIcoon.setVisible(false);
+//				labelKiesSdGoal.setVisible(false);
+//				
+//				listIcoon.setVisible(false);
+//				listKiesSdGoal.setVisible(false);
+//				
+//				btnRemoveSdGoal.setVisible(false);
+//				
+//				catBewerken.setDisable(false);
+//				catBewerken.setVisible(true);
+//				catVerwijderen.setDisable(false);
+//				catVerwijderen.setVisible(true);
+//				//listSdGoal.setVisible(true);
+//				
+//				catError.setVisible(false);
+//				catError.setStyle("-fx-text-fill: black");
+//			}
 			
 		}
 		

@@ -32,10 +32,11 @@ public class DomeinController
 //		fluvius.voegCategorieToe(categorie);
 //	}
 	
-	public void voegCategorieToe(String categorie)
+	//aangepast
+	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
 	{
-		System.out.printf("Voeg categorie %s toe%n", categorie);
-		fluvius.voegCategorieToe(categorie);
+		System.out.printf("Voeg categorie %s toe%n", naam);
+		fluvius.voegCategorieToe(naam, sdGoals, icon);
 	}
 
 //	public void verwijderCategorie(Categorie categorie)
@@ -64,10 +65,11 @@ public class DomeinController
 		fluvius.voegCategorieObserverToe(listener);
 	}
 	
-//	public ObservableList<SdGoal> getSdGoals()
-//	{
-//		return fluvius.getSdGoals();
-//	}
+	//stond in commentaar
+	public ObservableList<SdGoal> getSdGoals()
+	{
+		return fluvius.getSdGoals();
+	}
 	
 	public List<String> geefSdGoals()
 	{

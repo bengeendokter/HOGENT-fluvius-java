@@ -85,6 +85,7 @@ public class Fluvius
 		sdGoals.addListener(listener);
 	}
 	
+	//aangepast
 	public void voegCategorieToe(Categorie categorie)
 	{
 		try
@@ -106,10 +107,11 @@ public class Fluvius
 		setCategorien();
 	}
 
-	public void voegCategorieToe(String naam)
+	//aangepast
+	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
 	{
 		System.out.printf("Categorie %s aanmaken in java%n", naam);
-		Categorie categorie = new Categorie(naam);
+		Categorie categorie = new Categorie(naam, sdGoals, icon);
 		System.out.printf("Categorie %s is aangemaakt in Java%n", categorie.toString());
 		voegCategorieToe(categorie);
 	}
