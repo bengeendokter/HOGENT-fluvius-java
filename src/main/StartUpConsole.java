@@ -1,5 +1,11 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import domein.AanmeldController;
 import domein.DomeinController;
 
@@ -11,9 +17,14 @@ public class StartUpConsole
 		AanmeldController aanmeldController = new AanmeldController();
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		
-//		dc.voegCategorieToe("Sociaal");
-//		dc.verwijderCategorie("Sociaal");
-//		dc.voegCategorieToe("Klimaat");
+		dc.voegCategorieToe("Sociaal");
+		dc.verwijderCategorie("Sociaal");
+		dc.voegCategorieToe("Klimaat");
+		dc.wijzigCategorieNaam("Klimaat", "Economie");
+		dc.geefCategorien();
+		dc.geefSdGoals();
+		dc.wijzigCategorieDoelstellingen("Economie", new ArrayList<>(Arrays.asList("Geen armoede", "Geen honger")));
+		dc.verwijderCategorie("Economie");
 	}
 	
 }

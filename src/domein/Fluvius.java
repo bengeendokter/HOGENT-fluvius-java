@@ -14,8 +14,8 @@ import repository.SdGoalDaoJpa;
 
 public class Fluvius
 {
-	private ObservableList<Categorie> categorien;
-	private ObservableList<SdGoal> sdGoals;
+	private ObservableList<Categorie> categorien = FXCollections.observableArrayList();
+	private ObservableList<SdGoal> sdGoals = FXCollections.observableArrayList();
 	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
@@ -41,7 +41,8 @@ public class Fluvius
 	
 	private void setCategorien()
 	{
-		categorien = FXCollections.observableArrayList(categorieRepo.findAll());
+		categorien.clear();
+		categorien.addAll(categorieRepo.findAll());
 	}
 	
 	public ObservableList<Categorie> getCategorien()
@@ -57,7 +58,8 @@ public class Fluvius
 	
 	public void setSdGoals()
 	{
-		sdGoals = FXCollections.observableArrayList(sdGoalsRepo.findAll());
+		sdGoals.clear();
+		sdGoals.addAll(sdGoalsRepo.findAll());
 	}
 
 	public ObservableList<SdGoal> getSdGoals()
@@ -84,9 +86,10 @@ public class Fluvius
 	{
 		System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
 		GenericDaoJpa.startTransaction();
-		categorien.add(categorie);
 		categorieRepo.insert(categorie);
 		GenericDaoJpa.commitTransaction();
+		
+		setCategorien();
 	}
 
 	public void voegCategorieToe(String naam)
@@ -101,9 +104,10 @@ public class Fluvius
 	{
 		System.out.printf("Categorie %s verwijderen uit databank%n", categorie.toString());
 		GenericDaoJpa.startTransaction();
-		categorien.remove(categorie);
 		categorieRepo.delete(categorie);
 		GenericDaoJpa.commitTransaction();
+		
+		setCategorien();
 	}
 
 	public void verwijderCategorie(String naam)
@@ -115,15 +119,16 @@ public class Fluvius
 
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
-//		categorie.setNaam(nieuweNaam);
-		// TODO
+		categorie.setNaam(nieuweNaam);
+		GenericDaoJpa.startTransaction();
+		categorieRepo.update(categorie);
 		GenericDaoJpa.commitTransaction();
-		getCategorien();
+		
+		setCategorien();
 	}
 	
 	public void wijzigCategorieNaam(String oldName, String newName)
 	{
-		GenericDaoJpa.startTransaction();
 		Categorie categorie = categorieRepo.getByNaam(oldName);
 		wijzigCategorieNaam(categorie, newName);
 	}
@@ -136,15 +141,16 @@ public class Fluvius
 	
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
 	{
-//		categorie.wijzigDoelstellingen(sdGoals);
-		// TODO
+		categorie.wijzigDoelstellingen(sdGoals);
+		GenericDaoJpa.startTransaction();
+		categorieRepo.update(categorie);
 		GenericDaoJpa.commitTransaction();
-		getCategorien();
+		
+		setCategorien();
 	}
 
 	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoalsNamen)
 	{
-		GenericDaoJpa.startTransaction();
 		Categorie categorie = categorieRepo.getByNaam(naam);
 		List<SdGoal> sdGoals = sdGoalsNamen.stream().map(sdgNaam -> sdGoalsRepo.getByNaam(sdgNaam)).collect(Collectors.toList());
 		
