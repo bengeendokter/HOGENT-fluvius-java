@@ -115,7 +115,8 @@ public class AanmeldSchermController extends Pane
 			DomeinController domeinController = aanmeldController.meldAan(txtGebruikersnaam.getText(),
 					pssWachtwoord.getText());
 			
-			OverzichtSchermController vs = new OverzichtSchermController(domeinController);
+			//OverzichtSchermController vs = new OverzichtSchermController(domeinController);
+			CategorieFrameController vs = new CategorieFrameController(domeinController);
 			Scene scene = new Scene(vs);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setResizable(false);

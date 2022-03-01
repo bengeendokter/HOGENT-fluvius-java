@@ -171,6 +171,7 @@ public class Fluvius
 		
 		wijzigCategorieDoelstellingen(categorie, sdGoals);
 	}
+
 	
 	public void setCategorieIcon(String categorieNaam, String icon)
 	{
@@ -187,3 +188,5 @@ public class Fluvius
 	
 	
 }
+
+
