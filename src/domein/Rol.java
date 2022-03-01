@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,5 +34,26 @@ public class Rol implements Serializable
 	public String getRol()
 	{
 		return naam;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(naam);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj)
+		{
+			return true;
+		}
+		if(!(obj instanceof Rol))
+		{
+			return false;
+		}
+		Rol other = (Rol) obj;
+		return Objects.equals(naam, other.naam);
 	}
 }

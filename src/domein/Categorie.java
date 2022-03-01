@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,10 +29,11 @@ public class Categorie implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categorieID;
 	
+	@Column(unique=true)
 	private String naam;
 	private String afbeeldingnaam;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<SdGoal> sdGoals;
 	
 //	@OneToMany

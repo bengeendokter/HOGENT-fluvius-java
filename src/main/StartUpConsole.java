@@ -2,9 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import domein.AanmeldController;
 import domein.DomeinController;

@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +42,27 @@ public class SdGoal implements Serializable
 	public String getNaam()
 	{
 		return naam;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(naam);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj)
+		{
+			return true;
+		}
+		if(!(obj instanceof SdGoal))
+		{
+			return false;
+		}
+		SdGoal other = (SdGoal) obj;
+		return Objects.equals(naam, other.naam);
 	}
 
 	@Override

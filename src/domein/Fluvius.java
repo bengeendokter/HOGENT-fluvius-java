@@ -1,7 +1,12 @@
 package domein;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -58,8 +63,8 @@ public class Fluvius
 	
 	public void setSdGoals()
 	{
-		sdGoals.clear();
-		sdGoals.addAll(sdGoalsRepo.findAll());
+			sdGoals.clear();
+			sdGoals.addAll(sdGoalsRepo.findAll());
 	}
 
 	public ObservableList<SdGoal> getSdGoals()
@@ -84,10 +89,21 @@ public class Fluvius
 	
 	public void voegCategorieToe(Categorie categorie)
 	{
-		System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
-		GenericDaoJpa.startTransaction();
-		categorieRepo.insert(categorie);
-		GenericDaoJpa.commitTransaction();
+		try
+		{
+			System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
+			GenericDaoJpa.startTransaction();
+			categorieRepo.insert(categorie);
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(DatabaseException e)
+		{
+			throw new IllegalArgumentException(String.format("Categorie met naam %s bestaat al", categorie.toString()));
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("");
+		}
 		
 		setCategorien();
 	}

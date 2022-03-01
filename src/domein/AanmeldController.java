@@ -1,6 +1,9 @@
 package domein;
 
+import java.net.UnknownHostException;
 import java.util.Date;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 import exceptions.GebruikerBestaatNietException;
 import exceptions.GebruikerGeblokkeerdException;
@@ -26,11 +29,20 @@ public class AanmeldController
 		}
 	}
 	
-	public DomeinController meldAan(String gebruikersnaam, String wachtwoord)
+	public DomeinController meldAan(String gebruikersnaam, String wachtwoord) throws ExceptionInInitializerError
 	{
 		
-		GebruikerDaoJpa gJpa = new GebruikerDaoJpa();
-		GenericDaoJpa.startTransaction();
+		GebruikerDaoJpa gJpa;
+		try
+		{
+			gJpa = new GebruikerDaoJpa();
+			GenericDaoJpa.startTransaction();
+		}
+		catch(ExceptionInInitializerError e)
+		{
+			throw new ExceptionInInitializerError("Kan niet connecteren met de databank");
+		}
+		
 		
 		//Haal gebruiker op
 		Gebruiker gebruiker = gJpa.getByName(gebruikersnaam);
