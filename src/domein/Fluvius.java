@@ -134,6 +134,11 @@ public class Fluvius
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
 		categorie.setNaam(nieuweNaam);
+		updateCategorie(categorie);
+	}
+	
+	public void updateCategorie(Categorie categorie)
+	{
 		GenericDaoJpa.startTransaction();
 		categorieRepo.update(categorie);
 		GenericDaoJpa.commitTransaction();
@@ -156,11 +161,7 @@ public class Fluvius
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
 	{
 		categorie.wijzigDoelstellingen(sdGoals);
-		GenericDaoJpa.startTransaction();
-		categorieRepo.update(categorie);
-		GenericDaoJpa.commitTransaction();
-		
-		setCategorien();
+		updateCategorie(categorie);
 	}
 
 	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoalsNamen)
@@ -174,7 +175,8 @@ public class Fluvius
 	public void setCategorieIcon(String categorieNaam, String icon)
 	{
 		Categorie categorie = categorieRepo.getByNaam(categorieNaam);
-		categorie.setNaam(categorieNaam);
+		categorie.setIcon(icon);
+		updateCategorie(categorie);
 	}
 	
 	public String getCategorieIcon(String categorieNaam)

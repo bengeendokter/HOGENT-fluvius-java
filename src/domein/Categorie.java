@@ -52,7 +52,7 @@ public class Categorie implements Serializable
 		setIcon(icon);
 	}
 	
-	private void setIcon(String icon)
+	public void setIcon(String icon)
 	{
 		this.icon = icon;
 	}
