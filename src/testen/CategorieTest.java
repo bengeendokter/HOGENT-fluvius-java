@@ -3,7 +3,10 @@ package testen;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
@@ -18,6 +21,7 @@ import domein.AanmeldController;
 import domein.Categorie;
 import domein.DomeinController;
 import domein.Fluvius;
+import domein.SdGoal;
 import repository.CategorieDao;
 import repository.GenericDao;
 
@@ -63,28 +67,39 @@ public class CategorieTest {
 	 * Categorie aanmaken
 	 * Correcte scenario:
 	 * Categorie aanmaken met een correcte naam die nog niet bestaat in de databank
+	 * En met sdg's
 	 */
 	@Test
-	public void maakCategorie_correcteNaam_aangemaakt()
+	public void maakCategorie_correcteNaamSdg_aangemaakt()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM = "CategorieTest";
 	       Fluvius fluvius = new Fluvius();   
+//	       SdGoal sdg1 = new SdGoal("sdg 1");
+//	       SdGoal sdg2 = new SdGoal("sdg 2");
+//	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1, sdg2));
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM, sdgs);
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAM);
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       assertFalse(fluvius.geefCategorien().contains(eenCategorie));
-	       dc.voegCategorieToe(CATEGORIENAAM);
+	       Assertions.assertDoesNotThrow(() -> {
+	    	   dc.voegCategorieToe(CATEGORIENAAM);
+			});
+//	       Assertions.assertDoesNotThrow(() -> {
+//	    	   dc.voegCategorieToe(CATEGORIENAAM, sdgs);
+//			});
 	       assertTrue(fluvius.geefCategorien().contains(eenCategorie));
 	       
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM);
-	       
+	       // hier moet nog iets
 	}
 	
 	/**
@@ -92,6 +107,7 @@ public class CategorieTest {
 	 * Foutieve scenario's:
 	 * Categorie aanmaken met een naam die al bestaat in de databank
 	 * Categorie aanmaken zonder een naam
+	 * En zonder sdg's
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
@@ -101,19 +117,24 @@ public class CategorieTest {
 
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM = "CategorieTest";
-	       Fluvius fluvius = new Fluvius();   
+	       Fluvius fluvius = new Fluvius();
+//	       List<SdGoal> sdgs = new ArrayList<>();
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM, sdgs);
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAM);
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie));
 
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, () -> dc.voegCategorieToe(naam));
+//	       Assertions.assertThrows(IllegalArgumentException.class, () -> dc.voegCategorieToe(naam, sdgs));
 	       
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
+	       // hier moet nog iets
 
 	}
 	
@@ -121,17 +142,23 @@ public class CategorieTest {
 	 * Categorie wijzigen
 	 * Correcte scenario:
 	 * Categorie wijzigen met een correcte naam die nog niet bestaat in de databank
+	 * Met sdg's
 	 */
-	public void wijzigCategorie_correcteNaam_gewijzigd()
+	public void wijzigCategorie_correcteNaamSdg_gewijzigd()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAMOLD = "CategorieTest";
 		   final String CATEGORIENAAMNEW = "CategorieTestNew";
+//	       SdGoal sdg1 = new SdGoal("sdg 1");
+//	       SdGoal sdg2 = new SdGoal("sdg 2");
+//	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1, sdg2));
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD, sdgs);
 	       Fluvius fluvius = new Fluvius();   
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD);
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie));
 
 	       // Uitvoeren
@@ -142,6 +169,7 @@ public class CategorieTest {
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
+	       // hier moet nog iets
 	}
 	
 	/**
@@ -149,21 +177,27 @@ public class CategorieTest {
 	 * Foutieve scenario's:
 	 * Categorie wijzigen met een naam die al bestaat in de databank
 	 * Categorie wijzigen zonder een naam
+	 * Met sdg's
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = { "        ", "TestCategorie" })
-	public void wijzigCategorie_foutieveNaam_exception(String naam)
+	public void wijzigCategorie_foutieveNaamSdg_exception(String naam)
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAMOLD = "CategorieTest";
 		   final String CATEGORIENAAMNEW = naam;
+//	       SdGoal sdg1 = new SdGoal("sdg 1");
+//	       SdGoal sdg2 = new SdGoal("sdg 2");
+//	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1, sdg2));
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD, sdgs);
 	       Fluvius fluvius = new Fluvius();   
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD);
 	       Categorie tweedeCategorie = new Categorie("TestCategorie");
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie, tweedeCategorie));
 
 	       // Uitvoeren
@@ -173,24 +207,33 @@ public class CategorieTest {
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
+	       // hier moet nog iets
 	}
 	
 	/**
 	 * Categorie verwijderen
 	 * Correcte scenario:
 	 * De categorie die verwijdert moet worden, is niet de enigste categorie in de databank
+	 * Met sdg's
 	 */
-	public void verwijderCategorie_nietEnigste_verwijderd()
+	public void verwijderCategorie_nietEnigsteSdg_verwijderd()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM1 = "CategorieTest";
 		   final String CATEGORIENAAM2 = "TestCategorie";
 	       Fluvius fluvius = new Fluvius();   
+//	       SdGoal sdg1 = new SdGoal("sdg 1");
+//	       SdGoal sdg2 = new SdGoal("sdg 2");
+//	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
+//	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs1);
+//	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2, sdgs2);
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1);
 	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2);
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs2.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie, tweedeCategorie));
 
 	       // Uitvoeren
@@ -201,23 +244,30 @@ public class CategorieTest {
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
+	       // hier moet nog iets
 	}
 	
 	/**
 	 * Categorie verwijderen
 	 * Foutieve scenario:
 	 * De categorie die verwijdert moet worden, is wel de enigste categorie in de databank
+	 * Met sdg's
 	 */
-	public void verwijderCategorie_enigste_exception()
+	public void verwijderCategorie_enigsteMetSdg_exception()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM1 = "CategorieTest";
 	       Fluvius fluvius = new Fluvius();   
+//	       SdGoal sdg1 = new SdGoal("sdg 1");
+//	       SdGoal sdg2 = new SdGoal("sdg 2");
+//	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1));
+//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs);
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1);
 
 	       
 	       // Het mock object trainen
 	       Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
+//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs2.stream().map(s -> s.toString()).collect(Collectors.toList()));
 	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie));
 
 	       // Uitvoeren
@@ -227,6 +277,7 @@ public class CategorieTest {
 	       // Na de test verifiëren
 	       Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
+	       // Hier moet nog iets
 	}
 
 }
