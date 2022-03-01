@@ -62,7 +62,6 @@ public class CategorieTest{
 	@ValueSource(strings = { "        "})
 	public void maakCategorie_foutieveNaamSdg_exception(String naam)
 	{
-
 		   // Alles klaarzetten
 		   final String CATEGORIENAAMNEW = naam;
 	       SdGoal sdg1 = new SdGoal("sdg 1");
@@ -148,35 +147,31 @@ public class CategorieTest{
 	 * De categorie die verwijdert moet worden, is niet de enigste categorie in de databank
 	 * Met sdg's
 	 */
+	@Test
 	public void verwijderCategorie_nietEnigsteSdg_verwijderd()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM1 = "CategorieTest";
 		   final String CATEGORIENAAM2 = "TestCategorie";
-	       Fluvius fluvius = new Fluvius();   
-//	       SdGoal sdg1 = new SdGoal("sdg 1");
-//	       SdGoal sdg2 = new SdGoal("sdg 2");
-//	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
-//	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
-//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs1);
-//	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2, sdgs2);
-	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1);
-	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2);
-	       
-	       // Het mock object trainen
-	      // Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
-//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs2.stream().map(s -> s.toString()).collect(Collectors.toList()));
-	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie, tweedeCategorie));
+	       SdGoal sdg1 = new SdGoal("sdg 1");
+	       SdGoal sdg2 = new SdGoal("sdg 2");
+	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
+	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
+	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs1);
+	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2, sdgs2);
 
+	       // Het mock object trainen
+	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM2)).thenReturn(eenCategorie);
+	       
 	       // Uitvoeren
-//			Assertions.assertDoesNotThrow(() -> {
-//			dc.verwijderCategorie(CATEGORIENAAM2);
-//			});
-//	       
+	       Assertions.assertDoesNotThrow(() -> {
+				fluvius.verwijderCategorie(CATEGORIENAAM2);
+			});
+	       
 	       // Na de test verifiëren
-	       //Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
-	       // hier moet nog iets
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM2);
 	}
 	
 	/**
@@ -185,31 +180,28 @@ public class CategorieTest{
 	 * De categorie die verwijdert moet worden, is wel de enigste categorie in de databank
 	 * Met sdg's
 	 */
+	@Test
 	public void verwijderCategorie_enigsteMetSdg_exception()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM1 = "CategorieTest";
-	       Fluvius fluvius = new Fluvius();   
-//	       SdGoal sdg1 = new SdGoal("sdg 1");
-//	       SdGoal sdg2 = new SdGoal("sdg 2");
-//	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1));
-//	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs);
-	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1);
+	       SdGoal sdg1 = new SdGoal("sdg 1");
+	       SdGoal sdg2 = new SdGoal("sdg 2");
+	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1,sdg2));
+	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs1);
 
-	       
+
 	       // Het mock object trainen
-	      // Mockito.when(fluviusRepo.findAll()).thenReturn(Arrays.asList(fluvius));
-//	       Mockito.when(fluvius.geefSdGoals()).thenReturn(sdgs2.stream().map(s -> s.toString()).collect(Collectors.toList()));
-	       Mockito.when(categorieRepo.findAll()).thenReturn(Arrays.asList(eenCategorie));
-
+	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie)));
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM1)).thenReturn(eenCategorie);
+	       
 	       // Uitvoeren
-//	       Assertions.assertThrows(IllegalArgumentException.class, 
-//	    		   () -> dc.verwijderCategorie(CATEGORIENAAM1));
+	       Assertions.assertThrows(IllegalArgumentException.class, 
+	    		   () -> fluvius.verwijderCategorie(CATEGORIENAAM1));
 	       
 	       // Na de test verifiëren
-	      // Mockito.verify(fluviusRepo).findAll();
 	       Mockito.verify(categorieRepo).findAll();
-	       // Hier moet nog iets
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM1);
 	}
 
 }
