@@ -24,6 +24,9 @@ public class Fluvius
 	{
 		setCategorieRepo(new CategorieDaoJpa());
 		setMvoDoelstellingRepo(new SdGoalDaoJpa());
+		
+		setCategorien();
+		setSdGoals();
 	}
 	
 	public void setCategorieRepo(CategorieDao mock)
@@ -36,10 +39,14 @@ public class Fluvius
 		sdGoalsRepo = mock;
 	}
 	
+	private void setCategorien()
+	{
+		categorien = FXCollections.observableArrayList(categorieRepo.findAll());
+	}
+	
 	public ObservableList<Categorie> getCategorien()
 	{
 		System.out.println("Alle Categoriën ophalen");
-		categorien = FXCollections.observableArrayList(categorieRepo.findAll());
 		return FXCollections.unmodifiableObservableList(categorien);
 	}
 	
@@ -47,10 +54,14 @@ public class Fluvius
 	{
         return getCategorien().stream().map(Categorie::toString).collect(Collectors.toList());
 	}
+	
+	public void setSdGoals()
+	{
+		sdGoals = FXCollections.observableArrayList(sdGoalsRepo.findAll());
+	}
 
 	public ObservableList<SdGoal> getSdGoals()
 	{
-		sdGoals = FXCollections.observableArrayList(sdGoalsRepo.findAll());
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
 	
@@ -72,14 +83,14 @@ public class Fluvius
 	public void voegCategorieToe(Categorie categorie)
 	{
 		System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
+		GenericDaoJpa.startTransaction();
+		categorien.add(categorie);
 		categorieRepo.insert(categorie);
 		GenericDaoJpa.commitTransaction();
-		getCategorien();
 	}
 
 	public void voegCategorieToe(String naam)
 	{
-		GenericDaoJpa.startTransaction();
 		System.out.printf("Categorie %s aanmaken in java%n", naam);
 		Categorie categorie = new Categorie(naam);
 		System.out.printf("Categorie %s is aangemaakt in Java%n", categorie.toString());
@@ -89,14 +100,14 @@ public class Fluvius
 	public void verwijderCategorie(Categorie categorie)
 	{
 		System.out.printf("Categorie %s verwijderen uit databank%n", categorie.toString());
+		GenericDaoJpa.startTransaction();
+		categorien.remove(categorie);
 		categorieRepo.delete(categorie);
 		GenericDaoJpa.commitTransaction();
-		getCategorien();
 	}
 
 	public void verwijderCategorie(String naam)
 	{
-		GenericDaoJpa.startTransaction();
 		System.out.printf("Categorie %s zoeken in databank%n", naam);
 		Categorie categorie = categorieRepo.getByNaam(naam);		
 		verwijderCategorie(categorie);		

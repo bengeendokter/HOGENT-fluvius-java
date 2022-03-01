@@ -11,8 +11,8 @@ public class StartUpConsole
 		AanmeldController aanmeldController = new AanmeldController();
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		
-		dc.voegCategorieToe("Sociaal");
-		dc.verwijderCategorie("Sociaal");
+//		dc.voegCategorieToe("Sociaal");
+//		dc.verwijderCategorie("Sociaal");
 //		dc.voegCategorieToe("Klimaat");
 	}
 	
