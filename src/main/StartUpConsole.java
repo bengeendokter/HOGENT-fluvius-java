@@ -17,8 +17,8 @@ public class StartUpConsole
 		
 
 		
-		dc.voegCategorieToe("Sociaal");
-//		dc.verwijderCategorie("Sociaal");
+//		dc.voegCategorieToe("Sociaal");
+		dc.verwijderCategorie("Sociaal");
 //		dc.voegCategorieToe("Klimaat");
 //		dc.wijzigCategorieNaam("Klimaat", "Economie");
 //		dc.geefCategorien();

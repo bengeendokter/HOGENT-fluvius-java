@@ -31,7 +31,6 @@ public class Categorie implements Serializable
 	
 	@Column(unique=true)
 	private String naam;
-	private String afbeeldingnaam;
 
 	private String icon;
 	
@@ -41,15 +40,23 @@ public class Categorie implements Serializable
 //	@OneToMany
 //	private List<Rol> rollen;
 	
-	public Categorie(String naam, List<SdGoal> sdGoals
-//			, List<Rol> rollen
-			)
+	public Categorie(String naam, List<SdGoal> sdGoals)
+	{
+		this(naam, sdGoals, null);
+	}
+	
+	public Categorie(String naam, List<SdGoal> sdGoals, String icon)
 	{
 		setNaam(naam);
 		wijzigDoelstellingen(sdGoals);
-//		wijzigRollen(rollen);
+		setIcon(icon);
 	}
 	
+	private void setIcon(String icon)
+	{
+		this.icon = icon;
+	}
+
 	public Categorie(String naam)
 	{
 		this(naam, new ArrayList<>());
@@ -75,11 +82,6 @@ public class Categorie implements Serializable
 		return naam;
 	}
 
-
-	public String getAfbeeldingnaam()
-	{
-		return afbeeldingnaam;
-	}
 
 	public String getIcon()
 	{
