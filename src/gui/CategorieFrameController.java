@@ -223,11 +223,11 @@ public class CategorieFrameController extends Pane {
         });
 		
 
-		/*
-		//overzicht van eerste categorie tonen
-		naamCategorie.setText(dc.geefCategorien().stream().findFirst().get().getNaam());
 		
-		listSdGoal.setItems(FXCollections.observableList(dc.geefCategorien().stream().findFirst().get().getDoelstellingen().stream().collect(Collectors.toList())));
+		//overzicht van eerste categorie tonen
+		naamCategorie.setText(dc.getCategorien().stream().findFirst().get().getNaam());
+		
+		listSdGoal.setItems(FXCollections.observableList(dc.getCategorien().stream().findFirst().get().getDoelstellingen().stream().collect(Collectors.toList())));
 		
 		//eerste keer overzicht tonen moet ook iconen tonen van SdGoal's van de categorie
 		listSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
@@ -240,14 +240,14 @@ public class CategorieFrameController extends Pane {
                     setGraphic(null);
                 } else {
                 	setText(name.getNaam());
-                	imageView.setImage(new Image(name.getIcoon(), 25, 25, true, true));
+                	imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
                     
                     setGraphic(imageView);
                 }
             }
         });
 		
-		catIcoon.setImage(new Image(dc.geefCategorien().stream().findFirst().get().getIcoon(), 50, 50, true, true));*/
+		catIcoon.setImage(new Image(dc.getCategorien().stream().findFirst().get().getIcon(), 50, 50, true, true));
 		
 		listKiesSdGoal.getSelectionModel().selectFirst();
 		
@@ -287,7 +287,7 @@ public class CategorieFrameController extends Pane {
            }
         });
 		
-		/*listCategorieen.getSelectionModel().selectedItemProperty().
+		listCategorieen.getSelectionModel().selectedItemProperty().
         addListener((observableValue, oldValue, newValue) -> {
            if (newValue != null) {
                 Categorie cat = listCategorieen.getSelectionModel().getSelectedItem();
@@ -298,7 +298,7 @@ public class CategorieFrameController extends Pane {
                 	//naam
                 naamCategorie.setText(cat.getNaam());
                 
-                catIcoon.setImage(new Image(cat.getIcoon(), 50, 50, true, true));
+                catIcoon.setImage(new Image(cat.getIcon(), 50, 50, true, true));
                
                 	//doelstellingen
                 if (!(cat.getDoelstellingen() == null)) {
@@ -306,6 +306,7 @@ public class CategorieFrameController extends Pane {
                 	//listSdGoal.setItems(FXCollections.observableList(cat.getDoelstellingen().stream().map(d -> d.getNaam()).collect(Collectors.toList())));
                 	listSdGoal.setItems(FXCollections.observableList(cat.getDoelstellingen().stream().collect(Collectors.toList())));
                 	
+//moet dit gebruikt worden
                 	listSdGoal.getSelectionModel().selectFirst();
                 	
                 	listSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
@@ -318,7 +319,7 @@ public class CategorieFrameController extends Pane {
                                 setGraphic(null);
                             } else {
                             	setText(name.getNaam());
-                            	imageView.setImage(new Image(name.getIcoon(), 25, 25, true, true));
+                            	imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
                                 
                                 setGraphic(imageView);
                             }
@@ -327,10 +328,11 @@ public class CategorieFrameController extends Pane {
                 } else {
                 	//listSdGoal.setItems(FXCollections.observableArrayList(cat.getDoelstellingen()));
                 	System.out.printf("geen doelstellingen voor %s", cat.getNaam());
-                	listSdGoal.setVisible(false);
+                	//niet zo doen
+                	//listSdGoal.setVisible(false);
                 }   
            }
-        });*/
+        });
 		
 		//---------------
 		
@@ -398,101 +400,11 @@ public class CategorieFrameController extends Pane {
 		
 	}
 
-//	// Event Listener on Button[#btnAddCategorie].onAction
-//	@FXML
-//	public void addCategorie(ActionEvent event) {
-//		vartextCat.setText("Maak nieuwe categorie");
-//		naamCategorie.clear();
-//		listSdGoal.setVisible(false);
-//		
-//		catBewerken.setDisable(true);
-//		catBewerken.setVisible(false);
-//		catVerwijderen.setDisable(true);
-//		catVerwijderen.setVisible(false);
-//		
-//		listIcoon.setVisible(true);
-//		btnRemoveSdGoal.setVisible(true);
-//		
-//		catAnnuleer.setVisible(true);
-//		catOpslaan.setVisible(true);
-//		
-//		kiesIcoon.setVisible(true);
-//		labelKiesSdGoal.setVisible(true);
-//		listSdGoal.setVisible(true);
-//		
-//		listKiesSdGoal.setVisible(true);
-//		
-//		listSdGoal.getItems().clear();
-//		
-//		//placeholder als er geen SdGoal(') is/zijn geselecteerd
-//		listSdGoal.setPlaceholder(new Label("Geen SdGoal('s)"));	
-//	}
-//	
+
 //	@FXML
 //	public void catOpslaan(ActionEvent event) {
 //		//maak nieuwe categorie bij Aanmaken
 //		if (vartextCat.getText().equals("Maak nieuwe categorie")) {
-//			//nog geen doelstellingkeuze, alleen naam categorie
-//			
-//			//error handling naam categorie
-//			if (naamCategorie.getText().isEmpty() || naamCategorie.getText().isBlank()) {
-//				catError.setVisible(true);
-//				naamCategorie.setStyle("-fx-border-color:red");
-//			} else {
-//				
-//				//naam is niet uniek
-////				if (dc.geefCategorien().stream().map(c -> c.getNaam()).anyMatch(naam -> naam.equals(naamCategorie.getText()))) {
-////					naamCategorie.setStyle("-fx-border-color:red");
-////					catError.setVisible(true);
-////					catError.setText("Naam moet uniek zijn");
-////					catError.setStyle("-fx-text-fill: red");
-////				} else {
-////					//categorie moet een unieke naam, lijst met minstens 1 SdGoal en een icoon/image hebben
-//////TODO					//intern een error geven en zettin in error veld OF
-//////TODO					//direct een error geven voor alle gevallen (wel lastig bij uitbreiding)
-////					
-////					/*dc.voegCategorieToe(new Categorie(naamCategorie.getText(), new ArrayList<SdGoal>(listSdGoal.getItems().stream().collect(Collectors.toList())), catIcoon.getImage().getUrl()));
-////					listCategorieen.getSelectionModel().selectLast();*/
-////					
-////					
-////					
-////					//alles terug goed zetten
-////					naamCategorie.setStyle("-fx-border-color:none");
-////					
-////					vartextCat.setText("Overzicht categorie");
-////					
-////					catBewerken.setDisable(false);
-////					catBewerken.setVisible(true);
-////					catVerwijderen.setDisable(false);
-////					catVerwijderen.setVisible(true);
-////					
-////					listSdGoal.setVisible(true);
-////					
-////					catError.setVisible(false);
-////					catError.setStyle("-fx-text-fill: black");
-////					
-////					//laatste toegevoegde categorie gegevens tonen
-////					listCategorieen.getSelectionModel().selectLast();
-////					Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
-////					naamCategorie.setText(c.getNaam());
-////					catIcoon.setImage(new Image(c.getIcon(), 50, 50, true, true));
-////					listSdGoal.setItems(FXCollections.observableList(c.getDoelstellingen().stream().collect(Collectors.toList())));
-////					
-////					kiesIcoon.setVisible(false);
-////					labelKiesSdGoal.setVisible(false);
-////					
-////					listIcoon.setVisible(false);
-////					listKiesSdGoal.setVisible(false);
-////					
-////					btnRemoveSdGoal.setVisible(false);
-////					catAnnuleer.setVisible(false);
-////					catOpslaan.setVisible(false);
-////							
-////				}
-//				
-//				
-//			}
-//		
 //			
 //			//gegevens wijzigen bij Wijzigen
 //		} else if (vartextCat.getText().equals("Wijzig categorie")) {
@@ -715,7 +627,7 @@ public class CategorieFrameController extends Pane {
 					//}
 					
 					
-				}
+				} 
 			}
 //			
 //				
@@ -770,7 +682,11 @@ public class CategorieFrameController extends Pane {
 		
 		@FXML
 		public void catVerwijderen(ActionEvent event) {	
-
+//			//controle dat minstens 1 categorie in de lijst blijft
+//		
+			//verwijderen
+			Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
+			dc.verwijderCategorie(c.getNaam());
 		}
 	
 }
