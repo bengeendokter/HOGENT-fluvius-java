@@ -183,7 +183,7 @@ public class CategorieFrameController extends Pane {
 		//als je bij het initeel starten direct op de verwijder knop klikt, dan wordt de eerste verwijderd
 		listCategorieen.getSelectionModel().selectFirst();
 		
-		listKiesSdGoal.setItems(dc.getSdGoals().filtered(s -> s.getIcon() != null).sorted(Comparator.comparing(SdGoal::getAfbeeldingnaam)));
+		listKiesSdGoal.setItems(dc.getSdGoals().filtered(s -> s.getIcon() != null).sorted(Comparator.comparing(SdGoal::getAfbeeldingNaamAlsInt)));
 		//FXCollections.observableList(
 		
 		
