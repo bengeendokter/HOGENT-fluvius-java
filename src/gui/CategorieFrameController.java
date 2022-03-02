@@ -600,9 +600,9 @@ public class CategorieFrameController extends Pane {
 				
 				//vragen of de gebruiker zeker is
 				Alert boodschap = new Alert(AlertType.CONFIRMATION);
-	            boodschap.setTitle("Test");
+	            boodschap.setTitle("Verwijderen");
 	            
-	            boodschap.setContentText("Ben je zeker?");
+	            boodschap.setContentText("Bent u zeker dat u deze categorie wilt verwijderen?");
 	            
 	            boodschap.showAndWait().ifPresent(response -> {
 	                if (response != ButtonType.CANCEL) {
