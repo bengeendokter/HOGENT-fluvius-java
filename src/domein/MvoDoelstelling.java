@@ -35,4 +35,9 @@ public class MvoDoelstelling implements Serializable
 	{
 		return naam;
 	}
+	
+	public String getAfbeeldingnaam()
+	{
+		return afbeeldingnaam;
+	}
 }

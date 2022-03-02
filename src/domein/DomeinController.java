@@ -27,22 +27,28 @@ public class DomeinController
 		return aangemeldeGebruiker;
 	}
 
-//	public void voegCategorieToe(Categorie categorie)
-//	{
-//		fluvius.voegCategorieToe(categorie);
-//	}
+	public void voegCategorieToe(Categorie categorie)
+	{
+		fluvius.voegCategorieToe(categorie);
+	}
 	
 	//aangepast
+	public void voegCategorieToe(String naam)
+	{
+		System.out.printf("Voeg categorie %s toe%n", naam);
+		fluvius.voegCategorieToe(naam);
+	}
+	
 	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
 	{
 		System.out.printf("Voeg categorie %s toe%n", naam);
 		fluvius.voegCategorieToe(naam, sdGoals, icon);
 	}
 
-//	public void verwijderCategorie(Categorie categorie)
-//	{
-//		fluvius.verwijderCategorie(categorie);
-//	}
+	public void verwijderCategorie(Categorie categorie)
+	{
+		fluvius.verwijderCategorie(categorie);
+	}
 	
 	public void verwijderCategorie(String categorie)
 	{
@@ -86,10 +92,10 @@ public class DomeinController
 //		fluvius.wijzigCategorieRollen(categorie, rollen);
 //	}
 
-//	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
-//	{
-//		fluvius.wijzigCategorieDoelstellingen(categorie, sdGoals);
-//	}
+	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
+	{
+		fluvius.wijzigCategorieDoelstellingen(categorie, sdGoals);
+	}
 	
 	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoals)
 	{

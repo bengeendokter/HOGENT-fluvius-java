@@ -117,8 +117,8 @@ public class CategorieTest{
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
-	@ValueSource(strings = { "        ", "TestCategorie" })
-	public void wijzigCategorie_foutieveNaamSdg_exception(String naam)
+	@ValueSource(strings = {"        "})
+	public void wijzigCategorieNaam_foutieveNaamSdg_exception(String naam)
 	{
 		// Alles klaarzetten
 		   final String CATEGORIENAAMOLD = "CategorieTest";
@@ -131,7 +131,7 @@ public class CategorieTest{
 	       Categorie tweedeCategorie = new Categorie("TestCategorie", sdgs2);
 
 	       // Het mock object trainen
-	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
+	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
 	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
@@ -139,8 +139,15 @@ public class CategorieTest{
 	    		   () -> fluvius.wijzigCategorieNaam(CATEGORIENAAMOLD, CATEGORIENAAMNEW));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).findAll();
+	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
+	}
+	
+	// TODO
+	@ValueSource(strings = {"TestCategorie"})
+	public void wijzigCategorieNaam_reedsBestaandeNaam_exception(String naam)
+	{
+
 	}
 	
 	/**
@@ -172,7 +179,7 @@ public class CategorieTest{
 			});
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).findAll();
+	       Mockito.verify(categorieRepo, Mockito.times(2)).findAll();
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM2);
 	}
 	
