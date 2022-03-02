@@ -79,7 +79,7 @@ public class CategorieTest{
 	/**
 	 * Categorie aanmaken
 	 * Foutieve scenario:
-	 * Categorie aanmaken zonder sdgs
+	 * Categorie aanmaken zonder sdg's
 	 */
 	@Test
 	public void maakCategorie_zonderSdgs_exception()
