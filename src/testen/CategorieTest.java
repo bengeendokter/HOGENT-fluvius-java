@@ -39,7 +39,7 @@ public class CategorieTest{
 	 * En met sdg's
 	 */
 	@Test
-	public void maakCategorie_correcteNaamSdg_aangemaakt()
+	public void maakCategorie_OnbestaandeNaamSdg_aangemaakt()
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAM = "CategorieTest";
@@ -61,7 +61,7 @@ public class CategorieTest{
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = { "        "})
-	public void maakCategorie_foutieveNaamSdg_exception(String naam)
+	public void maakCategorie_LegeNaamSdg_exception(String naam)
 	{
 		   // Alles klaarzetten
 		   final String CATEGORIENAAMNEW = naam;
@@ -74,6 +74,7 @@ public class CategorieTest{
 		   () -> new Categorie(CATEGORIENAAMNEW, sdgs));
 	       
 	}
+	
 	
 	/**
 	 * Categorie aanmaken
