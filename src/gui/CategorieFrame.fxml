@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="703.0" stylesheets="@../../../custom-theme.css" type="Pane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="703.0" type="Pane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Region fx:id="groeneBalk" layoutX="-3.0" layoutY="-5.0" prefHeight="57.0" prefWidth="710.0" style="-fx-background-color: #b2d235;" />
       <ImageView fx:id="logo" fitHeight="42.0" fitWidth="124.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -38,7 +38,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TabPane fx:id="tabPane" layoutY="52.0" prefHeight="453.0" prefWidth="703.0" stylesheets="@../../../custom-theme.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutY="52.0" prefHeight="453.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab id="tabMVO" fx:id="tabMVO" text="MVO doelstelling beheren">
             <content>

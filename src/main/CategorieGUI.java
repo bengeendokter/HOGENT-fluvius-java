@@ -26,6 +26,8 @@ public class CategorieGUI extends Application
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			
+			scene.getStylesheets().add("theme.css");
+			
 			/*Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
 			primaryStage.getIcons().add(icon);*/
 			
