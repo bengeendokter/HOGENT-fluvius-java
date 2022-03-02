@@ -34,7 +34,7 @@ public class Categorie implements Serializable
 
 	private String icon;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany//(cascade = CascadeType.ALL)
 	private List<SdGoal> sdGoals;
 	
 //	@OneToMany

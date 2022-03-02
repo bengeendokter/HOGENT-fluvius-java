@@ -44,6 +44,10 @@ public class SdGoal implements Serializable
 	{
 		return afbeeldingnaam;
 	}
+	
+	public int getAfbeeldingNaamAlsInt() {
+		return Integer.parseInt(afbeeldingnaam);
+	}
 
 	public void setAfbeeldingnaam(String afbeeldingnaam)
 	{
