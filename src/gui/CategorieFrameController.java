@@ -2,7 +2,11 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -591,19 +595,31 @@ public class CategorieFrameController extends Pane {
 		}
 		
 		@FXML
-		public void catVerwijderen(ActionEvent event) {	
-//			//controle dat minstens 1 categorie in de lijst blijft
-//		
-			
-			//vragen of de gebruiker zeker is
-//TODO POPUP
-			
-//TODO probleem oplossen bij deleten
-			//verwijderen
-			
+		public void catVerwijderen(ActionEvent event) {			
 			try {
-				Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
-				dc.verwijderCategorie(c.getNaam());
+				
+				//vragen of de gebruiker zeker is
+				Alert boodschap = new Alert(AlertType.CONFIRMATION);
+	            boodschap.setTitle("Test");
+	            
+	            boodschap.setContentText("Ben je zeker?");
+	            
+	            boodschap.showAndWait().ifPresent(response -> {
+	                if (response != ButtonType.CANCEL) {
+	                	Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
+	    				dc.verwijderCategorie(c.getNaam());
+	    				
+	    				//alles terug goed zetten
+	    				listCategorieen.getSelectionModel().selectFirst();
+	    				Categorie cate = listCategorieen.getSelectionModel().getSelectedItem();
+	    				naamCategorie.setText(cate.getNaam());
+	    				catIcoon.setImage(new Image(cate.getIcon(), 50, 50, true, true));
+	    				listSdGoal.setItems(FXCollections.observableList(cate.getDoelstellingen().stream().collect(Collectors.toList())));
+	                }
+	            });
+	            
+	           
+				
 			} catch(IllegalArgumentException e) {
 				catError.setText(e.getMessage());
 				catError.setVisible(true);
