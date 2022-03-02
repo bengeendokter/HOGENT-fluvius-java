@@ -3,7 +3,6 @@ package testen;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import domein.Categorie;
 import domein.Fluvius;
 import domein.SdGoal;
@@ -32,6 +30,7 @@ public class CategorieTest{
 	
 	@InjectMocks
 	private static Fluvius fluvius;
+	
 	
 	/**
 	 * Categorie aanmaken
@@ -77,6 +76,25 @@ public class CategorieTest{
 	}
 	
 	/**
+	 * Categorie aanmaken
+	 * Foutieve scenario:
+	 * Categorie aanmaken zonder sdgs
+	 */
+	@Test
+	public void maakCategorie_zonderSdgs_exception()
+	{
+		   // Alles klaarzetten
+		   final String CATEGORIENAAM = "CategorieTest";
+	       List<SdGoal> sdgs = new ArrayList<>();
+
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, 
+	    		() -> new Categorie(CATEGORIENAAM, sdgs));
+	}
+	
+	
+	
+	/**
 	 * Categorie wijzigen
 	 * Correcte scenario:
 	 * Categorie wijzigen met een correcte naam die nog niet bestaat in de databank
@@ -111,8 +129,7 @@ public class CategorieTest{
 	/**
 	 * Categorie wijzigen
 	 * Foutieve scenario's:
-	 * Categorie wijzigen met een naam die al bestaat in de databank
-	 * Categorie wijzigen zonder een naam
+	 * Categorie wijzigen zonder een naam 
 	 * Met sdg's
 	 */
 	@ParameterizedTest
@@ -120,7 +137,7 @@ public class CategorieTest{
 	@ValueSource(strings = {"        "})
 	public void wijzigCategorieNaam_foutieveNaamSdg_exception(String naam)
 	{
-		// Alles klaarzetten
+		   // Alles klaarzetten
 		   final String CATEGORIENAAMOLD = "CategorieTest";
 		   final String CATEGORIENAAMNEW = naam;
 	       SdGoal sdg1 = new SdGoal("sdg 1");
@@ -143,11 +160,72 @@ public class CategorieTest{
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
 	}
 	
-	// TODO
+	/**
+	 * Categorie wijzigen
+	 * Foutieve scenario's:
+	 * Categorie wijzigen met een naam die al bestaat in de databank
+	 * Met sdg's
+	 */
+	@ParameterizedTest
 	@ValueSource(strings = {"TestCategorie"})
 	public void wijzigCategorieNaam_reedsBestaandeNaam_exception(String naam)
 	{
+		// Alles klaarzetten
+		   final String CATEGORIENAAMOLD = "CategorieTest";
+		   final String CATEGORIENAAMNEW = naam;
+	       SdGoal sdg1 = new SdGoal("sdg 1");
+	       SdGoal sdg2 = new SdGoal("sdg 2");
+	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
+	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
+	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD, sdgs1);
+	       Categorie tweedeCategorie = new Categorie("TestCategorie", sdgs2);
 
+	       // Het mock object trainen
+	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(eenCategorie);
+	       
+	       // Uitvoeren
+	       Assertions.assertThrows(IllegalArgumentException.class, 
+	    		   () -> fluvius.wijzigCategorieNaam(CATEGORIENAAMOLD, CATEGORIENAAMNEW));
+	       
+	       // Na de test verifiëren
+	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
+	}
+	
+	/**
+	 * Categorie wijzigen
+	 * Foutieve scenario's:
+	 * Categorie wijzigen door een sdg toe te voegen die al gebruikt wordt bij een andere categorie
+	 */
+	@Test
+	public void wijzigCategorie_voegAlGebruikteSdgsToe_exception()
+	{
+		   // Alles klaarzetten
+		   final String CATEGORIENAAM1 = "CategorieTest";
+		   final String CATEGORIENAAM2 = "TestCategorie";
+	       SdGoal sdg1 = new SdGoal("sdg 1");
+	       SdGoal sdg2 = new SdGoal("sdg 2");
+	       SdGoal sdg3 = new SdGoal("sdg 3");
+	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1, sdg3));
+	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
+	       List<SdGoal> sdgs3 = new ArrayList<>(Arrays.asList(sdg3));
+	       Categorie eenCategorie = new Categorie(CATEGORIENAAM1, sdgs1);
+	       Categorie tweedeCategorie = new Categorie(CATEGORIENAAM2, sdgs2);
+
+	       // Het mock object trainen
+	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
+	       // TODO
+	       
+	       // Uitvoeren
+	       Assertions.assertThrows(IllegalArgumentException.class, 
+	    		   () -> fluvius.wijzigCategorieDoelstellingen(tweedeCategorie, sdgs3));
+	       
+	       // Na de test verifiëren
+	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
+	       // TODO
 	}
 	
 	/**
