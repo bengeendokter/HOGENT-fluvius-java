@@ -15,30 +15,30 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="703.0" type="Pane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" type="Pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region fx:id="groeneBalk" layoutX="-3.0" layoutY="-5.0" prefHeight="57.0" prefWidth="710.0" style="-fx-background-color: #b2d235;" />
+      <Region fx:id="groeneBalk" layoutX="-3.0" layoutY="-5.0" prefHeight="57.0" prefWidth="1003.0" style="-fx-background-color: #b2d235;" />
       <ImageView fx:id="logo" fitHeight="42.0" fitWidth="124.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ventje" fitHeight="35.0" fitWidth="34.0" layoutX="661.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ventje" fitHeight="35.0" fitWidth="34.0" layoutX="952.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/ventje.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblNaamIngelogdeGebruiker" alignment="CENTER_RIGHT" layoutX="564.0" layoutY="5.0" prefHeight="26.0" prefWidth="91.0" text="Naam" textAlignment="RIGHT" textFill="#004c69">
+      <Label fx:id="lblNaamIngelogdeGebruiker" alignment="CENTER_RIGHT" layoutX="855.0" layoutY="4.0" prefHeight="26.0" prefWidth="91.0" text="Naam" textAlignment="RIGHT" textFill="#004c69">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="lblFunctieIngelogdeGebruiker" alignment="CENTER_RIGHT" layoutX="521.0" layoutY="27.0" prefHeight="25.0" prefWidth="134.0" text="Functie" textAlignment="RIGHT" textFill="#004c69">
+      <Label fx:id="lblFunctieIngelogdeGebruiker" alignment="CENTER_RIGHT" layoutX="812.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" text="Functie" textAlignment="RIGHT" textFill="#004c69">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TabPane fx:id="tabPane" layoutY="52.0" prefHeight="453.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutY="52.0" prefHeight="549.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab id="tabMVO" fx:id="tabMVO" text="MVO doelstelling beheren">
             <content>
@@ -47,29 +47,32 @@
           </Tab>
           <Tab id="tabCat" text="Categorie beheren">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="704.0" prefWidth="1000.0" style="-fx-background-color: white;">
                      <children>
-                        <Pane fx:id="infoCategorie" layoutX="26.0" layoutY="5.0" prefHeight="298.0" prefWidth="226.0" style="-fx-background-color: white;">
+                        <Pane fx:id="infoCategorie" layoutX="26.0" layoutY="5.0" prefHeight="486.0" prefWidth="226.0" style="-fx-background-color: white;">
                            <children>
-                              <ListView fx:id="listCategorieen" layoutX="17.0" layoutY="29.0" prefHeight="131.0" prefWidth="192.0">
+                              <ListView fx:id="listCategorieen" layoutX="8.0" layoutY="59.0" prefHeight="382.0" prefWidth="210.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
                               </ListView>
-                              <Button fx:id="btnAddCategorie" layoutX="94.0" layoutY="172.0" mnemonicParsing="false" onAction="#addCategorie" style="-fx-background-radius: 50%; -fx-background-color: #b2d235;" text="+" textFill="WHITE" />
-                              <Label layoutX="28.0" layoutY="5.0" text="Overzicht categorieën:" textFill="#004c69" underline="true" />
-                           </children>
-                        </Pane>
-                        <Pane fx:id="overzichCategorieen" layoutX="295.0" layoutY="22.0" prefHeight="336.0" prefWidth="394.0" style="-fx-background-color: white; -fx-border-color: #E0E0E0;">
-                           <children>
-                              <ListView fx:id="listKiesSdGoal" layoutX="211.0" layoutY="189.0" prefHeight="68.0" prefWidth="170.0" />
-                              <Label layoutX="12.0" layoutY="45.0" text="Naam:" />
-                              <Label fx:id="vartextCat" layoutX="12.0" layoutY="3.0" text="Overzicht categorie">
+                              <Label layoutX="14.0" layoutY="26.0" text="Overzicht categorieën:" textFill="#004c69" underline="true">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font></Label>
-                              <TextField fx:id="naamCategorie" layoutX="65.0" layoutY="40.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #E8E8E8; -fx-border-radius: 8px; -fx-border-color: #E0E0E0;" />
-                              <Button id="btnBewerken" fx:id="catBewerken" layoutX="299.0" layoutY="14.0" mnemonicParsing="false" onAction="#catBewerken" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 50%; -fx-background-color: #004c69;" textFill="#004c69">
+                              <Button fx:id="btnAddCategorie" layoutX="100.0" layoutY="460.0" mnemonicParsing="false" onAction="#addCategorie" prefHeight="25.0" prefWidth="26.0" style="-fx-background-radius: 50%; -fx-background-color: #b2d235;" text="+" textFill="WHITE" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="overzichCategorieen" layoutX="303.0" layoutY="33.0" prefHeight="455.0" prefWidth="656.0" style="-fx-background-color: white; -fx-border-color: #E0E0E0;">
+                           <children>
+                              <ListView fx:id="listKiesSdGoal" layoutX="253.0" layoutY="107.0" prefHeight="258.0" prefWidth="182.0" />
+                              <Label layoutX="16.0" layoutY="43.0" text="Naam:" />
+                              <Label fx:id="vartextCat" layoutX="12.0" layoutY="3.0" text="Overzicht categorie" textFill="#004c69">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Label>
+                              <TextField fx:id="naamCategorie" layoutX="65.0" layoutY="40.0" prefHeight="27.0" prefWidth="189.0" style="-fx-background-color: #E8E8E8; -fx-border-radius: 8px; -fx-border-color: #E0E0E0;" />
+                              <Button id="btnBewerken" fx:id="catBewerken" layoutX="523.0" layoutY="14.0" mnemonicParsing="false" onAction="#catBewerken" prefHeight="42.0" prefWidth="46.0" style="-fx-background-radius: 50%; -fx-background-color: #004c69;" textFill="#004c69">
                                  <graphic>
                                     <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -77,7 +80,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button id="btnVerwijderen" fx:id="catVerwijderen" layoutX="348.0" layoutY="14.0" mnemonicParsing="false" onAction="#catVerwijderen" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: orange; -fx-background-radius: 50%;">
+                              <Button id="btnVerwijderen" fx:id="catVerwijderen" layoutX="596.0" layoutY="14.0" mnemonicParsing="false" onAction="#catVerwijderen" prefHeight="42.0" prefWidth="45.0" style="-fx-background-color: orange; -fx-background-radius: 50%;">
                                  <graphic>
                                     <ImageView fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -85,28 +88,34 @@
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button fx:id="catOpslaan" layoutX="227.0" layoutY="303.0" mnemonicParsing="false" onAction="#catOpslaan" style="-fx-background-color: #004C69; -fx-background-radius: 8px;" text="OPSLAAN" textFill="WHITE">
+                              <Button fx:id="catOpslaan" layoutX="443.0" layoutY="403.0" mnemonicParsing="false" onAction="#catOpslaan" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #004C69; -fx-background-radius: 8px;" text="OPSLAAN" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
-                              <Button fx:id="catAnnuleer" layoutX="309.0" layoutY="303.0" mnemonicParsing="false" onAction="#catAnnuleer" style="-fx-background-color: #b2d235; -fx-background-radius: 8px;" text="ANNULEER" textFill="WHITE">
+                              <Button fx:id="catAnnuleer" layoutX="545.0" layoutY="403.0" mnemonicParsing="false" onAction="#catAnnuleer" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #b2d235; -fx-background-radius: 8px;" text="ANNULEER" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
+<<<<<<< Upstream, based on branch 'main' of git@github.com:HoGentProjectenII/2022-java-gr10.git
                               <Label fx:id="catError" layoutX="22.0" layoutY="307.0" prefHeight="17.0" prefWidth="145.0" style="-fx-background-radius: 8px; -fx-border-color: #E0E0E0; -fx-border-radius: 5px;" text="ERROR" textFill="ORANGE" />
                               <ImageView fx:id="catIcoon" fitHeight="50.0" fitWidth="50.0" layoutX="133.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
                               <Label fx:id="labelIcoon" layoutX="16.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="Icoon:" />
                               <ListView fx:id="listIcoon" layoutX="16.0" layoutY="197.0" prefHeight="57.0" prefWidth="134.0" />
+=======
+                              <Label fx:id="catError" layoutX="14.0" layoutY="403.0" prefHeight="32.0" prefWidth="414.0" style="-fx-background-radius: 8px; -fx-border-color: #E0E0E0; -fx-border-radius: 5px;" text="ERROR" textFill="#ffa100" />
+                              <ImageView fx:id="catIcoon" fitHeight="50.0" fitWidth="50.0" layoutX="100.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label fx:id="labelIcoon" layoutX="17.0" layoutY="101.0" prefHeight="17.0" prefWidth="40.0" text="Icoon:" />
+                              <ListView fx:id="listIcoon" layoutX="16.0" layoutY="186.0" prefHeight="161.0" prefWidth="134.0" />
+>>>>>>> 9477325 GUI gewijzigd
                               <Label fx:id="kiesIcoon" layoutX="17.0" layoutY="160.0" prefHeight="17.0" prefWidth="78.0" text="Kies icoon:" />
-                              <Label fx:id="labelSdGoal" layoutX="214.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="SDG's:" />
-                              <ListView fx:id="listSdGoal" layoutX="256.0" layoutY="88.0" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: white; -fx-border-color: lightgrey;" />
-                              <Button fx:id="btnRemoveSdGoal" layoutX="271.0" layoutY="265.0" mnemonicParsing="false" onAction="#removeSdGoal" style="-fx-background-color: red;" text="SDG-" textFill="WHITE">
+                              <Label fx:id="labelSdGoal" layoutX="525.0" layoutY="85.0" prefHeight="17.0" prefWidth="40.0" text="SDG's:" />
+                              <ListView fx:id="listSdGoal" layoutX="440.0" layoutY="107.0" prefHeight="225.0" prefWidth="198.0" style="-fx-background-color: white; -fx-border-color: lightgrey;" />
+                              <Button fx:id="btnRemoveSdGoal" layoutX="439.0" layoutY="335.0" mnemonicParsing="false" onAction="#removeSdGoal" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: red;" text="Reset SDG's" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
-                              <Label fx:id="labelKiesSdGoal" layoutX="215.0" layoutY="160.0" prefHeight="17.0" prefWidth="78.0" text="Kies SDG:" />
-                              <Line fx:id="separator2" endX="-100.0" endY="218.0" layoutX="296.0" layoutY="78.0" startX="-100.0" startY="7.0" />
-                              <Line fx:id="separator1" endX="-100.0" endY="218.0" layoutX="118.0" layoutY="-141.0" startX="64.0" startY="218.0" />
+                              <Label fx:id="labelKiesSdGoal" layoutX="323.0" layoutY="85.0" prefHeight="17.0" prefWidth="78.0" text="Kies SDG:" />
+                              <Line fx:id="separator1" endX="-101.5" endY="218.0" layoutX="118.0" layoutY="-141.0" startX="522.0" startY="218.0" />
                            </children>
                         </Pane>
                      </children>

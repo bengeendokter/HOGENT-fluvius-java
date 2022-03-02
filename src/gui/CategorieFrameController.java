@@ -439,7 +439,7 @@ public class CategorieFrameController extends Pane {
 					listSdGoal.setVisible(true);
 					
 					catError.setVisible(false);
-					catError.setStyle("-fx-text-fill: black");
+					catError.setStyle("-fx-text-fill: orange");
 					
 					//laatste toegevoegde categorie gegevens tonen
 					listCategorieen.getSelectionModel().selectLast();
@@ -491,7 +491,7 @@ public class CategorieFrameController extends Pane {
 					catOpslaan.setVisible(false);
 					
 					catError.setVisible(false);
-					//catError.setStyle("-fx-text-fill: black");
+					//catError.setStyle("-fx-text-fill: ");
 				}
 			} catch(IllegalArgumentException e) {
 				catError.setText(e.getMessage());
@@ -559,7 +559,7 @@ public class CategorieFrameController extends Pane {
 					//listSDG.setVisible(true);
 					
 					catError.setVisible(false);
-					catError.setStyle("-fx-text-fill: black");
+					catError.setStyle("-fx-text-fill: orange");
 					
 					catError.setVisible(false);
 					

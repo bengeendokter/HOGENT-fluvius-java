@@ -120,7 +120,7 @@ public class AanmeldSchermController extends Pane
 			Scene scene = new Scene(vs);
 			scene.getStylesheets().add("theme.css");
 			Stage stage = (Stage) this.getScene().getWindow();
-			stage.setMaximized(true);
+			//stage.setMaximized(true);
 			stage.setScene(scene);
 			stage.show();
 			
