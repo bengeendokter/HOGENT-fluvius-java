@@ -184,7 +184,7 @@ public class CategorieTest{
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
 	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(eenCategorie);
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(tweedeCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
