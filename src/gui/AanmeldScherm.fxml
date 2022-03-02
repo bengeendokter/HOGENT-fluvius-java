@@ -13,7 +13,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="788.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region fx:id="witVlak" layoutX="244.0" layoutY="70.0" prefHeight="426.0" prefWidth="302.0" style="-fx-background-color: white;" />
+      <Region fx:id="witVlak" layoutX="244.0"  layoutY="70.0" prefHeight="426.0" prefWidth="302.0" style="-fx-background-color: white;" />
       <Label fx:id="lblGebruiker" layoutX="46.0" layoutY="245.0">
          <font>
             <Font size="16.0" />
