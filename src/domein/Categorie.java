@@ -100,6 +100,11 @@ public class Categorie implements Serializable
 	
 	public void wijzigDoelstellingen(List<SdGoal> sdGoals)
 	{
+		if(sdGoals.isEmpty() || sdGoals == null)
+		{
+			throw new IllegalArgumentException("Een Categorie moet misntens 1 SdGoal hebben");
+		}
+		
 		this.sdGoals = sdGoals;
 	}
 
