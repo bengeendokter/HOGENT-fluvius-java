@@ -514,6 +514,9 @@ public class CategorieFrameController extends Pane {
 							catVerwijderen.setVisible(true);
 							//listSDG.setVisible(true);
 							
+							catAnnuleer.setVisible(false);
+							catOpslaan.setVisible(false);
+							
 							catError.setVisible(false);
 							catError.setStyle("-fx-text-fill: black");
 						}
@@ -568,6 +571,9 @@ public class CategorieFrameController extends Pane {
 				catBewerken.setVisible(true);
 				catVerwijderen.setDisable(false);
 				catVerwijderen.setVisible(true);
+				
+				catAnnuleer.setVisible(false);
+				catOpslaan.setVisible(false);
 				
 				//listSDG.setVisible(true);
 				
