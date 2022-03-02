@@ -28,7 +28,8 @@ public class Categorie implements Serializable
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categorieID;
-	
+
+
 	@Column(unique=true)
 	private String naam;
 
@@ -39,6 +40,11 @@ public class Categorie implements Serializable
 	
 //	@OneToMany
 //	private List<Rol> rollen;
+
+	protected Categorie()
+	{
+		
+	}
 	
 	public Categorie(String naam, List<SdGoal> sdGoals)
 	{
@@ -57,9 +63,9 @@ public class Categorie implements Serializable
 		this.icon = icon;
 	}
 	
-	protected Categorie()
+	public int getCategorieID()
 	{
-		
+		return categorieID;
 	}
 
 	public final void setNaam(String naam)

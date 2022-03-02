@@ -170,7 +170,8 @@ public class Fluvius
 	
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
-		if(categorieRepo.getByNaam(nieuweNaam) != null)
+		Categorie categorieInRepo = categorieRepo.getByNaam(nieuweNaam);
+		if(categorieInRepo != null && categorieInRepo.getCategorieID() == categorie.getCategorieID())
 		{
 			throw new IllegalArgumentException("Er bestaad al een categorie met deze naam");
 		}
@@ -207,7 +208,7 @@ public class Fluvius
 		{
 			for(Categorie cat : getCategorien())
 			{
-				if(cat.getDoelstellingen().contains(sdg))
+				if(cat.getDoelstellingen().contains(sdg) && !cat.equals(categorie))
 				{
 					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
 				}
