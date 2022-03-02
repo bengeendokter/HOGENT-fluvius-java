@@ -597,7 +597,7 @@ public class CategorieFrameController extends Pane {
 			
 			//vragen of de gebruiker zeker is
 //TODO POPUP
-		//	
+			
 //TODO probleem oplossen bij deleten
 			//verwijderen
 			
