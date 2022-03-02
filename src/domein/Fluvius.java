@@ -210,6 +210,18 @@ public class Fluvius
 	
 	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
 	{
+		
+		for(SdGoal sdg : sdGoals)
+		{
+			for(Categorie cat : getCategorien())
+			{
+				if(cat.getDoelstellingen().contains(sdg))
+				{
+					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
+				}
+			}
+		}
+		
 		categorie.wijzigDoelstellingen(sdGoals);
 		updateCategorie(categorie);
 	}

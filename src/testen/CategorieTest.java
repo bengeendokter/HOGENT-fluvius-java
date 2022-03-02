@@ -224,7 +224,7 @@ public class CategorieTest{
 	    		   () -> fluvius.wijzigCategorieDoelstellingen(tweedeCategorie, sdgs3));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
+	       Mockito.verify(categorieRepo).findAll();
 	       // TODO
 	}
 	
