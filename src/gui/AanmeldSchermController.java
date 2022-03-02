@@ -119,7 +119,7 @@ public class AanmeldSchermController extends Pane
 			CategorieFrameController vs = new CategorieFrameController(domeinController);
 			Scene scene = new Scene(vs);
 			Stage stage = (Stage) this.getScene().getWindow();
-			stage.setResizable(false);
+			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
 			

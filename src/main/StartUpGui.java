@@ -19,7 +19,7 @@ public class StartUpGui extends Application
 			AanmeldController aanmeldController = new AanmeldController(populateTheDB);
 			AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
 			Scene scene = new Scene(root);
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
 			
 			scene.getStylesheets().add("theme.css");
