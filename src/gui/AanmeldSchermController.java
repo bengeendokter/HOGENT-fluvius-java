@@ -70,9 +70,9 @@ public class AanmeldSchermController extends Pane
 			btnMeldAan.setText("Meld aan");
 			
 			// Achtergrond maken
-			for(int r = -20; r < 860; r = r + 100)
+			for(int r = -20; r < 10000; r = r + 100)
 			{
-				for(int i = 0; i < 860; i = i + 80)
+				for(int i = 0; i < 10000; i = i + 80)
 				{
 					Circle circle = new Circle();
 					circle.setCenterX(i);
@@ -118,8 +118,9 @@ public class AanmeldSchermController extends Pane
 			//OverzichtSchermController vs = new OverzichtSchermController(domeinController);
 			CategorieFrameController vs = new CategorieFrameController(domeinController);
 			Scene scene = new Scene(vs);
+			scene.getStylesheets().add("theme.css");
 			Stage stage = (Stage) this.getScene().getWindow();
-			stage.setResizable(true);
+			stage.setMaximized(true);
 			stage.setScene(scene);
 			stage.show();
 			
