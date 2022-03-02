@@ -118,14 +118,6 @@ public class Fluvius
 		voegCategorieToe(categorie);
 	}
 	
-	public void voegCategorieToe(String naam)
-	{
-		System.out.printf("Categorie %s aanmaken in java%n", naam);
-		Categorie categorie = new Categorie(naam);
-		System.out.printf("Categorie %s is aangemaakt in Java%n", categorie.toString());
-		voegCategorieToe(categorie);
-	}
-	
 	public void verwijderCategorie(Categorie categorie)
 	{
 		try

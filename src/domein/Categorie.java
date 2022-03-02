@@ -56,11 +56,6 @@ public class Categorie implements Serializable
 	{
 		this.icon = icon;
 	}
-
-	public Categorie(String naam)
-	{
-		this(naam, new ArrayList<>());
-	}
 	
 	protected Categorie()
 	{

@@ -32,13 +32,6 @@ public class DomeinController
 		fluvius.voegCategorieToe(categorie);
 	}
 	
-	//aangepast
-	public void voegCategorieToe(String naam)
-	{
-		System.out.printf("Voeg categorie %s toe%n", naam);
-		fluvius.voegCategorieToe(naam);
-	}
-	
 	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
 	{
 		System.out.printf("Voeg categorie %s toe%n", naam);
