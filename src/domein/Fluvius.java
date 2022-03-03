@@ -171,7 +171,7 @@ public class Fluvius
 	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
 	{
 		Categorie categorieInRepo = categorieRepo.getByNaam(nieuweNaam);
-		if(categorieInRepo != null && categorieInRepo.getCategorieID() != categorie.getCategorieID())
+		if(categorieInRepo != null /*&& categorieInRepo.getCategorieID() != categorie.getCategorieID()*/)
 		{
 			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
 		}
