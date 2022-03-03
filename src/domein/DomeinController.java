@@ -85,14 +85,14 @@ public class DomeinController
 //		fluvius.wijzigCategorieRollen(categorie, rollen);
 //	}
 
-	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
+	public void wijzigCategorieSdGoals(Categorie categorie, List<SdGoal> sdGoals)
 	{
-		fluvius.wijzigCategorieDoelstellingen(categorie, sdGoals);
+		fluvius.wijzigCategorieSdGoals(categorie, sdGoals);
 	}
 	
-	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoals)
+	public void wijzigCategorieSdGoals(String naam, List<String> sdGoals)
 	{
-		fluvius.wijzigCategorieDoelstellingen(naam, sdGoals);
+		fluvius.wijzigCategorieSdGoals(naam, sdGoals);
 	}
 	
 	

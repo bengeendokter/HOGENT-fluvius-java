@@ -213,7 +213,7 @@ public class CategorieFrameController extends Pane {
 		//overzicht van eerste categorie tonen
 		naamCategorie.setText(dc.getCategorien().stream().findFirst().get().getNaam());
 		
-		listSdGoal.setItems(FXCollections.observableList(dc.getCategorien().stream().findFirst().get().getDoelstellingen().stream().collect(Collectors.toList())));
+		listSdGoal.setItems(FXCollections.observableList(dc.getCategorien().stream().findFirst().get().getSdGoals().stream().collect(Collectors.toList())));
 		
 		//eerste keer overzicht tonen moet ook iconen tonen van SdGoal's van de categorie
 		listSdGoal.setCellFactory(param -> new ListCell<SdGoal>() {
@@ -287,10 +287,10 @@ public class CategorieFrameController extends Pane {
                 catIcoon.setImage(new Image(cat.getIcon(), 50, 50, true, true));
                
                 	//doelstellingen
-                if (!(cat.getDoelstellingen() == null)) {
+                if (!(cat.getSdGoals() == null)) {
                 	//arrayList
                 	//listSdGoal.setItems(FXCollections.observableList(cat.getDoelstellingen().stream().map(d -> d.getNaam()).collect(Collectors.toList())));
-                	listSdGoal.setItems(FXCollections.observableList(cat.getDoelstellingen().stream().collect(Collectors.toList())));
+                	listSdGoal.setItems(FXCollections.observableList(cat.getSdGoals().stream().collect(Collectors.toList())));
                 	
 //moet dit gebruikt worden
                 	listSdGoal.getSelectionModel().selectFirst();
@@ -313,7 +313,7 @@ public class CategorieFrameController extends Pane {
                 	});
                 } else {
                 	//listSdGoal.setItems(FXCollections.observableArrayList(cat.getDoelstellingen()));
-                	System.out.printf("geen doelstellingen voor %s", cat.getNaam());
+                	System.out.printf("geen sdGoals voor %s", cat.getNaam());
                 	//niet zo doen
                 	//listSdGoal.setVisible(false);
                 }   
@@ -446,7 +446,7 @@ public class CategorieFrameController extends Pane {
 					Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
 					naamCategorie.setText(c.getNaam());
 					catIcoon.setImage(new Image(c.getIcon(), 50, 50, true, true));
-					listSdGoal.setItems(FXCollections.observableList(c.getDoelstellingen().stream().collect(Collectors.toList())));
+					listSdGoal.setItems(FXCollections.observableList(c.getSdGoals().stream().collect(Collectors.toList())));
 					
 					kiesIcoon.setVisible(false);
 					labelKiesSdGoal.setVisible(false);
@@ -465,7 +465,7 @@ public class CategorieFrameController extends Pane {
 					Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
 					dc.setCategorieIcon(c.getNaam(), catIcoon.getImage().getUrl());
 					//beter manier?
-					dc.wijzigCategorieDoelstellingen(c.getNaam(), listSdGoal.getItems().stream().collect(Collectors.toList()).stream().map(s -> s.getNaam()).collect(Collectors.toList()));
+					dc.wijzigCategorieSdGoals(c.getNaam(), listSdGoal.getItems().stream().collect(Collectors.toList()).stream().map(s -> s.getNaam()).collect(Collectors.toList()));
 					dc.wijzigCategorieNaam(c.getNaam(), naamCategorie.getText());
 					
 					
@@ -514,7 +514,7 @@ public class CategorieFrameController extends Pane {
 					Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
 					naamCategorie.setText(c.getNaam());
 					catIcoon.setImage(new Image(c.getIcon(), 50, 50, true, true));
-					listSdGoal.setItems(FXCollections.observableList(c.getDoelstellingen().stream().collect(Collectors.toList())));
+					listSdGoal.setItems(FXCollections.observableList(c.getSdGoals().stream().collect(Collectors.toList())));
 					
 					kiesIcoon.setVisible(false);
 					labelKiesSdGoal.setVisible(false);
@@ -614,7 +614,7 @@ public class CategorieFrameController extends Pane {
 	    				Categorie cate = listCategorieen.getSelectionModel().getSelectedItem();
 	    				naamCategorie.setText(cate.getNaam());
 	    				catIcoon.setImage(new Image(cate.getIcon(), 50, 50, true, true));
-	    				listSdGoal.setItems(FXCollections.observableList(cate.getDoelstellingen().stream().collect(Collectors.toList())));
+	    				listSdGoal.setItems(FXCollections.observableList(cate.getSdGoals().stream().collect(Collectors.toList())));
 	                }
 	            });
 	            

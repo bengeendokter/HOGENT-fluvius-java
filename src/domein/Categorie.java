@@ -54,7 +54,7 @@ public class Categorie implements Serializable
 	public Categorie(String naam, List<SdGoal> sdGoals, String icon)
 	{
 		setNaam(naam);
-		wijzigDoelstellingen(sdGoals);
+		wijzigSdGoals(sdGoals);
 		setIcon(icon);
 	}
 	
@@ -94,7 +94,7 @@ public class Categorie implements Serializable
 		return icon;
 	}
 	
-	public List<SdGoal> getDoelstellingen()
+	public List<SdGoal> getSdGoals()
 	{
 		return Collections.unmodifiableList(sdGoals);
 	}
@@ -104,7 +104,7 @@ public class Categorie implements Serializable
 //		return Collections.unmodifiableList(rollen);
 //	}
 	
-	public void wijzigDoelstellingen(List<SdGoal> sdGoals)
+	public void wijzigSdGoals(List<SdGoal> sdGoals)
 	{
 		if(sdGoals.isEmpty() || sdGoals == null)
 		{

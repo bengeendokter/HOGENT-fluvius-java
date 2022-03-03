@@ -25,7 +25,7 @@ public class Fluvius
 	public Fluvius()
 	{
 		setCategorieRepo(new CategorieDaoJpa());
-		setMvoDoelstellingRepo(new SdGoalDaoJpa());
+		setSdGoalRepo(new SdGoalDaoJpa());
 		
 		setCategorien();
 		setSdGoals();
@@ -36,7 +36,7 @@ public class Fluvius
 		categorieRepo = mock;
 	}
 	
-	public void setMvoDoelstellingRepo(SdGoalDao mock)
+	public void setSdGoalRepo(SdGoalDao mock)
 	{
 		sdGoalsRepo = mock;
 	}
@@ -82,7 +82,7 @@ public class Fluvius
 		categorien.addListener(listener);
 	}
 	
-	public void voegDoelstellingObserverToe(ListChangeListener<SdGoal> listener)
+	public void voegSdGoalObserverToe(ListChangeListener<SdGoal> listener)
 	{
 		sdGoals.addListener(listener);
 	}
@@ -192,30 +192,30 @@ public class Fluvius
 //		getCategorien();
 //	}
 	
-	public void wijzigCategorieDoelstellingen(String naam, List<String> sdGoalsNamen)
+	public void wijzigCategorieSdGoals(String naam, List<String> sdGoalsNamen)
 	{
 		Categorie categorie = categorieRepo.getByNaam(naam);
 		List<SdGoal> sdGoals = sdGoalsNamen.stream().map(sdgNaam -> sdGoalsRepo.getByNaam(sdgNaam))
 				.collect(Collectors.toList());
 		
-		wijzigCategorieDoelstellingen(categorie, sdGoals);
+		wijzigCategorieSdGoals(categorie, sdGoals);
 	}
 	
-	public void wijzigCategorieDoelstellingen(Categorie categorie, List<SdGoal> sdGoals)
+	public void wijzigCategorieSdGoals(Categorie categorie, List<SdGoal> sdGoals)
 	{
 		
 		for(SdGoal sdg : sdGoals)
 		{
 			for(Categorie cat : getCategorien())
 			{
-				if(cat.getDoelstellingen().contains(sdg) && !cat.equals(categorie))
+				if(cat.getSdGoals().contains(sdg) && !cat.equals(categorie))
 				{
 					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
 				}
 			}
 		}
 		
-		categorie.wijzigDoelstellingen(sdGoals);
+		categorie.wijzigSdGoals(sdGoals);
 		updateCategorie(categorie);
 	}
 	

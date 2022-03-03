@@ -224,7 +224,7 @@ public class CategorieTest{
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
-	    		   () -> fluvius.wijzigCategorieDoelstellingen(tweedeCategorie, sdgs3));
+	    		   () -> fluvius.wijzigCategorieSdGoals(tweedeCategorie, sdgs3));
 	       
 	       // Na de test verifiëren
 	       Mockito.verify(categorieRepo).findAll();
