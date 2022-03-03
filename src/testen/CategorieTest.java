@@ -179,7 +179,9 @@ public class CategorieTest{
 	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
 	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
 	       Categorie eenCategorie = new Categorie(CATEGORIENAAMOLD, sdgs1);
+	       eenCategorie.setCategorieID(1);
 	       Categorie tweedeCategorie = new Categorie("TestCategorie", sdgs2);
+	       tweedeCategorie.setCategorieID(2);
 
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));

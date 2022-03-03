@@ -58,6 +58,11 @@ public class Categorie implements Serializable
 		setIcon(icon);
 	}
 	
+	public void setCategorieID(int mock)
+	{
+		this.categorieID = mock;
+	}
+	
 	public void setIcon(String icon)
 	{
 		this.icon = icon;
