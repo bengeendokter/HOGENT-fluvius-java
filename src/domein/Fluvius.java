@@ -173,7 +173,7 @@ public class Fluvius
 		Categorie categorieInRepo = categorieRepo.getByNaam(nieuweNaam);
 		if(categorieInRepo != null && categorieInRepo.getCategorieID() != categorie.getCategorieID())
 		{
-			throw new IllegalArgumentException("Er bestaad al een categorie met deze naam");
+			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
 		}
 		
 		categorie.setNaam(nieuweNaam);
