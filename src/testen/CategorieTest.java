@@ -3,6 +3,7 @@ package testen;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import domein.Categorie;
 import domein.Fluvius;
 import domein.SdGoal;
@@ -26,7 +28,7 @@ import repository.CategorieDao;
 public class CategorieTest{
 
 	@Mock
-    private CategorieDao  categorieRepo;
+    private CategorieDao categorieRepo;
 	
 	@InjectMocks
 	private static Fluvius fluvius;
