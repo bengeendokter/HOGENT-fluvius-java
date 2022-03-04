@@ -35,6 +35,13 @@ public class SdGoal implements Serializable
 		this.naam = naam;
 	}
 	
+	public SdGoal(String afbeeldingnaam, String naam)
+	{
+		this.afbeeldingnaam = afbeeldingnaam;
+		this.naam = naam;
+		this.icon = String.format("file:src/images/%s.jpg", afbeeldingnaam);
+	}
+
 	protected SdGoal()
 	{
 

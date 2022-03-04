@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import repository.DatabaseSelector;
 
 public class StartUpGui extends Application
 {
@@ -14,9 +15,8 @@ public class StartUpGui extends Application
 	{
 		try
 		{
-//			boolean populateTheDB = true;
-			boolean populateTheDB = false;
-			AanmeldController aanmeldController = new AanmeldController(populateTheDB);
+			// ga naar de repository.DatabaseSelector Class om een lokale databank te gebruiken
+			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST);
 			AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(false);

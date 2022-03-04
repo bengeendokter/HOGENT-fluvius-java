@@ -22,7 +22,7 @@ public class AanmeldController
 	{
 		if(withInit)
 		{
-			new PopulateDB().run();
+			PopulateDB.run();
 		}
 	}
 	
