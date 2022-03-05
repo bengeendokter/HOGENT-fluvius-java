@@ -32,9 +32,9 @@ public class DomeinController
 		fluvius.voegCategorieToe(categorie);
 	}
 
-	public void verwijderCategorie(DTOCategorie categorie)
+	public void verwijderCategorie()
 	{
-		fluvius.verwijderCategorie(categorie);
+		fluvius.verwijderCategorie();
 	}
 
 	public ObservableList<Categorie> getCategorien()
@@ -42,7 +42,7 @@ public class DomeinController
 		return fluvius.getCategorien();
 	}
 
-	public void voegCategorieObserverToe(ListChangeListener<SDGCategorie> listener)
+	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		fluvius.voegCategorieObserverToe(listener);
 	}
@@ -57,7 +57,7 @@ public class DomeinController
 		fluvius.wijzigCategorie(categorie);
 	}
 
-	public void setCurrentCategorie(DTOCategorie categorie)
+	public void setCurrentCategorie(Categorie categorie)
 	{
 		fluvius.setCurrentCategorie(categorie);
 	}
