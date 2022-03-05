@@ -133,6 +133,7 @@ public class CategorieFrameController extends Pane
 			lblNaamIngelogdeGebruiker.setText(dc.getAangemeldeGebruiker().getGebruikersnaam());
 			lblFunctieIngelogdeGebruiker.toFront();
 			lblFunctieIngelogdeGebruiker.setText(dc.getAangemeldeGebruiker().getRol());
+			
 			// Dit wil nog niet
 			ventje.toFront();
 			logo.toFront();
@@ -162,7 +163,17 @@ public class CategorieFrameController extends Pane
 			throw new RuntimeException(e);
 		}
 		
+		
+		// TODO
+		dc.voegCategorieObserverToe(e -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
+		Categorie cat = listCategorieen.getSelectionModel().getSelectedItem();
+		
+		listCategorieen.getSelectionModel().selectedItemProperty()
+		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(observableValue));
+		
 		listCategorieen.setItems(dc.getCategorien());
+		// TODO end
+		
 		
 		listCategorieen.setCellFactory(param -> new ListCell<Categorie>()
 		{
