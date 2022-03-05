@@ -116,10 +116,11 @@ public class AanmeldSchermController extends Pane
 					pssWachtwoord.getText());
 			
 			//OverzichtSchermController vs = new OverzichtSchermController(domeinController);
-			CategorieFrameController vs = new CategorieFrameController(domeinController);
+			CategorieResponsiveController vs = new CategorieResponsiveController(domeinController);
 			Scene scene = new Scene(vs);
 			scene.getStylesheets().add("theme.css");
 			Stage stage = (Stage) this.getScene().getWindow();
+			stage.setResizable(true);
 			stage.setMaximized(true);
 			stage.setScene(scene);
 			stage.show();
