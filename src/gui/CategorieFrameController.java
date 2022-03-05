@@ -25,17 +25,17 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 
-public class CategorieFrameController extends Pane {
+public class CategorieFrameController extends BorderPane {
 	@FXML
 	private Label catError;
 	
 	@FXML
 	private Label vartextCat;
-	
 	
 	@FXML
 	private Button catBewerken;
