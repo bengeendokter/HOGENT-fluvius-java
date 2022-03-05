@@ -46,7 +46,6 @@ public class SDGCategorie implements Serializable, Categorie
 	
 	public SDGCategorie(DTOCategorie dca)
 	{
-		setCategorieID(dca.categorieID);
 		setNaam(dca.naam);
 		setIcon(dca.icon);
 		wijzigSdGoals(dca.sdgoals);
