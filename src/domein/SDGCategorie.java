@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "Categorie")
 @NamedQueries({
 	@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.Categorie c where c.naam = :naam")})
-public class SDGCategorie implements Serializable
+public class SDGCategorie implements Serializable, Categorie
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,22 +39,19 @@ public class SDGCategorie implements Serializable
 //	@OneToMany
 //	private List<Rol> rollen;
 
-	protected Categorie()
+	protected SDGCategorie()
 	{
 		
 	}
 	
-	public Categorie(String naam, List<SdGoal> sdGoals)
+	public SDGCategorie(DTOCategorie dca)
 	{
-		this(naam, sdGoals, null);
+		setCategorieID(dca.categorieID);
+		setNaam(dca.naam);
+		setIcon(dca.icon);
+		wijzigSdGoals(dca.sdgoals);
 	}
 	
-	public Categorie(String naam, List<SdGoal> sdGoals, String icon)
-	{
-		setNaam(naam);
-		wijzigSdGoals(sdGoals);
-		setIcon(icon);
-	}
 	
 	public void setCategorieID(int mock)
 	{
@@ -97,11 +94,7 @@ public class SDGCategorie implements Serializable
 		return Collections.unmodifiableList(sdGoals);
 	}
 	
-//	public List<Rol> getRollen()
-//	{
-//		return Collections.unmodifiableList(rollen);
-//	}
-	
+
 	public void wijzigSdGoals(List<SdGoal> sdGoals)
 	{
 		if(sdGoals.isEmpty() || sdGoals == null)
@@ -112,10 +105,6 @@ public class SDGCategorie implements Serializable
 		this.sdGoals = sdGoals;
 	}
 
-//	public void wijzigRollen(List<Rol> rollen)
-//	{
-//		this.rollen = rollen;
-//	}
 
 	@Override
 	public int hashCode()
@@ -130,11 +119,11 @@ public class SDGCategorie implements Serializable
 		{
 			return true;
 		}
-		if(!(obj instanceof Categorie))
+		if(!(obj instanceof SDGCategorie))
 		{
 			return false;
 		}
-		Categorie other = (Categorie) obj;
+		SDGCategorie other = (SDGCategorie) obj;
 		return Objects.equals(naam, other.naam);
 	}
 
