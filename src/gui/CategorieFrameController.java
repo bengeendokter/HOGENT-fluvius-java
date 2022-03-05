@@ -166,10 +166,9 @@ public class CategorieFrameController extends Pane
 		
 		// TODO
 		dc.voegCategorieObserverToe(e -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
-		Categorie cat = listCategorieen.getSelectionModel().getSelectedItem();
 		
 		listCategorieen.getSelectionModel().selectedItemProperty()
-		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(observableValue));
+		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
 		
 		listCategorieen.setItems(dc.getCategorien());
 		// TODO end

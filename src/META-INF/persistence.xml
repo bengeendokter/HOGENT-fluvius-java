@@ -4,7 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>domein.Gebruiker</class>
     <class>domein.AanmeldPoging</class>
-	<class>domein.Categorie</class>
+	<class>domein.SDGCategorie</class>
 	<class>domein.Rol</class>
 	<class>domein.MvoDoelstelling</class>
 	<class>domein.SdGoal</class>

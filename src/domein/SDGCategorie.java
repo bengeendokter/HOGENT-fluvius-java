@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Categorie")
 @NamedQueries({
-	@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.Categorie c where c.naam = :naam")})
+	@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.SDGCategorie c where c.naam = :naam")})
 public class SDGCategorie implements Serializable, Categorie
 {
 	private static final long serialVersionUID = 1L;
