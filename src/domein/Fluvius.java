@@ -16,11 +16,13 @@ import repository.SdGoalDaoJpa;
 
 public class Fluvius
 {
-	private ObservableList<Categorie> categorien = FXCollections.observableArrayList();
+	private ObservableList<SDGCategorie> categorien = FXCollections.observableArrayList();
 	private ObservableList<SdGoal> sdGoals = FXCollections.observableArrayList();
 	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
+	
+	private Categorie currentCategorie;
 	
 	public Fluvius()
 	{
@@ -47,16 +49,12 @@ public class Fluvius
 		categorien.addAll(categorieRepo.findAll());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ObservableList<Categorie> getCategorien()
 	{
 		setCategorien();
 		System.out.println("Alle Categoriën ophalen");
-		return FXCollections.unmodifiableObservableList(categorien);
-	}
-	
-	public List<String> geefCategorien()
-	{
-		return getCategorien().stream().map(Categorie::toString).collect(Collectors.toList());
+		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>)(Object)categorien);
 	}
 	
 	public void setSdGoals()
@@ -72,11 +70,6 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
 	
-	public List<String> geefSdGoals()
-	{
-		return getSdGoals().stream().map(SdGoal::toString).collect(Collectors.toList());
-	}
-	
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		categorien.addListener(listener);
@@ -87,14 +80,13 @@ public class Fluvius
 		sdGoals.addListener(listener);
 	}
 	
-	//aangepast
-	public void voegCategorieToe(Categorie categorie)
+	public void voegCategorieToe(DTOCategorie categorie)
 	{
 		try
 		{
 			System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
 			GenericDaoJpa.startTransaction();
-			categorieRepo.insert(categorie);
+			categorieRepo.insert(new SDGCategorie(categorie));
 			GenericDaoJpa.commitTransaction();
 		}
 		catch(DatabaseException e)
@@ -109,28 +101,21 @@ public class Fluvius
 		setCategorien();
 	}
 	
-	//aangepast
-	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
+	public void verwijderCategorie()
 	{
-		System.out.printf("Categorie %s aanmaken in java%n", naam);
-		Categorie categorie = new Categorie(naam, sdGoals, icon);
-		System.out.printf("Categorie %s is aangemaakt in Java%n", categorie.toString());
-		voegCategorieToe(categorie);
-	}
-	
-	public void verwijderCategorie(Categorie categorie)
-	{
+		if(currentCategorie == null) throw new IllegalArgumentException("Er is geen categorie geselecteerd");
+		
 		try
 		{	
-			List<Categorie> categorien = categorieRepo.findAll();
-			if( categorien.size() == 1 && categorien.get(0).equals(categorie))
+			List<SDGCategorie> categorien = categorieRepo.findAll();
+			if( categorien.size() == 1)
 			{
 				throw new IllegalArgumentException("Kan enigste categorie niet verwijderen");
 			}
 			
-			System.out.printf("Categorie %s verwijderen uit databank%n", categorie.toString());
+			System.out.printf("Categorie %s verwijderen uit databank%n", currentCategorie.toString());
 			GenericDaoJpa.startTransaction();
-			categorieRepo.delete(categorie);
+			categorieRepo.delete( (SDGCategorie)currentCategorie);
 			GenericDaoJpa.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)
@@ -143,21 +128,38 @@ public class Fluvius
 		}
 		
 		setCategorien();
+		
 	}
 	
-	public void verwijderCategorie(String naam)
+	public void wijzigCategorie(DTOCategorie categorie)
 	{
-		System.out.printf("Categorie %s zoeken in databank%n", naam);
-		Categorie categorie = categorieRepo.getByNaam(naam);
-		verwijderCategorie(categorie);
+		SDGCategorie categorieInRepo = categorieRepo.getByNaam(categorie.naam);
+		if(categorieInRepo != null && categorieInRepo.getCategorieID() != currentCategorie.getCategorieID())
+		{
+			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
+		}
+		
+		updateCategorie(categorie);
+	}
+
+	public void setCurrentCategorie(Categorie categorie)
+	{
+		currentCategorie = categorie;
+	}
+
+	public Categorie getCurrentCategorie()
+	{
+		return currentCategorie;
 	}
 	
-	public void updateCategorie(Categorie categorie)
+	private void updateCategorie(DTOCategorie categorie)
 	{
 		try
 		{
 			GenericDaoJpa.startTransaction();
-			categorieRepo.update(categorie);
+			SDGCategorie cat = new SDGCategorie(categorie);
+			cat.setCategorieID(currentCategorie.getCategorieID());
+			categorieRepo.update(cat);
 			GenericDaoJpa.commitTransaction();
 		}
 		catch(Exception e)
@@ -166,69 +168,5 @@ public class Fluvius
 		}
 		
 		setCategorien();
-	}
-	
-	public void wijzigCategorieNaam(Categorie categorie, String nieuweNaam)
-	{
-		Categorie categorieInRepo = categorieRepo.getByNaam(nieuweNaam);
-		if(categorieInRepo != null && categorieInRepo.getCategorieID() != categorie.getCategorieID())
-		{
-			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
-		}
-		
-		categorie.setNaam(nieuweNaam);
-		updateCategorie(categorie);
-	}
-	
-	public void wijzigCategorieNaam(String oldName, String newName)
-	{
-		Categorie categorie = categorieRepo.getByNaam(oldName);
-		wijzigCategorieNaam(categorie, newName);
-	}
-	
-//	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
-//	{
-//		categorie.wijzigRollen(rollen);
-//		getCategorien();
-//	}
-	
-	public void wijzigCategorieSdGoals(String naam, List<String> sdGoalsNamen)
-	{
-		Categorie categorie = categorieRepo.getByNaam(naam);
-		List<SdGoal> sdGoals = sdGoalsNamen.stream().map(sdgNaam -> sdGoalsRepo.getByNaam(sdgNaam))
-				.collect(Collectors.toList());
-		
-		wijzigCategorieSdGoals(categorie, sdGoals);
-	}
-	
-	public void wijzigCategorieSdGoals(Categorie categorie, List<SdGoal> sdGoals)
-	{
-		
-		for(SdGoal sdg : sdGoals)
-		{
-			for(Categorie cat : getCategorien())
-			{
-				if(cat.getSdGoals().contains(sdg) && !cat.equals(categorie))
-				{
-					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
-				}
-			}
-		}
-		
-		categorie.wijzigSdGoals(sdGoals);
-		updateCategorie(categorie);
-	}
-	
-	public void setCategorieIcon(String categorieNaam, String icon)
-	{
-		Categorie categorie = categorieRepo.getByNaam(categorieNaam);
-		categorie.setIcon(icon);
-		updateCategorie(categorie);
-	}
-	
-	public String getCategorieIcon(String categorieNaam)
-	{
-		Categorie categorie = categorieRepo.getByNaam(categorieNaam);
-		return categorie.getIcon();
 	}
 }
