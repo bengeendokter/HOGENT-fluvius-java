@@ -155,6 +155,7 @@ public class Fluvius
 	
 	private void updateCategorie(DTOCategorie categorie)
 	{
+		if(currentCategorie == null) throw new IllegalArgumentException("Er is geen categorie geselecteerd");
 		try
 		{
 			GenericDaoJpa.startTransaction();
