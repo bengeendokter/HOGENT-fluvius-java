@@ -2,6 +2,7 @@ package main;
 
 import domein.AanmeldController;
 import gui.AanmeldSchermController;
+import gui.AanmeldenResponsiveController;
 import gui.TestFrameController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,7 +16,9 @@ public class TestGUI extends  Application {
 		try
 		{
 
-			TestFrameController root = new TestFrameController();
+			//TestFrameController root = new TestFrameController();
+			
+			AanmeldenResponsiveController root  = new AanmeldenResponsiveController();
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(true);
 			primaryStage.setMaximized(true);
