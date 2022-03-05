@@ -116,13 +116,15 @@ public class CategorieResponsiveController extends BorderPane {
 			catOpslaan.setVisible(false);
 			catAnnuleer.setVisible(false);
 			
+			
+			//iconen passen bij scherm van beheren
 			tabPane.getTabs().forEach(e -> {
-	            if (e.getText().equals("MVO doelstelling beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/people.png", 25, 25, true, true)));
+	            if (e.getText().equals("MVO Doelstelling beheren"))
+	                e.setGraphic(new ImageView(new Image("file:src/images/doelstelling.png", 25, 25, true, true)));
 	            else if (e.getText().equals("Categorie beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/partnership.png", 25, 25, true, true)));
+	                e.setGraphic(new ImageView(new Image("file:src/images/category.png", 25, 25, true, true)));
 	            else if (e.getText().equals("Datasource beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/prosperity.jpg", 25, 25, true, true)));
+	                e.setGraphic(new ImageView(new Image("file:src/images/data.png", 25, 25, true, true)));
 	            });
 			
 			tabPane.widthProperty().addListener((observable, oldValue, newValue) ->
