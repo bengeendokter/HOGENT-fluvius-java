@@ -2,6 +2,7 @@ package main;
 
 import domein.AanmeldController;
 import gui.AanmeldSchermController;
+import gui.AanmeldenResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,9 +18,15 @@ public class StartUpGui extends Application
 		{
 			// ga naar de repository.DatabaseSelector Class om een lokale databank te gebruiken
 			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST);
-			AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
+			
+			//AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
+			AanmeldenResponsiveController root = new AanmeldenResponsiveController(aanmeldController);
 			Scene scene = new Scene(root);
-			primaryStage.setResizable(false);
+			
+			//primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
+			primaryStage.setMaximized(true);
+			
 			primaryStage.setScene(scene);
 			
 			scene.getStylesheets().add("theme.css");

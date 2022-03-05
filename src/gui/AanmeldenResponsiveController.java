@@ -14,12 +14,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 
 public class AanmeldenResponsiveController extends BorderPane
@@ -30,9 +36,31 @@ public class AanmeldenResponsiveController extends BorderPane
 	@FXML
 	private Pane paneEen;
 	
-	//private AanmeldController aanmeldController;
+	@FXML
+	private Label lblMeldAan;
+	@FXML
+	private ImageView logo;
 	
-	public AanmeldenResponsiveController()
+	@FXML
+	private Button btnMeldAan;
+	
+	@FXML
+	private TextField txtGebruikersnaam;
+	
+	@FXML
+	private PasswordField pssWachtwoord;
+	
+	@FXML
+	private Label foutmelding;
+	
+	@FXML
+	private Circle circle;
+	@FXML
+	private Label uitroepteken;
+	
+	private AanmeldController aanmeldController;
+	
+	public AanmeldenResponsiveController(AanmeldController aanmeldController)
 	{
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AanmeldenResponsive.fxml"));
@@ -42,38 +70,25 @@ public class AanmeldenResponsiveController extends BorderPane
 		{
 			loader.load();
 			
+			Image image = new Image("file:src/images/groen.PNG");
+
+		    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+
+		    borderPaneEen.setBackground(new Background(new BackgroundImage(image,
+		            BackgroundRepeat.REPEAT,
+		            BackgroundRepeat.REPEAT,
+		            BackgroundPosition.CENTER,
+		            bSize)));
+		    
+		    logo.setImage(new Image("file:src/images/logo.PNG"));
+			
+
 			
 			
-			/*this.aanmeldController = aanmeldController;
 			
-			// Veldjes invullen
-			txtGebruikersnaam.setPromptText("Gebruikersnaam");
-			pssWachtwoord.setPromptText("Wachtwoord");
-			btnMeldAan.setText("Meld aan");*/
-			
-			// Achtergrond maken
-			for(int r = -20; r < 10000; r = r + 100)
-			{
-				for(int i = 0; i < 10000; i = i + 80)
-				{
-					Circle circle = new Circle();
-					circle.setCenterX(i);
-					circle.setCenterY(r);
-					circle.setRadius(100);
-					circle.setStroke(Color.web("0xB2D235"));
-					circle.setFill(Color.WHITE);
-					this.getChildren().add(circle);
-					circle.setTranslateZ(1);
-				}
-			}
-			
+			this.aanmeldController = aanmeldController;
+				
 			paneEen.toFront();
-			borderPaneEen.toBack();
-			paneEen.setTranslateZ(Integer.MAX_VALUE);
-			
-			/*witVlak.setEffect(new DropShadow(10, Color.LIGHTGRAY));
-			witVlak.toFront();
-			lblGebruiker.toFront();
 			lblMeldAan.toFront();
 			logo.toFront();
 			btnMeldAan.toFront();
@@ -81,7 +96,7 @@ public class AanmeldenResponsiveController extends BorderPane
 			pssWachtwoord.toFront();
 			foutmelding.setVisible(false);
 			circle.setVisible(false);
-			uitroepteken.setVisible(false);*/
+			uitroepteken.setVisible(false);
 			
 		}
 		catch(IOException e)
@@ -91,7 +106,7 @@ public class AanmeldenResponsiveController extends BorderPane
 		
 	}
 	
-	/*@FXML
+	@FXML
 	public void meldAan(ActionEvent event)
 	{
 		
@@ -138,7 +153,7 @@ public class AanmeldenResponsiveController extends BorderPane
 			}
 			
 		}
-	}*/
+	}
 	
 }
 

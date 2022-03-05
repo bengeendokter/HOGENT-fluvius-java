@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-
-<fx:root fx:id="borderPaneEen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" type="BorderPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="borderPaneEen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1057.0" type="BorderPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane fx:id="paneEen" maxHeight="400.0" maxWidth="300.0" prefHeight="461.0" prefWidth="962.0" style="-fx-background-color: yellow;" translateZ="1.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="paneEen" maxHeight="500.0" maxWidth="350.0" prefHeight="481.0" prefWidth="446.0" style="-fx-border-color: lightgray; -fx-background-color: white; -fx-border-radius: 10px;" translateZ="1.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnMeldAan" layoutX="48.0" layoutY="337.0" mnemonicParsing="false" onAction="#meldAan" prefHeight="25.0" prefWidth="255.0" style="-fx-background-color: #004C69;" text="Meld aan" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="foutmelding" layoutX="64.0" layoutY="313.0" prefHeight="17.0" prefWidth="239.0" text="Label" textFill="#f7ab13">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="98.0" fitWidth="200.0" layoutX="76.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lblMeldAan" layoutX="113.0" layoutY="147.0" text="Meld aan" textFill="#b2d235">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtGebruikersnaam" layoutX="48.0" layoutY="225.0" prefHeight="25.0" prefWidth="255.0" promptText="Gebruikersnaam" style="-fx-background-color: #F2F4F8;" />
+            <PasswordField fx:id="pssWachtwoord" layoutX="48.0" layoutY="276.0" prefHeight="25.0" prefWidth="255.0" promptText="Wachtwoord" style="-fx-background-color: #F2F4F8;" />
+            <Circle fx:id="circle" fill="#f7ab13" layoutX="52.0" layoutY="322.0" radius="5.0" stroke="#f7ab13" strokeType="INSIDE" />
+            <Label fx:id="uitroepteken" layoutX="51.0" layoutY="316.0" text="!" textFill="WHITE">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+         </children></Pane>
    </center>
 </fx:root>
