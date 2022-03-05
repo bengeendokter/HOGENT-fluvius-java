@@ -2,22 +2,22 @@ package repository;
 
 import javax.persistence.NoResultException;
 
-import domein.Categorie;
+import domein.SDGCategorie;
 
-public class CategorieDaoJpa extends GenericDaoJpa<Categorie> implements CategorieDao
+public class CategorieDaoJpa extends GenericDaoJpa<SDGCategorie> implements CategorieDao
 {
 	
 	public CategorieDaoJpa()
 	{
-		super(Categorie.class);
+		super(SDGCategorie.class);
 	}
 	
 	@Override
-	public Categorie getByNaam(String naam)
+	public SDGCategorie getByNaam(String naam)
 	{
 		try
 		{
-			Categorie c = em.createNamedQuery("categorie.findByNaam", Categorie.class).setParameter("naam", naam)
+			SDGCategorie c = em.createNamedQuery("categorie.findByNaam", SDGCategorie.class).setParameter("naam", naam)
 					.getSingleResult();
 			return c;
 		}

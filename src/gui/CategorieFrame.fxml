@@ -67,7 +67,7 @@
                            <children>
                               <ListView fx:id="listKiesSdGoal" layoutX="253.0" layoutY="107.0" prefHeight="258.0" prefWidth="182.0" />
                               <Label layoutX="16.0" layoutY="43.0" text="Naam:" />
-                              <Label fx:id="vartextCat" layoutX="12.0" layoutY="3.0" text="Overzicht categorie" textFill="#004c69">
+                              <Label fx:id="vartextCat" layoutX="12.0" layoutY="3.0" text="Details categorie" textFill="#004c69">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font></Label>

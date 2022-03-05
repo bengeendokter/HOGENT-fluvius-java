@@ -27,82 +27,44 @@ public class DomeinController
 		return aangemeldeGebruiker;
 	}
 
-	public void voegCategorieToe(Categorie categorie)
+	public void voegCategorieToe(DTOCategorie categorie)
 	{
 		fluvius.voegCategorieToe(categorie);
 	}
-	
-	public void voegCategorieToe(String naam, List<SdGoal> sdGoals, String icon)
-	{
-		System.out.printf("Voeg categorie %s toe%n", naam);
-		fluvius.voegCategorieToe(naam, sdGoals, icon);
-	}
 
-	public void verwijderCategorie(Categorie categorie)
+	public void verwijderCategorie()
 	{
-		fluvius.verwijderCategorie(categorie);
-	}
-	
-	public void verwijderCategorie(String categorie)
-	{
-		System.out.printf("Verwijder categorie %s%n", categorie);
-		fluvius.verwijderCategorie(categorie);
+		fluvius.verwijderCategorie();
 	}
 
 	public ObservableList<Categorie> getCategorien()
 	{
 		return fluvius.getCategorien();
 	}
-	
-	public List<String> geefCategorien()
-	{
-		return fluvius.geefCategorien();
-	}
 
 	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
 	{
 		fluvius.voegCategorieObserverToe(listener);
 	}
-	
-	//stond in commentaar
-	public ObservableList<SdGoal> getSdGoals()
+
+	public ObservableList<SdGoal> getBeschikbareSdgs()
 	{
-		return fluvius.getSdGoals();
-	}
-	
-	public List<String> geefSdGoals()
-	{
-		return fluvius.geefSdGoals();
+		return fluvius.getBeschikbareSdgs();
 	}
 
-	public void wijzigCategorieNaam(String oldName, String newName)
+	public void wijzigCategorie(DTOCategorie categorie)
 	{
-		fluvius.wijzigCategorieNaam(oldName, newName);
+		fluvius.wijzigCategorie(categorie);
 	}
 
-//	public void wijzigCategorieRollen(Categorie categorie, List<Rol> rollen)
-//	{
-//		fluvius.wijzigCategorieRollen(categorie, rollen);
-//	}
+	public void setCurrentCategorie(Categorie categorie)
+	{
+		fluvius.setCurrentCategorie(categorie);
+	}
 
-	public void wijzigCategorieSdGoals(Categorie categorie, List<SdGoal> sdGoals)
+	public Categorie getCurrentCategorie()
 	{
-		fluvius.wijzigCategorieSdGoals(categorie, sdGoals);
+		return fluvius.getCurrentCategorie();
 	}
-	
-	public void wijzigCategorieSdGoals(String naam, List<String> sdGoals)
-	{
-		fluvius.wijzigCategorieSdGoals(naam, sdGoals);
-	}
-	
-	
-	public void setCategorieIcon(String categorieNaam, String icon)
-	{
-		fluvius.setCategorieIcon(categorieNaam, icon);
-	}
-	
-	public String getCategorieIcon(String categorieNaam)
-	{
-		return fluvius.getCategorieIcon(categorieNaam);
-	}
+
 }

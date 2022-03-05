@@ -44,7 +44,7 @@ public class PopulateDB
 		sdGoalRepo.insert(new SdGoal("17", "Partnershap om doelstellingen te bereiken"));
 		
 		// Categorien
-		categorieRepo.insert(new Categorie("Economie", new ArrayList<>(Arrays.asList(goal1)), "file:src/images/peace.png"));
+		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(goal1)))));
 		
 		GebruikerDaoJpa.commitTransaction();
 	}

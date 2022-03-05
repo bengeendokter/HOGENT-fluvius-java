@@ -1,8 +1,8 @@
 package repository;
 
-import domein.Categorie;
+import domein.SDGCategorie;
 
-public interface CategorieDao extends GenericDao<Categorie>
+public interface CategorieDao extends GenericDao<SDGCategorie>
 {
-	public Categorie getByNaam(String naam);
+	public SDGCategorie getByNaam(String naam);
 }
