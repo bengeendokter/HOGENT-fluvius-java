@@ -19,7 +19,7 @@ public class CatRepGUI extends Application {
 			//CategorieFrameController root = new CategorieFrameController(aanmeldController);
 			
 			
-			CategorieResponsiveController root = new CategorieResponsiveController();
+			CategorieResponsiveController root = new CategorieResponsiveController(domeinController);
 			//CategorieFrameController root = new CategorieFrameController();
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(true);
