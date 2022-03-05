@@ -149,9 +149,14 @@ public class CategorieFrameController extends Pane
 			catOpslaan.setVisible(false);
 			catAnnuleer.setVisible(false);
 			
-			tabPane.getTabs().forEach(
-					t -> t.setGraphic(new ImageView(new Image("file:src/images/tab.png", 25, 25, true, true))));
-			
+			tabPane.getTabs().forEach(e -> {
+	            if (e.getText().equals("MVO doelstelling beheren"))
+	                e.setGraphic(new ImageView(new Image("file:src/images/people.png", 25, 25, true, true)));
+	            else if (e.getText().equals("Categorie beheren"))
+	                e.setGraphic(new ImageView(new Image("file:src/images/partnership.png", 25, 25, true, true)));
+	            else if (e.getText().equals("Datasource beheren"))
+	                e.setGraphic(new ImageView(new Image("file:src/images/prosperity.jpg", 25, 25, true, true)));
+	            });
 			tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
 				tabPane.setTabMinWidth(tabPane.getWidth() / tabPane.getTabs().size());
 				tabPane.setTabMaxWidth(tabPane.getWidth() / tabPane.getTabs().size());
