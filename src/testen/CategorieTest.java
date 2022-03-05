@@ -129,7 +129,6 @@ public class CategorieTest{
 	    	   fluvius.wijzigCategorie(new DTOCategorie(CATEGORIENAAMNEW, ICON, sdgs));
 			});
 	       
-	       
 	       // Na de test verifiëren
 	       Mockito.verify(categorieRepo).findAll();
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
