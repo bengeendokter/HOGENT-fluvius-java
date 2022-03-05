@@ -170,8 +170,8 @@ public class CategorieFrameController extends Pane
 		
 		
 		// TODO
-		dc.voegCategorieObserverToe(e -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
 		
+
 		listCategorieen.getSelectionModel().selectedItemProperty()
 		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
 		
@@ -457,7 +457,7 @@ public class CategorieFrameController extends Pane
 				//alles terug goed zetten
 				naamCategorie.setStyle("-fx-border-color:none");
 				
-				vartextCat.setText("Overzicht categorie");
+				vartextCat.setText("Details categorie");
 				
 				catBewerken.setDisable(false);
 				catBewerken.setVisible(true);
@@ -500,7 +500,7 @@ public class CategorieFrameController extends Pane
 				dc.wijzigCategorie(nieuweCategorie);
 				
 				//alles terug goed zetten
-				vartextCat.setText("Overzicht categorie");
+				vartextCat.setText("Details categorie");
 				catBewerken.setDisable(false);
 				
 				kiesIcoon.setVisible(false);
@@ -543,7 +543,7 @@ public class CategorieFrameController extends Pane
 			//toon overzicht van eerste of geselecteerde categorie
 			if(vartextCat.getText().equals("Maak nieuwe categorie"))
 			{
-				vartextCat.setText("Overzicht categorie");
+				vartextCat.setText("Details categorie");
 				
 				listCategorieen.getSelectionModel().selectFirst();
 				Categorie c = listCategorieen.getSelectionModel().getSelectedItem();
@@ -574,7 +574,7 @@ public class CategorieFrameController extends Pane
 				//wijzigen
 				//TODO			
 				//alles terug goed zetten
-				vartextCat.setText("Overzicht categorie");
+				vartextCat.setText("Details categorie");
 				catBewerken.setDisable(false);
 				
 				kiesIcoon.setVisible(false);
