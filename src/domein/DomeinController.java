@@ -2,8 +2,12 @@ package domein;
 
 import java.util.List;
 
+import org.eclipse.persistence.exceptions.DatabaseException;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import repository.GenericDaoJpa;
+import repository.MVODatasourceDao;
 
 public class DomeinController
 {
@@ -65,6 +69,33 @@ public class DomeinController
 	public Categorie getCurrentCategorie()
 	{
 		return fluvius.getCurrentCategorie();
+	}
+	
+	//Datasource deel
+	public Datasource getCurrentDatasource()
+	{
+		return fluvius.getCurrentDatasource();
+	}
+	
+	public void setCurrentDatasource(Datasource datasource)
+	{
+		fluvius.setCurrentDatasource(datasource);
+	}
+	
+	public void voegMVODatasourceToe(DTODatasource datasource)
+	{
+		fluvius.voegMVODatasourceToe(datasource);
+	}
+	
+	public void verwijderMVODatasource()
+	{
+		fluvius.verwijderMVODatasource();
+		
+	}
+	
+	public void wijzigMVODatasource(DTODatasource datasource)
+	{
+		fluvius.wijzigMVODatasource(datasource);
 	}
 
 }
