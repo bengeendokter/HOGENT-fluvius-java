@@ -1,16 +1,20 @@
 package domein;
 
-import java.util.List;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 public class DomeinController
 {
-	private Gebruiker aangemeldeGebruiker;
+	// ATTRIBUTEN
+	// ______________________________________________________________________________________________
 	
+	private Gebruiker aangemeldeGebruiker;
 	private Fluvius fluvius;
 
+	
+	// CONSTRUCTOR
+	// ______________________________________________________________________________________________
+	
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
@@ -18,53 +22,93 @@ public class DomeinController
 		
 	}
 	
+	// FLUVIUS
+	// ______________________________________________________________________________________________
+	
 	public void setFluvius(Fluvius fluvius) {
 		this.fluvius = fluvius;
 	}
+	
+	// AANGEMELDE GEBRUIKER
+	// ______________________________________________________________________________________________
 
 	public Gebruiker getAangemeldeGebruiker()
 	{
 		return aangemeldeGebruiker;
 	}
 
-	public void voegCategorieToe(DTOCategorie categorie)
-	{
-		fluvius.voegCategorieToe(categorie);
-	}
-
-	public void verwijderCategorie()
-	{
-		fluvius.verwijderCategorie();
-	}
-
-	public ObservableList<Categorie> getCategorien()
-	{
-		return fluvius.getCategorien();
-	}
-
-	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
-	{
-		fluvius.voegCategorieObserverToe(listener);
-	}
+	// SDG
+	// ______________________________________________________________________________________________
 
 	public ObservableList<SdGoal> getBeschikbareSdgs()
 	{
 		return fluvius.getBeschikbareSdgs();
 	}
-
-	public void wijzigCategorie(DTOCategorie categorie)
-	{
-		fluvius.wijzigCategorie(categorie);
-	}
-
-	public void setCurrentCategorie(Categorie categorie)
-	{
-		fluvius.setCurrentCategorie(categorie);
-	}
-
+	
+	// CATEGORIE BEHEREN
+	// ______________________________________________________________________________________________
+	
 	public Categorie getCurrentCategorie()
 	{
 		return fluvius.getCurrentCategorie();
 	}
+	
+	public void setCurrentCategorie(Categorie categorie)
+	{
+		fluvius.setCurrentCategorie(categorie);
+	}
+	
+	public ObservableList<Categorie> getCategorien()
+	{
+		return fluvius.getCategorien();
+	}
+	
+	public void voegCategorieToe(DTOCategorie categorie)
+	{
+		fluvius.voegCategorieToe(categorie);
+	}
+	
+	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
+	{
+		fluvius.voegCategorieObserverToe(listener);
+	}
+	
+	public void verwijderCategorie()
+	{
+		fluvius.verwijderCategorie();
+	}
+	
+	public void wijzigCategorie(DTOCategorie categorie)
+	{
+		fluvius.wijzigCategorie(categorie);
+	}
+	
+	// MVO DOELSTELLING BEHEREN
+	// ______________________________________________________________________________________________
+	
+	public Doelstelling getCurrentDoelstelling() {
+		return fluvius.getCurrentDoelstelling();
+	}
+	
+	public void setCurrentDoelstelling(DTOMVODoelstelling doelstelling) {
+		fluvius.setCurrentDoelstelling(doelstelling);
+	}
+	
+	public ObservableList<Doelstelling> getDoelstellingen(){
+		return fluvius.getDoelstellingen();
+	}
+	
+	public void voegMVODoelstellingToe(DTOMVODoelstelling doelstelling) {
+		fluvius.voegMVODoelstellingToe(doelstelling);
+	}
+	
+	public void verwijderMVODoelstelling() {
+		fluvius.verwijderMVODoelstelling();
+	}
+	
+	public void wijzigMVODoelstelling(DTOMVODoelstelling doelstelling) {
+		fluvius.wijzigMVODoelstelling(doelstelling);
+	}
+	
 
 }
