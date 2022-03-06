@@ -7,21 +7,28 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+
 @Entity
-@Table(name = "MVODoelstellingComponent")
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
+@Table(name = "MVODoelstelling")
+@DiscriminatorColumn(name = "Soort")
 @NamedQueries({
 	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
 public  class MVODoelstellingComponent implements Serializable{
-	// moet abstract worden
 	
 	private static final long serialVersionUID = 1L;
 	

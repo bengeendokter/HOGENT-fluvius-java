@@ -230,6 +230,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			System.out.printf("%s", e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een MVO Doelstelling");
 		}
 		

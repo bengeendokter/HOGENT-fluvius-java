@@ -8,6 +8,7 @@
 	<class>domein.Rol</class>
 	<class>domein.MVODatasource</class>
 	<class>domein.SdGoal</class>
+	<class>domein.DoelstellingMVO</class>
 	<class>domein.MVODoelstellingComponent</class>
 	
     <properties>

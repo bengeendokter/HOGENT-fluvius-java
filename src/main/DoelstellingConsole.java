@@ -12,7 +12,7 @@ import domein.Rol;
 public class DoelstellingConsole {
 
 	public static void main(String[] args) {
-		AanmeldController aanmeldController = new AanmeldController();
+		AanmeldController aanmeldController = new AanmeldController(true);
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		
 		List<Rol> rollen = new ArrayList<>();
