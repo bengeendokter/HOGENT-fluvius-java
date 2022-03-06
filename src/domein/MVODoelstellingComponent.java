@@ -17,9 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MvoDoelstelling")
+@Table(name = "doelstellingMVO")
 @NamedQueries({
-	@NamedQuery(name = "doelstelling.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
+	@NamedQuery(name = "doelstellingMVO.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
 public abstract class MVODoelstellingComponent implements Serializable{
 	
 	
