@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import repository.DatabaseSelector;
 
 public class TestGUI extends  Application {
+
 	public void start(Stage primaryStage)
 	{
 		try
@@ -18,8 +19,8 @@ public class TestGUI extends  Application {
 
 			//TestFrameController root = new TestFrameController();
 			
-			AanmeldenResponsiveController root  = new AanmeldenResponsiveController();
-			Scene scene = new Scene(root);
+			//AanmeldenResponsiveController root  = new AanmeldenResponsiveController(new AanmeldController());
+			Scene scene = new Scene(null);
 			primaryStage.setResizable(true);
 			primaryStage.setMaximized(true);
 			primaryStage.setScene(scene);
