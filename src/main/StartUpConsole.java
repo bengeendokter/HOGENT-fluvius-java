@@ -1,5 +1,6 @@
 package main;
 
+import domein.AanmeldController;
 
 public class StartUpConsole
 {
@@ -17,6 +18,7 @@ public class StartUpConsole
 //		dc.geefSdGoals();
 //		dc.wijzigCategorieDoelstellingen("Economie", new ArrayList<>(Arrays.asList("Geen armoede", "Geen honger")));
 //		dc.verwijderCategorie("Economie");
+		AanmeldController aanmeldController = new AanmeldController(true);
 	}
 	
 }

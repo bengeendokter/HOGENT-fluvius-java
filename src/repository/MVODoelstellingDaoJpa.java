@@ -15,7 +15,7 @@ public class MVODoelstellingDaoJpa extends GenericDaoJpa<MVODoelstellingComponen
 	{
 		try
 		{
-			MVODoelstellingComponent c = em.createNamedQuery("doelstellingMVO.findByNaam", MVODoelstellingComponent.class).setParameter("naam", naam)
+			MVODoelstellingComponent c = em.createNamedQuery("MVODoelstellingComponent.findByNaam", MVODoelstellingComponent.class).setParameter("naam", naam)
 					.getSingleResult();
 			return c;
 		}

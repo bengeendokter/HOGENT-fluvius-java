@@ -17,11 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "doelstellingMVO")
+@Table(name = "MVODoelstellingComponent")
 @NamedQueries({
-	@NamedQuery(name = "doelstellingMVO.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
-public abstract class MVODoelstellingComponent implements Serializable{
-	
+	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
+public  class MVODoelstellingComponent implements Serializable{
+	// moet abstract worden
 	
 	private static final long serialVersionUID = 1L;
 	

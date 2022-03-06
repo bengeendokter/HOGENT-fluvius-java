@@ -37,7 +37,9 @@ public class AanmeldController
 		}
 		catch(ExceptionInInitializerError e)
 		{
+			System.out.print(e.getCause());
 			throw new ExceptionInInitializerError("Kan niet connecteren met de databank");
+			
 		}
 		
 		

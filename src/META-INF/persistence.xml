@@ -6,8 +6,10 @@
     <class>domein.AanmeldPoging</class>
 	<class>domein.SDGCategorie</class>
 	<class>domein.Rol</class>
-	<class>domein.MVODoelstellingComponent</class>
+	<class>domein.MVODatasource</class>
 	<class>domein.SdGoal</class>
+	<class>domein.MVODoelstellingComponent</class>
+	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="ID372119_g10"/>
