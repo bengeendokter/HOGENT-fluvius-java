@@ -287,6 +287,14 @@ public class Fluvius
 		setDatasources();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ObservableList<Datasource> getDatasources()
+	{
+		setDatasources();
+		System.out.println("Alle Categoriën ophalen");
+		return FXCollections.unmodifiableObservableList((ObservableList<Datasource>)(Object)datasources);
+	}
+	
 	
 	
 	

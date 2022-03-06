@@ -72,6 +72,11 @@ public class DomeinController
 	}
 	
 	//Datasource deel
+	public ObservableList<Datasource> getDatasources()
+	{
+		return fluvius.getDatasources();
+	}
+	
 	public Datasource getCurrentDatasource()
 	{
 		return fluvius.getCurrentDatasource();
