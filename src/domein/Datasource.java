@@ -1,5 +1,12 @@
 package domein;
 
-public class Datasource {
-	//test datasource branch 
+import java.util.List;
+
+public interface Datasource{
+	public int getDatasourceID();
+	public String getNaam();
+	//naam veranderd van getType naar getTypeDatasource
+	public String getTypeDatasource();
+	public String getLink();
 }
+
