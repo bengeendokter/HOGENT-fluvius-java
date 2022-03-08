@@ -90,7 +90,7 @@ public class DomeinController
 		return fluvius.getCurrentDoelstelling();
 	}
 	
-	public void setCurrentDoelstelling(DTOMVODoelstelling doelstelling) {
+	public void setCurrentDoelstelling(Doelstelling doelstelling) {
 		fluvius.setCurrentDoelstelling(doelstelling);
 	}
 	

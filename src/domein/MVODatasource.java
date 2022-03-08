@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Datasource")
+@Table(name = "Datasource2")
 public class MVODatasource implements Serializable{
 
 	/**

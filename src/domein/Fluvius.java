@@ -30,7 +30,7 @@ public class Fluvius
 	private MVODoelstellingDao mvoDoelstellingRepo;
 	
 	private Categorie currentCategorie;
-	private MVODoelstellingComponent currentDoelstelling;
+	private Doelstelling currentDoelstelling;
 	
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
@@ -198,17 +198,18 @@ public class Fluvius
 	}
 	
 	public Doelstelling getCurrentDoelstelling() {
-		return (Doelstelling) this.currentDoelstelling;
+		return currentDoelstelling;
 	}
 	
-	// TODO
-	public void setCurrentDoelstelling(DTOMVODoelstelling doelstelling) {
-		//this.currentDoelstelling = doelstelling;
+	public void setCurrentDoelstelling(Doelstelling doelstelling) {
+		this.currentDoelstelling = doelstelling;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ObservableList<Doelstelling> getDoelstellingen(){
-		return null;
-		//return FXCollections.unmodifiableObservableList(doelstellingen);
+		setDoelstellingen();
+		System.out.println("Alle doelstellingen ophalen");
+		return FXCollections.unmodifiableObservableList((ObservableList<Doelstelling>)(Object)doelstellingen);
 	}
 	
 	private void setDoelstellingen() {
@@ -270,27 +271,32 @@ public class Fluvius
 	public void wijzigMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
 		MVODoelstellingComponent doelstellingInRepo = mvoDoelstellingRepo.getByNaam(doelstelling.naam);
+		
+		if(doelstellingInRepo != null && doelstellingInRepo.getDoelstellingID() != currentDoelstelling.getDoelstellingID())
+		{
+			throw new IllegalArgumentException("Er bestaat al een MVO Doelstelling met deze naam");
+		}
 
 		updateMVODoelstelling(doelstelling);
 	}
 	
 	private void updateMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
-//		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
-//		try
-//		{
-//			GenericDaoJpa.startTransaction();
-//			SDGCategorie cat = new SDGCategorie(categorie);
-//			cat.setCategorieID(currentCategorie.getCategorieID());
-//			categorieRepo.update(cat);
-//			GenericDaoJpa.commitTransaction();
-//		}
-//		catch(Exception e)
-//		{
-//			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Categorie update");
-//		}
-//		
-//		setCategorien();
+		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
+		try
+		{
+			GenericDaoJpa.startTransaction();
+			DoelstellingMVO d = new DoelstellingMVO(doelstelling);
+			d.setDoelstellingID(currentDoelstelling.getDoelstellingID());
+			mvoDoelstellingRepo.update(d);
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
+		}
+		
+		setDoelstellingen();
 	}
 	
 	

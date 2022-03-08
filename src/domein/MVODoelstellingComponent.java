@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = "Soort")
 @NamedQueries({
 	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
-public  class MVODoelstellingComponent implements Serializable{
+public abstract class MVODoelstellingComponent implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -41,12 +42,12 @@ public  class MVODoelstellingComponent implements Serializable{
 	private String naam;
 	private String icon;
 	private double doelwaarde;
-	private String type;
+	private String doelstellingsType;
 	
 	// Attributen van associaties
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Rol> rollen = new ArrayList<>();
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<MVODatasource> datasources = new ArrayList<>();
 	
 	// Constructoren
@@ -54,7 +55,7 @@ public  class MVODoelstellingComponent implements Serializable{
 		setNaam(d.naam);
 		setIcon(d.icon);
 		setDoelwaarde(d.doelwaarde);
-		setType(d.type);
+		setDoelstellingsType(d.doelstellingsType);
 		setRollen(d.rollen);
 		setDatasources(d.datasources);
 	}
@@ -64,6 +65,10 @@ public  class MVODoelstellingComponent implements Serializable{
 	}
 	
 	// Getters
+	public int getDoelstellingID() {
+		return doelstellingID;
+	}
+	
 	public String getNaam() {
 		return naam;
 	}
@@ -76,8 +81,8 @@ public  class MVODoelstellingComponent implements Serializable{
 		return doelwaarde;
 	}
 
-	public String getType() {
-		return type;
+	public String getDoelstellingsType() {
+		return doelstellingsType;
 	}
 
 	public List<Rol> getRollen() {
@@ -89,7 +94,14 @@ public  class MVODoelstellingComponent implements Serializable{
 	}
 
 	// Setters
+	public void setDoelstellingID(int mock) {
+		doelstellingID = mock;
+	}
+	
 	private void setNaam(String naam) {
+		if(naam == null || naam.isBlank()) {
+			throw new IllegalArgumentException("De naam van de MVO Doelstelling mag niet leeg zijn");
+		}
 		this.naam = naam;
 	}
 
@@ -102,15 +114,21 @@ public  class MVODoelstellingComponent implements Serializable{
 		
 	}
 	
-	private void setType(String type) {
-		this.type = type;
+	private void setDoelstellingsType(String doelstellingsType) {
+		this.doelstellingsType = doelstellingsType;
 	}
 	
 	private void setDatasources(List<MVODatasource> datasources) {
+		if(datasources.isEmpty()) {
+			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens aan 1 datasource zijn gekoppeld");
+		}
 		this.datasources = datasources;
 	}
 
 	private void setRollen(List<Rol> rollen) {
+		if(rollen.isEmpty()) {
+			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens voor 1 rol zichtbaar zijn");
+		}
 		this.rollen = rollen;
 	}
 
@@ -142,6 +160,11 @@ public  class MVODoelstellingComponent implements Serializable{
 			return false;
 		MVODoelstellingComponent other = (MVODoelstellingComponent) obj;
 		return Objects.equals(naam, other.naam);
+	}
+	
+	@Override
+	public String toString() {
+		return naam;
 	}
 	
 	

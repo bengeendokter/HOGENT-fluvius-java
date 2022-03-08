@@ -42,6 +42,7 @@ public class DoelstellingMVO extends MVODoelstellingComponent implements Doelste
     public MVODoelstellingComponent getChild(int i) {
         return mvoDoelstellingComponents.get(i);
     }
+
     
     
 }
