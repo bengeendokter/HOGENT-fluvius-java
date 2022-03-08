@@ -18,18 +18,18 @@ public class TestGUI extends  Application {
 
 			//TestFrameController root = new TestFrameController();
 			
-			AanmeldenResponsiveController root  = new AanmeldenResponsiveController();
-			Scene scene = new Scene(root);
-			primaryStage.setResizable(true);
-			primaryStage.setMaximized(true);
-			primaryStage.setScene(scene);
-			
-			scene.getStylesheets().add("theme.css");
-			
-			Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
-			primaryStage.getIcons().add(icon);
-			
-			primaryStage.show();
+			//AanmeldenResponsiveController root  = new AanmeldenResponsiveController();
+//			Scene scene = new Scene(root);
+//			primaryStage.setResizable(true);
+//			primaryStage.setMaximized(true);
+//			primaryStage.setScene(scene);
+//			
+//			scene.getStylesheets().add("theme.css");
+//			
+//			Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
+//			primaryStage.getIcons().add(icon);
+//			
+//			primaryStage.show();
 			
 		}
 		catch(Exception e)

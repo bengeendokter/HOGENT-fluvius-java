@@ -2,6 +2,7 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import repository.CategorieDao;
 import repository.CategorieDaoJpa;
@@ -9,6 +10,10 @@ import repository.GebruikerDao;
 import repository.GebruikerDaoJpa;
 import repository.GenericDao;
 import repository.GenericDaoJpa;
+import repository.MVODatasourceDao;
+import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDao;
+import repository.MVODoelstellingDaoJpa;
 
 public class PopulateDB
 {
@@ -17,6 +22,8 @@ public class PopulateDB
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
 		CategorieDao categorieRepo = new CategorieDaoJpa();
+		MVODoelstellingDao doelstellingenRepo = new MVODoelstellingDaoJpa();
+		MVODatasourceDao datasourceRepo = new MVODatasourceDaoJpa();
 		GebruikerDaoJpa.startTransaction();
 		
 		// Gebruikers
@@ -45,6 +52,21 @@ public class PopulateDB
 		
 		// Categorien
 		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(goal1)))));
+		
+		// Rollen
+		List<Rol> rollen = new ArrayList<>();
+		Rol rol = new Rol("MVO Coördinator");
+		rollen.add(rol);
+		
+		// Datasources
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "excel", "fluvius.com/qra/abi")));
+		
+		List<MVODatasource> datasources = new ArrayList<>();
+		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "excel", "fluvius.com/qra/abi"));
+		datasources.add(mvd);
+		
+		// Doelstellingen
+		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "icon1", 20, "gewogen gemiddelde", rollen, datasources)));
 		
 		GebruikerDaoJpa.commitTransaction();
 	}

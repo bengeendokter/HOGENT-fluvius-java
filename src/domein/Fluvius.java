@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import repository.CategorieDao;
 import repository.CategorieDaoJpa;
 import repository.GenericDaoJpa;
+import repository.MVODatasourceDao;
+import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
@@ -24,13 +26,16 @@ public class Fluvius
 	private ObservableList<SDGCategorie> categorien = FXCollections.observableArrayList();
 	private ObservableList<SdGoal> sdGoals = FXCollections.observableArrayList();
 	private ObservableList<MVODoelstellingComponent> doelstellingen = FXCollections.observableArrayList();
+	private ObservableList<MVODatasource> datasources = FXCollections.observableArrayList();
 	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
 	private MVODoelstellingDao mvoDoelstellingRepo;
+	private MVODatasourceDao mvoDatasourceRepo;
 	
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
+	private Datasource currentDatasource;
 	
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
@@ -40,10 +45,12 @@ public class Fluvius
 		setCategorieRepo(new CategorieDaoJpa());
 		setSdGoalRepo(new SdGoalDaoJpa());
 		setMVODoelstellingenRepo(new MVODoelstellingDaoJpa());
+		setMVODatasourceRepo(new MVODatasourceDaoJpa());
 		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
+		setDatasources();
 	}
 	
 	// SDG
@@ -299,6 +306,118 @@ public class Fluvius
 		setDoelstellingen();
 	}
 	
+	// DATASOURCES BEHEREN
+	// ______________________________________________________________________________________________
+	
+	public void setMVODatasourceRepo(MVODatasourceDao mock)
+	{
+		mvoDatasourceRepo = mock;
+	}
+	
+	public Datasource getCurrentDatasource()
+	{
+		return currentDatasource;
+	}
+	
+	public void setCurrentDatasource(Datasource datasource)
+	{
+		currentDatasource = datasource;
+	}
+	
+	private void setDatasources()
+	{
+		datasources.clear();
+		datasources.addAll(mvoDatasourceRepo.findAll());
+	}
+	
+	public void voegMVODatasourceToe(DTODatasource datasource)
+	{
+		try
+		{
+			System.out.printf("Datasource %s inserten in databank%n", datasource.toString());
+			GenericDaoJpa.startTransaction();
+			mvoDatasourceRepo.insert(new MVODatasource(datasource));
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(DatabaseException e)
+		{
+			throw new IllegalArgumentException(String.format("Datasource met naam %s bestaat al", datasource.toString()));
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Datasource");
+		}
+		
+		setDatasources();
+	}
+	
+	public void verwijderMVODatasource()
+	{
+		if(currentDatasource == null) throw new IllegalArgumentException("Er is geen datasource geselecteerd");
+		
+		try
+		{	
+			List<MVODatasource> datasources = mvoDatasourceRepo.findAll();
+			if(datasources.size() == 1)
+			{
+				throw new IllegalArgumentException("Kan enigste datasource niet verwijderen");
+			}
+			
+			System.out.printf("Datasource %s verwijderen uit databank%n", currentDatasource.toString());
+			GenericDaoJpa.startTransaction();
+			mvoDatasourceRepo.delete( (MVODatasource)currentDatasource);
+			GenericDaoJpa.commitTransaction();	
+		}
+		catch(IllegalArgumentException e)
+		{
+			throw e;
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Datasource");
+		}
+		
+		setDatasources();
+		
+	}
+	
+	public void wijzigMVODatasource(DTODatasource datasource)
+	{
+		MVODatasource datasourceInRepo = mvoDatasourceRepo.getByNaam(datasource.naam);
+		if(datasourceInRepo != null && datasourceInRepo.getDatasourceID() != currentDatasource.getDatasourceID())
+		{
+			throw new IllegalArgumentException("Er bestaat al een datasource met deze naam");
+		}
+		
+		updateDatasource(datasource);
+	}
+	
+	private void updateDatasource(DTODatasource datasource)
+	{
+		if(currentDatasource == null) throw new IllegalArgumentException("Er is geen datasource geselecteerd");
+		try
+		{
+			GenericDaoJpa.startTransaction();
+			MVODatasource datas = new MVODatasource(datasource);
+			datas.setDatasourceID(currentDatasource.getDatasourceID());
+			mvoDatasourceRepo.update(datas);
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
+		}
+		
+		setDatasources();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ObservableList<Datasource> getDatasources()
+	{
+		setDatasources();
+		System.out.println("Alle Categoriën ophalen");
+		return FXCollections.unmodifiableObservableList((ObservableList<Datasource>)(Object)datasources);
+	}
 	
 	
 	

@@ -110,5 +110,38 @@ public class DomeinController
 		fluvius.wijzigMVODoelstelling(doelstelling);
 	}
 	
+	// DATASOURCE BEHEREN
+	// ______________________________________________________________________________________________
+	public ObservableList<Datasource> getDatasources()
+	{
+		return fluvius.getDatasources();
+	}
+	
+	public Datasource getCurrentDatasource()
+	{
+		return fluvius.getCurrentDatasource();
+	}
+	
+	public void setCurrentDatasource(Datasource datasource)
+	{
+		fluvius.setCurrentDatasource(datasource);
+	}
+	
+	public void voegMVODatasourceToe(DTODatasource datasource)
+	{
+		fluvius.voegMVODatasourceToe(datasource);
+	}
+	
+	public void verwijderMVODatasource()
+	{
+		fluvius.verwijderMVODatasource();
+		
+	}
+	
+	public void wijzigMVODatasource(DTODatasource datasource)
+	{
+		fluvius.wijzigMVODatasource(datasource);
+	}
+		
 
 }
