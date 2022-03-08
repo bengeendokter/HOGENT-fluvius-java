@@ -303,12 +303,12 @@
                                                                <children>
                                                                   <ImageView fx:id="arrow1" fitHeight="45.0" fitWidth="45.0" layoutX="2.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
-                                                                        <Image url="@../../../../../../../../Users/musle/Desktop/arrow.png" />
+                                                                        <Image url="@../images/arrow.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                   <ImageView fx:id="arrow2" fitHeight="45.0" fitWidth="45.0" layoutX="2.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
                                                                      <image>
-                                                                        <Image url="@../../../../../../../../Users/musle/Desktop/arrow.png" />
+                                                                        <Image url="@../images/arrow.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                </children>
@@ -327,13 +327,161 @@
                       </Tab>
                         <Tab fx:id="tabData" text="Datasource beheren">
                            <content>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgray;">
+                              <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                 <left>
+                                    <BorderPane prefHeight="391.0" prefWidth="306.0" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <center>
+                                          <ListView fx:id="listDatasources1" prefHeight="390.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets left="25.0" right="25.0" top="5.0" />
+                                             </BorderPane.margin>
+                                          </ListView>
+                                       </center>
+                                       <top>
+                                          <Label alignment="CENTER" prefHeight="35.0" prefWidth="298.0" text="Overzicht Datasources:" textAlignment="CENTER" textFill="#004c69" underline="true" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets top="25.0" />
+                                             </BorderPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                       </top>
+                                       <bottom>
+                                          <Button fx:id="btnAddDatasource1" mnemonicParsing="false" onAction="#addDatasource" prefHeight="44.0" prefWidth="48.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+" textFill="WHITE" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </BorderPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </bottom>
+                                    </BorderPane>
+                                 </left>
                                  <center>
-                                    <Label text="... to be implemented" BorderPane.alignment="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: lightgray;" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets bottom="15.0" right="25.0" top="25.0" />
+                                       </BorderPane.margin>
+                                       <top>
+                                          <BorderPane prefHeight="63.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+                                             <left>
+                                                <BorderPane prefHeight="63.0" prefWidth="391.0" BorderPane.alignment="CENTER">
+                                                   <top>
+                                                      <Label fx:id="vartextCat1" prefHeight="35.0" prefWidth="437.0" text="Details datasource" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="System Bold" size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </top>
+                                                   <center>
+                                                      <BorderPane prefHeight="47.0" prefWidth="213.0" BorderPane.alignment="CENTER">
+                                                         <left>
+                                                            <Label text="Naam:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </left>
+                                                         <center>
+                                                            <TextField fx:id="naamCategorie1" prefHeight="25.0" prefWidth="282.0" BorderPane.alignment="CENTER">
+                                                               <BorderPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </BorderPane.margin>
+                                                            </TextField>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </center>
+                                                </BorderPane>
+                                             </left>
+                                             <right>
+                                                <BorderPane prefHeight="63.0" prefWidth="247.0" BorderPane.alignment="CENTER">
+                                                   <left>
+                                                      <Button fx:id="catBewerken1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#catBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #004c69; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                         <graphic>
+                                                            <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../images/pencil.PNG" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </left>
+                                                   <right>
+                                                      <Button fx:id="catVerwijderen1" mnemonicParsing="false" onAction="#catVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;" BorderPane.alignment="CENTER">
+                                                         <graphic>
+                                                            <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../images/delete.PNG" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </right>
+                                                   <padding>
+                                                      <Insets left="25.0" right="25.0" />
+                                                   </padding>
+                                                </BorderPane>
+                                             </right>
+                                          </BorderPane>
+                                       </top>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" top="5.0" />
+                                       </padding>
+                                       <bottom>
+                                          <BorderPane maxHeight="1.7976931348623157E308" prefHeight="54.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+                                             <left>
+                                                <Label fx:id="catError1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="407.0" text="Lorem ipsum dolor sit amet. Aut reiciendis voluptatem et quia ratione non ducimus maxime repudiandae numquam id itaque quisquam. " textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <right>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <left>
+                                                      <Button fx:id="catOpslaan1" mnemonicParsing="false" onAction="#catOpslaan" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #004C69;" text="OPSLAAN" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                         <BorderPane.margin>
+                                                            <Insets left="5.0" />
+                                                         </BorderPane.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </left>
+                                                   <right>
+                                                      <Button fx:id="catAnnuleer1" mnemonicParsing="false" onAction="#catAnnuleer" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #b2d235;" text="ANNULEER" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                         <BorderPane.margin>
+                                                            <Insets left="5.0" />
+                                                         </BorderPane.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </right>
+                                                </BorderPane>
+                                             </right>
+                                          </BorderPane>
+                                       </bottom>
+                                       <center>
+                                          <BorderPane prefHeight="207.0" prefWidth="847.0" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets top="5.0" />
+                                             </BorderPane.margin>
+                                             <left>
+                                                <BorderPane prefHeight="221.0" prefWidth="397.0" BorderPane.alignment="CENTER">
+                                                   <top>
+                                                      <BorderPane prefHeight="43.0" prefWidth="397.0" BorderPane.alignment="CENTER" />
+                                                   </top>
+                                                </BorderPane>
+                                             </left>
+                                          </BorderPane>
+                                       </center>
+                                    </BorderPane>
                                  </center>
                               </BorderPane>
                            </content>
