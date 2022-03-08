@@ -30,9 +30,10 @@ public class DoelstellingConsole {
 //		dc.voegMVODoelstellingToe(e);
 		
 		
-		dc.setCurrentDoelstelling(dc.getDoelstellingen().filtered(e-> e.getNaam().equals("doelstelling1")).get(0));
-		dc.voegMVODoelstellingToe(naamIsUniekUitvoeren());
-		dc.wijzigMVODoelstelling(naamIsUniekUitvoerenWijziging());
+//		dc.setCurrentDoelstelling(dc.getDoelstellingen().filtered(e-> e.getNaam().equals("doelstelling1")).get(0));
+		//dc.voegMVODoelstellingToe(naamIsUniekUitvoeren());
+//		dc.wijzigMVODoelstelling(naamIsUniekUitvoerenWijziging());
+		//dc.getDoelstellingen().forEach(System.out::print);
 		//dc.verwijderMVODoelstelling();
 
 	}

@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,7 @@ public class DoelstellingMVO extends MVODoelstellingComponent implements Doelste
 	 */
 	private static final long serialVersionUID = 1L;
 	// Attributen uit associaties
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<MVODoelstellingComponent> mvoDoelstellingComponents = new ArrayList<>();
 
 	// Constructor

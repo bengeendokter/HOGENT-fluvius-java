@@ -67,7 +67,9 @@ public class PopulateDB
 		
 		// Doelstellingen
 		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "icon1", 20, "gewogen gemiddelde", rollen, datasources)));
-		
+		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "icon1", 20, "gewogen gemiddelde", rollen, datasources));
+		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "icon1", 20, "gewogen gemiddelde", rollen, datasources)));
+		doelstellingenRepo.insert(d);
 		GebruikerDaoJpa.commitTransaction();
 	}
 }
