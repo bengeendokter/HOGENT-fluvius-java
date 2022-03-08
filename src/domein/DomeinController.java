@@ -1,5 +1,7 @@
 package domein;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
@@ -127,7 +129,7 @@ public class DomeinController
 		fluvius.setCurrentDatasource(datasource);
 	}
 	
-	public void voegMVODatasourceToe(DTODatasource datasource)
+	public void voegMVODatasourceToe(DTODatasource datasource) throws SQLIntegrityConstraintViolationException, IllegalStateException
 	{
 		fluvius.voegMVODatasourceToe(datasource);
 	}

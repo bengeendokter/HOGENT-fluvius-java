@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -9,6 +10,8 @@ import java.util.stream.Collectors;
 
 import domein.Categorie;
 import domein.DTOCategorie;
+import domein.DTODatasource;
+import domein.Datasource;
 import domein.DomeinController;
 import domein.SdGoal;
 import javafx.collections.FXCollections;
@@ -23,6 +26,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -94,7 +98,28 @@ public class CategorieResponsiveController extends BorderPane {
 	private ImageView arrow1;
 	@FXML
 	private ImageView arrow2;
-	
+	@FXML
+	private ListView<Datasource> listDatasources1;
+	@FXML
+	private Button btnAddDatasource1;
+	@FXML
+	private Label vartextData;
+	@FXML
+	private TextField naamDatasource;
+	@FXML
+	private TextArea datasourceLink;
+	@FXML
+	private TextField datasourceType;
+	@FXML
+	private Button btnDataBewerken;
+	@FXML
+	private Button btnDataVerwijderen;
+	@FXML
+	private Button btnDataOpslaan;
+	@FXML
+	private Button btnDataAnnuleer;
+	@FXML
+	private Label dataError;
 	
 	public CategorieResponsiveController(DomeinController dc) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieResponsive.fxml"));
@@ -110,6 +135,7 @@ public class CategorieResponsiveController extends BorderPane {
 			lblFunctieIngelogdeGebruiker.setText(dc.getAangemeldeGebruiker().getRol());
 			
 			catError.setVisible(false);
+			dataError.setVisible(false);
 			
 			listKiesSdGoal.setVisible(false);
 			arrow1.setVisible(false);
@@ -121,9 +147,15 @@ public class CategorieResponsiveController extends BorderPane {
 			
 			catOpslaan.setVisible(false);
 			catAnnuleer.setVisible(false);
+			btnDataOpslaan.setVisible(false);
+			btnDataAnnuleer.setVisible(false);
 			
+			naamDatasource.setEditable(false);
+			datasourceLink.setEditable(false);
+			datasourceType.setEditable(false);
 			
-			//iconen passen bij scherm van beheren
+			// ICONEN TABBLADEN INSTELLEN
+			///////////////////////////////////////////////////////////////////////////////////
 			tabPane.getTabs().forEach(e -> {
 	            if (e.getText().equals("MVO Doelstelling beheren"))
 	                e.setGraphic(new ImageView(new Image("file:src/images/doelstelling.png", 25, 25, true, true)));
@@ -132,7 +164,7 @@ public class CategorieResponsiveController extends BorderPane {
 	            else if (e.getText().equals("Datasource beheren"))
 	                e.setGraphic(new ImageView(new Image("file:src/images/data.png", 25, 25, true, true)));
 	            });
-			
+		
 			tabPane.widthProperty().addListener((observable, oldValue, newValue) ->
 		    {
 		        tabPane.setTabMinWidth(tabPane.getWidth() / tabPane.getTabs().size());
@@ -141,8 +173,11 @@ public class CategorieResponsiveController extends BorderPane {
 			
 			listCategorieen.getSelectionModel().selectedItemProperty()
 			.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
+			listDatasources1.getSelectionModel().selectedItemProperty()
+			.addListener((observableValue, oldValue, newValue) -> dc.setCurrentDatasource(listDatasources1.getSelectionModel().getSelectedItem()));
 			
 			listCategorieen.setItems(dc.getCategorien());
+			listDatasources1.setItems(dc.getDatasources());
 			// TODO end
 			
 			
@@ -172,6 +207,7 @@ public class CategorieResponsiveController extends BorderPane {
 			//eerste categorie in listview selecteren
 			//als je bij het initeel starten direct op de verwijder knop klikt, dan wordt de eerste verwijderd
 			listCategorieen.getSelectionModel().selectFirst();
+			listDatasources1.getSelectionModel().selectFirst();
 			
 			listKiesSdGoal.setItems(dc.getBeschikbareSdgs().filtered(s -> s.getIcon() != null)
 					.sorted(Comparator.comparing(SdGoal::getAfbeeldingNaamAlsInt)));
@@ -272,6 +308,23 @@ public class CategorieResponsiveController extends BorderPane {
 						});
 						
 					}
+					
+				}
+			});
+			
+			naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
+			datasourceType.setText(dc.getDatasources().stream().findFirst().get().getTypeDatasource());
+			datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
+			
+			listDatasources1.getSelectionModel().selectedItemProperty()
+			.addListener((observableValue, oldValue, newValue) -> {
+				if(newValue != null)
+				{
+					Datasource dataS = listDatasources1.getSelectionModel().getSelectedItem();
+
+					naamDatasource.setText(dataS.getNaam());
+					datasourceType.setText(dataS.getTypeDatasource());
+					datasourceLink.setText(dataS.getLink());
 					
 				}
 			});
@@ -651,6 +704,137 @@ public class CategorieResponsiveController extends BorderPane {
 			catError.setText(e.getMessage());
 			catError.setVisible(true);
 		}
+	}
+	
+	@FXML
+	public void addDatasource(ActionEvent event) {
+		vartextData.setText("Maak nieuwe datasource");
 		
+		naamDatasource.clear();
+		datasourceLink.clear();
+		datasourceType.clear();
+		naamDatasource.setEditable(true);
+		datasourceLink.setEditable(true);
+		datasourceType.setEditable(true);
+		
+		btnDataBewerken.setDisable(true);
+		btnDataBewerken.setVisible(false);
+		btnDataVerwijderen.setDisable(true);
+		btnDataVerwijderen.setVisible(false);
+		
+		btnDataOpslaan.setVisible(true);
+		btnDataAnnuleer.setVisible(true);		
+	}
+	
+	@FXML
+	public void datasourceBewerken(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	public void datasourceVerwijderen(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	public void datasourceOpslaan(ActionEvent event) throws SQLIntegrityConstraintViolationException, IllegalStateException {
+		try
+		{
+			
+			//toon overzicht van eerste of geselecteerde categorie
+			if(vartextData.getText().equals("Maak nieuwe datasource"))
+			{
+				DTODatasource newDatasource = new DTODatasource(
+						naamDatasource.getText()
+						, datasourceType.getText()
+						, datasourceLink.getText()
+						);
+				
+				dc.voegMVODatasourceToe(newDatasource);
+				
+				vartextData.setText("Details datasource");
+				
+				listDatasources1.getSelectionModel().selectFirst();
+				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
+				naamDatasource.setText(d.getNaam());
+				datasourceLink.setText(d.getLink());
+				datasourceType.setText(d.getTypeDatasource());
+				
+				naamDatasource.setEditable(false);
+				datasourceLink.setEditable(false);
+				datasourceType.setEditable(false);
+				
+				btnDataAnnuleer.setVisible(false);
+				btnDataOpslaan.setVisible(false);
+				
+				btnDataBewerken.setDisable(false);
+				btnDataBewerken.setVisible(true);
+				btnDataVerwijderen.setDisable(false);
+				btnDataVerwijderen.setVisible(true);
+				
+				dataError.setVisible(false);
+				
+			}
+			else if(vartextCat.getText().equals("Wijzig datasource"))
+			{
+				// TODO
+				// Datasource opslaan na bewerken
+				///////////////////////////////////////////////////////////////////////////////////////////////////
+			}
+		}
+		catch(IllegalArgumentException e)
+		{
+			dataError.setText(e.getMessage());
+			dataError.setVisible(true);
+		}
+	}
+	
+	@FXML
+	public void datasourceAnnuleer(ActionEvent event) {
+		try
+		{
+			naamCategorie.setStyle("-fx-border-color:none");
+			
+			//toon overzicht van eerste of geselecteerde categorie
+			if(vartextData.getText().equals("Maak nieuwe datasource"))
+			{
+				vartextData.setText("Details datasource");
+				
+				listDatasources1.getSelectionModel().selectFirst();
+				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
+				naamDatasource.setText(d.getNaam());
+				datasourceLink.setText(d.getLink());
+				datasourceType.setText(d.getTypeDatasource());
+
+				naamDatasource.setEditable(false);
+				datasourceLink.setEditable(false);
+				datasourceType.setEditable(false);
+				
+				btnDataAnnuleer.setVisible(false);
+				btnDataOpslaan.setVisible(false);
+				
+				btnDataBewerken.setDisable(false);
+				btnDataBewerken.setVisible(true);
+				btnDataVerwijderen.setDisable(false);
+				btnDataVerwijderen.setVisible(true);
+				
+				dataError.setVisible(false);
+				
+				
+			}
+			else if(vartextData.getText().equals("Wijzig datasource"))
+			{
+
+				// TODO
+				// Datasource annuleren na bewerken
+				///////////////////////////////////////////////////////////////////////////////////////////////////
+				
+			}
+		}
+		catch(IllegalArgumentException e)
+		{
+			dataError.setText(e.getMessage());
+			dataError.setVisible(true);
+		}
 	}
 }

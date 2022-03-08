@@ -373,7 +373,7 @@
                                              <left>
                                                 <BorderPane prefHeight="63.0" prefWidth="391.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                      <Label fx:id="vartextCat1" prefHeight="35.0" prefWidth="437.0" text="Details datasource" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                      <Label fx:id="vartextData" prefHeight="35.0" prefWidth="437.0" text="Details datasource" textFill="#004c69" BorderPane.alignment="CENTER">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -389,7 +389,7 @@
                                                             </Label>
                                                          </left>
                                                          <center>
-                                                            <TextField fx:id="naamCategorie1" prefHeight="25.0" prefWidth="282.0" BorderPane.alignment="CENTER">
+                                                            <TextField fx:id="naamDatasource" prefHeight="25.0" prefWidth="282.0" BorderPane.alignment="CENTER">
                                                                <BorderPane.margin>
                                                                   <Insets left="15.0" />
                                                                </BorderPane.margin>
@@ -402,7 +402,7 @@
                                              <right>
                                                 <BorderPane prefHeight="63.0" prefWidth="247.0" BorderPane.alignment="CENTER">
                                                    <left>
-                                                      <Button fx:id="catBewerken1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#catBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #004c69; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnDataBewerken" contentDisplay="CENTER" mnemonicParsing="false" onAction="#datasourceBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #004c69; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69" BorderPane.alignment="CENTER">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -413,7 +413,7 @@
                                                       </Button>
                                                    </left>
                                                    <right>
-                                                      <Button fx:id="catVerwijderen1" mnemonicParsing="false" onAction="#catVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnDataVerwijderen" mnemonicParsing="false" onAction="#datasourceVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;" BorderPane.alignment="CENTER">
                                                          <graphic>
                                                             <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -436,7 +436,7 @@
                                        <bottom>
                                           <BorderPane maxHeight="1.7976931348623157E308" prefHeight="54.0" prefWidth="647.0" BorderPane.alignment="CENTER">
                                              <left>
-                                                <Label fx:id="catError1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="407.0" text="Lorem ipsum dolor sit amet. Aut reiciendis voluptatem et quia ratione non ducimus maxime repudiandae numquam id itaque quisquam. " textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
+                                                <Label fx:id="dataError" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="407.0" text="Lorem ipsum dolor sit amet. Aut reiciendis voluptatem et quia ratione non ducimus maxime repudiandae numquam id itaque quisquam. " textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font size="17.0" />
                                                    </font>
@@ -445,7 +445,7 @@
                                              <right>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <left>
-                                                      <Button fx:id="catOpslaan1" mnemonicParsing="false" onAction="#catOpslaan" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #004C69;" text="OPSLAAN" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnDataOpslaan" mnemonicParsing="false" onAction="#datasourceOpslaan" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #004C69;" text="OPSLAAN" textFill="WHITE" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets left="5.0" />
                                                          </BorderPane.margin>
@@ -455,7 +455,7 @@
                                                       </Button>
                                                    </left>
                                                    <right>
-                                                      <Button fx:id="catAnnuleer1" mnemonicParsing="false" onAction="#catAnnuleer" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #b2d235;" text="ANNULEER" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnDataAnnuleer" mnemonicParsing="false" onAction="#datasourceAnnuleer" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #b2d235;" text="ANNULEER" textFill="#004c69" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets left="5.0" />
                                                          </BorderPane.margin>
@@ -485,7 +485,7 @@
                                                             </Label>
                                                          </left>
                                                          <center>
-                                                            <TextField prefHeight="25.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+                                                            <TextField fx:id="datasourceType" prefHeight="25.0" prefWidth="348.0" BorderPane.alignment="CENTER">
                                                                <BorderPane.margin>
                                                                   <Insets left="15.0" />
                                                                </BorderPane.margin>
@@ -503,7 +503,7 @@
                                                             </Label>
                                                          </top>
                                                          <center>
-                                                            <TextArea maxHeight="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                            <TextArea fx:id="datasourceLink" maxHeight="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                                                          </center>
                                                       </BorderPane>
                                                    </left>

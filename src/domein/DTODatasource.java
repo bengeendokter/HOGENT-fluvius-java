@@ -12,5 +12,12 @@ public class DTODatasource {
 		this.typeDatasource = typeDatasource;
 		this.link = link;
 	}
+
+
+	@Override
+	public String toString() {
+		return naam;
+	}
+	
 	
 }

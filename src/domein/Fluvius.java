@@ -1,7 +1,10 @@
 package domein;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.persistence.RollbackException;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
@@ -344,7 +347,7 @@ public class Fluvius
 		datasources.addAll(mvoDatasourceRepo.findAll());
 	}
 	
-	public void voegMVODatasourceToe(DTODatasource datasource)
+	public void voegMVODatasourceToe(DTODatasource datasource) throws SQLIntegrityConstraintViolationException, IllegalStateException
 	{
 		try
 		{
@@ -353,12 +356,22 @@ public class Fluvius
 			mvoDatasourceRepo.insert(new MVODatasource(datasource));
 			GenericDaoJpa.commitTransaction();
 		}
+		catch(IllegalArgumentException e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+		catch(RollbackException e) {
+			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
+		}
 		catch(DatabaseException e)
 		{
-			throw new IllegalArgumentException(String.format("Datasource met naam %s bestaat al", datasource.toString()));
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
 		}
 		catch(Exception e)
 		{
+			System.out.println(e);
+			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Datasource");
 		}
 		
