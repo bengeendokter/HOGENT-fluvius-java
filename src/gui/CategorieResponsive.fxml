@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -468,15 +469,47 @@
                                           </BorderPane>
                                        </bottom>
                                        <center>
-                                          <BorderPane prefHeight="207.0" prefWidth="847.0" BorderPane.alignment="CENTER">
+                                          <BorderPane maxHeight="-Infinity" prefHeight="225.0" prefWidth="847.0" BorderPane.alignment="TOP_LEFT">
                                              <BorderPane.margin>
-                                                <Insets top="5.0" />
+                                                <Insets bottom="15.0" top="5.0" />
                                              </BorderPane.margin>
                                              <left>
-                                                <BorderPane prefHeight="221.0" prefWidth="397.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefHeight="221.0" prefWidth="391.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                      <BorderPane prefHeight="43.0" prefWidth="397.0" BorderPane.alignment="CENTER" />
+                                                      <BorderPane prefHeight="43.0" prefWidth="379.0" BorderPane.alignment="CENTER">
+                                                         <left>
+                                                            <Label text="Type:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </left>
+                                                         <center>
+                                                            <TextField prefHeight="25.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+                                                               <BorderPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </BorderPane.margin>
+                                                            </TextField>
+                                                         </center>
+                                                      </BorderPane>
                                                    </top>
+                                                   <left>
+                                                      <BorderPane maxHeight="250.0" prefHeight="174.0" prefWidth="391.0" BorderPane.alignment="CENTER">
+                                                         <top>
+                                                            <Label prefHeight="27.0" prefWidth="398.0" text="Link:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </top>
+                                                         <center>
+                                                            <TextArea maxHeight="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                      </BorderPane>
+                                                   </left>
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
                                                 </BorderPane>
                                              </left>
                                           </BorderPane>
