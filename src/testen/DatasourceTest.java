@@ -1,0 +1,159 @@
+package testen;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import domein.DTOCategorie;
+import domein.DTODatasource;
+import domein.Fluvius;
+import domein.MVODatasource;
+import domein.SDGCategorie;
+import domein.SdGoal;
+import repository.MVODatasourceDao;
+
+@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
+public class DatasourceTest {
+	
+	@Mock
+    private MVODatasourceDao datasourceRepo;
+	
+	@InjectMocks
+	private static Fluvius fluvius;
+	
+	
+	/**
+	 * Datasource aanmaken
+	 * Correcte scenario:
+	 * Datasource aanmaken met een correcte naam
+	 * En met type en link
+	 */
+	@Test
+	public void maakDatasource_OnbestaandeNaam_aangemaakt()
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "SVG";
+		   final String LINK = "InTeVullen";
+	       
+	       // Controle
+	       Assertions.assertDoesNotThrow(() -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       });
+	}
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutieve scenario:
+	 * Datasource aanmaken zonder een naam
+	 */
+	@ParameterizedTest
+	@NullAndEmptySource
+	@ValueSource(strings = { "        "})
+	public void maakDatasource_LegeNaam_exception(String naam)
+	{
+		 // Alles klaarzetten
+		   final String DATASOURCENAAM = naam;
+		   final String TYPE = "SVG";
+		   final String LINK = "InTeVullen";
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       });
+	       
+	}
+	
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutieve scenario:
+	 * Datasource aanmaken zonder Link
+	 */
+	@ParameterizedTest
+	@NullAndEmptySource
+	@ValueSource(strings = { "        "})
+	public void maakDatasource_zonderLink_exception(String link)
+	{
+		// Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "SVG";
+		   final String LINK = link;
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       });
+	}
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutieve scenario:
+	 * Datasource aanmaken zonder Type
+	 */
+	@ParameterizedTest
+	@NullAndEmptySource
+	@ValueSource(strings = { "        "})
+	public void maakDatasource_zonderType_exception(String type)
+	{
+		// Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = type;
+		   final String LINK = "link";
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       });
+	}
+	
+	
+	/**
+	 * Datasource wijzigen
+	 * Correcte scenario:
+	 * Datasource wijzigen met een correcte naam, link en type
+	 */
+	@Test
+	public void wijzigDatasource_correcteGegevens_gewijzigd()
+	{
+		 // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "SVG";
+		   final String LINK = "InTeVullen";
+		   
+		   final String DATASOURCENAAMNEW = "DatasourceTest2";
+		   final String TYPENEW = "xlsx";
+		   final String LINKNEW = "InTeVullen";
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+
+	       fluvius.setCurrentDatasource(eenDatasource);
+	       // Het mock object trainen
+	       Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
+	       Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAMNEW)).thenReturn(null);
+	       
+	       // Uitvoeren
+	       Assertions.assertDoesNotThrow(() -> {
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW));
+			});
+	       
+	       // Na de test verifiëren
+	       Mockito.verify(datasourceRepo).findAll();
+	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAMNEW);
+
+	}
+	
+}
