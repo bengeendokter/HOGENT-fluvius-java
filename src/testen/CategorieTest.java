@@ -119,10 +119,11 @@ public class CategorieTest{
 	       SdGoal sdg2 = new SdGoal("sdg 2");
 	       List<SdGoal> sdgs = new ArrayList<>(Arrays.asList(sdg1, sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAMOLD, ICON, sdgs));
-
+	       fluvius.setCurrentCategorie(eenCategorie);
+	       //eenCategorie.setCategorieID(0);
 	       // Het mock object trainen
 	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
@@ -130,8 +131,8 @@ public class CategorieTest{
 			});
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
+	       Mockito.verify(categorieRepo, Mockito.times(2)).findAll();
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
 
 	}
 	
@@ -156,18 +157,20 @@ public class CategorieTest{
 	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAMOLD, ICON, sdgs1));
 	       SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie("TestCategorie", ICON, sdgs2));
-
+	       eenCategorie.setCategorieID(0);
+	       tweedeCategorie.setCategorieID(1);
+	       fluvius.setCurrentCategorie(eenCategorie);
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
 	    		   () -> fluvius.wijzigCategorie(new DTOCategorie(CATEGORIENAAMNEW, ICON, sdgs1)));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
+	       Mockito.verify(categorieRepo, Mockito.times(1)).findAll();
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
 	}
 	
 	/**
@@ -189,13 +192,13 @@ public class CategorieTest{
 	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
 	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAMOLD, ICON, sdgs1));
-	       //eenCategorie.setCategorieID(1);
+	       eenCategorie.setCategorieID(0);
 	       SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie("TestCategorie", ICON, sdgs2));
-	       //tweedeCategorie.setCategorieID(2);
-
+	       tweedeCategorie.setCategorieID(1);
+	       fluvius.setCurrentCategorie(eenCategorie);
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
+	       //Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
 	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(tweedeCategorie);
 	       
 	       // Uitvoeren
@@ -204,7 +207,7 @@ public class CategorieTest{
 	       
 	       // Na de test verifiëren
 	       Mockito.verify(categorieRepo, Mockito.times(0)).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
+	       //Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
 	}
 	
@@ -228,17 +231,18 @@ public class CategorieTest{
 	       List<SdGoal> sdgs3 = new ArrayList<>(Arrays.asList(sdg3));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAM1, ICON, sdgs1));
 	       SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAM2, ICON, sdgs2));
-
+	       eenCategorie.setCategorieID(0);
+	       tweedeCategorie.setCategorieID(1);
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
-	       // TODO
+	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM2)).thenReturn(tweedeCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
 	    		   () -> fluvius.wijzigCategorie(new DTOCategorie(CATEGORIENAAM2, ICON, sdgs3)));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).findAll();
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM2);
 	       
 	}
 	
@@ -261,11 +265,13 @@ public class CategorieTest{
 	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAM1, ICON, sdgs1));
 	       SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAM2, ICON, sdgs2));
+	       eenCategorie.setCategorieID(0);
+	       tweedeCategorie.setCategorieID(1);
 	       fluvius.setCurrentCategorie(tweedeCategorie);
 
 	       // Het mock object trainen
 	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM2)).thenReturn(eenCategorie);
+	       Mockito.lenient().when(categorieRepo.getByNaam(CATEGORIENAAM2)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
@@ -274,7 +280,7 @@ public class CategorieTest{
 	       
 	       // Na de test verifiëren
 	       Mockito.verify(categorieRepo, Mockito.times(2)).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM2);
+	       Mockito.verify(categorieRepo, Mockito.times(0)).getByNaam(CATEGORIENAAM2);
 	}
 	
 	/**
@@ -293,19 +299,20 @@ public class CategorieTest{
 	       SdGoal sdg2 = new SdGoal("sdg 2");
 	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1,sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAM1, ICON, sdgs1));
+	       eenCategorie.setCategorieID(0);
 	       fluvius.setCurrentCategorie(eenCategorie);
 
 	       // Het mock object trainen
-	       Mockito.when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAM1)).thenReturn(eenCategorie);
+	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie)));
+	       Mockito.lenient().when(categorieRepo.getByNaam(CATEGORIENAAM1)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
 	    		   () -> fluvius.verwijderCategorie());
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM1);
+	       Mockito.verify(categorieRepo, Mockito.times(1)).findAll();
+	       Mockito.verify(categorieRepo, Mockito.times(0)).getByNaam(CATEGORIENAAM1);
 	}
 
 }

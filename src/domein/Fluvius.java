@@ -159,10 +159,22 @@ public class Fluvius
 	
 	public void wijzigCategorie(DTOCategorie categorie)
 	{
-		SDGCategorie categorieInRepo = categorieRepo.getByNaam(categorie.naam);
+		SDGCategorie categorieInRepo = categorieRepo.getByNaam(categorie.naam); 
+		System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());
 		if(categorieInRepo != null && categorieInRepo.getCategorieID() != currentCategorie.getCategorieID())
 		{
 			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
+		}
+		for(Categorie cat : getCategorien())
+		{
+			for(SdGoal sdg : categorie.sdgoals)
+			{
+			
+				if(cat.getSdGoals().contains(sdg) && cat.getNaam() != currentCategorie.getNaam())
+				{
+					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
+				}
+			}
 		}
 		
 		updateCategorie(categorie);
@@ -191,6 +203,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Categorie update");
 		}
 		
@@ -300,6 +313,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
@@ -405,6 +419,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
 		}
 		
