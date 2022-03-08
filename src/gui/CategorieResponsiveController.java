@@ -90,6 +90,10 @@ public class CategorieResponsiveController extends BorderPane {
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
+	@FXML
+	private ImageView arrow1;
+	@FXML
+	private ImageView arrow2;
 	
 	
 	public CategorieResponsiveController(DomeinController dc) {
@@ -108,6 +112,8 @@ public class CategorieResponsiveController extends BorderPane {
 			catError.setVisible(false);
 			
 			listKiesSdGoal.setVisible(false);
+			arrow1.setVisible(false);
+			arrow2.setVisible(false);
 			listIcoon.setVisible(false);
 			btnRemoveSdGoal.setVisible(false);
 			kiesIcoon.setVisible(false);
@@ -399,6 +405,8 @@ public class CategorieResponsiveController extends BorderPane {
 		listSdGoal.setVisible(true);
 //			
 		listKiesSdGoal.setVisible(true);
+		arrow1.setVisible(true);
+		arrow2.setVisible(true);
 //			
 		listSdGoal.getItems().clear();
 //			
@@ -446,6 +454,8 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				listIcoon.setVisible(false);
 				listKiesSdGoal.setVisible(false);
+				arrow1.setVisible(false);
+				arrow2.setVisible(false);
 				
 				btnRemoveSdGoal.setVisible(false);
 				catAnnuleer.setVisible(false);
@@ -473,6 +483,8 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				listIcoon.setVisible(false);
 				listKiesSdGoal.setVisible(false);
+				arrow1.setVisible(false);
+				arrow2.setVisible(false);
 				
 				btnRemoveSdGoal.setVisible(false);
 				
@@ -521,6 +533,8 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				listIcoon.setVisible(false);
 				listKiesSdGoal.setVisible(false);
+				arrow1.setVisible(false);
+				arrow2.setVisible(false);
 				
 				btnRemoveSdGoal.setVisible(false);
 				catAnnuleer.setVisible(false);
@@ -547,6 +561,8 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				listIcoon.setVisible(false);
 				listKiesSdGoal.setVisible(false);
+				arrow1.setVisible(false);
+				arrow2.setVisible(false);
 				
 				btnRemoveSdGoal.setVisible(false);
 				
@@ -597,6 +613,8 @@ public class CategorieResponsiveController extends BorderPane {
 		labelKiesSdGoal.setVisible(true);
 		
 		listKiesSdGoal.setVisible(true);
+		arrow1.setVisible(true);
+		arrow2.setVisible(true);
 	}
 	
 	@FXML

@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane fx:id="groeneBalk" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #b2d235; -fx-effect: dropshadow(gaussian, #454545, 10, 0, 1, 0); -fx-padding: 0 7 0 7;" BorderPane.alignment="CENTER">
@@ -219,9 +218,9 @@
                                                 <Insets bottom="10.0" top="10.0" />
                                              </BorderPane.margin>
                                              <left>
-                                                <BorderPane prefHeight="216.0" prefWidth="229.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefHeight="206.0" prefWidth="193.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                      <BorderPane maxWidth="1.7976931348623157E308" prefHeight="57.0" prefWidth="229.0" BorderPane.alignment="CENTER">
+                                                      <BorderPane maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="203.0" BorderPane.alignment="CENTER">
                                                          <left>
                                                             <Label fx:id="labelIcoon" prefHeight="27.0" prefWidth="68.0" text="Icoon:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
@@ -239,7 +238,7 @@
                                                       </BorderPane>
                                                    </top>
                                                    <center>
-                                                      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                      <BorderPane prefHeight="122.0" prefWidth="206.0" BorderPane.alignment="CENTER">
                                                          <top>
                                                             <Label fx:id="kiesIcoon" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="226.0" text="Kies icoon:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
@@ -251,16 +250,16 @@
                                                             <Insets top="10.0" />
                                                          </BorderPane.margin>
                                                          <center>
-                                                            <ListView fx:id="listIcoon" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                            <ListView fx:id="listIcoon" prefHeight="95.0" prefWidth="210.0" BorderPane.alignment="CENTER" />
                                                          </center>
                                                       </BorderPane>
                                                    </center>
                                                 </BorderPane>
                                              </left>
                                              <right>
-                                                <BorderPane prefHeight="206.0" prefWidth="608.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefHeight="206.0" prefWidth="645.0" BorderPane.alignment="CENTER">
                                                    <left>
-                                                      <BorderPane prefHeight="206.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+                                                      <BorderPane prefHeight="206.0" prefWidth="294.0" BorderPane.alignment="CENTER">
                                                          <top>
                                                             <Label fx:id="labelKiesSdGoal" prefHeight="27.0" prefWidth="305.0" text="Kies SDG's:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
@@ -269,12 +268,12 @@
                                                             </Label>
                                                          </top>
                                                          <center>
-                                                            <ListView fx:id="listKiesSdGoal" prefHeight="179.0" prefWidth="302.0" BorderPane.alignment="CENTER" />
+                                                            <ListView fx:id="listKiesSdGoal" prefHeight="179.0" prefWidth="325.0" BorderPane.alignment="CENTER" />
                                                          </center>
                                                       </BorderPane>
                                                    </left>
                                                    <right>
-                                                      <BorderPane prefHeight="206.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+                                                      <BorderPane prefHeight="206.0" prefWidth="303.0" BorderPane.alignment="CENTER">
                                                          <top>
                                                             <Label fx:id="labelSdGoal" text="SDG's" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
@@ -290,13 +289,33 @@
                                                             </Button>
                                                          </bottom>
                                                          <center>
-                                                            <ListView fx:id="listSdGoal" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                            <ListView fx:id="listSdGoal" prefHeight="139.0" prefWidth="303.0" BorderPane.alignment="CENTER" />
                                                          </center>
                                                       </BorderPane>
                                                    </right>
                                                    <BorderPane.margin>
                                                       <Insets />
                                                    </BorderPane.margin>
+                                                   <center>
+                                                      <BorderPane prefHeight="206.0" prefWidth="47.0" BorderPane.alignment="CENTER">
+                                                         <center>
+                                                            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                               <children>
+                                                                  <ImageView fx:id="arrow1" fitHeight="45.0" fitWidth="45.0" layoutX="2.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../../Users/musle/Desktop/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fx:id="arrow2" fitHeight="45.0" fitWidth="45.0" layoutX="2.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../../Users/musle/Desktop/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </center>
                                                 </BorderPane>
                                              </right>
                                           </BorderPane>
