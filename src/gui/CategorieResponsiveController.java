@@ -276,6 +276,7 @@ public class CategorieResponsiveController extends BorderPane {
 					
 					if(newValue.getIcon() != null)
 					{
+						
 						SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
 						System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
 						
@@ -516,6 +517,9 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				catError.setVisible(false);
 				
+				listKiesSdGoal.setItems(dc.getBeschikbareSdgs().filtered(s -> s.getIcon() != null)
+						.sorted(Comparator.comparing(SdGoal::getAfbeeldingNaamAlsInt)));
+				
 				//gegevens wijzigen bij Wijzigen
 			}
 			else if(vartextCat.getText().equals("Wijzig categorie"))
@@ -552,6 +556,9 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				catError.setVisible(false);
 				//catError.setStyle("-fx-text-fill: ");
+				
+				listKiesSdGoal.setItems(dc.getBeschikbareSdgs().filtered(s -> s.getIcon() != null)
+						.sorted(Comparator.comparing(SdGoal::getAfbeeldingNaamAlsInt)));
 			}
 		}
 		catch(IllegalArgumentException e)

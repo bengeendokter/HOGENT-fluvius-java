@@ -72,7 +72,13 @@ public class Fluvius
 	public ObservableList<SdGoal> getBeschikbareSdgs()
 	{
 		//TODO filter op beschikbaar
-		setSdGoals();
+		categorien.forEach(c -> {
+			List<SdGoal> goals = c.getSdGoals();
+			for(int i = 0; i < goals.size(); i++) {
+				sdGoals.remove(goals.get(i));
+			}
+		});
+		//setSdGoals();
 		System.out.println("Alle SdGoals ophalen");
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
