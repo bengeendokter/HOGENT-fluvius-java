@@ -207,6 +207,9 @@ public class CategorieResponsiveController extends BorderPane {
 	@FXML
 	private VBox vboxListIcons;
 	
+	@FXML
+	private Label doelError;
+	
 	
 	public CategorieResponsiveController(DomeinController dc) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieResponsive.fxml"));
@@ -240,6 +243,10 @@ public class CategorieResponsiveController extends BorderPane {
 			naamDatasource.setEditable(false);
 			datasourceLink.setEditable(false);
 			datasourceType.setEditable(false);
+			
+			// MVO Doelstellingen
+			showDoelMinimal();
+			vulDoelList();
 			
 			// ICONEN TABBLADEN INSTELLEN
 			///////////////////////////////////////////////////////////////////////////////////
@@ -930,5 +937,70 @@ public class CategorieResponsiveController extends BorderPane {
 			dataError.setText(e.getMessage());
 			dataError.setVisible(true);
 		}
+	}
+	
+	public void showDoelMinimal()
+	{
+		// visibility
+		vboxListIcons.setVisible(false);
+		vboxListIcons.setManaged(false);
+
+		vboxListSubDoelen.setVisible(false);
+		vboxListSubDoelen.setManaged(false);
+		vboxPijlenSubDoelen.setVisible(false);
+		vboxPijlenSubDoelen.setManaged(false);
+		
+		vboxPijlenDatasources.setVisible(false);
+		vboxPijlenDatasources.setManaged(false);
+		vboxListDatasources.setVisible(false);
+		vboxListDatasources.setManaged(false);
+		
+		doelError.setVisible(false);
+		
+		btnOplaanDoel.setVisible(false);
+		btnAnuleerDoel.setVisible(false);
+		
+		// editable
+		naamDoel.setEditable(false);
+		selectionDoelType.setDisable(true);
+		doelDoelwaarde.setEditable(false);
+		selectionDoelHoofdSDG.setDisable(true);
+		selectionDoelSubSDG.setDisable(true);
+		checkboxMVORol.setDisable(true);
+		checkboxManagerRol.setDisable(true);
+		checkboxDirectieRol.setDisable(true);
+		checkboxStakeholderRol.setDisable(true);
+	}
+	
+	public void vulDoelList()
+	{
+		// TODO public void setCurrentDoel(Doelstelling doel) in dc en fluvius maken?
+//		listDoelen.getSelectionModel().selectedItemProperty()
+//		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentDoel(listDoelen.getSelectionModel().getSelectedItem()));
+		
+		listDoelen.setItems(dc.getDoelstellingen());
+		
+		listDoelen.setCellFactory(param -> new ListCell<Doelstelling>()
+		{
+			private ImageView imageView = new ImageView();
+			
+			@Override
+			public void updateItem(Doelstelling doel, boolean empty)
+			{
+				super.updateItem(doel, empty);
+				if(empty)
+				{
+					setText(null);
+					setGraphic(null);
+				}
+				else
+				{
+					setText(doel.getNaam());
+					imageView.setImage(new Image(doel.getIcon(), 50, 50, true, true));
+					
+					setGraphic(imageView);
+				}
+			}
+		});
 	}
 }

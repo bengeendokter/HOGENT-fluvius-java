@@ -110,7 +110,7 @@
                                        <bottom>
                                           <BorderPane maxHeight="1.7976931348623157E308" prefHeight="54.0" prefWidth="647.0" BorderPane.alignment="CENTER">
                                              <left>
-                                                <Label fx:id="catError1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="574.0" text="Lorem ipsum dolor sit amet. Aut reiciendis voluptatem et quia ratione non ducimus maxime repudiandae numquam id itaque quisquam. " textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
+                                                <Label fx:id="doelError" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="574.0" text="Lorem ipsum dolor sit amet. Aut reiciendis voluptatem et quia ratione non ducimus maxime repudiandae numquam id itaque quisquam. " textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font size="17.0" />
                                                    </font>
@@ -325,7 +325,7 @@
                                                 </VBox>
                                              </right>
                                              <center>
-                                                <VBox alignment="CENTER_LEFT" prefHeight="472.0" prefWidth="266.0" BorderPane.alignment="CENTER">
+                                                <VBox alignment="CENTER" prefHeight="472.0" prefWidth="266.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <HBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="279.0">
                                                          <children>

@@ -68,9 +68,9 @@ public class PopulateDB
 		datasources.add(mvd);
 		
 		// Doelstellingen
-		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal1, null)));
-		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal2, null));
-		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal3, null)));
+		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "file:src/images/peace.png", 20, "gewogen gemiddelde", rollen, datasources, goal1, null)));
+		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "file:src/images/peace.png", 20, "gewogen gemiddelde", rollen, datasources, goal2, null));
+		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "file:src/images/peace.png", 20, "gewogen gemiddelde", rollen, datasources, goal3, null)));
 		doelstellingenRepo.insert(d);
 		GebruikerDaoJpa.commitTransaction();
 	}
