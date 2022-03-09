@@ -2,7 +2,6 @@ package testen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -17,12 +16,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domein.DTOCategorie;
 import domein.DTODatasource;
 import domein.Fluvius;
 import domein.MVODatasource;
-import domein.SDGCategorie;
-import domein.SdGoal;
 import repository.MVODatasourceDao;
 
 @ExtendWith(MockitoExtension.class)
