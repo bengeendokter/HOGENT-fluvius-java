@@ -88,7 +88,7 @@
                                           </Label>
                                        </top>
                                        <bottom>
-                                          <Button fx:id="btnAddDoel" mnemonicParsing="false" onAction="#addCategorie" prefHeight="44.0" prefWidth="48.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Button fx:id="btnAddDoel" mnemonicParsing="false" onAction="#addDoel" prefHeight="44.0" prefWidth="48.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="20.0" top="20.0" />
                                              </BorderPane.margin>
@@ -119,7 +119,7 @@
                                              <right>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <left>
-                                                      <Button fx:id="btnOplaanDoel" mnemonicParsing="false" onAction="#catOpslaan" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #004C69;" text="OPSLAAN" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnOplaanDoel" mnemonicParsing="false" onAction="#doelOpslaan" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #004C69;" text="OPSLAAN" textFill="WHITE" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets left="5.0" />
                                                          </BorderPane.margin>
@@ -129,7 +129,7 @@
                                                       </Button>
                                                    </left>
                                                    <right>
-                                                      <Button fx:id="btnAnuleerDoel" mnemonicParsing="false" onAction="#catAnnuleer" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #b2d235;" text="ANNULEER" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                      <Button fx:id="btnAnuleerDoel" mnemonicParsing="false" onAction="#doelAnnuleer" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #b2d235;" text="ANNULEER" textFill="#004c69" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets left="5.0" />
                                                          </BorderPane.margin>
@@ -260,7 +260,7 @@
                                                    <children>
                                                       <HBox alignment="TOP_RIGHT" minHeight="-Infinity" prefHeight="65.0" prefWidth="246.0" spacing="30.0">
                                                          <children>
-                                                            <Button fx:id="btnDoelWijzig" contentDisplay="CENTER" mnemonicParsing="false" onAction="#catBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #2E4D68; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69">
+                                                            <Button fx:id="btnDoelWijzig" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doelBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #2E4D68; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69">
                                                                <graphic>
                                                                   <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
@@ -269,7 +269,7 @@
                                                                   </ImageView>
                                                                </graphic>
                                                             </Button>
-                                                            <Button fx:id="btnDoelVerwijder" mnemonicParsing="false" onAction="#catVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;">
+                                                            <Button fx:id="btnDoelVerwijder" mnemonicParsing="false" onAction="#doelVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;">
                                                                <graphic>
                                                                   <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>

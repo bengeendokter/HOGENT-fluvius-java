@@ -11,4 +11,6 @@ public interface Doelstelling {
 	public String getDoelstellingsType();
 	public List<Rol> getRollen();
 	public List<MVODatasource> getDatasources();
+	public SdGoal getHoofdSdg();
+	public SdGoal getSubSdg();
 }

@@ -18,6 +18,7 @@ import domein.DomeinController;
 import domein.Rol;
 import domein.SdGoal;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -148,10 +149,10 @@ public class CategorieResponsiveController extends BorderPane {
 	private ListView<String> listDoelIcoon;
 	
 	@FXML
-	private ChoiceBox<SdGoal> selectionDoelHoofdSDG;
+	private ChoiceBox<String> selectionDoelHoofdSDG;
 	
 	@FXML
-	private ChoiceBox<SdGoal> selectionDoelSubSDG;
+	private ChoiceBox<String> selectionDoelSubSDG;
 	
 	@FXML
 	private ListView<Doelstelling> listDoelKiesSubDoel;
@@ -939,7 +940,9 @@ public class CategorieResponsiveController extends BorderPane {
 		}
 	}
 	
-	public void showDoelMinimal()
+	
+	// Doelstelling methodes
+	private void showDoelMinimal()
 	{
 		// visibility
 		vboxListIcons.setVisible(false);
@@ -960,6 +963,9 @@ public class CategorieResponsiveController extends BorderPane {
 		btnOplaanDoel.setVisible(false);
 		btnAnuleerDoel.setVisible(false);
 		
+		btnDoelWijzig.setVisible(true);
+		btnDoelVerwijder.setVisible(true);
+		
 		// editable
 		naamDoel.setEditable(false);
 		selectionDoelType.setDisable(true);
@@ -972,14 +978,11 @@ public class CategorieResponsiveController extends BorderPane {
 		checkboxStakeholderRol.setDisable(true);
 	}
 	
-	public void vulDoelList()
+	private void vulDoelList()
 	{
-		// TODO public void setCurrentDoel(Doelstelling doel) in dc en fluvius maken?
-//		listDoelen.getSelectionModel().selectedItemProperty()
-//		.addListener((observableValue, oldValue, newValue) -> dc.setCurrentDoel(listDoelen.getSelectionModel().getSelectedItem()));
-		
 		listDoelen.setItems(dc.getDoelstellingen());
 		
+		// vul ListView
 		listDoelen.setCellFactory(param -> new ListCell<Doelstelling>()
 		{
 			private ImageView imageView = new ImageView();
@@ -1002,5 +1005,220 @@ public class CategorieResponsiveController extends BorderPane {
 				}
 			}
 		});
+		
+		// onSelect Doel
+		listDoelen.getSelectionModel().selectedItemProperty()
+		.addListener((observableValue, oldValue, newValue) -> {
+			if(newValue != null)
+			{
+				Doelstelling doel = newValue;
+				
+				if(doel != null)
+				{
+					naamDoel.setText(doel.getNaam());
+					selectionDoelType.setValue(doel.getDoelstellingsType());
+					doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
+					doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
+					selectionDoelHoofdSDG.setValue(doel.getHoofdSdg().getNaam());
+					SdGoal subSdg = doel.getSubSdg();
+					selectionDoelSubSDG.setValue(subSdg != null ? subSdg.getNaam() : "---");
+					
+					// TODO subdoelstellingen en rollen
+				}
+				
+				// indien hiervoor aan het bewerken was, sluit bewerkingsview
+				showDoelMinimal();
+			}
+		});
+		
+		listDoelen.getSelectionModel().selectFirst();
+		
+		onSelectDoelIcon(listDoelIcoon, doelIcoon);
+		onSelectKiesSubDoel();
+		// TODO
+//		onSelectKiesDatasource();
+//		
+//		onSelectSubDoel();
+		onSelectDatasource();
+	}
+
+	private void onSelectDoelIcon(ListView<String> iconenLijst, ImageView icoon)
+	{
+		//listIcoon opvullen met iconen
+		iconenLijst.setItems(FXCollections.observableList(iconen));
+		iconenLijst.setCellFactory(param -> new ListCell<String>()
+		{
+			private ImageView imageView = new ImageView();
+			
+			@Override
+			public void updateItem(String name, boolean empty)
+			{
+				super.updateItem(name, empty);
+				if(empty)
+				{
+					setText(null);
+					setGraphic(null);
+				}
+				else
+				{
+					setText(null);
+					imageView.setImage(new Image(name, 25, 25, true, true));
+					
+					setGraphic(imageView);
+				}
+			}
+		});
+		
+		//icoon verandert als je op een icoon klikt van de lijst
+		iconenLijst.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+			if(newValue != null)
+			{
+				String icoonPath = newValue;
+				
+				if(icoonPath != null)
+				{
+					icoon.setImage(new Image(icoonPath, 250, 250, true, true));
+				}
+			}
+		});
+	}
+	
+	
+	private void onSelectKiesSubDoel()
+	{
+		// TODO filter op mogelijke subdoelen
+		listDoelKiesSubDoel.setItems(FXCollections.observableList(dc.getDoelstellingen()));
+		listDoelKiesSubDoel.setCellFactory(param -> new ListCell<Doelstelling>()
+		{
+			private ImageView imageView = new ImageView();
+			
+			@Override
+			public void updateItem(Doelstelling subDoel, boolean empty)
+			{
+				super.updateItem(subDoel, empty);
+				if(empty)
+				{
+					setText(null);
+					setGraphic(null);
+				}
+				else
+				{
+					setText(subDoel.getNaam());
+					imageView.setImage(new Image(subDoel.getIcon(), 25, 25, true, true));
+					
+					setGraphic(imageView);
+				}
+			}
+		});
+		
+		listDoelKiesSubDoel.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+			if(newValue != null)
+			{
+				Doelstelling subDoel = newValue;
+				
+				if(subDoel != null)
+				{
+					ObservableList<Doelstelling> huidigeSubDoelen = listDoelSubDoelen.getItems();
+					
+					if(huidigeSubDoelen == null)
+					{
+						huidigeSubDoelen = FXCollections.observableList(new ArrayList<>());
+					}
+					huidigeSubDoelen.add(subDoel);
+					listDoelSubDoelen.setItems(huidigeSubDoelen);
+				}
+			}
+		});
+	}
+
+	private void onSelectDatasource()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void leegDoelVelden()
+	{
+		naamDoel.setText("");
+		selectionDoelType.setValue("");
+		doelDoelwaarde.setText("");
+		doelIcoon.setImage(null);
+		selectionDoelHoofdSDG.setValue("");
+		selectionDoelSubSDG.setValue("");
+		listDoelSubDoelen.setItems(null);
+		checkboxMVORol.setSelected(false);
+		checkboxManagerRol.setSelected(false);
+		checkboxDirectieRol.setSelected(false);
+		checkboxStakeholderRol.setSelected(false);
+		listDoelDatasources.setItems(null);
+	}
+	
+	@FXML
+	private void addDoel(ActionEvent event)
+	{
+		listDoelen.getSelectionModel().clearSelection();
+		
+		// visibility
+		vboxListIcons.setVisible(true);
+		vboxListIcons.setManaged(true);
+
+		vboxListSubDoelen.setVisible(true);
+		vboxListSubDoelen.setManaged(true);
+		vboxPijlenSubDoelen.setVisible(true);
+		vboxPijlenSubDoelen.setManaged(true);
+		
+		vboxPijlenDatasources.setVisible(true);
+		vboxPijlenDatasources.setManaged(true);
+		vboxListDatasources.setVisible(true);
+		vboxListDatasources.setManaged(true);
+		
+		doelError.setVisible(false);
+		
+		btnOplaanDoel.setVisible(true);
+		btnAnuleerDoel.setVisible(true);
+		
+		btnDoelWijzig.setVisible(false);
+		btnDoelVerwijder.setVisible(false);
+		
+		// editable
+		naamDoel.setEditable(true);
+		selectionDoelType.setDisable(false);
+		doelDoelwaarde.setEditable(true);
+		selectionDoelHoofdSDG.setDisable(false);
+		selectionDoelSubSDG.setDisable(false);
+		checkboxMVORol.setDisable(false);
+		checkboxManagerRol.setDisable(false);
+		checkboxDirectieRol.setDisable(false);
+		checkboxStakeholderRol.setDisable(false);
+		
+		leegDoelVelden();
+		
+		// TODO vul kies listviews in
+	}
+	
+	@FXML
+	private void doelOpslaan(ActionEvent event)
+	{
+		// TODO
+	}
+	
+	@FXML
+	private void doelAnnuleer(ActionEvent event)
+	{
+		leegDoelVelden();
+		showDoelMinimal();
+		listDoelen.getSelectionModel().selectFirst();
+	}
+	
+	@FXML
+	private void doelBewerken(ActionEvent event)
+	{
+		// TODO
+	}
+	
+	@FXML
+	private void doelVerwijderen(ActionEvent event)
+	{
+		// TODO
 	}
 }
