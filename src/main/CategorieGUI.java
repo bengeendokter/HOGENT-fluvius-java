@@ -5,6 +5,7 @@ import domein.Gebruiker;
 import gui.CategorieResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class CategorieGUI extends Application
@@ -29,8 +30,8 @@ public class CategorieGUI extends Application
 			
 			scene.getStylesheets().add("theme.css");
 			
-			/*Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
-			primaryStage.getIcons().add(icon);*/
+			Image icon = new Image(getClass().getResource("/images/icon.png").toExternalForm());
+			primaryStage.getIcons().add(icon);
 			
 			primaryStage.show();
 			

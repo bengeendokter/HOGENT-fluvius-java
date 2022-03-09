@@ -122,9 +122,9 @@ public class AanmeldenResponsiveController extends BorderPane
 			Scene scene = new Scene(vs);
 			scene.getStylesheets().add("theme.css");
 			Stage stage = (Stage) this.getScene().getWindow();
-			stage.setResizable(true);
-			stage.setMaximized(true);
 			stage.setScene(scene);
+			stage.hide();
+			stage.setMaximized(true);
 			stage.show();
 			
 		}
