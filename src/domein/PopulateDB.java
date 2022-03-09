@@ -32,9 +32,11 @@ public class PopulateDB
 		
 		// SdGoals
 		SdGoal goal1 = new SdGoal("1", "Geen armoede");
+		SdGoal goal2 = new SdGoal("2", "Geen honger");
+		SdGoal goal3 = new SdGoal("3", "Goede gezondheid en welzijn");
 		sdGoalRepo.insert(goal1);
-		sdGoalRepo.insert(new SdGoal("2", "Geen honger"));
-		sdGoalRepo.insert(new SdGoal("3", "Goede gezondheid en welzijn"));
+		sdGoalRepo.insert(goal2);
+		sdGoalRepo.insert(goal3);
 		sdGoalRepo.insert(new SdGoal("4", "Kwaliteitsonderwijs"));
 		sdGoalRepo.insert(new SdGoal("5", "Gendergelijkheid"));
 		sdGoalRepo.insert(new SdGoal("6", "Schoon water en sanitair"));
@@ -66,9 +68,9 @@ public class PopulateDB
 		datasources.add(mvd);
 		
 		// Doelstellingen
-		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "icon1", 20, "gewogen gemiddelde", rollen, datasources)));
-		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "icon1", 20, "gewogen gemiddelde", rollen, datasources));
-		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "icon1", 20, "gewogen gemiddelde", rollen, datasources)));
+		doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal1, null)));
+		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal2, null));
+		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "icon1", 20, "gewogen gemiddelde", rollen, datasources, goal3, null)));
 		doelstellingenRepo.insert(d);
 		GebruikerDaoJpa.commitTransaction();
 	}

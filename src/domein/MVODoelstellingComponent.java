@@ -15,10 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -50,6 +52,11 @@ public abstract class MVODoelstellingComponent implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<MVODatasource> datasources = new ArrayList<>();
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private SdGoal hoofdSdg;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private SdGoal subSdg;
+	
 	// Constructoren
 	public MVODoelstellingComponent(DTOMVODoelstelling d) {
 		setNaam(d.naam);
@@ -58,8 +65,12 @@ public abstract class MVODoelstellingComponent implements Serializable{
 		setDoelstellingsType(d.doelstellingsType);
 		setRollen(d.rollen);
 		setDatasources(d.datasources);
+		setHoofdSdg(d.hoofdSdg);
+		setSubSdg(d.subSdg);
 	}
 	
+	
+
 	protected MVODoelstellingComponent() {
 		
 	}
@@ -91,6 +102,14 @@ public abstract class MVODoelstellingComponent implements Serializable{
 
 	public List<MVODatasource> getDatasources() {
 		return Collections.unmodifiableList(datasources);
+	}
+	
+	public SdGoal getHoofdSdg() {
+		return hoofdSdg;
+	}
+
+	public SdGoal getSubSdg() {
+		return subSdg;
 	}
 
 	// Setters
@@ -130,6 +149,17 @@ public abstract class MVODoelstellingComponent implements Serializable{
 			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens voor 1 rol zichtbaar zijn");
 		}
 		this.rollen = rollen;
+	}
+	
+	private void setSubSdg(SdGoal subSdg) {
+		this.subSdg = subSdg;
+	}
+
+	private void setHoofdSdg(SdGoal hoofdSdg) {
+		if(hoofdSdg == null) {
+			throw new IllegalArgumentException("De MVO Doelstelling moet gekoppeld zijn aan een SDG");
+		}
+		this.hoofdSdg = hoofdSdg;
 	}
 
 	// Typische component methodes
