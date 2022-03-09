@@ -12,15 +12,21 @@ import domein.Categorie;
 import domein.DTOCategorie;
 import domein.DTODatasource;
 import domein.Datasource;
+import domein.Doelstelling;
+import domein.DoelstellingMVO;
 import domein.DomeinController;
+import domein.Rol;
 import domein.SdGoal;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -32,6 +38,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -120,6 +127,86 @@ public class CategorieResponsiveController extends BorderPane {
 	private Button btnDataAnnuleer;
 	@FXML
 	private Label dataError;
+	
+	// MVO Doelstelling attributen
+	@FXML
+	private ListView<Doelstelling> listDoelen;
+	
+	@FXML
+	private TextField naamDoel;
+	
+	@FXML
+	private ChoiceBox<String> selectionDoelType;
+	
+	@FXML
+	private TextField doelDoelwaarde;
+	
+	@FXML
+	private ImageView doelIcoon;
+	
+	@FXML
+	private ListView<String> listDoelIcoon;
+	
+	@FXML
+	private ChoiceBox<SdGoal> selectionDoelHoofdSDG;
+	
+	@FXML
+	private ChoiceBox<SdGoal> selectionDoelSubSDG;
+	
+	@FXML
+	private ListView<Doelstelling> listDoelKiesSubDoel;
+	
+	@FXML
+	private ListView<Doelstelling> listDoelSubDoelen;
+	
+	@FXML
+	private CheckBox checkboxMVORol;
+
+	@FXML
+	private CheckBox checkboxManagerRol;
+	
+	@FXML
+	private CheckBox checkboxDirectieRol;
+	
+	@FXML
+	private CheckBox checkboxStakeholderRol;
+	
+	@FXML
+	private ListView<Datasource> listDoelKiesData;
+	
+	@FXML
+	private ListView<Datasource> listDoelDatasources;
+	
+	@FXML
+	private Button btnAddDoel;
+	
+	@FXML
+	private Button btnDoelWijzig;
+	
+	@FXML
+	private Button btnDoelVerwijder;
+	
+	@FXML
+	private Button btnOplaanDoel;
+	
+	@FXML
+	private Button btnAnuleerDoel;
+	
+	@FXML
+	private VBox vboxListSubDoelen;
+	
+	@FXML
+	private VBox vboxPijlenSubDoelen;
+	
+	@FXML
+	private VBox vboxListDatasources;
+	
+	@FXML
+	private VBox vboxPijlenDatasources;
+	
+	@FXML
+	private VBox vboxListIcons;
+	
 	
 	public CategorieResponsiveController(DomeinController dc) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieResponsive.fxml"));
