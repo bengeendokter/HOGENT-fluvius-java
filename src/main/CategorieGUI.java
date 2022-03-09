@@ -2,7 +2,7 @@ package main;
 
 import domein.DomeinController;
 import domein.Gebruiker;
-import gui.CategorieFrameController;
+import gui.CategorieResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,11 +20,11 @@ public class CategorieGUI extends Application
 			//CategorieFrameController root = new CategorieFrameController(aanmeldController);
 			
 			
-			CategorieFrameController root = new CategorieFrameController(domeinController);
+			CategorieResponsiveController root = new CategorieResponsiveController(domeinController);
 			//CategorieFrameController root = new CategorieFrameController();
 			Scene scene = new Scene(root);
-			primaryStage.setResizable(false);
-			primaryStage.setMaximized(false);
+			primaryStage.setResizable(true);
+			primaryStage.setMaximized(true);
 			primaryStage.setScene(scene);
 			
 			scene.getStylesheets().add("theme.css");
