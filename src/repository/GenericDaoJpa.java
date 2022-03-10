@@ -8,34 +8,34 @@ import javax.persistence.Persistence;
 
 public class GenericDaoJpa<T> implements GenericDao<T>
 {
-	private  final String PU_NAME = DatabaseSelector.ISLOCALHOST ? "local" : "fluvius";
-	private  final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
-	protected  final EntityManager em = emf.createEntityManager();
+	private static final String PU_NAME = DatabaseSelector.ISLOCALHOST ? "local" : "fluvius";
+	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
+	protected  static final EntityManager em = emf.createEntityManager();
 	private final Class<T> type;
 	
 	public GenericDaoJpa(Class<T> type)
 	{
 		this.type = type;
 	}
-	@Override
-	public  void closePersistency()
+	
+	public  static void closePersistency()
 	{
 		em.close();
 		emf.close();
 	}
-	@Override
-	public  void startTransaction()
+	
+	public static  void startTransaction()
 	{
 		em.getTransaction().begin();
 	}
-	@Override
-	public  void commitTransaction()
+	
+	public static void commitTransaction()
 	{
 		em.getTransaction().commit();
 		System.out.println("Transaction commited");
 	}
-	@Override
-	public  void rollbackTransaction()
+	
+	public static void rollbackTransaction()
 	{
 		em.getTransaction().rollback();
 	}
