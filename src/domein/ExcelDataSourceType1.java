@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@DiscriminatorValue("C")
+@DiscriminatorValue("E")
 //@Table(name = "CsvDataSource")
-public class CsvDataSourceType1 extends TypeDatasource1 implements Serializable  {
+public class ExcelDataSourceType1 extends TypeDatasource1 implements Serializable  {
 	//"file:src/data/dataProject.csv"
 	
 	/*private static final long serialVersionUID = 1L;
@@ -31,14 +31,17 @@ public class CsvDataSourceType1 extends TypeDatasource1 implements Serializable 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String link;
+	private String size;
 	
-	protected CsvDataSourceType1() {
+	protected ExcelDataSourceType1() {
 		
 	}
 	
-	public CsvDataSourceType1(String link) {
+	public ExcelDataSourceType1(String link, String size) {
 		this.link = link;
+		this.size = size;
 	}
+	
 	
 	public List<Double> getData() {
 		return Arrays.asList(3.4, 5.6, 7.8);

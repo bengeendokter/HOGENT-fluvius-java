@@ -53,7 +53,10 @@ public class DatasourceTest implements Serializable, Datasource
 	{
 		setNaam(dds.naam);
 		//setTypeDatasource(dds.typeDatasource);
-		setTypeDatasource(new CsvDataSourceType1(dds.link));
+		if (dds.typeDatasource.equals("excel"))
+			setTypeDatasource(new ExcelDataSourceType1(dds.link, "50mb"));
+		else if (dds.typeDatasource.equals("csv"))
+			setTypeDatasource(new CsvDataSourceType1(dds.link));
 		
 		setLink(dds.link);
 	}
