@@ -12,7 +12,7 @@ import repository.GenericDaoJpa;
 
 public class AanmeldController
 {
-	
+	private GebruikerDaoJpa gJpa;
 	public AanmeldController()
 	{
 		this(false);
@@ -29,11 +29,11 @@ public class AanmeldController
 	public DomeinController meldAan(String gebruikersnaam, String wachtwoord) throws ExceptionInInitializerError
 	{
 		
-		GebruikerDaoJpa gJpa;
+		
 		try
 		{
 			gJpa = new GebruikerDaoJpa();
-			GenericDaoJpa.startTransaction();
+			gJpa.startTransaction();
 		}
 		catch(ExceptionInInitializerError e)
 		{
@@ -78,7 +78,7 @@ public class AanmeldController
 			GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
 			aanmeldPogingDao.insert(
 					new AanmeldPoging(gebruiker, new Date(), true, gebruiker.getRol(), gebruiker.getStatus(), 0));
-			GenericDaoJpa.commitTransaction();
+			gJpa.commitTransaction();
 			System.out.println(gebruiker.toString());
 			
 			return new DomeinController(gebruiker);
@@ -86,7 +86,7 @@ public class AanmeldController
 		catch(GebruikerBestaatNietException e)
 		{
 			
-			GenericDaoJpa.commitTransaction();
+			gJpa.commitTransaction();
 			System.out.println("bestaat niet");
 			throw new GebruikerBestaatNietException();
 			
@@ -134,11 +134,11 @@ public class AanmeldController
 		
 		aanmeldpogingDao.insert(new AanmeldPoging(gebruiker, new Date(), false, gebruiker.getRol(),
 				gebruiker.getStatus(), aanmeldPogingnummer));
-		GenericDaoJpa.commitTransaction();
+		gJpa.commitTransaction();
 	}
 	
 	public void sluitPersistentie()
 	{
-		GenericDaoJpa.closePersistency();
+		gJpa.closePersistency();
 	}
 }

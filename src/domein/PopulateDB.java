@@ -24,7 +24,7 @@ public class PopulateDB
 		CategorieDao categorieRepo = new CategorieDaoJpa();
 		MVODoelstellingDao doelstellingenRepo = new MVODoelstellingDaoJpa();
 		MVODatasourceDao datasourceRepo = new MVODatasourceDaoJpa();
-		GebruikerDaoJpa.startTransaction();
+		gebruikerRepo.startTransaction();
 		
 		// Gebruikers
 		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
@@ -72,6 +72,6 @@ public class PopulateDB
 		DoelstellingMVO d = new DoelstellingMVO(new DTOMVODoelstelling("doelstelling2", "file:src/images/planet.jpg", 20, "gewogen gemiddelde", rollen, datasources, goal2, null));
 		d.add(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling21", "file:src/images/peace.png", 20, "gewogen gemiddelde", rollen, datasources, goal3, null)));
 		doelstellingenRepo.insert(d);
-		GebruikerDaoJpa.commitTransaction();
+		gebruikerRepo.commitTransaction();
 	}
 }
