@@ -2,10 +2,10 @@ package domein;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Datasource")
-@NamedQueries({
-	@NamedQuery(name = "datasource.findByNaam", query = "select d from domein.MVODatasource d where d.naam = :naam")})
-public class MVODatasource implements Serializable, Datasource
+@Table(name = "Datasource1")
+public class DatasourceTest implements Serializable, Datasource
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -37,7 +35,8 @@ public class MVODatasource implements Serializable, Datasource
 	
 	//type uitbreiding
 	//private String typeDatasource;
-	private TypeDatasource typeDatasource;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private TypeDatasource1 typeDatasource;
 	
 	@Override
 	public List<Double> getData() {
@@ -45,16 +44,16 @@ public class MVODatasource implements Serializable, Datasource
 		return Arrays.asList(3.4, 5.6, 7.8);
 	}
 	
-	protected MVODatasource()
+	protected DatasourceTest()
 	{
 		
 	}
 	
-	public MVODatasource(DTODatasource dds)
+	public DatasourceTest(DTODatasource dds)
 	{
 		setNaam(dds.naam);
 		//setTypeDatasource(dds.typeDatasource);
-		setTypeDatasource(new CsvDataSourceType(dds.link));
+		setTypeDatasource(new CsvDataSourceType1(dds.link));
 		
 		setLink(dds.link);
 	}
@@ -95,7 +94,7 @@ public class MVODatasource implements Serializable, Datasource
 	}
 	
 	//String of TypeDatasource
-	public final void setTypeDatasource(TypeDatasource typeDatasource)
+	public final void setTypeDatasource(TypeDatasource1 typeDatasource)
 	{
 		/*if(typeDatasource == null || typeDatasource.isBlank())
 		{
@@ -116,6 +115,8 @@ public class MVODatasource implements Serializable, Datasource
 		this.link = link;
 	}
 	
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(naam);
@@ -129,10 +130,10 @@ public class MVODatasource implements Serializable, Datasource
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MVODatasource other = (MVODatasource) obj;
+		DatasourceTest other = (DatasourceTest) obj;
 		return Objects.equals(naam, other.naam);
 	}
-	
+
 	@Override
 	public String toString()
 	{
