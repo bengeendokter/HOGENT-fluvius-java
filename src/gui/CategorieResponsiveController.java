@@ -1292,4 +1292,5 @@ public class CategorieResponsiveController extends BorderPane
 	}
 	
 	// TODO toon errors
+	// TODO verander label detailscherm bij elke actie
 }
