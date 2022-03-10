@@ -3,8 +3,10 @@ package domein;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -130,24 +132,34 @@ public abstract class MVODoelstellingComponent implements Serializable{
 	
 	private void setDoelwaarde(double doelwaarde) {
 		this.doelwaarde = doelwaarde;
-		
 	}
 	
 	private void setDoelstellingsType(String doelstellingsType) {
+		if(doelstellingsType == null || doelstellingsType.isBlank()) {
+			throw new IllegalArgumentException("Het doelstellingstype van de MVO Doelstelling mag niet leeg zijn");
+		}
 		this.doelstellingsType = doelstellingsType;
 	}
 	
 	private void setDatasources(List<MVODatasource> datasources) {
-		if(datasources.isEmpty()) {
+		if(datasources == null || datasources.isEmpty() ) {
 			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens aan 1 datasource zijn gekoppeld");
 		}
 		this.datasources = datasources;
 	}
 
 	private void setRollen(List<Rol> rollen) {
-		if(rollen.isEmpty()) {
+		if(rollen.isEmpty() || rollen == null) {
 			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens voor 1 rol zichtbaar zijn");
 		}
+		// Controleren dat de lijst van rollen niet bestaat uit dezelfde rollen
+		Set<Rol> rollen2 = new HashSet<>();
+		for(Rol rol: rollen) {
+			if(rollen2.add(rol) == false) {
+				throw new IllegalArgumentException("Een MVO Doelstelling bevat meerdere keren dezelfde rol");
+			}
+		}
+		
 		this.rollen = rollen;
 	}
 	

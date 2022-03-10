@@ -69,6 +69,12 @@ public class Fluvius
 		sdGoals.addAll(sdGoalsRepo.findAll());
 	}
 	
+	public ObservableList<SdGoal> getSdgs()
+	{
+		System.out.println("Alle SdGoals ophalen");
+		return FXCollections.unmodifiableObservableList(sdGoals);
+	}
+	
 	public ObservableList<SdGoal> getBeschikbareSdgs()
 	{
 		//TODO filter op beschikbaar
