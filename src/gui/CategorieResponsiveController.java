@@ -273,9 +273,14 @@ public class CategorieResponsiveController extends BorderPane
 			});
 			
 			listCategorieen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue,
-					newValue) -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
+					newValue) -> {
+						if(newValue != null)
+						{
+							dc.setCurrentCategorie(newValue);
+						}
+					});
 			listDatasources1.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue,
-					newValue) -> dc.setCurrentDatasource(listDatasources1.getSelectionModel().getSelectedItem()));
+					newValue) -> dc.setCurrentDatasource(newValue));
 			
 			listCategorieen.setItems(dc.getCategorien());
 			listDatasources1.setItems(dc.getDatasources());
@@ -625,11 +630,13 @@ public class CategorieResponsiveController extends BorderPane
 			}
 			else if(vartextCat.getText().equals("Wijzig categorie"))
 			{
-				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
-				dc.setCurrentCategorie(huidigeCategorie);
+//				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
 				
 				DTOCategorie nieuweCategorie = new DTOCategorie(naamCategorie.getText(), catIcoon.getImage().getUrl(),
 						new ArrayList<SdGoal>(listSdGoal.getItems().stream().collect(Collectors.toList())));
+				
+				System.out.println(nieuweCategorie.naam);
+				
 				dc.wijzigCategorie(nieuweCategorie);
 				
 				//alles terug goed zetten
@@ -1031,6 +1038,8 @@ public class CategorieResponsiveController extends BorderPane
 		listDoelen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
+				leegDoelVelden();
+				
 				Doelstelling doel = newValue;
 				
 				naamDoel.setText(doel.getNaam());
