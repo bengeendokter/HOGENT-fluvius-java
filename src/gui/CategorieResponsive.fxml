@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane fx:id="groeneBalk" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #b2d235; -fx-effect: dropshadow(gaussian, #454545, 10, 0, 1, 0); -fx-padding: 0 7 0 7;" BorderPane.alignment="CENTER">
          <center>
@@ -820,13 +820,9 @@
                                                                </font>
                                                             </Label>
                                                          </left>
-                                                         <center>
-                                                            <TextField fx:id="datasourceType" prefHeight="25.0" prefWidth="348.0" BorderPane.alignment="CENTER">
-                                                               <BorderPane.margin>
-                                                                  <Insets left="15.0" />
-                                                               </BorderPane.margin>
-                                                            </TextField>
-                                                         </center>
+                                                         <right>
+                                                            <ChoiceBox fx:id="datasourceType" prefHeight="25.0" prefWidth="324.0" BorderPane.alignment="CENTER" />
+                                                         </right>
                                                       </BorderPane>
                                                    </top>
                                                    <left>
