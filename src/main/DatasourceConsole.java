@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import repository.GenericDaoJpa;
 
 public class DatasourceConsole {
 	
-	public static void main(String[] args) throws SQLIntegrityConstraintViolationException, IllegalStateException {
+	public static void main(String[] args) throws SQLIntegrityConstraintViolationException, IllegalStateException, IOException {
 		/*AanmeldController aanmeldController = new AanmeldController();
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");*/
 		
@@ -26,7 +27,7 @@ public class DatasourceConsole {
 		  EntityManager em = emf.createEntityManager();
 		
 		  em.getTransaction().begin();
-		  DatasourceTest dt = new DatasourceTest(new DTODatasource("fluvius", "csv", "file:src/data/fluvius.csv"));
+		  DatasourceTest dt = new DatasourceTest(new DTODatasource("fileXLS", "excel", "src/data/xlsDouble.xls"));
 		  em.persist(dt);
 		  em.getTransaction().commit();
 		  em.close();

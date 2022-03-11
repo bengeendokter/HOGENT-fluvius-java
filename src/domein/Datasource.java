@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface Datasource{
@@ -10,5 +11,6 @@ public interface Datasource{
 	public String getLink();
 	
 	//data geven
-	public List<Double> getData();
+	//List<Double>
+	public List<String> getData() throws IOException;
 }

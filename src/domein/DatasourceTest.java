@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -39,9 +40,10 @@ public class DatasourceTest implements Serializable, Datasource
 	private TypeDatasource1 typeDatasource;
 	
 	@Override
-	public List<Double> getData() {
-		//return typeDatasource.getData();
-		return Arrays.asList(3.4, 5.6, 7.8);
+	//List<Double>
+	public List<String> getData() throws IOException {
+		return typeDatasource.getData();
+		//return Arrays.asList(3.4, 5.6, 7.8);
 	}
 	
 	protected DatasourceTest()
@@ -49,7 +51,7 @@ public class DatasourceTest implements Serializable, Datasource
 		
 	}
 	
-	public DatasourceTest(DTODatasource dds)
+	public DatasourceTest(DTODatasource dds) throws IOException
 	{
 		setNaam(dds.naam);
 		//setTypeDatasource(dds.typeDatasource);
