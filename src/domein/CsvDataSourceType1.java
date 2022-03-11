@@ -38,6 +38,7 @@ public class CsvDataSourceType1 extends TypeDatasource1 implements Serializable 
 	
 	public CsvDataSourceType1(String link) {
 		this.link = link;
+		System.out.println(getData());
 	}
 	
 	public List<Double> getData() {

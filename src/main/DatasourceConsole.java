@@ -26,7 +26,7 @@ public class DatasourceConsole {
 		  EntityManager em = emf.createEntityManager();
 		
 		  em.getTransaction().begin();
-		  DatasourceTest dt = new DatasourceTest(new DTODatasource("nieuwe", "excel", "file:src/data/abi100.xls"));
+		  DatasourceTest dt = new DatasourceTest(new DTODatasource("hello", "csv", "file:src/data/hello.csv"));
 		  em.persist(dt);
 		  em.getTransaction().commit();
 		  em.close();
@@ -41,9 +41,5 @@ public class DatasourceConsole {
 		
 		//dc.wijzigMVODatasource(new DTODatasource("aantal vrouwen2", "csv", "fluvius.com/1"));
 		//dc.verwijderMVODatasource();
-	}
-	
-	
-	
-	
+	}	
 }
