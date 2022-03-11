@@ -26,7 +26,7 @@ public class DatasourceConsole {
 		  EntityManager em = emf.createEntityManager();
 		
 		  em.getTransaction().begin();
-		  DatasourceTest dt = new DatasourceTest(new DTODatasource("hello", "csv", "file:src/data/hello.csv"));
+		  DatasourceTest dt = new DatasourceTest(new DTODatasource("fluvius", "csv", "file:src/data/fluvius.csv"));
 		  em.persist(dt);
 		  em.getTransaction().commit();
 		  em.close();
