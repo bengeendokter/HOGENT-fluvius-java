@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -18,55 +22,80 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class ExcelReader {
-	/*public static void main(String args[]) throws IOException  {  
-		//obtaining input bytes from a file  
-		//C:\\demo\\student.xls
+	public static void main(String args[]) throws IOException  {  
+		//testex
 		FileInputStream fis=new FileInputStream(new File("src/data/testex.xls"));  
-		//creating workbook instance that refers to .xls file  
 		@SuppressWarnings("resource")
 		HSSFWorkbook wb=new HSSFWorkbook(fis);   
-		//creating a Sheet object to retrieve the object  
-		HSSFSheet sheet=wb.getSheetAt(0);  
-		//evaluating cell type   
+		HSSFSheet sheet=wb.getSheetAt(0);    
 		FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();  
-		for(Row row: sheet)  {   //iteration over row using for each loop  
+		
+		//xlsx bestaat uit 1 of meerdere kolommen
+    	List<List<String>> lijstGeheel1 = new ArrayList<>();
+		List<String> lijst = new ArrayList<>();
+		
+		int teller = 0;
+		boolean eenKolom = false;
+		
+		for(Row row: sheet)  {  
+			//aantal rijen dat je wilt lezen is teller < x (voor alle rijen teller < 0)
+			if (teller >= 10) break;
 	
-			for(Cell cell: row) {    //iteration over cell using for each loop  
+			for(Cell cell: row) {      
 	
 				switch(formulaEvaluator.evaluateInCell(cell).getCellTypeEnum())  {
 	  
-					case NUMERIC:   //field that represents numeric cell type  
-						//getting the value of the cell as a number  
-						System.out.print(cell.getNumericCellValue()+ "\t\t");   
+					case NUMERIC:    
+						lijst.add(String.valueOf(cell.getNumericCellValue()));
 						break;  
 						
-					case STRING:    //field that represents string cell type  
-						//getting the value of the cell as a string  
-						System.out.print(cell.getStringCellValue()+ "\t\t");  
+					case STRING:   		
+						lijst.add(cell.getStringCellValue());
 						break;
 						
 					default:
 						break;  
 				}  
-			}  
-			System.out.println();  
+			} 
+			
+			if (teller == 0 && lijst.size()  == 1) eenKolom = true;
+			if (!eenKolom) {
+				lijstGeheel1.add(lijst);
+				lijst =  new ArrayList<>();
+			}	
+			teller++;
+			
 		}  
-	}*/
+		
+		if (!eenKolom) lijst =  new ArrayList<>();
+		
+		System.out.println(Arrays.toString(lijst.toArray()));
+        System.out.println("----------");
+        System.out.println(Arrays.toString(lijstGeheel1.toArray()));
+	}
 	
-	public static void main(String[] args)  {  
+	/*public static void main(String[] args)  {  
 		try  {  
-			File file = new File("src/data/gegevens.xlsx");   //creating a new file instance  
-			FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file  
-			//creating Workbook instance that refers to .xlsx file  
+			File file = new File("src/data/xlsxDouble.xlsx");     
+			FileInputStream fis = new FileInputStream(file);     
+			 
 			@SuppressWarnings("resource")
 			XSSFWorkbook wb = new XSSFWorkbook(fis);   
-			XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
-			Iterator<Row> itr = sheet.iterator();    //iterating over excel file  
+			XSSFSheet sheet = wb.getSheetAt(0);      
+			Iterator<Row> itr = sheet.iterator();
+			
+			//xlsx bestaat uit 1 of meerdere kolommen
+        	List<List<String>> lijstGeheel1 = new ArrayList<>();
+			List<String> lijst = new ArrayList<>();
+			
+			
 			int teller = 0;
+			boolean eenKolom = false;
+			//aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
 			while (itr.hasNext() && teller < 3) {              
 		  
 				Row row = itr.next();  
-				Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
+				Iterator<Cell> cellIterator = row.cellIterator();     
 				
 				while (cellIterator.hasNext())  {
 		
@@ -74,23 +103,44 @@ public class ExcelReader {
 					
 					switch (cell.getCellTypeEnum())  {             
 		
-						case STRING:    //field that represents string cell type  
-							System.out.print(cell.getStringCellValue() + "\t\t\t");  
+						case STRING:     
+							//System.out.print(cell.getStringCellValue() + "\t\t\t"); 
+							lijst.add(cell.getStringCellValue());
 							break;  
 							
-						case NUMERIC:    //field that represents number cell type  
-							System.out.print(cell.getNumericCellValue() + "\t\t\t");  
+						case NUMERIC:      
+							
+							lijst.add(String.valueOf(cell.getNumericCellValue()));
 							break;  
 						default:  
 							break;
 					}  
 				}  
-				System.out.println("");  
+				
+				if (teller == 0 && lijst.size()  == 1) eenKolom = true;
+				if (!eenKolom) {
+					lijstGeheel1.add(lijst);
+					lijst =  new ArrayList<>();
+				}	
+				
+				//System.out.println("");  
 				teller++;
 			}  
+			
+			if (!eenKolom) lijst =  new ArrayList<>();
+				
+
+			//lijst = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).collect(Collectors.toList());
+			
+
+			System.out.println(Arrays.toString(lijst.toArray()));
+            System.out.println("----------");
+            System.out.println(Arrays.toString(lijstGeheel1.toArray()));
+
+			
 		}  
 		catch(Exception e) { 
 			e.printStackTrace();  
 		}  
-	} 
+	} */
 }

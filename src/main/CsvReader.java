@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -20,44 +22,51 @@ public class CsvReader {
     public static void main(String[] args) {
         try (
             Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
-            CSVReader csvReader = new CSVReader(reader);
+            CSVReader csvReader = new CSVReader(reader);	
         ) {
-            // Reading Records One by One in a String array
+        	
+        	//csv bestaat uit 1 of meerdere kolommen
+        	List<List<String>> lijstGeheel1 = new ArrayList<>();
+        	List<String> lijstGeheel2 =  new ArrayList<>();
+        	
+    		/*if (csvReader.readNext()[0].contains(";")) {
+        		 lijstGeheel1 = new ArrayList<>();
+        	} else {
+        		lijstGeheel2 = new ArrayList<>();
+        	}*/
+        	
             String[] nextRecord;
             int teller = 0;
-            while ((nextRecord = csvReader.readNext()) != null && teller < 10) {
-                /*System.out.println("Waarde : " + nextRecord[1]);
-                System.out.println("Naam : " + nextRecord[2]);
-                System.out.println("Leeftijd : " + nextRecord[3]);
-                System.out.println("==========================");*/
+          //aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
+            while ((nextRecord = csvReader.readNext()) != null && teller < 3) {
                 
                 if (nextRecord != null) {
-                	//System.out.println(Arrays.toString(nextRecord));
+
+                	
+                	//kolommen in array van String plaatsen door split (csv kolommen worden onderscheiden van elkaar door ;)
                 	String[] record = nextRecord[0].split(";");
                 	
-                	//Arrays.asList(nextRecord).forEach(e -> System.out.println(e.toString()));
                 	
-                	System.out.println("Hoofdgemeente : " + record[0]);
-                	System.out.println("Energie : " + record[1]);
-                    System.out.println("SLP : " + record[2]);
-                    System.out.println("202109 : " + record[3]);
-                    System.out.println("202108 : " + record[4]);
-                	System.out.println("202107 : " + record[5]);
-                    System.out.println("202106 : " + record[6]);
-                    System.out.println("202105 : " + record[7]);
-                    System.out.println("202104 : " + record[8]);
-                    System.out.println("202103 : " + record[9]);
-                    System.out.println("202102 : " + record[10]);
-                    System.out.println("202101 : " + record[11]);
-                    System.out.println("202012 : " + record[12]);
-                    System.out.println("202011 : " + record[13]);
-                    System.out.println("202010 : " + record[14]);
-                    System.out.println("202009 : " + record[15]);
-                    System.out.println("Regio : " + record[16]);
-                    System.out.println("==========================");
+                	if (!nextRecord[0].contains(";")) {
+                		if (teller == 0)
+                			record[0] = record[0].substring(1);
+                		
+                		//voor 1 kolom waarde
+                		//enige kolom toevoegen aan in lijstGeheel
+                		lijstGeheel2.add(record[0]);
+                	} else {
+                		//voor kolommen waarden
+                		//alle kolomen toevoegen als lijst in lijstGeheel
+                		lijstGeheel1.add(new ArrayList<>(Arrays.asList(record)));
+                	}
+                	
                 }
                 teller++;
             }
+            
+            System.out.println(Arrays.toString(lijstGeheel2.toArray()));
+            System.out.println("----------");
+            System.out.println(Arrays.toString(lijstGeheel1.toArray()));
         }
         catch (Exception e)  {
         	e.printStackTrace();
