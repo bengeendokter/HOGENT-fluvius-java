@@ -8,8 +8,9 @@
 	<class>domein.Rol</class>
 	<class>domein.MVODatasource</class>
 	<class>domein.SdGoal</class>
-	<class>domein.DoelstellingMVO</class>
-	<class>domein.MVODoelstellingComponent</class>
+	<class>domein.Component</class>
+	<class>domein.Composite</class>
+	<class>domein.Leaf</class>
 	<class>domein.Datasource</class>
 	<class>domein.TypeDatasource</class>
 	<class>domein.CsvDataSourceType</class>

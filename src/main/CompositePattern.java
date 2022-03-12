@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import domein.AanmeldController;
 import domein.Component;
 import domein.Composite;
 import domein.DTODatasource;
 import domein.DTOMVODoelstelling;
+import domein.DomeinController;
 import domein.Leaf;
 import domein.MVODatasource;
 import domein.Rol;
@@ -17,21 +23,31 @@ import domein.Som;
 public class CompositePattern {
 
 	public static void main(String[] args) throws IOException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();  
+		
 		List<Rol> rollen = new ArrayList<>();
 		Rol rol = new Rol("MVO Coördinator");
 		rollen.add(rol);
 		
-		SdGoal goal = new SdGoal("goal1");
-		SdGoal goal2 = new SdGoal("goal2");
-		SdGoal goal3 = new SdGoal("goal3");
-		SdGoal goal4 = new SdGoal("goal4");
-		SdGoal goal5 = new SdGoal("goal5");
+		AanmeldController aanmeldController = new AanmeldController();
+		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
+		
+		SdGoal goal = dc.getBeschikbareSdgs().get(0);
+		SdGoal goal2 = dc.getBeschikbareSdgs().get(1);
+		SdGoal goal3 = dc.getBeschikbareSdgs().get(2);
+		SdGoal goal4 = dc.getBeschikbareSdgs().get(3);
+		SdGoal goal5 = dc.getBeschikbareSdgs().get(4);
+		
 		
 		DTOMVODoelstelling dd1 = new DTOMVODoelstelling("hoofddoel1", "", 20.0, rollen,goal);
 		DTOMVODoelstelling dd2 = new DTOMVODoelstelling("hoofddoel2", "", 10.0, rollen,goal2);
 		DTOMVODoelstelling dd3 = new DTOMVODoelstelling("subdoel11", "", 20.0, rollen,goal3);
 		DTOMVODoelstelling dd4 = new DTOMVODoelstelling("subdoel21", "", 10.0, rollen,goal4);
 		DTOMVODoelstelling dd5 = new DTOMVODoelstelling("subdoel22", "", 10.0, rollen,goal5);
+
 		
 		// AANMAKEN VAN COMPOSITE OBJECTEN
 		Component hoofddoel1 = new Composite(dd1);
@@ -42,10 +58,20 @@ public class CompositePattern {
 		Component subdoel21 = new Leaf(dd4);
 		Component subdoel22 = new Leaf(dd5);
 		
+		em.persist(hoofddoel1);
+		em.persist(hoofddoel2);
+		em.persist(subdoel11);
+		em.persist(subdoel21);
+		em.persist(subdoel22);
+		
 		// AANMAKEN VAN DATASOURCES
-		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV1", "csv", "src/data/csvDouble.csv", null, null, null, null));
-		MVODatasource ds2 = new MVODatasource(new DTODatasource("S2", "excel", "src/data/xlsDouble.xls", "8Gb", null, null, null));
-		MVODatasource ds3 = new MVODatasource(new DTODatasource("X2", "excel", "src/data/xlsxDouble.xlsx", "26Gb", null, null, null));
+		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV11111", "csv", "src/data/csvDouble.csv", null, null, null, null));
+		MVODatasource ds2 = new MVODatasource(new DTODatasource("S222222", "excel", "src/data/xlsDouble.xls", "8Gb", null, null, null));
+		MVODatasource ds3 = new MVODatasource(new DTODatasource("X222222", "excel", "src/data/xlsxDouble.xlsx", "26Gb", null, null, null));
+		
+		em.persist(ds1);
+		em.persist(ds2);
+		em.persist(ds3);
 		
 		// DATASOURCES TOEVOEGEN AAN DE BLADEREN
 		subdoel11.addDatasource(ds1);
@@ -65,12 +91,17 @@ public class CompositePattern {
 		
 		hoofddoel2.add(subdoel21);
 		hoofddoel2.add(subdoel22);
-		
+
 		// BOVENSTE COMPOSITE PRINTEN
 		hoofddoel1.print();
 		
 		// WAARDE VRAGEN VAN BOVENSTE COMPOSITE
 		System.out.println(hoofddoel1.getBerekendewaarde());
+		
+		    
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
 
 	}
 
