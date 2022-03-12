@@ -22,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class ExcelReader {
-	public static void main(String args[]) throws IOException  {  
+	/*public static void main(String args[]) throws IOException  {  
 		//testex
 		FileInputStream fis=new FileInputStream(new File("src/data/testex.xls"));  
 		@SuppressWarnings("resource")
@@ -72,11 +72,11 @@ public class ExcelReader {
 		System.out.println(Arrays.toString(lijst.toArray()));
         System.out.println("----------");
         System.out.println(Arrays.toString(lijstGeheel1.toArray()));
-	}
+	}*/
 	
-	/*public static void main(String[] args)  {  
+	public static void main(String[] args)  {  
 		try  {  
-			File file = new File("src/data/xlsxDouble.xlsx");     
+			File file = new File("src/data/gegevens.xlsx");     
 			FileInputStream fis = new FileInputStream(file);     
 			 
 			@SuppressWarnings("resource")
@@ -142,5 +142,5 @@ public class ExcelReader {
 		catch(Exception e) { 
 			e.printStackTrace();  
 		}  
-	} */
+	} 
 }

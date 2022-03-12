@@ -16,8 +16,8 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class CsvReader {
 	private static final String SAMPLE_CSV_FILE_PATH =
-			"src/data/csvDouble.csv";
-			//"src/data/verbruiksgegevens-per-maand.csv";
+			//"src/data/csvDouble.csv";
+			"src/data/verbruiksgegevens-per-maand.csv";
 			//"src/data/dataProject2.csv";
 
     public static void main(String[] args) {

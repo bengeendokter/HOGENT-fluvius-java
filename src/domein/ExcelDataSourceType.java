@@ -26,31 +26,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Entity
 @DiscriminatorValue("E")
-//@Table(name = "CsvDataSource")
-public class ExcelDataSourceType1 extends TypeDatasource1 implements Serializable  {
-	//"file:src/data/dataProject.csv"
-	
-	/*private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int csvID;*/
-	
-	
-	
-	/**
-	 * 
-	 */
+public class ExcelDataSourceType extends TypeDatasource implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	private String link;
 	private String size;
 	
-	protected ExcelDataSourceType1() {
+	protected ExcelDataSourceType() {
 		
 	}
 	
 	//exception weg omdat print alleen voor te testen was
-	public ExcelDataSourceType1(String link, String size) throws IOException {
+	public ExcelDataSourceType(String link, String size) throws IOException {
 		this.link = link;
 		this.size = size;
 		System.out.println(Arrays.toString(getData().toArray()));

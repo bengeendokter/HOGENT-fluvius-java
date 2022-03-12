@@ -10,11 +10,10 @@
 	<class>domein.SdGoal</class>
 	<class>domein.DoelstellingMVO</class>
 	<class>domein.MVODoelstellingComponent</class>
+	<class>domein.Datasource</class>
+	<class>domein.TypeDatasource</class>
 	<class>domein.CsvDataSourceType</class>
-	<class>domein.DatasourceTest</class>
-	<class>domein.TypeDatasource1</class>
-	<class>domein.CsvDataSourceType1</class>
-	<class>domein.ExcelDataSourceType1</class>
+	<class>domein.ExcelDataSourceType</class>
 	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>

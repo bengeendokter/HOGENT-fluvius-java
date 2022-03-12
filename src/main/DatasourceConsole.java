@@ -27,8 +27,9 @@ public class DatasourceConsole {
 		  EntityManager em = emf.createEntityManager();
 		
 		  em.getTransaction().begin();
-		  DatasourceTest dt = new DatasourceTest(new DTODatasource("fileXLS", "excel", "src/data/xlsDouble.xls"));
-		  em.persist(dt);
+		  //DatasourceTest dt = new DatasourceTest(new DTODatasource("fileXLS", "excel", "src/data/xlsDouble.xls"));
+		  MVODatasource ds = new MVODatasource(new DTODatasource("fileCSV1", "csv", "src/data/csvDouble.csv"));
+		  em.persist(ds);
 		  em.getTransaction().commit();
 		  em.close();
 		  emf.close();
