@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Datasource1")
+@Table(name = "DataSource")
 @NamedQueries({
 	@NamedQuery(name = "datasource.findByNaam", query = "select d from domein.MVODatasource d where d.naam = :naam")})
 public class MVODatasource implements Serializable, Datasource
@@ -61,9 +61,11 @@ private static final long serialVersionUID = 1L;
 		//TODO setter met dds.typeDatasource waarde, dus String
 				//TODO size van ExcelDataSourceType met dds.size
 		if (dds.typeDatasource.equals("excel"))
-			setTypeDatasource(new ExcelDataSourceType(dds.link, "50mb"));
+			setTypeDatasource(new ExcelDataSourceType(dds.link, dds.size));
 		else if (dds.typeDatasource.equals("csv"))
 			setTypeDatasource(new CsvDataSourceType(dds.link));
+		else if (dds.typeDatasource.equals("databank"))
+			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
 		
 		setLink(dds.link);
 	}

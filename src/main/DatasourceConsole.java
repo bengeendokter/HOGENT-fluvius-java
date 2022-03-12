@@ -28,8 +28,19 @@ public class DatasourceConsole {
 		
 		  em.getTransaction().begin();
 		  //DatasourceTest dt = new DatasourceTest(new DTODatasource("fileXLS", "excel", "src/data/xlsDouble.xls"));
-		  MVODatasource ds = new MVODatasource(new DTODatasource("fileCSV1", "csv", "src/data/csvDouble.csv"));
+		  
+		  MVODatasource ds = new MVODatasource(new DTODatasource("CSV2", "csv", "src/data/csvDouble.csv", null, null, null, null));
 		  em.persist(ds);
+		  
+		  ds = new MVODatasource(new DTODatasource("S2", "excel", "src/data/xlsDouble.xls", "8Gb", null, null, null));
+		  em.persist(ds);
+		  
+		  ds = new MVODatasource(new DTODatasource("X2", "excel", "src/data/xlsxDouble.xlsx", "26Gb", null, null, null));
+		  em.persist(ds);
+		  
+		  ds = new MVODatasource(new DTODatasource("databank2", "databank", null, null, "hostname2", "user2", "password2"));
+		  em.persist(ds);
+		  
 		  em.getTransaction().commit();
 		  em.close();
 		  emf.close();

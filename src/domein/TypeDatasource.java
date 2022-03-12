@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
-@Table(name = "types")
+@Table(name = "Types")
 @DiscriminatorColumn(name = "Soort")
 public abstract class TypeDatasource implements Serializable  {
 	

@@ -39,7 +39,7 @@ public class CsvReader {
             String[] nextRecord;
             int teller = 0;
           //aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
-            while ((nextRecord = csvReader.readNext()) != null && teller < 3) {
+            while ((nextRecord = csvReader.readNext()) != null && teller < 2) {
                 
                 if (nextRecord != null) {
 
