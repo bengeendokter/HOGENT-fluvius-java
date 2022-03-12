@@ -28,7 +28,7 @@ public class Fluvius
 	
 	private ObservableList<SDGCategorie> categorien = FXCollections.observableArrayList();
 	private ObservableList<SdGoal> sdGoals = FXCollections.observableArrayList();
-	private ObservableList<MVODoelstellingComponent> doelstellingen = FXCollections.observableArrayList();
+	private ObservableList<Component> doelstellingen = FXCollections.observableArrayList();
 	private ObservableList<MVODatasource> datasources = FXCollections.observableArrayList();
 	
 	private CategorieDao categorieRepo;
@@ -251,7 +251,7 @@ public class Fluvius
 		{
 			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
 			GenericDaoJpa.startTransaction();
-			mvoDoelstellingRepo.insert(new DoelstellingMVO(doelstelling));
+			mvoDoelstellingRepo.insert(new Composite(doelstelling));
 			GenericDaoJpa.commitTransaction();
 		}
 		catch(DatabaseException e)
@@ -273,7 +273,7 @@ public class Fluvius
 		
 		try
 		{	
-			List<MVODoelstellingComponent> doelstellingen = (List<MVODoelstellingComponent>) mvoDoelstellingRepo.findAll();
+			List<Component> doelstellingen = (List<Component>) mvoDoelstellingRepo.findAll();
 			if( doelstellingen.size() == 1)
 			{
 				throw new IllegalArgumentException("Kan enigste MVO doelstelling niet verwijderen");
@@ -281,7 +281,7 @@ public class Fluvius
 			
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			GenericDaoJpa.startTransaction();
-			mvoDoelstellingRepo.delete( (MVODoelstellingComponent)currentDoelstelling);
+			mvoDoelstellingRepo.delete( (Component)currentDoelstelling);
 			GenericDaoJpa.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)
@@ -299,7 +299,7 @@ public class Fluvius
 	
 	public void wijzigMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
-		MVODoelstellingComponent doelstellingInRepo = mvoDoelstellingRepo.getByNaam(doelstelling.naam);
+		Component doelstellingInRepo = mvoDoelstellingRepo.getByNaam(doelstelling.naam);
 		
 		if(doelstellingInRepo != null && doelstellingInRepo.getDoelstellingID() != currentDoelstelling.getDoelstellingID())
 		{
@@ -315,7 +315,7 @@ public class Fluvius
 		try
 		{
 			GenericDaoJpa.startTransaction();
-			DoelstellingMVO d = new DoelstellingMVO(doelstelling);
+			Composite d = new Composite(doelstelling);
 			d.setDoelstellingID(currentDoelstelling.getDoelstellingID());
 			mvoDoelstellingRepo.update(d);
 			GenericDaoJpa.commitTransaction();

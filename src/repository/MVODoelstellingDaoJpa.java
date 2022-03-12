@@ -2,20 +2,20 @@ package repository;
 
 import javax.persistence.NoResultException;
 
-import domein.MVODoelstellingComponent;
+import domein.Component;
 
-public class MVODoelstellingDaoJpa extends GenericDaoJpa<MVODoelstellingComponent> implements MVODoelstellingDao{
+public class MVODoelstellingDaoJpa extends GenericDaoJpa<Component> implements MVODoelstellingDao{
 
 	public MVODoelstellingDaoJpa() {
-		super(MVODoelstellingComponent.class);
+		super(Component.class);
 	}
 
 	@Override
-	public MVODoelstellingComponent getByNaam(String naam)
+	public Component getByNaam(String naam)
 	{
 		try
 		{
-			MVODoelstellingComponent c = em.createNamedQuery("MVODoelstellingComponent.findByNaam", MVODoelstellingComponent.class).setParameter("naam", naam)
+			Component c = em.createNamedQuery("MVODoelstellingComponent.findByNaam", Component.class).setParameter("naam", naam)
 					.getSingleResult();
 			return c;
 		}

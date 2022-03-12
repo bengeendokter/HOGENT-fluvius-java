@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -43,14 +44,14 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	}
 	
 	//List<Double>
-	public List<String> getData() throws IOException {
+	public List<Double> getData() throws IOException {
 		if (link.charAt(link.length()-1) == 'x') {
 			return leesAfXLSX();
 		} 
 		return leesAfXLS();
 	}
 	
-	public List<String> leesAfXLS() throws IOException  {  
+	public List<Double> leesAfXLS() throws IOException  {  
 		FileInputStream fis=new FileInputStream(new File(link));  
 		@SuppressWarnings("resource")
 		HSSFWorkbook wb=new HSSFWorkbook(fis);   
@@ -95,11 +96,11 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 		}  
 		
 		if (!eenKolom) lijst =  new ArrayList<>();
-		
-		return lijst;
+		List<Double> lijst1 = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;
 	}
 	
-	public List<String> leesAfXLSX()  {  
+	public List<Double> leesAfXLSX()  {  
 		List<List<String>> meerdereKolommen = new ArrayList<>();
 		List<String> enkelKolom = new ArrayList<>();
 		
@@ -168,7 +169,7 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 		catch(Exception e) { 
 			e.printStackTrace();  
 		}  
-		
-		return enkelKolom;
+		List<Double> lijst1 = enkelKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;
 	}
 }

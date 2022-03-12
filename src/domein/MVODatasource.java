@@ -45,7 +45,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	//List<Double>
-	public List<String> getData() throws IOException {
+	public List<Double> getData() throws IOException {
 		return typeDatasource.getData();
 		//return Arrays.asList(3.4, 5.6, 7.8);
 	}

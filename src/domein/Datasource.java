@@ -12,5 +12,5 @@ public interface Datasource{
 	
 	//data geven
 	//List<Double>
-	public List<String> getData() throws IOException;
+	public List<Double> getData() throws IOException;
 }

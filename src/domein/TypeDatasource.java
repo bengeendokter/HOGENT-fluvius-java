@@ -31,7 +31,7 @@ public abstract class TypeDatasource implements Serializable  {
 	
 	
 	//List<Double>
-	public abstract List<String> getData() throws IOException; 
+	public abstract List<Double> getData() throws IOException; 
 		
 	
 }

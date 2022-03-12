@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import java.io.Reader;
@@ -32,12 +33,12 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	}
 	
 	//List<Double>
-	public List<String> getData() {
+	public List<Double> getData() {
 		//return Arrays.asList(3.4, 5.6, 7.8);
 		return leesAf();
 	}
 	
-	public List<String> leesAf() {
+	public List<Double> leesAf() {
 		List<List<String>> meerdereKolommen =  new ArrayList<>();
     	List<String> eenKolom =  new ArrayList<>();
 		try (
@@ -83,7 +84,9 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	        catch (Exception e)  {
 	        	e.printStackTrace();
 	        }
-		return eenKolom;
+		List<Double> lijst1 = eenKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;
+
 
     }
 }

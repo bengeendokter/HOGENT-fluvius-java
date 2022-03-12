@@ -1,10 +1,10 @@
 package repository;
 
-import domein.MVODoelstellingComponent;
+import domein.Component;
 import domein.SDGCategorie;
 
-public interface MVODoelstellingDao extends GenericDao<MVODoelstellingComponent>{
+public interface MVODoelstellingDao extends GenericDao<Component>{
 
-	public MVODoelstellingComponent getByNaam(String naam);
+	public Component getByNaam(String naam);
 
 }

@@ -8,23 +8,21 @@ public class DTOMVODoelstelling {
 	public String naam;
 	public String icon;
 	public double doelwaarde;
-	public String doelstellingsType;
+	//public String doelstellingsType;
 	public List<Rol> rollen;
-	public List<MVODatasource> datasources;
-	public SdGoal hoofdSdg;
-	public SdGoal subSdg;
+	//public List<MVODatasource> datasources;
+	public SdGoal sdGoal;
 	
 	// Constructor
-	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, String doelstellingsType, List<Rol> rollen,
-			List<MVODatasource> datasources, SdGoal hoofdSdg, SdGoal subSdg) {
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde,  List<Rol> rollen,
+			 SdGoal goal) {
 		this.naam = naam;
 		this.icon = icon;
 		this.doelwaarde = doelwaarde;
-		this.doelstellingsType = doelstellingsType;
+		//this.doelstellingsType = doelstellingsType;
 		this.rollen = rollen;
-		this.datasources = datasources;
-		this.hoofdSdg = hoofdSdg;
-		this.subSdg = subSdg;
+		//this.datasources = datasources;
+		this.sdGoal = goal;
 	}
 	
 	

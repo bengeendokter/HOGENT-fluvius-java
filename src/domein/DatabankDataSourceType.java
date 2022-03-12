@@ -36,17 +36,17 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 	}
 	
 	//List<Double>
-	public List<String> getData() {
+	public List<Double> getData() {
 		return leesAf();
 	}
 	
-	public List<String> leesAf() {
+	public List<Double> leesAf() {
 		//TODO data uit databank halen
-    	List<String> eenKolom =  new ArrayList<>();
-    	eenKolom.add("databank");
-    	eenKolom.add(String.valueOf(26.5));
-    	eenKolom.add(String.valueOf(13.7));
-    	eenKolom.add(String.valueOf(5));
+    	List<Double> eenKolom =  new ArrayList<>();
+    	//eenKolom.add("databank");
+    	eenKolom.add(26.5);
+    	eenKolom.add(13.7);
+    	eenKolom.add(5.0);
 		return eenKolom;
 
     }
