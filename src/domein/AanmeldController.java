@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.util.Date;
 
 import exceptions.GebruikerBestaatNietException;
@@ -22,7 +23,14 @@ public class AanmeldController
 	{
 		if(withInit)
 		{
-			PopulateDB.run();
+			try
+			{
+				PopulateDB.run();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	

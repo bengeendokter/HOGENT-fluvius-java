@@ -1,12 +1,16 @@
 package main;
 
+import java.io.IOException;
+
 import domein.DomeinController;
 import domein.Gebruiker;
+import domein.PopulateDB;
 import gui.CategorieResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import repository.DatabaseSelector;
 
 public class CategorieGUI extends Application
 {
@@ -15,6 +19,17 @@ public class CategorieGUI extends Application
 	{
 		try
 		{
+			if(DatabaseSelector.ISLOCALHOST)
+			{
+				try
+				{
+					PopulateDB.run();
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				} 
+			}
 			DomeinController domeinController = new DomeinController(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
 			
 			//AanmeldController aanmeldController = new AanmeldController();
