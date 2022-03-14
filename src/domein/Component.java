@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
@@ -24,6 +26,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 
@@ -32,52 +35,45 @@ import javax.persistence.Table;
 @Table(name = "MVODoelstelling")
 @DiscriminatorColumn(name = "Soort")
 @NamedQueries({
-	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.MVODoelstellingComponent c where c.naam = :naam")})
-public abstract class MVODoelstellingComponent implements Serializable{
+	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.Component c where c.naam = :naam")})
+public abstract class Component implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	// GEMEENSCHAPPELIJKE ATTRIBUTEN
+	// ---------------------------------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int doelstellingID;
-	
-	// Attributen
 	@Column(unique=true)
 	private String naam;
 	private String icon;
 	private double doelwaarde;
-	private String doelstellingsType;
-	
-	// Attributen van associaties
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Rol> rollen = new ArrayList<>();
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<MVODatasource> datasources = new ArrayList<>();
+	@ManyToOne
+	private SdGoal sdGoal;
+	@Transient
+	private Bewerking formule;
+	@Transient
+	private double value = 0.0;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private SdGoal hoofdSdg;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private SdGoal subSdg;
-	
-	// Constructoren
-	public MVODoelstellingComponent(DTOMVODoelstelling d) {
+	// CONSTRUCTOREN
+	// ---------------------------------------------------------------------------------------------------
+	public Component(DTOMVODoelstelling d) {
 		setNaam(d.naam);
 		setIcon(d.icon);
 		setDoelwaarde(d.doelwaarde);
-		setDoelstellingsType(d.doelstellingsType);
 		setRollen(d.rollen);
-		setDatasources(d.datasources);
-		setHoofdSdg(d.hoofdSdg);
-		setSubSdg(d.subSdg);
+		setSdGoal(d.sdGoal);
 	}
 	
-	
-
-	protected MVODoelstellingComponent() {
+	protected Component() {
 		
 	}
 	
-	// Getters
+	// METHODEN DIE OVERAL VOORKOMEN + DEZELFDE IMPLEMENTATIE HEBBEN
+	// ---------------------------------------------------------------------------------------------------
 	public int getDoelstellingID() {
 		return doelstellingID;
 	}
@@ -94,27 +90,18 @@ public abstract class MVODoelstellingComponent implements Serializable{
 		return doelwaarde;
 	}
 
-	public String getDoelstellingsType() {
-		return doelstellingsType;
-	}
-
 	public List<Rol> getRollen() {
 		return Collections.unmodifiableList(rollen);
 	}
-
-	public List<MVODatasource> getDatasources() {
-		return Collections.unmodifiableList(datasources);
+	
+	public SdGoal getSdGoal() {
+		return sdGoal;
 	}
 	
-	public SdGoal getHoofdSdg() {
-		return hoofdSdg;
+	public Bewerking getFormule() {
+		return formule;
 	}
-
-	public SdGoal getSubSdg() {
-		return subSdg;
-	}
-
-	// Setters
+	
 	public void setDoelstellingID(int mock) {
 		doelstellingID = mock;
 	}
@@ -133,20 +120,6 @@ public abstract class MVODoelstellingComponent implements Serializable{
 	private void setDoelwaarde(double doelwaarde) {
 		this.doelwaarde = doelwaarde;
 	}
-	
-	private void setDoelstellingsType(String doelstellingsType) {
-		if(doelstellingsType == null || doelstellingsType.isBlank()) {
-			throw new IllegalArgumentException("Het doelstellingstype van de MVO Doelstelling mag niet leeg zijn");
-		}
-		this.doelstellingsType = doelstellingsType;
-	}
-	
-	private void setDatasources(List<MVODatasource> datasources) {
-		if(datasources == null || datasources.isEmpty() ) {
-			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens aan 1 datasource zijn gekoppeld");
-		}
-		this.datasources = datasources;
-	}
 
 	private void setRollen(List<Rol> rollen) {
 		if(rollen.isEmpty() || rollen == null) {
@@ -163,30 +136,59 @@ public abstract class MVODoelstellingComponent implements Serializable{
 		this.rollen = rollen;
 	}
 	
-	private void setSubSdg(SdGoal subSdg) {
-		this.subSdg = subSdg;
+	private void setSdGoal(SdGoal goal) {
+		this.sdGoal = goal;
 	}
-
-	private void setHoofdSdg(SdGoal hoofdSdg) {
-		if(hoofdSdg == null) {
-			throw new IllegalArgumentException("De MVO Doelstelling moet gekoppeld zijn aan een SDG");
-		}
-		this.hoofdSdg = hoofdSdg;
+	
+	public void setFormule(Bewerking bewerking) {
+		this.formule = bewerking;
 	}
-
-	// Typische component methodes
-	public void add(MVODoelstellingComponent mvocomponent) {
+	
+	public void setValue(double waarde) {
+		this.value = waarde;
+	}
+	
+	public double getValue() {
+		return value;
+	}
+	
+	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
+	// ---------------------------------------------------------------------------------------------------
+	public abstract void print() throws IOException;
+	public abstract double getBerekendewaarde() throws IOException;
+	
+	// METHODEN DIE NIET OVERAL VOORKOMEN --> UNSUPPORTED
+	// ---------------------------------------------------------------------------------------------------
+	public void addDatasource(MVODatasource data) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void remove(MVODoelstellingComponent mvocomponent) {
+	public List<Component> getComponents(){
+		throw new UnsupportedOperationException();
+	}
+	
+	
+	public int getWaarde() {
+		throw new UnsupportedOperationException();
+	}
+	
+	
+	// TYPISCHE COMPOSITE PATTERN METHODES
+	// ---------------------------------------------------------------------------------------------------
+	public void add(Component mvocomponent) {
 		throw new UnsupportedOperationException();
 	}
 
-	public MVODoelstellingComponent getChild(int i) {
+	public void remove(Component mvocomponent) {
 		throw new UnsupportedOperationException();
 	}
 
+	public Component getChild(int i) {
+		throw new UnsupportedOperationException();
+	}
+
+	// TYPISCHE METHODES VOOR JPA
+	// ---------------------------------------------------------------------------------------------------
 	@Override
 	public int hashCode() {
 		return Objects.hash(naam);
@@ -200,22 +202,8 @@ public abstract class MVODoelstellingComponent implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MVODoelstellingComponent other = (MVODoelstellingComponent) obj;
+		Component other = (Component) obj;
 		return Objects.equals(naam, other.naam);
 	}
 	
-	@Override
-	public String toString() {
-		return naam;
-	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-
 }

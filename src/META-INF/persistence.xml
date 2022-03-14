@@ -8,8 +8,14 @@
 	<class>domein.Rol</class>
 	<class>domein.MVODatasource</class>
 	<class>domein.SdGoal</class>
-	<class>domein.DoelstellingMVO</class>
-	<class>domein.MVODoelstellingComponent</class>
+	<class>domein.Component</class>
+	<class>domein.Composite</class>
+	<class>domein.Leaf</class>
+	<class>domein.Datasource</class>
+	<class>domein.TypeDatasource</class>
+	<class>domein.CsvDataSourceType</class>
+	<class>domein.ExcelDataSourceType</class>
+	<class>domein.DatabankDataSourceType</class>
 	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
@@ -21,22 +27,5 @@
   </persistence-unit>
   
   
-  <persistence-unit name="local" transaction-type="RESOURCE_LOCAL">
-  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-<class>domein.Gebruiker</class>
-    <class>domein.AanmeldPoging</class>
-	<class>domein.SDGCategorie</class>
-	<class>domein.Rol</class>
-	<class>domein.MVODatasource</class>
-	<class>domein.SdGoal</class>
-	<class>domein.DoelstellingMVO</class>
-	<class>domein.MVODoelstellingComponent</class>
-  <properties>
-    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/fluvius?serverTimezone=UTC"/>
-    <property name="javax.persistence.jdbc.user" value="root"/>
-    <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-    <property name="javax.persistence.jdbc.password" value="root"/>
-    <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-  </properties>
-</persistence-unit>
+ 
 </persistence>

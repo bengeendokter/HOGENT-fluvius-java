@@ -14,7 +14,7 @@ import domein.DTOCategorie;
 import domein.DTODatasource;
 import domein.Datasource;
 import domein.Doelstelling;
-import domein.DoelstellingMVO;
+import domein.Composite;
 import domein.DomeinController;
 import domein.Rol;
 import domein.SdGoal;

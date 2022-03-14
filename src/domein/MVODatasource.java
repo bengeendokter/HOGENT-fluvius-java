@@ -1,10 +1,13 @@
 package domein;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,15 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Datasource")
+@Table(name = "DataSource")
 @NamedQueries({
 	@NamedQuery(name = "datasource.findByNaam", query = "select d from domein.MVODatasource d where d.naam = :naam")})
 public class MVODatasource implements Serializable, Datasource
 {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +35,38 @@ public class MVODatasource implements Serializable, Datasource
 	@Column(unique=true)
 	private String naam;
 
-	private String typeDatasource;
-	private String link;
 
+	private String link;
+	
+	//type uitbreiding
+	//private String typeDatasource;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private TypeDatasource typeDatasource;
+	
+	@Override
+	//List<Double>
+	public List<Double> getData() throws IOException {
+		return typeDatasource.getData();
+		//return Arrays.asList(3.4, 5.6, 7.8);
+	}
+	
 	protected MVODatasource()
 	{
 		
 	}
 	
-	public MVODatasource(DTODatasource dds)
+	public MVODatasource(DTODatasource dds) throws IOException
 	{
 		setNaam(dds.naam);
-		setTypeDatasource(dds.typeDatasource);
+		//TODO setter met dds.typeDatasource waarde, dus String
+				//TODO size van ExcelDataSourceType met dds.size
+		if (dds.typeDatasource.equals("excel"))
+			setTypeDatasource(new ExcelDataSourceType(dds.link, dds.size));
+		else if (dds.typeDatasource.equals("csv"))
+			setTypeDatasource(new CsvDataSourceType(dds.link));
+		else if (dds.typeDatasource.equals("databank"))
+			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
+		
 		setLink(dds.link);
 	}
 	
@@ -63,7 +87,10 @@ public class MVODatasource implements Serializable, Datasource
 	}
 	
 	public String getTypeDatasource() {
-		return typeDatasource;
+		return "csv";
+		
+		//TODO switch case met instanceof en dan "csv", "excel" of "databank" returnen
+		//switch (typeDatasource) { case typeDatasource instanceof CsvDataSourceType ...}
 	}
 
 	public String getLink() {
@@ -80,14 +107,16 @@ public class MVODatasource implements Serializable, Datasource
 		this.naam = naam;
 	}
 	
-	public final void setTypeDatasource(String typeDatasource)
+	//String of TypeDatasource
+	public final void setTypeDatasource(TypeDatasource typeDatasource)
 	{
-		if(typeDatasource == null || typeDatasource.isBlank())
+		/*if(typeDatasource == null || typeDatasource.isBlank())
 		{
 			throw new IllegalArgumentException("De type van de Datasource mag niet leeg zijn");
-		}
+		}*/
 		
 		this.typeDatasource = typeDatasource;
+		
 	}
 	
 	public final void setLink(String link)
@@ -122,4 +151,5 @@ public class MVODatasource implements Serializable, Datasource
 	{
 		return naam;
 	}
+
 }
