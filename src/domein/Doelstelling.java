@@ -8,9 +8,10 @@ public interface Doelstelling {
 	public String getNaam();
 	public String getIcon();
 	public double getDoelwaarde();
-	public String getDoelstellingsType();
+//	public String getDoelstellingsBewerking();
 	public List<Rol> getRollen();
-	public List<MVODatasource> getDatasources();
-	public SdGoal getHoofdSdg();
-	public SdGoal getSubSdg();
+//	public List<MVODatasource> getDatasources();
+	public SdGoal getSdGoal();
+//	public double getBerekendeWaarde();
+//	public boolean isLeaf();
 }

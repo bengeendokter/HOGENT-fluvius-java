@@ -1,5 +1,6 @@
 package testen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,12 +44,12 @@ public class DatasourceTest {
 	{
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 	       
 	       // Controle
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 	       });
 	}
 	
@@ -64,12 +65,12 @@ public class DatasourceTest {
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = naam;
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 	       });
 	       
 	}
@@ -87,12 +88,12 @@ public class DatasourceTest {
 	{
 		// Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = link;
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 	       });
 	}
 	
@@ -113,7 +114,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 	       });
 	}
 	
@@ -122,19 +123,20 @@ public class DatasourceTest {
 	 * Datasource wijzigen
 	 * Correcte scenario:
 	 * Datasource wijzigen met een correcte naam, link en type
+	 * @throws IOException 
 	 */
 	@Test
-	public void wijzigDatasource_correcteGegevens_gewijzigd()
+	public void wijzigDatasource_correcteGegevens_gewijzigd() throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
-		   final String TYPENEW = "xlsx";
+		   final String TYPENEW = "excl";
 		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
@@ -143,7 +145,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
 			});
 	       
 	       // Na de test verifiëren
@@ -156,21 +158,22 @@ public class DatasourceTest {
 	 * Datasource wijzigen
 	 * Foutief scenario:
 	 * Datasource wijzigen met een foute naam
+	 * @throws IOException 
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = { "        "})
-	public void wijzigDatasource_legeNaam_gewijzigd(String naam)
+	public void wijzigDatasource_legeNaam_gewijzigd(String naam) throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 		   
 		   final String DATASOURCENAAMNEW = naam;
-		   final String TYPENEW = "svg";
+		   final String TYPENEW = "csv";
 		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
@@ -179,7 +182,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
 			});
 	}
 	
@@ -187,21 +190,22 @@ public class DatasourceTest {
 	 * Datasource wijzigen
 	 * Foutief scenario:
 	 * Datasource wijzigen met een fout type
+	 * @throws IOException 
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = { "        "})
-	public void wijzigDatasource_leegType_gewijzigd(String type)
+	public void wijzigDatasource_leegType_gewijzigd(String type) throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest";
 		   final String TYPENEW = type;
 		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
@@ -210,7 +214,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
 			});
 	}
 	
@@ -218,21 +222,22 @@ public class DatasourceTest {
 	 * Datasource wijzigen
 	 * Foutief scenario:
 	 * Datasource wijzigen met een foute link
+	 * @throws IOException 
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = { "        "})
-	public void wijzigDatasource_legeLink_gewijzigd(String link)
+	public void wijzigDatasource_legeLink_gewijzigd(String link) throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest";
-		   final String TYPENEW = "svg";
+		   final String TYPENEW = "csv";
 		   final String LINKNEW = link;
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
@@ -241,7 +246,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
 			});
 	}
 	
@@ -250,20 +255,21 @@ public class DatasourceTest {
 	 * Datasource wijzigen
 	 * Foutief scenario:
 	 * Datasource wijzigen met een bestaande naam
+	 * @throws IOException 
 	 */
 	@Test
-	public void wijzigDatasource_bestaandeNaam_gewijzigd()
+	public void wijzigDatasource_bestaandeNaam_gewijzigd() throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
-		   final String TYPE = "svg";
+		   final String TYPE = "csv";
 		   final String LINK = "InTeVullen";
 		   
 		   final String DATASOURCENAAM2 = "DatasourceTest2";
-		   final String TYPE2 = "svg";
+		   final String TYPE2 = "csv";
 		   final String LINK2 = "InTeVullen";
-	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK));
-	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2));
+	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","","",""));
 	       MVODatasource array[] = {datasource, dataSource2};
 
 	       fluvius.setCurrentDatasource(datasource);
@@ -273,7 +279,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, DATASOURCENAAM, DATASOURCENAAM));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, DATASOURCENAAM, DATASOURCENAAM,"","","",""));
 			});
 	       
 	       // Na de test verifiëren
