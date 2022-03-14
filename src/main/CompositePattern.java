@@ -58,6 +58,7 @@ public class CompositePattern {
 		Component subdoel21 = new Leaf(dd4);
 		Component subdoel22 = new Leaf(dd5);
 		
+		
 		em.persist(hoofddoel1);
 		em.persist(hoofddoel2);
 		em.persist(subdoel11);
