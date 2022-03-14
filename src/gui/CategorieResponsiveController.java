@@ -119,7 +119,7 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	private TextArea datasourceLink;
 	@FXML
-	private TextField datasourceType;
+	private ChoiceBox<String> datasourceType;
 	@FXML
 	private Button btnDataBewerken;
 	@FXML
@@ -247,7 +247,9 @@ public class CategorieResponsiveController extends BorderPane
 			
 			naamDatasource.setEditable(false);
 			datasourceLink.setEditable(false);
-			datasourceType.setEditable(false);
+			datasourceType.setDisable(true);
+			
+			datasourceType.getItems().addAll("csv", "excel", "databank");
 			
 			// MVO Doelstellingen
 			// -----------------------------------------------------------------------------------
@@ -415,7 +417,7 @@ public class CategorieResponsiveController extends BorderPane
 					});
 			
 			naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
-			datasourceType.setText(dc.getDatasources().stream().findFirst().get().getTypeDatasource());
+			datasourceType.setValue(dc.getDatasources().stream().findFirst().get().getTypeDatasource());
 			datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
 			
 			listDatasources1.getSelectionModel().selectedItemProperty()
@@ -425,7 +427,7 @@ public class CategorieResponsiveController extends BorderPane
 							Datasource dataS = listDatasources1.getSelectionModel().getSelectedItem();
 							
 							naamDatasource.setText(dataS.getNaam());
-							datasourceType.setText(dataS.getTypeDatasource());
+							datasourceType.setValue(dataS.getTypeDatasource());
 							datasourceLink.setText(dataS.getLink());
 							
 						}
@@ -821,10 +823,10 @@ public class CategorieResponsiveController extends BorderPane
 		
 		naamDatasource.clear();
 		datasourceLink.clear();
-		datasourceType.clear();
+		datasourceType.getSelectionModel().clearSelection();
 		naamDatasource.setEditable(true);
 		datasourceLink.setEditable(true);
-		datasourceType.setEditable(true);
+		datasourceType.setDisable(false);
 		
 		btnDataBewerken.setDisable(true);
 		btnDataBewerken.setVisible(false);
@@ -868,11 +870,11 @@ public class CategorieResponsiveController extends BorderPane
 				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
 				naamDatasource.setText(d.getNaam());
 				datasourceLink.setText(d.getLink());
-				datasourceType.setText(d.getTypeDatasource());
+				datasourceType.setValue(d.getTypeDatasource());
 				
 				naamDatasource.setEditable(false);
 				datasourceLink.setEditable(false);
-				datasourceType.setEditable(false);
+				datasourceType.setDisable(true);
 				
 				btnDataAnnuleer.setVisible(false);
 				btnDataOpslaan.setVisible(false);
@@ -915,11 +917,11 @@ public class CategorieResponsiveController extends BorderPane
 				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
 				naamDatasource.setText(d.getNaam());
 				datasourceLink.setText(d.getLink());
-				datasourceType.setText(d.getTypeDatasource());
+				datasourceType.setValue(d.getTypeDatasource());
 				
 				naamDatasource.setEditable(false);
 				datasourceLink.setEditable(false);
-				datasourceType.setEditable(false);
+				datasourceType.setDisable(true);
 				
 				btnDataAnnuleer.setVisible(false);
 				btnDataOpslaan.setVisible(false);
