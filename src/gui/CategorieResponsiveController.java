@@ -873,7 +873,7 @@ public class CategorieResponsiveController extends BorderPane
 			if(vartextData.getText().equals("Maak nieuwe datasource"))
 			{
 				DTODatasource newDatasource = new DTODatasource(naamDatasource.getText(), datasourceType.getValue(),
-						datasourceLink.getText());
+						datasourceLink.getText(), "", "", "", ""); //TODO verander lege strings
 				
 				dc.voegMVODatasourceToe(newDatasource);
 				
@@ -1051,12 +1051,12 @@ public class CategorieResponsiveController extends BorderPane
 				Doelstelling doel = newValue;
 				
 				naamDoel.setText(doel.getNaam());
-				selectionDoelType.setValue(doel.getDoelstellingsType());
+//				selectionDoelType.setValue(doel.getDoelstellingsType());
 				doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
 				doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
-				selectionDoelHoofdSDG.setValue(doel.getHoofdSdg());
-				SdGoal subSdg = doel.getSubSdg();
-				selectionDoelSubSDG.setValue(subSdg != null ? subSdg : new SdGoal("---"));
+//				selectionDoelHoofdSDG.setValue(doel.getHoofdSdg());
+//				SdGoal subSdg = doel.getSubSdg();
+//				selectionDoelSubSDG.setValue(subSdg != null ? subSdg : new SdGoal("---"));
 				
 				// TODO subdoelstellingen, datasources en rollen
 				

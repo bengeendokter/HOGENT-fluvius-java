@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ import repository.MVODoelstellingDaoJpa;
 
 public class PopulateDB
 {
-	public static void run()
+	public static void run() throws IOException
 	{
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
@@ -61,11 +62,11 @@ public class PopulateDB
 		rollen.add(rol);
 		
 		// Datasources
-		/*datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "excel", "fluvius.com/qra/abi")));
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "csv", "src/data/csvDouble.csv", null, null, null, null)));
 		
 		List<MVODatasource> datasources = new ArrayList<>();
-		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "excel", "fluvius.com/qra/abi"));
-		datasources.add(mvd);*/
+		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null, null));
+		datasources.add(mvd);
 		
 		// Doelstellingen
 		/*doelstellingenRepo.insert(new DoelstellingMVO(new DTOMVODoelstelling("doelstelling1", "file:src/images/peace.png", 20, "gewogen gemiddelde", rollen, datasources, goal1, null)));
