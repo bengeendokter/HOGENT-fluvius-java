@@ -8,10 +8,9 @@ import javax.persistence.Persistence;
 
 public class GenericDaoJpa<T> implements GenericDao<T>
 {
-//	private static final String PU_NAME = "local";
 	private static final String PU_NAME = DatabaseSelector.ISLOCALHOST ? "local" : "fluvius";
 	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
-	protected static final EntityManager em = emf.createEntityManager();
+	protected  static final EntityManager em = emf.createEntityManager();
 	private final Class<T> type;
 	
 	public GenericDaoJpa(Class<T> type)
@@ -19,13 +18,13 @@ public class GenericDaoJpa<T> implements GenericDao<T>
 		this.type = type;
 	}
 	
-	public static void closePersistency()
+	public  static void closePersistency()
 	{
 		em.close();
 		emf.close();
 	}
 	
-	public static void startTransaction()
+	public static  void startTransaction()
 	{
 		em.getTransaction().begin();
 	}

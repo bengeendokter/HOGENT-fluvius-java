@@ -5,6 +5,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class CategorieResponsiveController extends BorderPane {
+public class CategorieResponsiveController extends BorderPane
+{
 	
 	private DomeinController dc;
 	
@@ -149,10 +151,10 @@ public class CategorieResponsiveController extends BorderPane {
 	private ListView<String> listDoelIcoon;
 	
 	@FXML
-	private ChoiceBox<String> selectionDoelHoofdSDG;
+	private ChoiceBox<SdGoal> selectionDoelHoofdSDG;
 	
 	@FXML
-	private ChoiceBox<String> selectionDoelSubSDG;
+	private ChoiceBox<SdGoal> selectionDoelSubSDG;
 	
 	@FXML
 	private ListView<Doelstelling> listDoelKiesSubDoel;
@@ -162,7 +164,7 @@ public class CategorieResponsiveController extends BorderPane {
 	
 	@FXML
 	private CheckBox checkboxMVORol;
-
+	
 	@FXML
 	private CheckBox checkboxManagerRol;
 	
@@ -211,8 +213,10 @@ public class CategorieResponsiveController extends BorderPane {
 	@FXML
 	private Label doelError;
 	
+	private List<String> doelTypes = new ArrayList<>(Arrays.asList("huidige waarde", "gewogen gemiddelde", "historische waarde"));
 	
-	public CategorieResponsiveController(DomeinController dc) {
+	public CategorieResponsiveController(DomeinController dc)
+	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieResponsive.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
@@ -245,39 +249,49 @@ public class CategorieResponsiveController extends BorderPane {
 			datasourceLink.setDisable(true);
 			datasourceType.setDisable(true);
 			
-			// type datasource values in choicebox steken
+
+//			 type datasource values in choicebox steken
+
+//			 keuzes datasourcetypes opvullen in ChoiceBox
+
 			datasourceType.getItems().addAll("csv", "excel", "databank");
 			
 			// MVO Doelstellingen
+			// -----------------------------------------------------------------------------------
 			showDoelMinimal();
 			vulDoelList();
+			onTabChange();
+			listDoelen.getSelectionModel().selectFirst();
 			
 			// ICONEN TABBLADEN INSTELLEN
 			///////////////////////////////////////////////////////////////////////////////////
 			tabPane.getTabs().forEach(e -> {
-	            if (e.getText().equals("MVO Doelstelling beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/doelstelling.png", 25, 25, true, true)));
-	            else if (e.getText().equals("Categorie beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/category.png", 25, 25, true, true)));
-	            else if (e.getText().equals("Datasource beheren"))
-	                e.setGraphic(new ImageView(new Image("file:src/images/data.png", 25, 25, true, true)));
-	            });
-		
-			tabPane.widthProperty().addListener((observable, oldValue, newValue) ->
-		    {
-		        tabPane.setTabMinWidth(tabPane.getWidth() / tabPane.getTabs().size());
-		        tabPane.setTabMaxWidth(tabPane.getWidth() / tabPane.getTabs().size());      
-		    });
+				if(e.getText().equals("MVO Doelstelling beheren"))
+					e.setGraphic(new ImageView(new Image("file:src/images/doelstelling.png", 25, 25, true, true)));
+				else if(e.getText().equals("Categorie beheren"))
+					e.setGraphic(new ImageView(new Image("file:src/images/category.png", 25, 25, true, true)));
+				else if(e.getText().equals("Datasource beheren"))
+					e.setGraphic(new ImageView(new Image("file:src/images/data.png", 25, 25, true, true)));
+			});
 			
-			listCategorieen.getSelectionModel().selectedItemProperty()
-			.addListener((observableValue, oldValue, newValue) -> dc.setCurrentCategorie(listCategorieen.getSelectionModel().getSelectedItem()));
-			listDatasources1.getSelectionModel().selectedItemProperty()
-			.addListener((observableValue, oldValue, newValue) -> dc.setCurrentDatasource(listDatasources1.getSelectionModel().getSelectedItem()));
+			tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+				tabPane.setTabMinWidth(tabPane.getWidth() / tabPane.getTabs().size());
+				tabPane.setTabMaxWidth(tabPane.getWidth() / tabPane.getTabs().size());
+			});
+			
+			listCategorieen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue,
+					newValue) -> {
+						if(newValue != null)
+						{
+							dc.setCurrentCategorie(newValue);
+						}
+					});
+			listDatasources1.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue,
+					newValue) -> dc.setCurrentDatasource(newValue));
 			
 			listCategorieen.setItems(dc.getCategorien());
 			listDatasources1.setItems(dc.getDatasources());
 			// TODO end
-			
 			
 			listCategorieen.setCellFactory(param -> new ListCell<Categorie>()
 			{
@@ -368,65 +382,67 @@ public class CategorieResponsiveController extends BorderPane {
 			
 			listKiesSdGoal.getSelectionModel().selectFirst();
 			
-			listKiesSdGoal.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-				if(newValue != null)
-				{
-					
-					if(newValue.getIcon() != null)
-					{
-						
-						SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
-						System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
-						
-						listSdGoal.getItems().add(SdGoal);
-						
-						//voeg SdGoal to aan listview en categorie zelf bij aanmaken
-						listSdGoal.setItems(listSdGoal.getItems());
-						
-						listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
+			listKiesSdGoal.getSelectionModel().selectedItemProperty()
+					.addListener((observableValue, oldValue, newValue) -> {
+						if(newValue != null)
 						{
-							private ImageView imageView = new ImageView();
 							
-							@Override
-							public void updateItem(SdGoal name, boolean empty)
+							if(newValue.getIcon() != null)
 							{
-								super.updateItem(name, empty);
-								if(empty)
+								
+								SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
+								System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
+								
+								listSdGoal.getItems().add(SdGoal);
+								
+								//voeg SdGoal to aan listview en categorie zelf bij aanmaken
+								listSdGoal.setItems(listSdGoal.getItems());
+								
+								listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
 								{
-									setText(null);
-									setGraphic(null);
-								}
-								else
-								{
-									setText(name.getNaam());
-									imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
+									private ImageView imageView = new ImageView();
 									
-									setGraphic(imageView);
-								}
+									@Override
+									public void updateItem(SdGoal name, boolean empty)
+									{
+										super.updateItem(name, empty);
+										if(empty)
+										{
+											setText(null);
+											setGraphic(null);
+										}
+										else
+										{
+											setText(name.getNaam());
+											imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
+											
+											setGraphic(imageView);
+										}
+									}
+								});
+								
 							}
-						});
-						
-					}
-					
-				}
-			});
+							
+						}
+					});
 			
 			naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
 			datasourceType.setValue(dc.getDatasources().stream().findFirst().get().getTypeDatasource());
 			datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
 			
 			listDatasources1.getSelectionModel().selectedItemProperty()
-			.addListener((observableValue, oldValue, newValue) -> {
-				if(newValue != null)
-				{
-					Datasource dataS = listDatasources1.getSelectionModel().getSelectedItem();
 
-					naamDatasource.setText(dataS.getNaam());
-					datasourceType.setValue(dataS.getTypeDatasource());
-					datasourceLink.setText(dataS.getLink());
-					
-				}
-			});
+					.addListener((observableValue, oldValue, newValue) -> {
+						if(newValue != null)
+						{
+							Datasource dataS = listDatasources1.getSelectionModel().getSelectedItem();
+							
+							naamDatasource.setText(dataS.getNaam());
+							datasourceType.setValue(dataS.getTypeDatasource());
+							datasourceLink.setText(dataS.getLink());
+							
+						}
+					});
 			
 			listCategorieen.getSelectionModel().selectedItemProperty()
 					.addListener((observableValue, oldValue, newValue) -> {
@@ -449,8 +465,8 @@ public class CategorieResponsiveController extends BorderPane {
 								//listSdGoal.setItems(FXCollections.observableList(cat.getDoelstellingen().stream().map(d -> d.getNaam()).collect(Collectors.toList())));
 								listSdGoal.setItems(FXCollections
 										.observableList(cat.getSdGoals().stream().collect(Collectors.toList())));
-			
-	//moet dit gebruikt worden
+								
+								//moet dit gebruikt worden
 								listSdGoal.getSelectionModel().selectFirst();
 								
 								listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
@@ -526,7 +542,7 @@ public class CategorieResponsiveController extends BorderPane {
 				}
 			});
 		}
-			
+		
 		catch(IOException e)
 		{
 			throw new RuntimeException(e);
@@ -622,11 +638,13 @@ public class CategorieResponsiveController extends BorderPane {
 			}
 			else if(vartextCat.getText().equals("Wijzig categorie"))
 			{
-				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
-				dc.setCurrentCategorie(huidigeCategorie);
+//				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
 				
 				DTOCategorie nieuweCategorie = new DTOCategorie(naamCategorie.getText(), catIcoon.getImage().getUrl(),
 						new ArrayList<SdGoal>(listSdGoal.getItems().stream().collect(Collectors.toList())));
+				
+				System.out.println(nieuweCategorie.naam);
+				
 				dc.wijzigCategorie(nieuweCategorie);
 				
 				//alles terug goed zetten
@@ -812,7 +830,8 @@ public class CategorieResponsiveController extends BorderPane {
 	}
 	
 	@FXML
-	public void addDatasource(ActionEvent event) {
+	public void addDatasource(ActionEvent event)
+	{
 		vartextData.setText("Maak nieuwe datasource");
 		
 		naamDatasource.clear();
@@ -828,32 +847,33 @@ public class CategorieResponsiveController extends BorderPane {
 		btnDataVerwijderen.setVisible(false);
 		
 		btnDataOpslaan.setVisible(true);
-		btnDataAnnuleer.setVisible(true);		
+		btnDataAnnuleer.setVisible(true);
 	}
 	
 	@FXML
-	public void datasourceBewerken(ActionEvent event) {
+	public void datasourceBewerken(ActionEvent event)
+	{
 		
 	}
 	
 	@FXML
-	public void datasourceVerwijderen(ActionEvent event) {
+	public void datasourceVerwijderen(ActionEvent event)
+	{
 		
 	}
 	
 	@FXML
-	public void datasourceOpslaan(ActionEvent event) throws SQLIntegrityConstraintViolationException, IllegalStateException {
+	public void datasourceOpslaan(ActionEvent event)
+			throws SQLIntegrityConstraintViolationException, IllegalStateException
+	{
 		try
 		{
 			
 			//toon overzicht van eerste of geselecteerde categorie
 			if(vartextData.getText().equals("Maak nieuwe datasource"))
 			{
-				DTODatasource newDatasource = new DTODatasource(
-						naamDatasource.getText()
-						, datasourceType.getSelectionModel().getSelectedItem()
-						, datasourceLink.getText()
-						);
+				DTODatasource newDatasource = new DTODatasource(naamDatasource.getText(), datasourceType.getValue(),
+						datasourceLink.getText());
 				
 				dc.voegMVODatasourceToe(newDatasource);
 				
@@ -895,7 +915,8 @@ public class CategorieResponsiveController extends BorderPane {
 	}
 	
 	@FXML
-	public void datasourceAnnuleer(ActionEvent event) {
+	public void datasourceAnnuleer(ActionEvent event)
+	{
 		try
 		{
 			naamCategorie.setStyle("-fx-border-color:none");
@@ -925,11 +946,10 @@ public class CategorieResponsiveController extends BorderPane {
 				
 				dataError.setVisible(false);
 				
-				
 			}
 			else if(vartextData.getText().equals("Wijzig datasource"))
 			{
-
+				
 				// TODO
 				// Datasource annuleren na bewerken
 				///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -943,14 +963,27 @@ public class CategorieResponsiveController extends BorderPane {
 		}
 	}
 	
-	
 	// Doelstelling methodes
+	// ------------------------------------------------------------------------------------------------------------
+	private void onTabChange()
+	{
+		tabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+			if(newValue != null)
+			{
+				if(oldValue != newValue)
+				{
+					listDoelen.getSelectionModel().selectFirst();
+				}
+			}
+		});
+	}
+	
 	private void showDoelMinimal()
 	{
 		// visibility
 		vboxListIcons.setVisible(false);
 		vboxListIcons.setManaged(false);
-
+		
 		vboxListSubDoelen.setVisible(false);
 		vboxListSubDoelen.setManaged(false);
 		vboxPijlenSubDoelen.setVisible(false);
@@ -1010,38 +1043,56 @@ public class CategorieResponsiveController extends BorderPane {
 		});
 		
 		// onSelect Doel
-		listDoelen.getSelectionModel().selectedItemProperty()
-		.addListener((observableValue, oldValue, newValue) -> {
+		listDoelen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
+				leegDoelVelden();
+				
 				Doelstelling doel = newValue;
 				
-				if(doel != null)
-				{
-					naamDoel.setText(doel.getNaam());
-					selectionDoelType.setValue(doel.getDoelstellingsType());
-					doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
-					doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
-					selectionDoelHoofdSDG.setValue(doel.getHoofdSdg().getNaam());
-					SdGoal subSdg = doel.getSubSdg();
-					selectionDoelSubSDG.setValue(subSdg != null ? subSdg.getNaam() : "---");
-					
-					// TODO subdoelstellingen en rollen
-				}
+				naamDoel.setText(doel.getNaam());
+				selectionDoelType.setValue(doel.getDoelstellingsType());
+				doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
+				doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
+				selectionDoelHoofdSDG.setValue(doel.getHoofdSdg());
+				SdGoal subSdg = doel.getSubSdg();
+				selectionDoelSubSDG.setValue(subSdg != null ? subSdg : new SdGoal("---"));
+				
+				// TODO subdoelstellingen, datasources en rollen
 				
 				// indien hiervoor aan het bewerken was, sluit bewerkingsview
-				showDoelMinimal();
+				if(oldValue != newValue)
+				{
+					showDoelMinimal();
+				}
+			}
+		});
+		
+		// vul type choicebox
+		selectionDoelType.setItems(FXCollections.observableList(doelTypes));
+		
+		// vul hoofd SDG choicebox
+		// TODO
+		
+		// onDoelHoofdSDGSelect
+		selectionDoelHoofdSDG.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+			if(newValue != null)
+			{
+				SdGoal sdGoal = newValue;
+				
+				// vul sub SDG choicebox
+				// TODO
 			}
 		});
 		
 		listDoelen.getSelectionModel().selectFirst();
 		
 		onSelectDoelIcon(listDoelIcoon, doelIcoon);
+		
 		onSelectKiesSubDoel();
-		// TODO
-//		onSelectKiesDatasource();
-//		
-//		onSelectSubDoel();
+		onSelectSubDoel();
+
+		onSelectKiesDatasource();	
 		onSelectDatasource();
 	}
 
@@ -1078,19 +1129,18 @@ public class CategorieResponsiveController extends BorderPane {
 			{
 				String icoonPath = newValue;
 				
-				if(icoonPath != null)
-				{
-					icoon.setImage(new Image(icoonPath, 250, 250, true, true));
-				}
+				icoon.setImage(new Image(icoonPath, 250, 250, true, true));
+				
 			}
 		});
 	}
-	
 	
 	private void onSelectKiesSubDoel()
 	{
 		// TODO filter op mogelijke subdoelen
 		listDoelKiesSubDoel.setItems(FXCollections.observableList(dc.getDoelstellingen()));
+		
+		// view
 		listDoelKiesSubDoel.setCellFactory(param -> new ListCell<Doelstelling>()
 		{
 			private ImageView imageView = new ImageView();
@@ -1114,40 +1164,73 @@ public class CategorieResponsiveController extends BorderPane {
 			}
 		});
 		
-		listDoelKiesSubDoel.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-			if(newValue != null)
-			{
-				Doelstelling subDoel = newValue;
-				
-				if(subDoel != null)
-				{
-					ObservableList<Doelstelling> huidigeSubDoelen = listDoelSubDoelen.getItems();
-					
-					if(huidigeSubDoelen == null)
+		// onSelect
+		listDoelKiesSubDoel.getSelectionModel().selectedItemProperty()
+				.addListener((observableValue, oldValue, newValue) -> {
+					if(newValue != null)
 					{
-						huidigeSubDoelen = FXCollections.observableList(new ArrayList<>());
+						Doelstelling subDoel = newValue;
+						
+						ObservableList<Doelstelling> huidigeSubDoelen = listDoelSubDoelen.getItems();
+						
+						if(huidigeSubDoelen == null)
+						{
+							huidigeSubDoelen = FXCollections.observableList(new ArrayList<>());
+						}
+						huidigeSubDoelen.add(subDoel);
+						listDoelSubDoelen.setItems(FXCollections.observableList(new ArrayList<>(new HashSet<>(huidigeSubDoelen))));
+						
+						// TODO verwijder newValue via listDoelKiesSubDoel. getItems/setItems
 					}
-					huidigeSubDoelen.add(subDoel);
-					listDoelSubDoelen.setItems(huidigeSubDoelen);
-				}
-			}
-		});
+				});
 	}
 
+	private void onSelectSubDoel()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void onSelectKiesDatasource()
+	{
+		// TODO Auto-generated method stub
+		listDoelKiesData.setItems(FXCollections.observableList(dc.getDatasources()));
+		
+		// onSelect
+		listDoelKiesData.getSelectionModel().selectedItemProperty()
+				.addListener((observableValue, oldValue, newValue) -> {
+					if(newValue != null)
+					{
+						Datasource data = newValue;
+						
+						ObservableList<Datasource> huidigeDatasources = listDoelDatasources.getItems();
+						
+						if(huidigeDatasources == null)
+						{
+							huidigeDatasources = FXCollections.observableList(new ArrayList<>());
+						}
+						huidigeDatasources.add(data);
+						listDoelDatasources.setItems(FXCollections.observableList(new ArrayList<>(new HashSet<>(huidigeDatasources))));
+						
+						// TODO verwijder newValue via listDoelKiesData. getItems/setItems
+					}
+				});
+	}
+	
 	private void onSelectDatasource()
 	{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	private void leegDoelVelden()
 	{
 		naamDoel.setText("");
 		selectionDoelType.setValue("");
 		doelDoelwaarde.setText("");
 		doelIcoon.setImage(null);
-		selectionDoelHoofdSDG.setValue("");
-		selectionDoelSubSDG.setValue("");
+		selectionDoelHoofdSDG.setValue(new SdGoal(""));
+		selectionDoelSubSDG.setValue(new SdGoal(""));
 		listDoelSubDoelen.setItems(null);
 		checkboxMVORol.setSelected(false);
 		checkboxManagerRol.setSelected(false);
@@ -1164,7 +1247,7 @@ public class CategorieResponsiveController extends BorderPane {
 		// visibility
 		vboxListIcons.setVisible(true);
 		vboxListIcons.setManaged(true);
-
+		
 		vboxListSubDoelen.setVisible(true);
 		vboxListSubDoelen.setManaged(true);
 		vboxPijlenSubDoelen.setVisible(true);
@@ -1224,4 +1307,7 @@ public class CategorieResponsiveController extends BorderPane {
 	{
 		// TODO
 	}
+	
+	// TODO toon errors
+	// TODO verander label detailscherm bij elke actie
 }

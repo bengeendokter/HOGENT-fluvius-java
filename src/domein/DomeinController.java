@@ -47,6 +47,12 @@ public class DomeinController
 		return fluvius.getBeschikbareSdgs();
 	}
 	
+	public ObservableList<SdGoal> getSdgs()
+	{
+		//return fluvius.getSdgs();
+		return null;
+	}
+	
 	// CATEGORIE BEHEREN
 	// ______________________________________________________________________________________________
 	

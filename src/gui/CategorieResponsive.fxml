@@ -821,7 +821,9 @@
                                                             </Label>
                                                          </left>
                                                          <right>
-                                                            <ChoiceBox fx:id="datasourceType" prefHeight="25.0" prefWidth="322.0" BorderPane.alignment="CENTER" />
+
+                                                            <ChoiceBox fx:id="datasourceType" prefHeight="25.0" prefWidth="324.0" BorderPane.alignment="CENTER" />
+
                                                          </right>
                                                       </BorderPane>
                                                    </top>
