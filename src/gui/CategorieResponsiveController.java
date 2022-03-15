@@ -416,9 +416,13 @@ public class CategorieResponsiveController extends BorderPane
 						}
 					});
 			
-			naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
-			datasourceType.setValue(dc.getDatasources().stream().findFirst().get().getTypeDatasource().toString());
-			datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
+			ObservableList<Datasource> datasources = dc.getDatasources();
+			if (datasources.size() > 0) {
+				naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
+				datasourceType.setValue(dc.getDatasources().stream().findFirst().get().getTypeDatasource().toString());
+				datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
+				
+			}
 			
 			listDatasources1.getSelectionModel().selectedItemProperty()
 					.addListener((observableValue, oldValue, newValue) -> {
