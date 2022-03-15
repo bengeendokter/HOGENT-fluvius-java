@@ -418,9 +418,9 @@ public class CategorieResponsiveController extends BorderPane
 			
 			ObservableList<Datasource> datasources = dc.getDatasources();
 			if (datasources.size() > 0) {
-				naamDatasource.setText(dc.getDatasources().stream().findFirst().get().getNaam());
-				datasourceType.setValue(dc.getDatasources().stream().findFirst().get().getTypeDatasource().toString());
-				datasourceLink.setText(dc.getDatasources().stream().findFirst().get().getLink());
+				naamDatasource.setText(datasources.stream().findFirst().get().getNaam());
+				datasourceType.setValue(datasources.stream().findFirst().get().getTypeDatasource().toString());
+				datasourceLink.setText(datasources.stream().findFirst().get().getLink());
 				
 			}
 			
