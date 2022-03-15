@@ -41,6 +41,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -197,7 +198,7 @@ public class CategorieResponsiveController extends BorderPane
 	private VBox vboxListSubDoelen;
 	
 	@FXML
-	private VBox vboxPijlenSubDoelen;
+	private HBox hboxPijlenSubDoelen;
 	
 	@FXML
 	private VBox vboxListIcons;
@@ -965,8 +966,8 @@ public class CategorieResponsiveController extends BorderPane
 		
 		vboxListSubDoelen.setVisible(false);
 		vboxListSubDoelen.setManaged(false);
-		vboxPijlenSubDoelen.setVisible(false);
-		vboxPijlenSubDoelen.setManaged(false);
+		hboxPijlenSubDoelen.setVisible(false);
+		hboxPijlenSubDoelen.setManaged(false);
 		
 		doelError.setVisible(false);
 		
@@ -981,6 +982,7 @@ public class CategorieResponsiveController extends BorderPane
 		selectionDoelBewerking.setDisable(true);
 		doelDoelwaarde.setEditable(false);
 		selectionDoelSDG.setDisable(true);
+		selectionDoelDatasource.setDisable(false);
 		checkboxMVORol.setDisable(true);
 		checkboxManagerRol.setDisable(true);
 		checkboxDirectieRol.setDisable(true);
@@ -1203,8 +1205,8 @@ public class CategorieResponsiveController extends BorderPane
 		
 		vboxListSubDoelen.setVisible(true);
 		vboxListSubDoelen.setManaged(true);
-		vboxPijlenSubDoelen.setVisible(true);
-		vboxPijlenSubDoelen.setManaged(true);
+		hboxPijlenSubDoelen.setVisible(true);
+		hboxPijlenSubDoelen.setManaged(true);
 		
 		doelError.setVisible(false);
 		

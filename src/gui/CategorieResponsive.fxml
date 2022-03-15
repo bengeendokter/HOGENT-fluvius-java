@@ -262,7 +262,7 @@
                                                 </VBox>
                                              </left>
                                              <right>
-                                                <VBox prefHeight="492.0" prefWidth="168.0" BorderPane.alignment="CENTER">
+                                                <VBox prefHeight="492.0" prefWidth="227.0" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets />
                                                    </BorderPane.margin>
@@ -292,80 +292,86 @@
                                                             <Insets />
                                                          </VBox.margin>
                                                       </HBox>
+                                                      <VBox alignment="CENTER" prefHeight="476.0" prefWidth="227.0">
+                                                         <children>
+                                                            <Label alignment="CENTER" prefHeight="27.0" prefWidth="235.0" text="Rollen" textFill="#004c69">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox maxWidth="-Infinity" prefHeight="139.0" prefWidth="179.0">
+                                                               <children>
+                                                                  <VBox prefHeight="139.0" prefWidth="175.0" spacing="10.0">
+                                                                     <children>
+                                                                        <CheckBox fx:id="checkboxMVORol" mnemonicParsing="false" text="MVO coördinator" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxManagerRol" mnemonicParsing="false" text="Manager" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxDirectieRol" mnemonicParsing="false" text="Directie" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxStakeholderRol" mnemonicParsing="false" text="Stakeholder" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
                                                 </VBox>
                                              </right>
                                              <center>
                                                 <VBox alignment="CENTER" prefHeight="472.0" prefWidth="266.0" BorderPane.alignment="CENTER">
                                                    <children>
-                                                      <HBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="279.0">
+                                                      <VBox>
                                                          <children>
                                                             <VBox fx:id="vboxListSubDoelen" prefHeight="278.0" prefWidth="218.0">
                                                                <children>
-                                                                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="137.0" text="Kies subdoelstelling:" textFill="#004c69" />
-                                                                  <ListView fx:id="listDoelKiesSubDoel" prefHeight="391.0" prefWidth="134.0" />
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox fx:id="vboxPijlenSubDoelen" alignment="CENTER" prefHeight="44.0" prefWidth="33.0">
-                                                               <children>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox prefHeight="278.0" prefWidth="215.0">
-                                                               <children>
-                                                                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="134.0" text="Subdoelstellingen:" textFill="#004c69">
+                                                                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="500.0" text="Kies subdoelstelling:" textFill="#004c69">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font></Label>
+                                                                  <ListView fx:id="listDoelKiesSubDoel" prefHeight="391.0" prefWidth="134.0" />
+                                                               </children>
+                                                            </VBox>
+                                                            <HBox fx:id="hboxPijlenSubDoelen" alignment="CENTER">
+                                                               <children>
+                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                                                                     <image>
+                                                                        <Image url="@../images/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                                                     <image>
+                                                                        <Image url="@../images/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </HBox>
+                                                            <VBox prefHeight="278.0" prefWidth="215.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="500.0" text="Subdoelstellingen:" textFill="#004c69">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Label>
                                                                   <ListView fx:id="listDoelSubDoelen" prefHeight="391.0" prefWidth="200.0" />
                                                                </children>
                                                             </VBox>
                                                          </children>
-                                                      </HBox>
-                                                      <Label text="Rollen" textFill="#004c69">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font></Label>
-                                                      <HBox maxWidth="-Infinity" prefHeight="139.0" prefWidth="179.0">
-                                                         <VBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </VBox.margin>
-                                                         <children>
-                                                            <VBox prefHeight="139.0" prefWidth="175.0" spacing="10.0">
-                                                               <children>
-                                                                  <CheckBox fx:id="checkboxMVORol" mnemonicParsing="false" text="MVO coördinator" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <CheckBox fx:id="checkboxManagerRol" mnemonicParsing="false" text="Manager" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <CheckBox fx:id="checkboxDirectieRol" mnemonicParsing="false" text="Directie" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <CheckBox fx:id="checkboxStakeholderRol" mnemonicParsing="false" text="Stakeholder" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                      </HBox>
+                                                      </VBox>
                                                    </children>
                                                    <padding>
                                                       <Insets left="40.0" right="40.0" />
