@@ -13,6 +13,8 @@ public class CatRepGUI extends Application {
 	{
 		try
 		{
+			// run zonder in te loggen
+			
 			DomeinController domeinController = new DomeinController(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
 			
 			//AanmeldController aanmeldController = new AanmeldController();
