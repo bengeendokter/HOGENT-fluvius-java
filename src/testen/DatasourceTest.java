@@ -55,6 +55,37 @@ public class DatasourceTest {
 	
 	/**
 	 * Datasource aanmaken
+	 * Foute scenario:
+	 * Datasource aanmaken met een bestaande naam
+	 * En met type en link
+	 * @throws IOException 
+	 */
+//	@Test
+//	public void maakDatasource_BestaandeNaam_aangemaakt() throws IOException
+//	{
+//		   // Alles klaarzetten
+//		   final String DATASOURCENAAM = "DatasourceTest";
+//		   final String TYPE = "csv";
+//		   final String LINK = "map/data.csv";
+//		   
+//		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","","");
+//		   MVODatasource mvoDatasource = new MVODatasource(datasource);
+//		   mvoDatasource.setDatasourceID(1);
+//		   
+//		   //train mock object
+//		   Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
+//		   
+//	       // Controle
+//		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
+//	    	   fluvius.voegMVODatasourceToe(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+//	       });
+//		   
+//		   // Na de test verifiëren
+//	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM);
+//	}
+//	
+	/**
+	 * Datasource aanmaken
 	 * Foutieve scenario:
 	 * Datasource aanmaken zonder een naam
 	 */
@@ -137,11 +168,14 @@ public class DatasourceTest {
 		   final String TYPENEW = "excl";
 		   final String LINKNEW = "map/data.csv";
 	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       
+	       eenDatasource.setDatasourceID(1);
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
 	       Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAMNEW)).thenReturn(null);
+
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
@@ -175,6 +209,8 @@ public class DatasourceTest {
 		   final String LINKNEW = "map/data.csv";
 	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
+	       eenDatasource.setDatasourceID(1);
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
@@ -202,11 +238,14 @@ public class DatasourceTest {
 		   final String TYPE = "csv";
 		   final String LINK = "map/data.csv";
 		   
-		   final String DATASOURCENAAMNEW = "DatasourceTest";
+		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = type;
 		   final String LINKNEW = "map/data.csv";
 	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
+	       eenDatasource.setDatasourceID(1);
+
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
@@ -234,11 +273,13 @@ public class DatasourceTest {
 		   final String TYPE = "csv";
 		   final String LINK = "map/data.csv";
 		   
-		   final String DATASOURCENAAMNEW = "DatasourceTest";
+		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "csv";
 		   final String LINKNEW = link;
 	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
 
+	       eenDatasource.setDatasourceID(1);
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
