@@ -1,6 +1,7 @@
 package domein;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -104,6 +105,14 @@ public class DomeinController
 	
 	public ObservableList<Doelstelling> getDoelstellingen(){
 		return fluvius.getDoelstellingen();
+	}
+	
+	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
+		return fluvius.geefDoelstellingenDieGeenSubsHebben();
+	}
+	
+	public List<Component> geefDoelstellingenDieSubsHebben(){
+		return fluvius.geefDoelstellingenDieSubsHebben();
 	}
 	
 	public void voegMVODoelstellingToe(DTOMVODoelstelling doelstelling) {

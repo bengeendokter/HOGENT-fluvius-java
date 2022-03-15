@@ -3,6 +3,8 @@ package domein;
 import java.util.*;
 import java.util.Iterator;
 
+import javafx.collections.ObservableList;
+
 public class CompositeIterator implements Iterator<Component> {
     private Stack<Iterator<Component>> stack = new Stack<>();
     //parameter : de iterator van de rootcompositie waardoor we gaan itereren
@@ -10,7 +12,6 @@ public class CompositeIterator implements Iterator<Component> {
         stack.push(iterator);
     }
     
-    @Override
     public Component next() {
         if (hasNext()) { //Is er wel een volgend element?
             //haal lopende iterator van de stack en ga naar volgend element
