@@ -27,7 +27,7 @@ import domein.Som;
 
 public class CompositePattern {
 
-	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException {
+	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException, ExceptionInInitializerError {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
 		EntityManager em = emf.createEntityManager();
 		
@@ -73,8 +73,8 @@ public class CompositePattern {
 		em.persist(subdoel22);
 		
 		// AANMAKEN VAN DATASOURCES
-		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV11111", "csv", "src/data/csvDouble.csv", null, null, null));
-		MVODatasource ds2 = new MVODatasource(new DTODatasource("S222222", "excel", "src/data/xlsDouble.xls", null, null, null));
+		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV11111", "csv", "src/data/csvDouble.csv",  null, null, null));
+		MVODatasource ds2 = new MVODatasource(new DTODatasource("S222222", "excel", "src/data/xlsDouble.xls",  null, null, null));
 		MVODatasource ds3 = new MVODatasource(new DTODatasource("X222222", "excel", "src/data/xlsxDouble.xlsx", null, null, null));
 		
 		em.persist(ds1);
