@@ -1297,6 +1297,16 @@ public class CategorieResponsiveController extends BorderPane
 		// TODO
 	}
 	
+	@FXML
+	private void addHoofdDoel(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private void addSubDoel(ActionEvent event) {
+		
+	}
+	
 	// TODO toon errors
 	// TODO verander label detailscherm bij elke actie
 }
