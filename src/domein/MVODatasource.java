@@ -26,7 +26,7 @@ import javax.persistence.Table;
 public class MVODatasource implements Serializable, Datasource
 {
 private static final long serialVersionUID = 1L;
-	
+	//TODO size weg, alleen naam attribuut, controle databank type
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int datasourceID;
