@@ -72,9 +72,9 @@ public class CompositePattern {
 		em.persist(subdoel22);
 		
 		// AANMAKEN VAN DATASOURCES
-		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV11111", "csv", "src/data/csvDouble.csv", null, null, null, null));
-		MVODatasource ds2 = new MVODatasource(new DTODatasource("S222222", "excel", "src/data/xlsDouble.xls", "8Gb", null, null, null));
-		MVODatasource ds3 = new MVODatasource(new DTODatasource("X222222", "excel", "src/data/xlsxDouble.xlsx", "26Gb", null, null, null));
+		MVODatasource ds1 = new MVODatasource(new DTODatasource("CSV11111", "csv", "src/data/csvDouble.csv", null, null, null));
+		MVODatasource ds2 = new MVODatasource(new DTODatasource("S222222", "excel", "src/data/xlsDouble.xls", null, null, null));
+		MVODatasource ds3 = new MVODatasource(new DTODatasource("X222222", "excel", "src/data/xlsxDouble.xlsx", null, null, null));
 		
 		em.persist(ds1);
 		em.persist(ds2);

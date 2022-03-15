@@ -32,6 +32,13 @@ public abstract class TypeDatasource implements Serializable  {
 	
 	//List<Double>
 	public abstract List<Double> getData() throws IOException; 
+	
+	public abstract String getLink();
+	
+	public abstract String getHostname();
+	
+	public abstract String getUsername();
+	public abstract String getPassword();
 		
 	
 }
