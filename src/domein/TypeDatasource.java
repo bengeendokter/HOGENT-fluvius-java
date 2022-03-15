@@ -39,6 +39,8 @@ public abstract class TypeDatasource implements Serializable  {
 	
 	public abstract String getUsername();
 	public abstract String getPassword();
+	
+	public abstract String toString();
 		
 	
 }

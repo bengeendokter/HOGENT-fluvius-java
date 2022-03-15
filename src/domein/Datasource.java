@@ -7,7 +7,7 @@ public interface Datasource{
 	public int getDatasourceID();
 	public String getNaam();
 	//naam veranderd van getType naar getTypeDatasource
-	public String getTypeDatasource();
+	public TypeDatasource getTypeDatasource();
 	
 	//specifiek voor types
 	public String getLink();

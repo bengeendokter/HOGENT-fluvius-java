@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import repository.MVODoelstellingDaoJpa;
 
 public class PopulateDB
 {
-	public static void run() throws IOException
+	public static void run() throws IOException, SQLIntegrityConstraintViolationException
 	{
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);

@@ -5,4 +5,6 @@ import domein.MVODatasource;
 public interface MVODatasourceDao extends GenericDao<MVODatasource>
 {
 	public MVODatasource getByNaam(String naam);
+	
+	//public TypeDatasource getByNaam(String naam);
 }

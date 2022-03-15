@@ -81,14 +81,15 @@ private static final long serialVersionUID = 1L;
 		return naam;
 	}
 	
-	public String getTypeDatasource() {
-		if (typeDatasource instanceof CsvDataSourceType)
+	public TypeDatasource getTypeDatasource() {
+		/*if (typeDatasource instanceof CsvDataSourceType)
 			return "csv";
 		else if (typeDatasource instanceof ExcelDataSourceType)
 			return "excel";
 		else if (typeDatasource instanceof DatabankDataSourceType)
 			return "excel";
-		return "";
+		return "";*/
+		return typeDatasource;
 		
 	}
 	
