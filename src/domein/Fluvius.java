@@ -63,38 +63,6 @@ public class Fluvius
 	}
 	
 	
-	
-	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
-		List<Component> doelZonderSubs = new ArrayList<>();
-		doelstellingen.forEach(d -> {
-			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
-			while (iterator.hasNext()) {
-	            Component component = iterator.next();
-
-	            if(component.isLeaf() ) {
-	            	doelZonderSubs.add(component);
-	            }
-	        }
-		});
-		
-		return doelZonderSubs;
-	}
-	
-	public List<Component> geefDoelstellingenDieSubsHebben(){
-		List<Component> doelMetSubs = new ArrayList<>();
-		doelstellingen.forEach(d -> {
-			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
-			while (iterator.hasNext()) {
-	            Component component = iterator.next();
-	
-	            if(!component.isLeaf() ) {
-	            	doelMetSubs.add(component);
-	            }
-	        }
-		});
-		return doelMetSubs;
-	}
-	
 	// SDG
 	// ______________________________________________________________________________________________
 	public void setSdGoalRepo(SdGoalDao mock)
@@ -307,12 +275,64 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList((ObservableList<Doelstelling>)(Object)doelstellingen);
 	}
 	
+	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
+		List<Component> doelZonderSubs = new ArrayList<>();
+		doelstellingen.forEach(d -> {
+			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
+			while (iterator.hasNext()) {
+	            Component component = iterator.next();
+
+	            if(component.isLeaf() ) {
+	            	doelZonderSubs.add(component);
+	            }
+	        }
+		});
+		
+		return doelZonderSubs;
+	}
+	
+	public List<Component> geefDoelstellingenDieSubsHebben(){
+		List<Component> doelMetSubs = new ArrayList<>();
+		doelstellingen.forEach(d -> {
+			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
+			while (iterator.hasNext()) {
+	            Component component = iterator.next();
+	
+	            if(!component.isLeaf() ) {
+	            	doelMetSubs.add(component);
+	            }
+	        }
+		});
+		return doelMetSubs;
+	}
+	
 	private void setDoelstellingen() {
 		doelstellingen.clear();
 		doelstellingen.addAll(mvoDoelstellingRepo.findAll());
 	}
 	
-	public void voegMVODoelstellingToe(DTOMVODoelstelling doelstelling) {
+	public void voegMVODoelstellingToeZonderSubs(DTOMVODoelstelling doelstelling) {
+		try
+		{
+			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
+			GenericDaoJpa.startTransaction();
+			mvoDoelstellingRepo.insert(new Leaf(doelstelling));
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(DatabaseException e)
+		{
+			throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.toString()));
+		}
+		catch(Exception e)
+		{
+			System.out.printf("%s", e.getMessage());
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een MVO Doelstelling");
+		}
+		
+		setDoelstellingen();
+	}
+	
+	public void voegMVODoelstellingToeMetSubs(DTOMVODoelstelling doelstelling) {
 		try
 		{
 			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());

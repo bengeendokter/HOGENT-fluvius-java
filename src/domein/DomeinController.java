@@ -115,8 +115,12 @@ public class DomeinController
 		return fluvius.geefDoelstellingenDieSubsHebben();
 	}
 	
-	public void voegMVODoelstellingToe(DTOMVODoelstelling doelstelling) {
-		fluvius.voegMVODoelstellingToe(doelstelling);
+	public void voegMVODoelstellingToeMetSubs(DTOMVODoelstelling doelstelling) {
+		fluvius.voegMVODoelstellingToeMetSubs(doelstelling);
+	}
+	
+	public void voegMVODoelstellingToeZonderSubs(DTOMVODoelstelling doelstelling) {
+		fluvius.voegMVODoelstellingToeZonderSubs(doelstelling);
 	}
 	
 	public void verwijderMVODoelstelling() {

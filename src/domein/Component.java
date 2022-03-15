@@ -37,7 +37,7 @@ import javax.persistence.Transient;
 @DiscriminatorColumn(name = "Soort")
 @NamedQueries({
 	@NamedQuery(name = "MVODoelstellingComponent.findByNaam", query = "select c from domein.Component c where c.naam = :naam")})
-public abstract class Component implements Serializable{
+public abstract class Component implements Doelstelling, Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

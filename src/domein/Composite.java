@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("COMP")
-public class Composite extends Component implements Doelstelling, Serializable{
+public class Composite extends Component implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
