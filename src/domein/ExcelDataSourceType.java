@@ -194,4 +194,9 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 		List<Double> lijst1 = enkelKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
 		return lijst1;
 	}
+	
+	@Override
+	public String toString() {
+		return "excel";
+	}
 }

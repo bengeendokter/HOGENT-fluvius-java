@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 
 import exceptions.GebruikerBestaatNietException;
@@ -14,12 +15,12 @@ import repository.GenericDaoJpa;
 public class AanmeldController
 {
 	private GebruikerDaoJpa gJpa;
-	public AanmeldController()
+	public AanmeldController() throws SQLIntegrityConstraintViolationException
 	{
 		this(false);
 	}
 	
-	public AanmeldController(boolean withInit)
+	public AanmeldController(boolean withInit) throws SQLIntegrityConstraintViolationException
 	{
 		if(withInit)
 		{
@@ -34,7 +35,7 @@ public class AanmeldController
 		}
 	}
 	
-	public DomeinController meldAan(String gebruikersnaam, String wachtwoord) throws ExceptionInInitializerError
+	public DomeinController meldAan(String gebruikersnaam, String wachtwoord) throws ExceptionInInitializerError, SQLIntegrityConstraintViolationException
 	{
 		
 		
@@ -124,7 +125,7 @@ public class AanmeldController
 		}
 	}
 	
-	private void registreerVerkeerdeAanmeldPoging(Gebruiker gebruiker)
+	private void registreerVerkeerdeAanmeldPoging(Gebruiker gebruiker) throws SQLIntegrityConstraintViolationException
 	{
 		AanmeldPogingDaoJpa aanmeldpogingDao = new AanmeldPogingDaoJpa();
 		AanmeldPoging ap = aanmeldpogingDao.getLaatsteAanmeldPogingByGebruikersnaam(gebruiker);

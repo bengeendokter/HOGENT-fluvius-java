@@ -89,6 +89,11 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 		return eenKolom;
 
     }
+	
+	@Override
+	public String toString() {
+		return "databank";
+	}
 }
 
 

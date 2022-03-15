@@ -113,6 +113,11 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 
 
     }
+
+	@Override
+	public String toString() {
+		return "csv";
+	}
 }
 
 
