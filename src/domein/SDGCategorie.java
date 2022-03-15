@@ -98,7 +98,7 @@ public class SDGCategorie implements Serializable, Categorie
 	{
 		if(sdGoals.isEmpty() || sdGoals == null)
 		{
-			throw new IllegalArgumentException("Een Categorie moet misntens 1 SdGoal hebben");
+			throw new IllegalArgumentException("Een Categorie moet minstens 1 SdGoal hebben");
 		}
 		
 		this.sdGoals = sdGoals;

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -154,7 +155,7 @@ public abstract class Component implements Serializable{
 	
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------
-	public abstract void print() throws IOException;
+	public abstract void print();
 	public abstract double getBerekendewaarde() throws IOException;
 	
 	// METHODEN DIE NIET OVERAL VOORKOMEN --> UNSUPPORTED
@@ -205,5 +206,9 @@ public abstract class Component implements Serializable{
 		Component other = (Component) obj;
 		return Objects.equals(naam, other.naam);
 	}
+	
+	public abstract Iterator<domein.Component> createIterator();
+
+	public abstract boolean isLeaf();
 	
 }
