@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import domein.Average;
 import domein.Bewerking;
 import domein.Categorie;
 import domein.DTOCategorie;
@@ -19,6 +21,7 @@ import domein.Composite;
 import domein.DomeinController;
 import domein.Rol;
 import domein.SdGoal;
+import domein.Som;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -206,7 +209,7 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	private Label doelError;
 	
-	private List<String> doelTypes = new ArrayList<>(Arrays.asList("huidige waarde", "gewogen gemiddelde", "historische waarde"));
+	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average()));
 	
 	public CategorieResponsiveController(DomeinController dc)
 	{
@@ -982,7 +985,7 @@ public class CategorieResponsiveController extends BorderPane
 		selectionDoelBewerking.setDisable(true);
 		doelDoelwaarde.setEditable(false);
 		selectionDoelSDG.setDisable(true);
-		selectionDoelDatasource.setDisable(false);
+		selectionDoelDatasource.setDisable(true);
 		checkboxMVORol.setDisable(true);
 		checkboxManagerRol.setDisable(true);
 		checkboxDirectieRol.setDisable(true);
@@ -1010,7 +1013,7 @@ public class CategorieResponsiveController extends BorderPane
 				else
 				{
 					setText(doel.getNaam());
-					//imageView.setImage(new Image(doel.getIcon(), 50, 50, true, true));
+					imageView.setImage(new Image(doel.getIcon(), 50, 50, true, true));
 					
 					setGraphic(imageView);
 				}
@@ -1021,17 +1024,38 @@ public class CategorieResponsiveController extends BorderPane
 		listDoelen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
-//				Doelstelling doel = newValue;
-//				
-//				naamDoel.setText(doel.getNaam());
-//				selectionDoelType.setValue(doel.getDoelstellingsType());
-//				doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
-//				doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
-//				selectionDoelHoofdSDG.setValue(doel.getHoofdSdg());
-//				SdGoal subSdg = doel.getSubSdg();
-//				selectionDoelSubSDG.setValue(subSdg != null ? subSdg : new SdGoal("---"));
+				Doelstelling doel = newValue;
 				
-				// TODO subdoelstellingen, datasources en rollen
+				naamDoel.setText(doel.getNaam());
+				selectionDoelBewerking.setValue(doel.getFormule());
+				doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
+				doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
+				selectionDoelSDG.setValue(doel.getSdGoal());
+				// TODO subdoelen mogen nu geen Leaf zijn!!!!
+				listDoelSubDoelen.setItems(FXCollections.observableList(doel.getComponents().stream().map(d -> (Doelstelling) d).collect(Collectors.toList())));
+				
+				
+				List<Rol> rollen = doel.getRollen();
+				
+				if(rollen.contains(new Rol("MVO Coördinator")))
+				{
+					checkboxMVORol.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Manager")))
+				{
+					checkboxManagerRol.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Directie")))
+				{
+					checkboxDirectieRol.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Stakeholder")))
+				{
+					checkboxStakeholderRol.setSelected(true);
+				}
+				
+				// TODO datasources en subdoelen
+				selectionDoelDatasource.setValue(null);
 				
 				// indien hiervoor aan het bewerken was, sluit bewerkingsview
 				if(oldValue != newValue)
@@ -1042,22 +1066,11 @@ public class CategorieResponsiveController extends BorderPane
 		});
 		
 		// vul type choicebox
-		// TODO haal bewerking objen op
-		//selectionDoelBewerking.setItems(FXCollections.observableList(doelTypes));
+		selectionDoelBewerking.setItems(FXCollections.observableList(doelTypes));
 		
 		// vul hoofd SDG choicebox
 		// TODO
-		
-		// onDoelHoofdSDGSelect
-		selectionDoelSDG.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-			if(newValue != null)
-			{
-				SdGoal sdGoal = newValue;
-				
-				// vul sub SDG choicebox
-				// TODO
-			}
-		});
+//		selectionDoelSDG.setItems(dc.getSdgs());
 		
 		listDoelen.getSelectionModel().selectFirst();
 		
