@@ -57,6 +57,9 @@ private static final long serialVersionUID = 1L;
 		setNaam(dds.naam);
 		//TODO setter met dds.typeDatasource waarde, dus String
 				//TODO size van ExcelDataSourceType met dds.size
+		if (dds.typeDatasource == null) {
+				throw new IllegalArgumentException("Selecteer aub een type");
+		}
 		if (dds.typeDatasource.equals("excel"))
 			setTypeDatasource(new ExcelDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("csv"))

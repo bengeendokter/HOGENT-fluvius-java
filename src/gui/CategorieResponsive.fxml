@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane fx:id="groeneBalk" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #b2d235; -fx-effect: dropshadow(gaussian, #454545, 10, 0, 1, 0); -fx-padding: 0 7 0 7;" BorderPane.alignment="CENTER">
          <center>
@@ -688,9 +688,9 @@
                                        <top>
                                           <BorderPane prefHeight="63.0" prefWidth="647.0" BorderPane.alignment="CENTER">
                                              <left>
-                                                <BorderPane prefHeight="63.0" prefWidth="391.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefHeight="63.0" prefWidth="596.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                      <Label fx:id="vartextData" prefHeight="35.0" prefWidth="437.0" text="Details datasource" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                      <Label fx:id="vartextData" prefHeight="35.0" prefWidth="667.0" text="Details datasource" textFill="#004c69" BorderPane.alignment="CENTER">
                                                          <font>
                                                             <Font name="System Bold" size="24.0" />
                                                          </font>
@@ -699,14 +699,14 @@
                                                    <center>
                                                       <BorderPane prefHeight="47.0" prefWidth="213.0" BorderPane.alignment="CENTER">
                                                          <left>
-                                                            <Label text="Naam:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                            <Label prefHeight="28.0" prefWidth="136.0" text="Naam:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
                                                          </left>
                                                          <center>
-                                                            <TextField fx:id="naamDatasource" prefHeight="25.0" prefWidth="282.0" BorderPane.alignment="CENTER">
+                                                            <TextField fx:id="naamDatasource" prefHeight="25.0" prefWidth="480.0" BorderPane.alignment="CENTER">
                                                                <BorderPane.margin>
                                                                   <Insets left="15.0" />
                                                                </BorderPane.margin>
@@ -786,46 +786,84 @@
                                           </BorderPane>
                                        </bottom>
                                        <center>
-                                          <BorderPane maxHeight="-Infinity" prefHeight="225.0" prefWidth="847.0" BorderPane.alignment="TOP_LEFT">
+                                          <BorderPane maxHeight="-Infinity" prefHeight="433.0" prefWidth="847.0" BorderPane.alignment="TOP_LEFT">
                                              <BorderPane.margin>
                                                 <Insets bottom="15.0" top="5.0" />
                                              </BorderPane.margin>
                                              <left>
-                                                <BorderPane prefHeight="221.0" prefWidth="391.0" BorderPane.alignment="CENTER">
-                                                   <top>
-                                                      <BorderPane prefHeight="43.0" prefWidth="379.0" BorderPane.alignment="CENTER">
-                                                         <left>
-                                                            <Label text="Type:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                <VBox prefHeight="420.0" prefWidth="596.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="596.0">
+                                                         <children>
+                                                            <Label prefHeight="25.0" prefWidth="185.0" text="Type:" textFill="#004c69">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
-                                                         </left>
-                                                         <right>
-
-                                                            <ChoiceBox fx:id="datasourceType" prefHeight="25.0" prefWidth="324.0" BorderPane.alignment="CENTER" />
-
-                                                         </right>
-                                                      </BorderPane>
-                                                   </top>
-                                                   <left>
-                                                      <BorderPane maxHeight="250.0" prefHeight="174.0" prefWidth="391.0" BorderPane.alignment="CENTER">
-                                                         <top>
-                                                            <Label prefHeight="27.0" prefWidth="398.0" text="Link:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                            <ChoiceBox fx:id="datasourceType" prefHeight="27.0" prefWidth="480.0" />
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox fx:id="linkHBox" prefHeight="176.0" prefWidth="596.0">
+                                                         <children>
+                                                            <Label fx:id="lblDatasourceLink" prefWidth="185.0" text="Link:" textFill="#004c69">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
-                                                         </top>
-                                                         <center>
-                                                            <TextArea fx:id="datasourceLink" maxHeight="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                                                         </center>
-                                                      </BorderPane>
-                                                   </left>
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </BorderPane>
+                                                            <TextArea fx:id="datasourceLink" prefHeight="200.0" prefWidth="480.0" />
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="596.0">
+                                                         <children>
+                                                            <Label fx:id="lblDataHostnaam" prefHeight="25.0" prefWidth="185.0" text="Hostnaam:" textFill="#004c69">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtFieldDataHostnaam" prefHeight="30.0" prefWidth="480.0">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </TextField>
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="596.0">
+                                                         <children>
+                                                            <Label fx:id="lblDataGebruikersnaam" prefHeight="25.0" prefWidth="185.0" text="Gebruikersnaam:" textFill="#004c69">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtFieldDataGebruikersnaam" prefHeight="30.0" prefWidth="480.0" />
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="596.0">
+                                                         <children>
+                                                            <Label fx:id="lblDataWachtwoord" prefHeight="25.0" prefWidth="185.0" text="Wachtwoord:" textFill="#004c69">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtFieldDataWachtwoord" prefHeight="30.0" prefWidth="480.0" />
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
                                              </left>
                                           </BorderPane>
                                        </center>

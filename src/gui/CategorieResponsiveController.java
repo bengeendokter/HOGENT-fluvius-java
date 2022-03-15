@@ -130,6 +130,22 @@ public class CategorieResponsiveController extends BorderPane
 	private Button btnDataAnnuleer;
 	@FXML
 	private Label dataError;
+	@FXML
+	private Label lblDataHostnaam;
+	@FXML
+	private Label lblDataGebruikersnaam;
+	@FXML
+	private Label lblDataWachtwoord;
+	@FXML
+	private TextField txtFieldDataHostnaam;
+	@FXML
+	private TextField txtFieldDataGebruikersnaam;
+	@FXML
+	private TextField txtFieldDataWachtwoord;
+	@FXML
+	private Label lblDatasourceLink;
+	@FXML
+	private HBox linkHBox;
 	
 	// MVO Doelstelling attributen -------------------------------------------------------------------
 		@FXML
@@ -240,7 +256,52 @@ public class CategorieResponsiveController extends BorderPane
 			datasourceLink.setEditable(false);
 			datasourceType.setDisable(true);
 			
+			lblDataGebruikersnaam.setVisible(false);
+			lblDataHostnaam.setVisible(false);
+			lblDataWachtwoord.setVisible(false);
+			
+			txtFieldDataHostnaam.setEditable(false);
+			txtFieldDataGebruikersnaam.setEditable(false);
+			txtFieldDataWachtwoord.setEditable(false);
+			
+			txtFieldDataHostnaam.setVisible(false);
+			txtFieldDataGebruikersnaam.setVisible(false);
+			txtFieldDataWachtwoord.setVisible(false);
+			
 			datasourceType.getItems().addAll("csv", "excel", "databank");
+			
+			datasourceType.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue,
+					newValue) -> {
+						if (newValue == "databank") {
+							lblDataGebruikersnaam.setVisible(true);
+							lblDataHostnaam.setVisible(true);
+							lblDataWachtwoord.setVisible(true);
+							linkHBox.setVisible(false);
+							linkHBox.setManaged(true);
+							
+							txtFieldDataHostnaam.setEditable(true);
+							txtFieldDataGebruikersnaam.setEditable(true);
+							txtFieldDataWachtwoord.setEditable(true);
+							
+							txtFieldDataHostnaam.setVisible(true);
+							txtFieldDataGebruikersnaam.setVisible(true);
+							txtFieldDataWachtwoord.setVisible(true);
+						} else {
+							lblDataGebruikersnaam.setVisible(false);
+							lblDataHostnaam.setVisible(false);
+							lblDataWachtwoord.setVisible(false);
+							linkHBox.setVisible(true);
+							linkHBox.setManaged(false);
+							
+							txtFieldDataHostnaam.setEditable(false);
+							txtFieldDataGebruikersnaam.setEditable(false);
+							txtFieldDataWachtwoord.setEditable(false);
+							
+							txtFieldDataHostnaam.setVisible(false);
+							txtFieldDataGebruikersnaam.setVisible(false);
+							txtFieldDataWachtwoord.setVisible(false);
+						}
+					}));
 			
 			// MVO Doelstellingen
 						// -----------------------------------------------------------------------------------
@@ -408,10 +469,33 @@ public class CategorieResponsiveController extends BorderPane
 					});
 			
 			ObservableList<Datasource> datasources = dc.getDatasources();
+			
 			if (datasources.size() > 0) {
-				naamDatasource.setText(datasources.stream().findFirst().get().getNaam());
-				datasourceType.setValue(datasources.stream().findFirst().get().getTypeDatasource().toString());
-				datasourceLink.setText(datasources.stream().findFirst().get().getLink());
+				
+				Datasource eersteDatasource = datasources.stream().findFirst().get();
+				String type = eersteDatasource.getTypeDatasource().toString();
+				
+				naamDatasource.setText(eersteDatasource.getNaam());
+				datasourceType.setValue(type);
+				datasourceLink.setText(eersteDatasource.getLink());
+				
+				if (type == "databank") {
+					lblDataGebruikersnaam.setVisible(true);
+					lblDataHostnaam.setVisible(true);
+					lblDataWachtwoord.setVisible(true);
+					
+					txtFieldDataGebruikersnaam.setVisible(true);
+					txtFieldDataHostnaam.setVisible(true);
+					txtFieldDataWachtwoord.setVisible(true);
+					
+					txtFieldDataGebruikersnaam.setEditable(false);
+					txtFieldDataHostnaam.setEditable(false);
+					txtFieldDataWachtwoord.setEditable(false);
+					
+					txtFieldDataGebruikersnaam.setText(eersteDatasource.getTypeDatasource().getUsername());
+					txtFieldDataHostnaam.setText(eersteDatasource.getTypeDatasource().getHostname());
+					txtFieldDataWachtwoord.setText(eersteDatasource.getTypeDatasource().getPassword());
+				}
 				
 			}
 			
@@ -424,6 +508,24 @@ public class CategorieResponsiveController extends BorderPane
 							naamDatasource.setText(dataS.getNaam());
 							datasourceType.setValue(dataS.getTypeDatasource().toString());
 							datasourceLink.setText(dataS.getLink());
+							
+							if (dataS.getTypeDatasource().toString() == "databank") {
+								lblDataGebruikersnaam.setVisible(true);
+								lblDataHostnaam.setVisible(true);
+								lblDataWachtwoord.setVisible(true);
+								
+								txtFieldDataGebruikersnaam.setVisible(true);
+								txtFieldDataHostnaam.setVisible(true);
+								txtFieldDataWachtwoord.setVisible(true);
+								
+								txtFieldDataGebruikersnaam.setEditable(false);
+								txtFieldDataHostnaam.setEditable(false);
+								txtFieldDataWachtwoord.setEditable(false);
+								
+								txtFieldDataGebruikersnaam.setText(dataS.getTypeDatasource().getUsername());
+								txtFieldDataHostnaam.setText(dataS.getTypeDatasource().getHostname());
+								txtFieldDataWachtwoord.setText(dataS.getTypeDatasource().getPassword());
+							}
 							
 						}
 					});
@@ -816,9 +918,19 @@ public class CategorieResponsiveController extends BorderPane
 	{
 		vartextData.setText("Maak nieuwe datasource");
 		
+		listDatasources1.setDisable(true);
+		
 		naamDatasource.clear();
 		datasourceLink.clear();
 		datasourceType.getSelectionModel().clearSelection();
+		txtFieldDataGebruikersnaam.clear();
+		txtFieldDataHostnaam.clear();
+		txtFieldDataWachtwoord.clear();
+		
+		txtFieldDataGebruikersnaam.setVisible(false);
+		txtFieldDataHostnaam.setVisible(false);
+		txtFieldDataWachtwoord.setVisible(false);
+		
 		naamDatasource.setEditable(true);
 		datasourceLink.setEditable(true);
 		datasourceType.setDisable(false);
@@ -854,12 +966,20 @@ public class CategorieResponsiveController extends BorderPane
 			//toon overzicht van eerste of geselecteerde categorie
 			if(vartextData.getText().equals("Maak nieuwe datasource"))
 			{
-				DTODatasource newDatasource = new DTODatasource(naamDatasource.getText(), datasourceType.getValue(),
-						datasourceLink.getText(), null, null, null);
+				DTODatasource newDatasource = new DTODatasource(
+						naamDatasource.getText()
+						, datasourceType.getValue()
+						, datasourceLink.getText()
+						, txtFieldDataHostnaam.getText()
+						, txtFieldDataGebruikersnaam.getText()
+						, txtFieldDataWachtwoord.getText()
+				);
 				
 				dc.voegMVODatasourceToe(newDatasource);
 				
 				vartextData.setText("Details datasource");
+				
+				listDatasources1.setDisable(false);
 				
 				listDatasources1.getSelectionModel().selectFirst();
 				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
@@ -908,15 +1028,25 @@ public class CategorieResponsiveController extends BorderPane
 			{
 				vartextData.setText("Details datasource");
 				
+				listDatasources1.setDisable(false);
+				
 				listDatasources1.getSelectionModel().selectFirst();
 				Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
 				naamDatasource.setText(d.getNaam());
 				datasourceLink.setText(d.getLink());
 				datasourceType.setValue(d.getTypeDatasource().toString());
+				if (d.getTypeDatasource().toString() == "databank") {
+					txtFieldDataGebruikersnaam.setText(d.getTypeDatasource().getUsername());
+					txtFieldDataHostnaam.setText(d.getTypeDatasource().getHostname());
+					txtFieldDataWachtwoord.setText(d.getTypeDatasource().getPassword());
+				}
 				
 				naamDatasource.setEditable(false);
 				datasourceLink.setEditable(false);
 				datasourceType.setDisable(true);
+				txtFieldDataGebruikersnaam.setEditable(false);
+				txtFieldDataHostnaam.setEditable(false);
+				txtFieldDataWachtwoord.setEditable(false);
 				
 				btnDataAnnuleer.setVisible(false);
 				btnDataOpslaan.setVisible(false);

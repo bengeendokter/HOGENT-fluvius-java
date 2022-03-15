@@ -38,7 +38,7 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	//exception weg omdat print alleen voor te testen was
 	public ExcelDataSourceType(String link) throws IOException {
 		setLink(link);
-		System.out.println(Arrays.toString(getData().toArray()));
+		//System.out.println(Arrays.toString(getData().toArray()));
 	}
 	
 	public void setLink(String link)
