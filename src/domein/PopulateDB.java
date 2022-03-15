@@ -62,10 +62,10 @@ public class PopulateDB
 		rollen.add(rol);
 		
 		// Datasources
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "csv", "src/data/csvDouble.csv", null, null, null, null)));
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "csv", "src/data/csvDouble.csv",  null, null, null)));
 		
 		List<MVODatasource> datasources = new ArrayList<>();
-		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null, null));
+		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null));
 		datasources.add(mvd);
 		
 		// Doelstellingen

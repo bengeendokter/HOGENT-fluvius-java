@@ -424,6 +424,12 @@ public class Fluvius
 	{
 		try
 		{
+			MVODatasource nieuweDatasource = mvoDatasourceRepo.getByNaam(datasource.naam); 
+			if(nieuweDatasource != null)
+			{
+				throw new IllegalArgumentException("Er bestaat al een datasource met deze naam");
+			}
+			
 			System.out.printf("Datasource %s inserten in databank%n", datasource.toString());
 			GenericDaoJpa.startTransaction();
 			mvoDatasourceRepo.insert(new MVODatasource(datasource));
@@ -441,6 +447,8 @@ public class Fluvius
 			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
 		}
+		
+		
 		catch(Exception e)
 		{
 			System.out.println(e);

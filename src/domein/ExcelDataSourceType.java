@@ -30,17 +30,39 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelDataSourceType extends TypeDatasource implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	private String link;
-	private String size;
 	
 	protected ExcelDataSourceType() {
 		
 	}
 	
 	//exception weg omdat print alleen voor te testen was
-	public ExcelDataSourceType(String link, String size) throws IOException {
-		this.link = link;
-		this.size = size;
+	public ExcelDataSourceType(String link) throws IOException {
+		setLink(link);
 		System.out.println(Arrays.toString(getData().toArray()));
+	}
+	
+	public void setLink(String link)
+	{
+		if (link == null || link.isBlank() || link.isEmpty()) {
+			throw new IllegalArgumentException("De link moet ingevuld zijn");
+		}
+		this.link = link;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+	
+	public String getHostname() {
+		return "geen hostname";
+	}
+	
+	public String getUsername() {
+		return "geen username";
+	}
+	
+	public String getPassword() {
+		return "geen password";
 	}
 	
 	//List<Double>
