@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ import domein.Som;
 
 public class CompositePattern {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException, ExceptionInInitializerError {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
 		EntityManager em = emf.createEntityManager();
 		

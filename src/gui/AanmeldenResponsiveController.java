@@ -2,6 +2,7 @@ package gui;
 
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import domein.AanmeldController;
 import domein.DomeinController;
@@ -107,7 +108,7 @@ public class AanmeldenResponsiveController extends BorderPane
 	}
 	
 	@FXML
-	public void meldAan(ActionEvent event)
+	public void meldAan(ActionEvent event) throws SQLIntegrityConstraintViolationException, ExceptionInInitializerError
 	{
 		
 		try

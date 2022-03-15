@@ -28,8 +28,32 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	}
 	
 	public CsvDataSourceType(String link) {
-		this.link = link;
+		setLink(link);
 		System.out.println(getData());
+	}
+	
+	public void setLink(String link)
+	{
+		if (link == null || link.isBlank() || link.isEmpty()) {
+			throw new IllegalArgumentException("De link moet ingevuld zijn");
+		}
+		this.link = link;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+	
+	public String getHostname() {
+		return "geen hostname";
+	}
+	
+	public String getUsername() {
+		return "geen username";
+	}
+	
+	public String getPassword() {
+		return "geen password";
 	}
 	
 	//List<Double>
@@ -89,6 +113,11 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 
 
     }
+
+	@Override
+	public String toString() {
+		return "csv";
+	}
 }
 
 

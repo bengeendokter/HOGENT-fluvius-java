@@ -29,11 +29,50 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 	}
 	
 	public DatabankDataSourceType(String hostname, String username, String password ) {
-		this.hostname = hostname;
-		this.username = username;
-		this.password = password;
+		setHostname(hostname);
+		setUsername(username);
+		setPassword(password);
 		System.out.println(getData());
 	}
+	
+	
+	public String getLink() {
+		return "geen link";
+	}
+	
+	public String getHostname() {
+		return hostname;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setHostname(String hostname)  {
+		if (hostname == null || hostname.isBlank() || hostname.isEmpty()) {
+			throw new IllegalArgumentException("De hostname moet ingevuld zijn");
+		}
+		this.hostname = hostname;
+	}
+	
+	public void setUsername(String username)  {
+		if (username == null || username.isBlank() || username.isEmpty()) {
+			throw new IllegalArgumentException("De username moet ingevuld zijn");
+		}
+		this.username = username;
+	}
+	
+	public void setPassword(String password)  {
+		if (password == null || password.isBlank() || password.isEmpty()) {
+			throw new IllegalArgumentException("De password moet ingevuld zijn");
+		}
+		this.password = password;
+	}
+	
 	
 	//List<Double>
 	public List<Double> getData() {
@@ -50,6 +89,11 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 		return eenKolom;
 
     }
+	
+	@Override
+	public String toString() {
+		return "databank";
+	}
 }
 
 

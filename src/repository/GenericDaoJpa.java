@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,10 @@ public class GenericDaoJpa<T> implements GenericDao<T>
 		em.getTransaction().rollback();
 	}
 	
+	public static boolean isActive() {
+		return em.getTransaction().isActive();
+	}
+	
 	@Override
 	public List<T> findAll()
 	{
@@ -68,7 +73,7 @@ public class GenericDaoJpa<T> implements GenericDao<T>
 	}
 	
 	@Override
-	public void insert(T object)
+	public void insert(T object) throws SQLIntegrityConstraintViolationException
 	{
 		em.persist(object);
 	}

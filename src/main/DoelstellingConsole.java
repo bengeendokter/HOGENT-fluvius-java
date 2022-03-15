@@ -1,5 +1,6 @@
 package main;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import domein.Rol;
 
 public class DoelstellingConsole {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLIntegrityConstraintViolationException, ExceptionInInitializerError {
 		AanmeldController aanmeldController = new AanmeldController();
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		

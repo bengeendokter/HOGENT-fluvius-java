@@ -1,7 +1,6 @@
 package main;
 
 import domein.AanmeldController;
-import gui.AanmeldSchermController;
 import gui.AanmeldenResponsiveController;
 import gui.TestFrameController;
 import javafx.application.Application;

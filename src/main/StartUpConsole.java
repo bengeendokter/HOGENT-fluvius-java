@@ -1,11 +1,13 @@
 package main;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import domein.AanmeldController;
 
 public class StartUpConsole
 {
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws SQLIntegrityConstraintViolationException
 	{
 //		AanmeldController aanmeldController = new AanmeldController();
 //		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");

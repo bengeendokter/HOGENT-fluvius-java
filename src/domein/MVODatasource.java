@@ -26,7 +26,7 @@ import javax.persistence.Table;
 public class MVODatasource implements Serializable, Datasource
 {
 private static final long serialVersionUID = 1L;
-	
+	//TODO size weg, alleen naam attribuut, controle databank type
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int datasourceID;
@@ -34,9 +34,6 @@ private static final long serialVersionUID = 1L;
 
 	@Column(unique=true)
 	private String naam;
-
-
-	private String link;
 	
 	//type uitbreiding
 	//private String typeDatasource;
@@ -61,13 +58,11 @@ private static final long serialVersionUID = 1L;
 		//TODO setter met dds.typeDatasource waarde, dus String
 				//TODO size van ExcelDataSourceType met dds.size
 		if (dds.typeDatasource.equals("excel"))
-			setTypeDatasource(new ExcelDataSourceType(dds.link, dds.size));
+			setTypeDatasource(new ExcelDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("csv"))
 			setTypeDatasource(new CsvDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("databank"))
 			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
-		
-		setLink(dds.link);
 	}
 	
 	
@@ -86,15 +81,16 @@ private static final long serialVersionUID = 1L;
 		return naam;
 	}
 	
-	public String getTypeDatasource() {
-		return "csv";
+	public TypeDatasource getTypeDatasource() {
+		/*if (typeDatasource instanceof CsvDataSourceType)
+			return "csv";
+		else if (typeDatasource instanceof ExcelDataSourceType)
+			return "excel";
+		else if (typeDatasource instanceof DatabankDataSourceType)
+			return "excel";
+		return "";*/
+		return typeDatasource;
 		
-		//TODO switch case met instanceof en dan "csv", "excel" of "databank" returnen
-		//switch (typeDatasource) { case typeDatasource instanceof CsvDataSourceType ...}
-	}
-
-	public String getLink() {
-		return link;
 	}
 	
 	public final void setNaam(String naam)
@@ -110,23 +106,8 @@ private static final long serialVersionUID = 1L;
 	//String of TypeDatasource
 	public final void setTypeDatasource(TypeDatasource typeDatasource)
 	{
-		/*if(typeDatasource == null || typeDatasource.isBlank())
-		{
-			throw new IllegalArgumentException("De type van de Datasource mag niet leeg zijn");
-		}*/
-		
 		this.typeDatasource = typeDatasource;
 		
-	}
-	
-	public final void setLink(String link)
-	{
-		if(link == null || link.isBlank())
-		{
-			throw new IllegalArgumentException("De link van de Datasource mag niet leeg zijn");
-		}
-		
-		this.link = link;
 	}
 	
 	@Override
@@ -150,6 +131,26 @@ private static final long serialVersionUID = 1L;
 	public String toString()
 	{
 		return naam;
+	}
+
+	@Override
+	public String getLink() {
+		return typeDatasource.getLink();
+	}
+
+	@Override
+	public String getHostname() {
+		return typeDatasource.getHostname();
+	}
+
+	@Override
+	public String getUsername() {
+		return typeDatasource.getUsername();
+	}
+
+	@Override
+	public String getPassword() {
+		return typeDatasource.getPassword();
 	}
 
 }

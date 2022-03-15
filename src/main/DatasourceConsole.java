@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
+
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import domein.AanmeldController;
 import domein.DTODatasource;
@@ -15,6 +19,8 @@ import domein.DomeinController;
 import domein.MVODatasource;
 import repository.DatabaseSelector;
 import repository.GenericDaoJpa;
+import repository.MVODatasourceDao;
+import repository.MVODatasourceDaoJpa;
 
 public class DatasourceConsole {
 	
@@ -22,27 +28,81 @@ public class DatasourceConsole {
 		/*AanmeldController aanmeldController = new AanmeldController();
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");*/
 		
-		  EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
-		  EntityManager em = emf.createEntityManager();
+		/*DTODatasource dto = new DTODatasource("testdatabank", "databank", null, "hostname", "username", "sfd");
 		
-		  em.getTransaction().begin();
+		MVODatasource ds = new MVODatasource(dto);
+		
+		try
+		{
+			
+			MVODatasourceDao mvoDatasourceRepo = new MVODatasourceDaoJpa();
+			
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
+			EntityManager em = emf.createEntityManager();
+			
+			em.getTransaction().begin();
+			
+			MVODatasource nieuweDatasource = mvoDatasourceRepo.getByNaam(dto.naam); 
+			
+			if(nieuweDatasource != null)
+			{
+				throw new IllegalArgumentException("Er bestaat al een datasource met deze naam");
+			}
+			
+			em.persist(ds);
+			
+			
+			em.getTransaction().commit();
+			em.close();
+			emf.close();
+			
+		}
+
+		catch(IllegalArgumentException e) {
+			//GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+		catch(RollbackException e) {
+			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", dto.toString()));
+		}
+		catch(DatabaseException e)
+		{
+			//GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", dto.toString()));
+		}
+		
+		
+		catch(Exception e)
+		{
+			System.out.println(e);
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Datasource");
+		}
+		*/
+		  
 		  //DatasourceTest dt = new DatasourceTest(new DTODatasource("fileXLS", "excel", "src/data/xlsDouble.xls"));
 		  
-		  MVODatasource ds = new MVODatasource(new DTODatasource("CSV2", "csv", "src/data/csvDouble.csv", null, null, null, null));
+		
+		  /*ds = new MVODatasource(new DTODatasource("testxls", "excel", "src/data/xlsDouble.xls", null, null, null));
 		  em.persist(ds);
 		  
-		  ds = new MVODatasource(new DTODatasource("S2", "excel", "src/data/xlsDouble.xls", "8Gb", null, null, null));
+		  ds = new MVODatasource(new DTODatasource("testxlsx", "excel", "src/data/xlsxDouble.xlsx",null, null, null));
 		  em.persist(ds);
 		  
-		  ds = new MVODatasource(new DTODatasource("X2", "excel", "src/data/xlsxDouble.xlsx", "26Gb", null, null, null));
-		  em.persist(ds);
+		  ds = new MVODatasource(new DTODatasource("testdatabank1", "databank", null, null, "userX", "passwordX"));
+		  em.persist(ds);*/
 		  
-		  ds = new MVODatasource(new DTODatasource("databank2", "databank", null, null, "hostname2", "user2", "password2"));
-		  em.persist(ds);
-		  
-		  em.getTransaction().commit();
-		  em.close();
-		  emf.close();
+		AanmeldController aanmeldController = new AanmeldController();
+		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789"); 
+		
+		DTODatasource d = new DTODatasource("testdatabank1", "databank", "src/data/csvDouble.csv", "hostname", "username", "sfd");
+		
+		//dc.voegMVODatasourceToe(d);
+		
+		boolean zitErin = dc.getDatasources().stream().map(e -> e.getLink()).collect(Collectors.toList()).contains(d.link);
+		if (zitErin) {
+			throw new IllegalArgumentException("Er bestaat al een datasource met deze link");
+		}
 		  
 		
 		/*dc.voegMVODatasourceToe(new DTODatasource("test1", "csv", "file:src/data/dataProject.csv"));

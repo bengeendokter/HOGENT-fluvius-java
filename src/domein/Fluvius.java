@@ -444,13 +444,34 @@ public class Fluvius
 	{
 		try
 		{
+			//controle op unieke naam
+			MVODatasource nieuweDatasource = mvoDatasourceRepo.getByNaam(datasource.naam); 
+			if(nieuweDatasource != null)
+			{
+				throw new IllegalArgumentException("Er bestaat al een datasource met deze naam");
+			}
+			
+			//controle op unieke link bij csv en excel type
+			
+			if (datasource.typeDatasource.equals("csv") || datasource.typeDatasource.equals("excel")) {
+				//
+				boolean zitErin = getDatasources().stream().map(e -> e.getLink()).collect(Collectors.toList()).contains(datasource.link);
+				if (zitErin) {
+					throw new IllegalArgumentException("Er bestaat al een datasource met deze link");
+				}
+			}
+			
 			System.out.printf("Datasource %s inserten in databank%n", datasource.toString());
 			GenericDaoJpa.startTransaction();
 			mvoDatasourceRepo.insert(new MVODatasource(datasource));
 			GenericDaoJpa.commitTransaction();
 		}
+
 		catch(IllegalArgumentException e) {
-			GenericDaoJpa.rollbackTransaction();
+			if (GenericDaoJpa.isActive()) {
+				GenericDaoJpa.rollbackTransaction();
+			}
+				
 			throw new IllegalArgumentException(e.getMessage());
 		}
 		catch(RollbackException e) {
@@ -461,10 +482,16 @@ public class Fluvius
 			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
 		}
+		
+		
 		catch(Exception e)
 		{
-			System.out.println(e);
-			GenericDaoJpa.rollbackTransaction();
+			if (GenericDaoJpa.isActive()) {
+				GenericDaoJpa.rollbackTransaction();
+			}
+			
+			/*System.out.println(e);
+			GenericDaoJpa.rollbackTransaction();*/
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Datasource");
 		}
 		
