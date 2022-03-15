@@ -26,6 +26,7 @@ public class Leaf extends Component {
 	// ---------------------------------------------------------------------------------------------------
 	public Leaf(DTOMVODoelstelling d) {
 		super(d);
+		datasource = (MVODatasource) d.datasource;
 	}
 
 	protected Leaf() {

@@ -67,6 +67,7 @@ public abstract class Component implements Serializable{
 		setDoelwaarde(d.doelwaarde);
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
+		setFormule(d.bewerking);
 	}
 	
 	protected Component() {

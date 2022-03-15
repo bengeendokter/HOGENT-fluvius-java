@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane fx:id="groeneBalk" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #b2d235; -fx-effect: dropshadow(gaussian, #454545, 10, 0, 1, 0); -fx-padding: 0 7 0 7;" BorderPane.alignment="CENTER">
          <center>
@@ -88,14 +88,23 @@
                                           </Label>
                                        </top>
                                        <bottom>
-                                          <Button fx:id="btnAddDoel" mnemonicParsing="false" onAction="#addDoel" prefHeight="44.0" prefWidth="48.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <HBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="20.0" top="20.0" />
                                              </BorderPane.margin>
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Button>
+                                             <children>
+                                                <Button fx:id="btnAddHoofdDoel" mnemonicParsing="false" onAction="#addHoofdDoel" prefHeight="44.0" prefWidth="109.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+ hoofd" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnAddSubDoel" mnemonicParsing="false" onAction="#addSubDoel" prefHeight="44.0" prefWidth="109.0" style="-fx-background-color: #b2d235; -fx-background-radius: 10;" text="+ sub" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
                                        </bottom>
                                     </BorderPane>
                                  </left>
@@ -175,14 +184,14 @@
                                                             </BorderPane>
                                                             <BorderPane prefHeight="200.0" prefWidth="200.0">
                                                                <left>
-                                                                  <Label text="Type:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                                  <Label text="Bewerking:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="18.0" />
                                                                      </font>
                                                                   </Label>
                                                                </left>
                                                                <right>
-                                                                  <ChoiceBox fx:id="selectionDoelType" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                                  <ChoiceBox fx:id="selectionDoelBewerking" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                                </right>
                                                             </BorderPane>
                                                             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -227,33 +236,33 @@
                                                       </VBox>
                                                       <BorderPane prefHeight="51.0" prefWidth="282.0">
                                                          <left>
-                                                            <Label text="Hoofd SDG:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                            <Label text="SDG:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
                                                          </left>
                                                          <right>
-                                                            <ChoiceBox fx:id="selectionDoelHoofdSDG" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                            <ChoiceBox fx:id="selectionDoelSDG" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                          </right>
                                                       </BorderPane>
-                                                      <BorderPane prefHeight="57.0" prefWidth="282.0">
+                                                      <BorderPane prefHeight="51.0" prefWidth="282.0">
                                                          <left>
-                                                            <Label text="Sub SDG:" textFill="#004c69" BorderPane.alignment="CENTER">
+                                                            <Label text="Datasource:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
                                                          </left>
                                                          <right>
-                                                            <ChoiceBox fx:id="selectionDoelSubSDG" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                            <ChoiceBox fx:id="selectionDoelDatasource" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                          </right>
                                                       </BorderPane>
                                                    </children>
                                                 </VBox>
                                              </left>
                                              <right>
-                                                <VBox prefHeight="492.0" prefWidth="269.0" BorderPane.alignment="CENTER">
+                                                <VBox prefHeight="492.0" prefWidth="227.0" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets />
                                                    </BorderPane.margin>
@@ -283,117 +292,89 @@
                                                             <Insets />
                                                          </VBox.margin>
                                                       </HBox>
-                                                      <HBox alignment="CENTER" prefHeight="443.0" prefWidth="246.0">
+                                                      <VBox alignment="CENTER" prefHeight="476.0" prefWidth="227.0">
                                                          <children>
-                                                            <VBox fx:id="vboxListDatasources" prefHeight="427.0" prefWidth="123.0">
+                                                            <Label alignment="CENTER" prefHeight="27.0" prefWidth="235.0" text="Rollen" textFill="#004c69">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox maxWidth="-Infinity" prefHeight="139.0" prefWidth="179.0">
                                                                <children>
-                                                                  <Label text="Kies datasource:" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="15.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ListView fx:id="listDoelKiesData" prefHeight="441.0" prefWidth="123.0" />
+                                                                  <VBox prefHeight="139.0" prefWidth="175.0" spacing="10.0">
+                                                                     <children>
+                                                                        <CheckBox fx:id="checkboxMVORol" mnemonicParsing="false" text="MVO coördinator" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxManagerRol" mnemonicParsing="false" text="Manager" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxDirectieRol" mnemonicParsing="false" text="Directie" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                        <CheckBox fx:id="checkboxStakeholderRol" mnemonicParsing="false" text="Stakeholder" textFill="#004c69">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </CheckBox>
+                                                                     </children>
+                                                                  </VBox>
                                                                </children>
-                                                            </VBox>
-                                                            <VBox fx:id="vboxPijlenDatasources" alignment="CENTER" prefHeight="44.0" prefWidth="33.0">
-                                                               <children>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox prefHeight="427.0" prefWidth="123.0">
-                                                               <children>
-                                                                  <Label text="Datasources:" textFill="#004c69">
-                                                                     <font>
-                                                                        <Font size="15.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ListView fx:id="listDoelDatasources" prefHeight="441.0" prefWidth="123.0" />
-                                                               </children>
-                                                            </VBox>
+                                                            </HBox>
                                                          </children>
-                                                      </HBox>
+                                                      </VBox>
                                                    </children>
                                                 </VBox>
                                              </right>
                                              <center>
                                                 <VBox alignment="CENTER" prefHeight="472.0" prefWidth="266.0" BorderPane.alignment="CENTER">
                                                    <children>
-                                                      <HBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="279.0">
+                                                      <VBox>
                                                          <children>
                                                             <VBox fx:id="vboxListSubDoelen" prefHeight="278.0" prefWidth="218.0">
                                                                <children>
-                                                                  <Label text="Kies subdoelstelling:" textFill="#004c69" />
-                                                                  <ListView fx:id="listDoelKiesSubDoel" prefHeight="200.0" prefWidth="200.0" />
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox fx:id="vboxPijlenSubDoelen" alignment="CENTER" prefHeight="44.0" prefWidth="33.0">
-                                                               <children>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
-                                                                     <image>
-                                                                        <Image url="@../images/arrow.png" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox prefHeight="278.0" prefWidth="215.0">
-                                                               <children>
-                                                                  <Label text="Subdoelstellingen:" textFill="#004c69">
+                                                                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="500.0" text="Kies subdoelstelling:" textFill="#004c69">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font></Label>
-                                                                  <ListView fx:id="listDoelSubDoelen" prefHeight="200.0" prefWidth="200.0" />
+                                                                  <ListView fx:id="listDoelKiesSubDoel" prefHeight="391.0" prefWidth="134.0" />
+                                                               </children>
+                                                            </VBox>
+                                                            <HBox fx:id="hboxPijlenSubDoelen" alignment="CENTER">
+                                                               <children>
+                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                                                                     <image>
+                                                                        <Image url="@../images/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                                                     <image>
+                                                                        <Image url="@../images/arrow.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </HBox>
+                                                            <VBox prefHeight="278.0" prefWidth="215.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="500.0" text="Subdoelstellingen:" textFill="#004c69">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <ListView fx:id="listDoelSubDoelen" prefHeight="391.0" prefWidth="200.0" />
                                                                </children>
                                                             </VBox>
                                                          </children>
-                                                      </HBox>
-                                                      <Label text="Rollen" textFill="#004c69">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font></Label>
-                                                      <VBox spacing="10.0">
-                                                         <children>
-                                                            <CheckBox fx:id="checkboxMVORol" mnemonicParsing="false" text="MVO coördinator" textFill="#004c69">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                            <CheckBox fx:id="checkboxManagerRol" mnemonicParsing="false" text="Manager" textFill="#004c69">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                            <CheckBox fx:id="checkboxDirectieRol" mnemonicParsing="false" text="Directie" textFill="#004c69">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                            <CheckBox fx:id="checkboxStakeholderRol" mnemonicParsing="false" text="Stakeholder" textFill="#004c69">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </VBox.margin>
                                                       </VBox>
                                                    </children>
                                                    <padding>
-                                                      <Insets left="10.0" right="10.0" />
+                                                      <Insets left="40.0" right="40.0" />
                                                    </padding>
                                                    <BorderPane.margin>
                                                       <Insets top="20.0" />

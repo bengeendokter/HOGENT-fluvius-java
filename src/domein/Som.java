@@ -9,5 +9,10 @@ public class Som implements Bewerking{
 	public double calculate(List<Double> data) {
 		return data.stream().mapToDouble(Double::doubleValue).sum();
 	}
-
+	
+	@Override
+	public String toString()
+	{
+		return this.getClass().getSimpleName();
+	}
 }

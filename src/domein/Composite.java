@@ -30,6 +30,7 @@ public class Composite extends Component implements Doelstelling, Serializable{
 	// ---------------------------------------------------------------------------------------------------
 	public Composite(DTOMVODoelstelling d) {
 		super(d);
+		components = d.subDoelstellingen;
 	}
 	
 	protected Composite() {
