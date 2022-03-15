@@ -158,6 +158,12 @@ public class Fluvius
 	{
 		try
 		{
+			SDGCategorie nieuweCategorie = categorieRepo.getByNaam(categorie.naam); 
+			if(nieuweCategorie != null)
+			{
+				throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
+			}
+			
 			System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
 			GenericDaoJpa.startTransaction();
 			categorieRepo.insert(new SDGCategorie(categorie));
@@ -167,8 +173,24 @@ public class Fluvius
 		{
 			throw new IllegalArgumentException(String.format("Categorie met naam %s bestaat al", categorie.toString()));
 		}
+		catch(IllegalArgumentException e) {
+			
+			if(categorie.naam.equals("") || categorie.naam == null) {
+				throw new IllegalArgumentException(String.format("Naam mag niet leeg zijn", categorie.naam));
+			}
+			if(e.getMessage().equals("Er bestaat al een categorie met deze naam")) {
+				throw new IllegalArgumentException(String.format("Categorie met naam %s bestaat al", categorie.naam));
+			}
+			GenericDaoJpa.rollbackTransaction();
+			if(categorie.sdgoals.isEmpty() || categorie.sdgoals == null) {
+				throw new IllegalArgumentException(String.format("SDG's mogen niet leeg zijn", categorie.naam));
+			}
+			
+		}
 		catch(Exception e)
 		{
+			GenericDaoJpa.rollbackTransaction();
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Categorie");
 		}
 		
@@ -198,6 +220,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Categorie");
 		}
 		
@@ -208,19 +231,23 @@ public class Fluvius
 	public void wijzigCategorie(DTOCategorie categorie)
 	{
 		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
+		Categorie c = currentCategorie;
+		SDGCategorie nieuweCategorie = categorieRepo.getByNaam(categorie.naam); 
 		System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());
-		if(categorieInRepo != null && categorieInRepo.getCategorieID() != currentCategorie.getCategorieID())
+		if(nieuweCategorie != null && nieuweCategorie.getCategorieID() != currentCategorie.getCategorieID())
 		{
 			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
 		}
-		for(Categorie cat : getCategorien())
+		for(Categorie cat : getCategorien()) // door de functie getCategorien wordt currentCategorie null
 		{
+			setCurrentCategorie(c);
 			for(SdGoal sdg : categorie.sdgoals)
 			{
-			
+				if(currentCategorie != null) {
 				if(cat.getSdGoals().contains(sdg) && cat.getNaam() != currentCategorie.getNaam())
 				{
 					throw new IllegalArgumentException("Een meegegeven SdGoal zit al in een andere Categorie");
+				}
 				}
 			}
 		}
