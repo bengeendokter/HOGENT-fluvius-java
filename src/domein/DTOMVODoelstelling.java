@@ -2,32 +2,30 @@ package domein;
 
 import java.util.List;
 
-public class DTOMVODoelstelling {
+public class DTOMVODoelstelling
+{
 	
 	// Attributen
 	public String naam;
 	public String icon;
 	public double doelwaarde;
-	//public String doelstellingsType;
 	public List<Rol> rollen;
-	//public List<MVODatasource> datasources;
 	public SdGoal sdGoal;
+	public Datasource datasource;
+	public List<Component> subDoelstellingen;
+	public Bewerking bewerking;
 	
 	// Constructor
-	public DTOMVODoelstelling(String naam, String icon, double doelwaarde,  List<Rol> rollen,
-			 SdGoal goal) {
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Component> subDoelstellingen, Bewerking bewerking)
+	{
 		this.naam = naam;
 		this.icon = icon;
 		this.doelwaarde = doelwaarde;
-		//this.doelstellingsType = doelstellingsType;
 		this.rollen = rollen;
-		//this.datasources = datasources;
 		this.sdGoal = goal;
+		this.datasource = datasource;
+		this.subDoelstellingen = subDoelstellingen;
+		this.bewerking = bewerking;
 	}
 	
-	
-	
-	
-	
-
 }
