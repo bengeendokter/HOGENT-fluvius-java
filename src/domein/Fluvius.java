@@ -133,9 +133,9 @@ public class Fluvius
 			}
 			
 			System.out.printf("Categorie %s inserten in databank%n", categorie.toString());
-			GenericDaoJpa.startTransaction();
+			categorieRepo.startTransaction();
 			categorieRepo.insert(new SDGCategorie(categorie));
-			GenericDaoJpa.commitTransaction();
+			categorieRepo.commitTransaction();
 		}
 		catch(DatabaseException e)
 		{
@@ -149,7 +149,7 @@ public class Fluvius
 			if(e.getMessage().equals("Er bestaat al een categorie met deze naam")) {
 				throw new IllegalArgumentException(String.format("Categorie met naam %s bestaat al", categorie.naam));
 			}
-			GenericDaoJpa.rollbackTransaction();
+			categorieRepo.rollbackTransaction();
 			if(categorie.sdgoals.isEmpty() || categorie.sdgoals == null) {
 				throw new IllegalArgumentException(String.format("SDG's mogen niet leeg zijn", categorie.naam));
 			}
@@ -157,7 +157,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			categorieRepo.rollbackTransaction();
 			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Categorie");
 		}
@@ -178,9 +178,9 @@ public class Fluvius
 			}
 			
 			System.out.printf("Categorie %s verwijderen uit databank%n", currentCategorie.toString());
-			GenericDaoJpa.startTransaction();
+			categorieRepo.startTransaction();
 			categorieRepo.delete( (SDGCategorie)currentCategorie);
-			GenericDaoJpa.commitTransaction();	
+			categorieRepo.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -188,7 +188,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			categorieRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Categorie");
 		}
 		
@@ -238,15 +238,15 @@ public class Fluvius
 		if(currentCategorie == null) throw new IllegalArgumentException("Er is geen categorie geselecteerd");
 		try
 		{
-			GenericDaoJpa.startTransaction();
+			categorieRepo.startTransaction();
 			SDGCategorie cat = new SDGCategorie(categorie);
 			cat.setCategorieID(currentCategorie.getCategorieID());
 			categorieRepo.update(cat);
-			GenericDaoJpa.commitTransaction();
+			categorieRepo.commitTransaction();
 		}
 		catch(Exception e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			categorieRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Categorie update");
 		}
 		
@@ -315,9 +315,9 @@ public class Fluvius
 		try
 		{
 			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
-			GenericDaoJpa.startTransaction();
+			mvoDoelstellingRepo.startTransaction();
 			mvoDoelstellingRepo.insert(new Leaf(doelstelling));
-			GenericDaoJpa.commitTransaction();
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(DatabaseException e)
 		{
@@ -336,9 +336,9 @@ public class Fluvius
 		try
 		{
 			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
-			GenericDaoJpa.startTransaction();
+			mvoDoelstellingRepo.startTransaction();
 			mvoDoelstellingRepo.insert(new Composite(doelstelling));
-			GenericDaoJpa.commitTransaction();
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(DatabaseException e)
 		{
@@ -366,9 +366,9 @@ public class Fluvius
 			}
 			
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
-			GenericDaoJpa.startTransaction();
+			mvoDoelstellingRepo.startTransaction();
 			mvoDoelstellingRepo.delete( (Component)currentDoelstelling);
-			GenericDaoJpa.commitTransaction();	
+			mvoDoelstellingRepo.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -400,15 +400,15 @@ public class Fluvius
 		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
 		try
 		{
-			GenericDaoJpa.startTransaction();
+			mvoDoelstellingRepo.startTransaction();
 			Composite d = new Composite(doelstelling);
 			d.setDoelstellingID(currentDoelstelling.getDoelstellingID());
 			mvoDoelstellingRepo.update(d);
-			GenericDaoJpa.commitTransaction();
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(Exception e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			mvoDoelstellingRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
@@ -462,14 +462,14 @@ public class Fluvius
 			}
 			
 			System.out.printf("Datasource %s inserten in databank%n", datasource.toString());
-			GenericDaoJpa.startTransaction();
+			mvoDatasourceRepo.startTransaction();
 			mvoDatasourceRepo.insert(new MVODatasource(datasource));
-			GenericDaoJpa.commitTransaction();
+			mvoDatasourceRepo.commitTransaction();
 		}
 
 		catch(IllegalArgumentException e) {
-			if (GenericDaoJpa.isActive()) {
-				GenericDaoJpa.rollbackTransaction();
+			if (mvoDatasourceRepo.isActive()) {
+				mvoDatasourceRepo.rollbackTransaction();
 			}
 				
 			throw new IllegalArgumentException(e.getMessage());
@@ -479,15 +479,15 @@ public class Fluvius
 		}
 		catch(DatabaseException e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			mvoDatasourceRepo.rollbackTransaction();
 			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
 		}
 		
 		
 		catch(Exception e)
 		{
-			if (GenericDaoJpa.isActive()) {
-				GenericDaoJpa.rollbackTransaction();
+			if (mvoDatasourceRepo.isActive()) {
+				mvoDatasourceRepo.rollbackTransaction();
 			}
 			
 			/*System.out.println(e);
@@ -511,9 +511,9 @@ public class Fluvius
 			}
 			
 			System.out.printf("Datasource %s verwijderen uit databank%n", currentDatasource.toString());
-			GenericDaoJpa.startTransaction();
+			mvoDatasourceRepo.startTransaction();
 			mvoDatasourceRepo.delete( (MVODatasource)currentDatasource);
-			GenericDaoJpa.commitTransaction();	
+			mvoDatasourceRepo.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -544,15 +544,15 @@ public class Fluvius
 		if(currentDatasource == null) throw new IllegalArgumentException("Er is geen datasource geselecteerd");
 		try
 		{
-			GenericDaoJpa.startTransaction();
+			mvoDatasourceRepo.startTransaction();
 			MVODatasource datas = new MVODatasource(datasource);
 			datas.setDatasourceID(currentDatasource.getDatasourceID());
 			mvoDatasourceRepo.update(datas);
-			GenericDaoJpa.commitTransaction();
+			mvoDatasourceRepo.commitTransaction();
 		}
 		catch(Exception e)
 		{
-			GenericDaoJpa.rollbackTransaction();
+			mvoDatasourceRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
 		}
 		

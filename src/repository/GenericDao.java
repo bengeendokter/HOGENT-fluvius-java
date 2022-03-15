@@ -11,10 +11,10 @@ public interface GenericDao<T>
 	public void delete(T object);
 	public void insert(T object) throws SQLIntegrityConstraintViolationException;
 	public <U> boolean exists(U id);
-//	public void closePersistency();
-//	public void startTransaction();
-//	public void commitTransaction();
-//	public void rollbackTransaction();
-	//public boolean isActive();
+	public void closePersistency();
+	public void startTransaction();
+	public void commitTransaction();
+	public void rollbackTransaction();
+	public boolean isActive();
 
 }

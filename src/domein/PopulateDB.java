@@ -26,7 +26,11 @@ public class PopulateDB
 		CategorieDao categorieRepo = new CategorieDaoJpa();
 		MVODoelstellingDao doelstellingenRepo = new MVODoelstellingDaoJpa();
 		MVODatasourceDao datasourceRepo = new MVODatasourceDaoJpa();
-		GenericDaoJpa.startTransaction();
+		gebruikerRepo.startTransaction();
+		sdGoalRepo.startTransaction();
+		categorieRepo.startTransaction();
+		doelstellingenRepo.startTransaction();
+		datasourceRepo.startTransaction();
 		
 		// Gebruikers
 		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
@@ -74,6 +78,11 @@ public class PopulateDB
 		Component d = new Composite(new DTOMVODoelstelling("doelstelling2", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som()));
 		d.add(new Composite(new DTOMVODoelstelling("doelstelling2.1", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som())));
 		doelstellingenRepo.insert(d);
-		GebruikerDaoJpa.commitTransaction();
+		gebruikerRepo.commitTransaction();
+		sdGoalRepo.commitTransaction();
+		categorieRepo.commitTransaction();
+		doelstellingenRepo.commitTransaction();
+		datasourceRepo.commitTransaction();
+
 	}
 }
