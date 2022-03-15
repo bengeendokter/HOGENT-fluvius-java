@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -52,9 +53,17 @@ public class Leaf extends Component {
 
 
 	@Override
-	public void print() throws IOException {
-		System.out.printf("naam: %s, data: %s%n", super.getNaam(), datasource.getData());
+	public void print() {
+		System.out.printf("naam: %s%n", super.getNaam());
 
+	}
+	
+	public Iterator<Component> createIterator() {
+		return new NullIterator();
+	}
+
+	public boolean isLeaf() {
+		return true;
 	}
 
 }

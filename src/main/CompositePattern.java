@@ -2,6 +2,8 @@ package main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,9 +13,11 @@ import javax.persistence.Persistence;
 import domein.AanmeldController;
 import domein.Component;
 import domein.Composite;
+import domein.CompositeIterator;
 import domein.DTODatasource;
 import domein.DTOMVODoelstelling;
 import domein.DomeinController;
+import domein.Fluvius;
 import domein.Leaf;
 import domein.MVODatasource;
 import domein.Rol;
@@ -59,6 +63,8 @@ public class CompositePattern {
 		Component subdoel22 = new Leaf(dd5);
 		
 		
+		
+		
 		em.persist(hoofddoel1);
 		em.persist(hoofddoel2);
 		em.persist(subdoel11);
@@ -94,8 +100,12 @@ public class CompositePattern {
 		hoofddoel2.add(subdoel22);
 
 		// BOVENSTE COMPOSITE PRINTEN
-		hoofddoel1.print();
+		//hoofddoel1.print();
 		
+		Fluvius f = new Fluvius(hoofddoel1);
+		System.out.printf("Leafs: %s%n", f.geefDoelstellingenDieGeenSubsHebben().toString());
+		System.out.printf("Hoofddoelen: %s%n",f.geefDoelstellingenDieSubsHebben().toString());
+
 		// WAARDE VRAGEN VAN BOVENSTE COMPOSITE
 		System.out.println(hoofddoel1.getBerekendewaarde());
 		
@@ -105,5 +115,7 @@ public class CompositePattern {
 		emf.close();
 
 	}
+	
+
 
 }

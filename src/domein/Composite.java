@@ -3,6 +3,7 @@ package domein;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -78,15 +79,22 @@ public class Composite extends Component implements Doelstelling, Serializable{
 
 	@Override
 	public void print() {
-		components.forEach(t -> {
-			try {
-				t.print();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+
+		System.out.print("\n" + getNaam());
+//        System.out.println("---------------------");
+//
+//        components.forEach(Component::print);
 		
+	}
+	
+	
+	
+	public Iterator<Component> createIterator() {
+		return components.iterator();
+	}
+
+	public boolean isLeaf() {
+		return false;
 	}
 
   

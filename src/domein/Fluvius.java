@@ -1,6 +1,10 @@
 package domein;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +44,8 @@ public class Fluvius
 	private Doelstelling currentDoelstelling;
 	private Datasource currentDatasource;
 	
+	private Component allComponents;
+	
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
@@ -54,6 +60,39 @@ public class Fluvius
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
+		
+	}
+	
+	// NOG EEN VRAAG HIEROVER
+	public Fluvius(Component allComponents) {
+		this.allComponents = allComponents;
+	}
+	
+	
+	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
+		Iterator<Component> iterator = new CompositeIterator(Arrays.asList(allComponents).iterator());
+		List<Component> doelZonderSubs = new ArrayList<>();
+		while (iterator.hasNext()) {
+            Component component = iterator.next();
+
+            if(component.isLeaf() ) {
+            	doelZonderSubs.add(component);
+            }
+        }
+		return doelZonderSubs;
+	}
+	
+	public List<Component> geefDoelstellingenDieSubsHebben(){
+		Iterator<Component> iterator = new CompositeIterator(Arrays.asList(allComponents).iterator());
+		List<Component> doelMetSubs = new ArrayList<>();
+		while (iterator.hasNext()) {
+            Component component = iterator.next();
+
+            if(!component.isLeaf() ) {
+            	doelMetSubs.add(component);
+            }
+        }
+		return doelMetSubs;
 	}
 	
 	// SDG
@@ -328,6 +367,7 @@ public class Fluvius
 		
 		setDoelstellingen();
 	}
+	
 	
 	// DATASOURCES BEHEREN
 	// ______________________________________________________________________________________________
