@@ -45,14 +45,45 @@ public class DatasourceTest {
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 	       
 	       // Controle
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
+	/**
+	 * Datasource aanmaken
+	 * Foute scenario:
+	 * Datasource aanmaken met een bestaande naam
+	 * En met type en link
+	 * @throws IOException 
+	 */
+//	@Test
+//	public void maakDatasource_BestaandeNaam_aangemaakt() throws IOException
+//	{
+//		   // Alles klaarzetten
+//		   final String DATASOURCENAAM = "DatasourceTest";
+//		   final String TYPE = "csv";
+//		   final String LINK = "map/data.csv";
+//		   
+//		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","","");
+//		   MVODatasource mvoDatasource = new MVODatasource(datasource);
+//		   mvoDatasource.setDatasourceID(1);
+//		   
+//		   //train mock object
+//		   Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
+//		   
+//	       // Controle
+//		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
+//	    	   fluvius.voegMVODatasourceToe(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+//	       });
+//		   
+//		   // Na de test verifiëren
+//	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM);
+//	}
+//	
 	/**
 	 * Datasource aanmaken
 	 * Foutieve scenario:
@@ -66,11 +97,11 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = naam;
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	       
 	}
@@ -93,19 +124,19 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
 	/**
 	 * Datasource aanmaken
 	 * Foutieve scenario:
-	 * Datasource aanmaken zonder Type
+	 * Datasource aanmaken fout Type
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
-	@ValueSource(strings = { "        "})
-	public void maakDatasource_zonderType_exception(String type)
+	@ValueSource(strings = { "        ","docx"})
+	public void maakDatasource_FoutType_exception(String type)
 	{
 		// Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
@@ -114,7 +145,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
@@ -131,21 +162,24 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "excl";
-		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+		   final String LINKNEW = "map/data.csv";
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
+	       
+	       eenDatasource.setDatasourceID(1);
 
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
 	       Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAMNEW)).thenReturn(null);
+
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	       
 	       // Na de test verifiëren
@@ -168,13 +202,15 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 		   
 		   final String DATASOURCENAAMNEW = naam;
 		   final String TYPENEW = "csv";
-		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+		   final String LINKNEW = "map/data.csv";
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
+	       eenDatasource.setDatasourceID(1);
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
@@ -182,7 +218,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -194,19 +230,22 @@ public class DatasourceTest {
 	 */
 	@ParameterizedTest
 	@NullAndEmptySource
-	@ValueSource(strings = { "        "})
-	public void wijzigDatasource_leegType_gewijzigd(String type) throws IOException
+	@ValueSource(strings = { "        ","docx"})
+	public void wijzigDatasource_foutType_gewijzigd(String type) throws IOException
 	{
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 		   
-		   final String DATASOURCENAAMNEW = "DatasourceTest";
+		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = type;
-		   final String LINKNEW = "InTeVullen";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+		   final String LINKNEW = "map/data.csv";
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
+	       eenDatasource.setDatasourceID(1);
+
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
@@ -214,7 +253,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -232,13 +271,15 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 		   
-		   final String DATASOURCENAAMNEW = "DatasourceTest";
+		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "csv";
 		   final String LINKNEW = link;
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
+	       eenDatasource.setDatasourceID(1);
+	       
 	       fluvius.setCurrentDatasource(eenDatasource);
 	       // Het mock object trainen
 	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenDatasource)));
@@ -246,7 +287,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -263,27 +304,29 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "InTeVullen";
+		   final String LINK = "map/data.csv";
 		   
 		   final String DATASOURCENAAM2 = "DatasourceTest2";
 		   final String TYPE2 = "csv";
-		   final String LINK2 = "InTeVullen";
-	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
-	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","","",""));
-	       MVODatasource array[] = {datasource, dataSource2};
-
+		   final String LINK2 = "map/data.csv";
+	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
+	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","",""));
+	       //MVODatasource array[] = {datasource, dataSource2};
+	       datasource.setDatasourceID(1);
+	       dataSource2.setDatasourceID(2);
+	       
 	       fluvius.setCurrentDatasource(datasource);
 	       // Het mock object trainen
-	       Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(array)) );
+	       //Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(array)) );
 	       Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM2)).thenReturn(dataSource2);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, DATASOURCENAAM, DATASOURCENAAM,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE, LINK,"","",""));
 			});
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(datasourceRepo).findAll();
+	       //Mockito.verify(datasourceRepo).findAll();
 	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM2);
 	}
 	
