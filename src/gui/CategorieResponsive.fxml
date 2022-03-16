@@ -157,7 +157,7 @@
                                                 <Insets bottom="10.0" left="10.0" right="10.0" />
                                              </BorderPane.margin>
                                              <left>
-                                                <VBox prefHeight="492.0" prefWidth="179.0" BorderPane.alignment="TOP_CENTER">
+                                                <VBox prefHeight="426.0" prefWidth="309.0" BorderPane.alignment="TOP_CENTER">
                                                    <children>
                                                       <VBox prefHeight="124.0" prefWidth="303.0" spacing="10.0">
                                                          <children>
@@ -170,7 +170,7 @@
                                                                   </Label>
                                                                </left>
                                                                <right>
-                                                                  <TextField fx:id="naamDoel" prefHeight="25.0" prefWidth="215.0" BorderPane.alignment="CENTER">
+                                                                  <TextField fx:id="naamDoel" prefHeight="25.0" prefWidth="201.0" BorderPane.alignment="CENTER">
                                                                      <BorderPane.margin>
                                                                         <Insets left="15.0" />
                                                                      </BorderPane.margin>
@@ -186,7 +186,7 @@
                                                                   </Label>
                                                                </left>
                                                                <right>
-                                                                  <ChoiceBox fx:id="selectionDoelBewerking" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                                  <ChoiceBox fx:id="selectionDoelBewerking" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                                </right>
                                                             </BorderPane>
                                                             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -198,7 +198,7 @@
                                                                   </Label>
                                                                </left>
                                                                <right>
-                                                                  <TextField fx:id="doelDoelwaarde" prefHeight="25.0" prefWidth="155.0" BorderPane.alignment="CENTER" />
+                                                                  <TextField fx:id="doelDoelwaarde" prefHeight="25.0" prefWidth="201.0" BorderPane.alignment="CENTER" />
                                                                </right>
                                                             </BorderPane>
                                                             <BorderPane maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="186.0">
@@ -219,14 +219,14 @@
                                                             </BorderPane>
                                                          </children>
                                                       </VBox>
-                                                      <VBox fx:id="vboxListIcons" prefHeight="153.0" prefWidth="205.0">
+                                                      <VBox fx:id="vboxListIcons" prefHeight="110.0" prefWidth="282.0">
                                                          <children>
                                                             <Label fx:id="kiesIcoon1" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="327.0" text="Kies icoon:" textFill="#004c69">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
-                                                            <ListView fx:id="listDoelIcoon" maxHeight="-Infinity" orientation="HORIZONTAL" prefHeight="105.0" prefWidth="282.0" />
+                                                            <ListView fx:id="listDoelIcoon" maxHeight="-Infinity" orientation="HORIZONTAL" prefHeight="80.0" prefWidth="282.0" />
                                                          </children>
                                                       </VBox>
                                                       <BorderPane prefHeight="51.0" prefWidth="282.0">
@@ -238,7 +238,7 @@
                                                             </Label>
                                                          </left>
                                                          <right>
-                                                            <ChoiceBox fx:id="selectionDoelSDG" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                            <ChoiceBox fx:id="selectionDoelSDG" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                          </right>
                                                       </BorderPane>
                                                       <BorderPane prefHeight="51.0" prefWidth="282.0">
@@ -250,7 +250,7 @@
                                                             </Label>
                                                          </left>
                                                          <right>
-                                                            <ChoiceBox fx:id="selectionDoelDatasource" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                                            <ChoiceBox fx:id="selectionDoelDatasource" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                          </right>
                                                       </BorderPane>
                                                    </children>
@@ -303,17 +303,17 @@
                                                 </VBox>
                                              </right>
                                              <center>
-                                                <VBox alignment="CENTER" prefHeight="472.0" prefWidth="266.0" BorderPane.alignment="CENTER">
+                                                <VBox alignment="CENTER" prefHeight="406.0" prefWidth="277.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <VBox>
                                                          <children>
-                                                            <VBox fx:id="vboxListSubDoelen" prefHeight="278.0" prefWidth="218.0">
+                                                            <VBox fx:id="vboxListSubDoelen" alignment="TOP_CENTER" prefHeight="278.0" prefWidth="218.0">
                                                                <children>
                                                                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="500.0" text="Kies subdoelstelling:" textFill="#004c69">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font></Label>
-                                                                  <ListView fx:id="listDoelKiesSubDoel" prefHeight="391.0" prefWidth="134.0" />
+                                                                  <ListView fx:id="listDoelKiesSubDoel" maxWidth="-Infinity" prefHeight="391.0" prefWidth="220.0" />
                                                                </children>
                                                             </VBox>
                                                             <HBox fx:id="hboxPijlenSubDoelen" alignment="CENTER">
@@ -330,14 +330,14 @@
                                                                   </ImageView>
                                                                </children>
                                                             </HBox>
-                                                            <VBox prefHeight="278.0" prefWidth="215.0">
+                                                            <VBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="215.0">
                                                                <children>
                                                                   <Label alignment="CENTER" prefHeight="20.0" prefWidth="500.0" text="Subdoelstellingen:" textFill="#004c69">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <ListView fx:id="listDoelSubDoelen" prefHeight="391.0" prefWidth="200.0" />
+                                                                  <ListView fx:id="listDoelSubDoelen" maxWidth="-Infinity" prefHeight="391.0" prefWidth="220.0" />
                                                                </children>
                                                             </VBox>
                                                          </children>

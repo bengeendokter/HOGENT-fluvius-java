@@ -12,6 +12,6 @@ public class Average implements Bewerking{
 	@Override
 	public String toString()
 	{
-		return this.getClass().getSimpleName();
+		return "Gemiddelde";
 	}
 }

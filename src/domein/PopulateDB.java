@@ -67,16 +67,16 @@ public class PopulateDB
 		rollen.add(rol);
 		
 		// Datasources
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("aantal vrouwen", "csv", "src/data/csvDouble.csv",  null, null, null)));
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "csv", "src/data/csvDouble.csv",  null, null, null)));
 		
 		List<MVODatasource> datasources = new ArrayList<>();
-		MVODatasource mvd = new MVODatasource(new DTODatasource("aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null));
+		MVODatasource mvd = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null));
 		datasources.add(mvd);
 		
 		// Doelstellingen
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("doelstelling1", "file:src/images/peace.png", 20, rollen, goal1, mvd, new ArrayList<>(), new Average())));
-		Component d = new Composite(new DTOMVODoelstelling("doelstelling2", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som()));
-		d.add(new Composite(new DTOMVODoelstelling("doelstelling2.1", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som())));
+		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Doelstelling1", "file:src/images/peace.png", 20, rollen, goal1, mvd, new ArrayList<>(), new Average())));
+		Component d = new Composite(new DTOMVODoelstelling("Doelstelling2", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som()));
+		d.add(new Composite(new DTOMVODoelstelling("Doelstelling2.1", "file:src/images/planet.jpg", 20, rollen, goal2, mvd, new ArrayList<>(), new Som())));
 		doelstellingenRepo.insert(d);
 		gebruikerRepo.commitTransaction();
 		sdGoalRepo.commitTransaction();
