@@ -221,6 +221,9 @@ public class CategorieResponsiveController extends BorderPane
 		private Label doelError;
 		
 		private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average()));
+		
+		@FXML
+		private Label titelDetailDoelstelling;
 	
 	public CategorieResponsiveController(DomeinController dc)
 	{
@@ -1119,6 +1122,9 @@ public class CategorieResponsiveController extends BorderPane
 			checkboxManagerRol.setDisable(true);
 			checkboxDirectieRol.setDisable(true);
 			checkboxStakeholderRol.setDisable(true);
+			
+
+			titelDetailDoelstelling.setText("Details MVO doelstelling");
 		}
 		
 		private void vulDoelList()
@@ -1369,6 +1375,8 @@ public class CategorieResponsiveController extends BorderPane
 			checkboxStakeholderRol.setDisable(false);
 			
 			leegDoelVelden();
+			
+			titelDetailDoelstelling.setText("Maak nieuwe hoofd MVO doelstelling");
 			
 			// TODO vul kies listviews subdoelen in
 			// subdoelen die geen (groot)ouder hebben en geen (klein)kinderen hebben?

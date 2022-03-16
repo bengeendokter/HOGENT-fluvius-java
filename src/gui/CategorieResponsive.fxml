@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="714.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane fx:id="groeneBalk" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #b2d235; -fx-effect: dropshadow(gaussian, #454545, 10, 0, 1, 0); -fx-padding: 0 7 0 7;" BorderPane.alignment="CENTER">
          <center>
@@ -161,11 +161,6 @@
                                                    <children>
                                                       <VBox prefHeight="124.0" prefWidth="303.0" spacing="10.0">
                                                          <children>
-                                                            <Label fx:id="titelDetailDoelstelling" alignment="TOP_LEFT" prefHeight="0.0" prefWidth="284.0" text="Details MVO doelstelling" textFill="#004c69">
-                                                               <font>
-                                                                  <Font name="System Bold" size="24.0" />
-                                                               </font>
-                                                            </Label>
                                                             <BorderPane prefHeight="28.0" prefWidth="107.0">
                                                                <left>
                                                                   <Label text="Naam:" textFill="#004c69" BorderPane.alignment="CENTER">
@@ -267,31 +262,6 @@
                                                       <Insets />
                                                    </BorderPane.margin>
                                                    <children>
-                                                      <HBox alignment="TOP_RIGHT" minHeight="-Infinity" prefHeight="65.0" prefWidth="246.0" spacing="30.0">
-                                                         <children>
-                                                            <Button fx:id="btnDoelWijzig" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doelBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #2E4D68; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69">
-                                                               <graphic>
-                                                                  <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../images/pencil.PNG" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                               </graphic>
-                                                            </Button>
-                                                            <Button fx:id="btnDoelVerwijder" mnemonicParsing="false" onAction="#doelVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;">
-                                                               <graphic>
-                                                                  <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../images/delete.PNG" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                               </graphic>
-                                                            </Button>
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </HBox>
                                                       <VBox alignment="CENTER" prefHeight="476.0" prefWidth="227.0">
                                                          <children>
                                                             <Label alignment="CENTER" prefHeight="27.0" prefWidth="235.0" text="Rollen" textFill="#004c69">
@@ -383,6 +353,39 @@
                                              </center>
                                           </BorderPane>
                                        </center>
+                                       <top>
+                                          <HBox alignment="CENTER" BorderPane.alignment="TOP_LEFT">
+                                             <children>
+                                                <Label fx:id="titelDetailDoelstelling" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="641.0" text="Details MVO doelstelling" textFill="#004c69" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="66.0" prefWidth="293.0" spacing="70.0">
+                                                   <children>
+                                                      <Button fx:id="btnDoelWijzig" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doelBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #2E4D68; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69">
+                                                         <graphic>
+                                                            <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../images/pencil.PNG" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button fx:id="btnDoelVerwijder" mnemonicParsing="false" onAction="#doelVerwijderen" prefHeight="59.0" prefWidth="65.0" style="-fx-background-color: #d14a30; -fx-background-radius: 50%;">
+                                                         <graphic>
+                                                            <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../images/delete.PNG" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </top>
                                     </BorderPane>
                                  </center>
                               </BorderPane>
