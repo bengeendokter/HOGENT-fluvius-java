@@ -291,7 +291,7 @@ public class CategorieResponsiveController extends BorderPane
 							lblDataHostnaam.setVisible(true);
 							lblDataWachtwoord.setVisible(true);
 							linkHBox.setVisible(false);
-							linkHBox.setManaged(true);
+							linkHBox.setManaged(false);
 							
 							txtFieldDataHostnaam.setEditable(true);
 							txtFieldDataGebruikersnaam.setEditable(true);
@@ -307,7 +307,7 @@ public class CategorieResponsiveController extends BorderPane
 							lblDataHostnaam.setVisible(false);
 							lblDataWachtwoord.setVisible(false);
 							linkHBox.setVisible(true);
-							linkHBox.setManaged(false);
+							linkHBox.setManaged(true);
 							
 							txtFieldDataHostnaam.setEditable(false);
 							txtFieldDataGebruikersnaam.setEditable(false);
@@ -506,6 +506,9 @@ public class CategorieResponsiveController extends BorderPane
 					lblDataHostnaam.setVisible(true);
 					lblDataWachtwoord.setVisible(true);
 					
+					linkHBox.setVisible(false);
+					linkHBox.setManaged(false);
+					
 					txtFieldDataGebruikersnaam.setVisible(true);
 					txtFieldDataHostnaam.setVisible(true);
 					txtFieldDataWachtwoord.setVisible(true);
@@ -517,6 +520,9 @@ public class CategorieResponsiveController extends BorderPane
 					txtFieldDataGebruikersnaam.setText(eersteDatasource.getTypeDatasource().getUsername());
 					txtFieldDataHostnaam.setText(eersteDatasource.getTypeDatasource().getHostname());
 					txtFieldDataWachtwoord.setText(eersteDatasource.getTypeDatasource().getPassword());
+				} else {
+					linkHBox.setVisible(true);
+					linkHBox.setManaged(true);
 				}
 				
 			}
@@ -954,6 +960,9 @@ public class CategorieResponsiveController extends BorderPane
 		txtFieldDataHostnaam.clear();
 		txtFieldDataWachtwoord.clear();
 		
+		linkHBox.setVisible(false);
+		linkHBox.setManaged(false);
+		
 		txtFieldDataGebruikersnaam.setVisible(false);
 		txtFieldDataHostnaam.setVisible(false);
 		txtFieldDataWachtwoord.setVisible(false);
@@ -1027,8 +1036,8 @@ public class CategorieResponsiveController extends BorderPane
 		}
 		catch(IllegalArgumentException e)
 		{
-			catError.setText(e.getMessage());
-			catError.setVisible(true);
+			dataError.setText(e.getMessage());
+			dataError.setVisible(true);
 		}
 	}
 	
