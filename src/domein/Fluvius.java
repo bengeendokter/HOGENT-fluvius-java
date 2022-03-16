@@ -324,14 +324,16 @@ public class Fluvius
 	public void voegMVODoelstellingToeZonderSubs(DTOMVODoelstelling doelstelling) {
 		try
 		{
-			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
+			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.naam);
 			mvoDoelstellingRepo.startTransaction();
+			
+			Component doelstellingInRepo = mvoDoelstellingRepo.getByNaam(doelstelling.naam); 
+			if(doelstellingInRepo != null)
+			{
+				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
+			}
+			
 			mvoDoelstellingRepo.insert(new Leaf(doelstelling));
-			mvoDoelstellingRepo.commitTransaction();
-		}
-		catch(DatabaseException e)
-		{
-			throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.toString()));
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -342,6 +344,10 @@ public class Fluvius
 			System.out.printf("%s", e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een MVO Doelstelling");
 		}
+		finally
+		{
+			mvoDoelstellingRepo.commitTransaction();
+		}
 		
 		setDoelstellingen();
 	}
@@ -349,13 +355,16 @@ public class Fluvius
 	public void voegMVODoelstellingToeMetSubs(DTOMVODoelstelling doelstelling) {
 		try
 		{
-			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
+			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.naam);
 			mvoDoelstellingRepo.startTransaction();
+			
+			Component doelstellingInRepo = mvoDoelstellingRepo.getByNaam(doelstelling.naam); 
+			if(doelstellingInRepo != null)
+			{
+				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
+			}
+			
 			mvoDoelstellingRepo.insert(new Composite(doelstelling));
-		}
-		catch(DatabaseException e)
-		{
-			throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.toString()));
 		}
 		catch (IllegalArgumentException e)
 		{

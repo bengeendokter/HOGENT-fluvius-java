@@ -1510,7 +1510,11 @@ public class CategorieResponsiveController extends BorderPane
 			String naam = naamDoel.getText();
 			
 			Image iconImage = doelIcoon.getImage();
-			String icoon = iconImage == null ? "" : iconImage.getUrl();
+			if(iconImage == null)
+			{
+				throw new IllegalArgumentException("MVO Doelstelling moet een icoon hebben");
+			}
+			String icoon = iconImage.getUrl();
 			
 			// TODO controleer op parse double fout
 			double doelwaarde = 0.0;
@@ -1565,10 +1569,15 @@ public class CategorieResponsiveController extends BorderPane
 			showDoelMinimal();
 			listDoelen.getSelectionModel().selectLast();
 		}
+		catch(IllegalArgumentException e)
+		{
+			// e.printStackTrace();
+			doelError.setText(e.getMessage());
+		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			doelError.setText(e.getMessage());
+			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een MVO Doelstelling");
 		}
 	}
 	

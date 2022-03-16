@@ -31,9 +31,9 @@ public class Composite extends Component implements Serializable{
 	// ---------------------------------------------------------------------------------------------------
 	public Composite(DTOMVODoelstelling d) {
 		super(d);
-		components = d.subDoelstellingen.stream().map(doel -> (Component) doel).collect(Collectors.toList());
+		setComponents(d.subDoelstellingen);
 	}
-	
+
 	protected Composite() {
 		
 	}
@@ -58,7 +58,15 @@ public class Composite extends Component implements Serializable{
 		return components;
 	}
 
-	
+	private void setComponents(List<Doelstelling> subDoelstellingen)
+	{
+		if(subDoelstellingen == null)
+		{
+			subDoelstellingen = new ArrayList<>();
+		}
+		
+		components = subDoelstellingen.stream().map(doel -> (Component) doel).collect(Collectors.toList());
+	}
 	
 	public double getBerekendewaarde() throws IOException {
 		

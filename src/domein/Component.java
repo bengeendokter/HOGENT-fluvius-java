@@ -138,11 +138,22 @@ public abstract class Component implements Doelstelling, Serializable{
 		this.rollen = rollen;
 	}
 	
-	private void setSdGoal(SdGoal goal) {
+	private void setSdGoal(SdGoal goal)
+	{
+		if(goal == null)
+		{
+			throw new IllegalArgumentException("Een MVO Doelstelling moet gekoppeld zijn aan een SDG");
+		}
+		
 		this.sdGoal = goal;
 	}
 	
 	public void setFormule(Bewerking bewerking) {
+		if(bewerking == null)
+		{
+			throw new IllegalArgumentException("Een MVO Doelstelling moet een bewerking hebben");
+		}
+		
 		this.formule = bewerking;
 	}
 	

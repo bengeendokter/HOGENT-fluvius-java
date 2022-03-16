@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
-@DiscriminatorValue("Leaf")
+@DiscriminatorValue("LEAF")
 public class Leaf extends Component {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class Leaf extends Component {
 	// ---------------------------------------------------------------------------------------------------
 	public Leaf(DTOMVODoelstelling d) {
 		super(d);
-		datasource = (MVODatasource) d.datasource;
+		setDatasource((MVODatasource) d.datasource);
 	}
 
 	protected Leaf() {
@@ -41,6 +41,16 @@ public class Leaf extends Component {
 
 	public MVODatasource getDatasource() {
 		return datasource;
+	}
+	
+	private void setDatasource(MVODatasource datasource)
+	{
+		if(datasource == null)
+		{
+			throw new IllegalArgumentException("Een sub MVO Doelstelling moet gekoppeld zijn aan een datasource");
+		}
+		
+		this.datasource = datasource;
 	}
 	
 	public double getBerekendewaarde() throws IOException {
