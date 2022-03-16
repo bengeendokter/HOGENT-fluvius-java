@@ -1237,7 +1237,7 @@ public class CategorieResponsiveController extends BorderPane
 					else
 					{
 						setText(null);
-						imageView.setImage(new Image(name, 25, 25, true, true));
+						imageView.setImage(new Image(name, 40, 40, true, true));
 						
 						setGraphic(imageView);
 					}

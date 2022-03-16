@@ -226,7 +226,7 @@
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
-                                                            <ListView fx:id="listDoelIcoon" maxHeight="-Infinity" prefHeight="105.0" prefWidth="282.0" />
+                                                            <ListView fx:id="listDoelIcoon" maxHeight="-Infinity" orientation="HORIZONTAL" prefHeight="105.0" prefWidth="282.0" />
                                                          </children>
                                                       </VBox>
                                                       <BorderPane prefHeight="51.0" prefWidth="282.0">
