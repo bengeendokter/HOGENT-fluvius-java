@@ -49,7 +49,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
@@ -101,7 +101,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	       
 	}
@@ -124,7 +124,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
@@ -145,7 +145,7 @@ public class DatasourceTest {
 	       
 	       // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       });
 	}
 	
@@ -167,7 +167,7 @@ public class DatasourceTest {
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "excl";
 		   final String LINKNEW = "map/data.csv";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 	       
 	       eenDatasource.setDatasourceID(1);
 
@@ -179,7 +179,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	       
 	       // Na de test verifiëren
@@ -207,7 +207,7 @@ public class DatasourceTest {
 		   final String DATASOURCENAAMNEW = naam;
 		   final String TYPENEW = "csv";
 		   final String LINKNEW = "map/data.csv";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
 	       eenDatasource.setDatasourceID(1);
 	       
@@ -218,7 +218,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -241,7 +241,7 @@ public class DatasourceTest {
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = type;
 		   final String LINKNEW = "map/data.csv";
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
 	       eenDatasource.setDatasourceID(1);
 
@@ -253,7 +253,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -276,7 +276,7 @@ public class DatasourceTest {
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "csv";
 		   final String LINKNEW = link;
-	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
+	       MVODatasource eenDatasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
 
 	       eenDatasource.setDatasourceID(1);
 	       
@@ -287,7 +287,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAMNEW, TYPENEW, LINKNEW,"","",""));
 			});
 	}
 	
@@ -309,8 +309,8 @@ public class DatasourceTest {
 		   final String DATASOURCENAAM2 = "DatasourceTest2";
 		   final String TYPE2 = "csv";
 		   final String LINK2 = "map/data.csv";
-	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
-	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","","",""));
+	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","",""));
+	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","",""));
 	       //MVODatasource array[] = {datasource, dataSource2};
 	       datasource.setDatasourceID(1);
 	       dataSource2.setDatasourceID(2);
@@ -322,7 +322,7 @@ public class DatasourceTest {
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE, LINK,"","","",""));
+	    	   fluvius.wijzigMVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE, LINK,"","",""));
 			});
 	       
 	       // Na de test verifiëren
