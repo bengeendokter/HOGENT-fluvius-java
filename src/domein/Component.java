@@ -54,9 +54,8 @@ public abstract class Component implements Doelstelling, Serializable{
 	private List<Rol> rollen = new ArrayList<>();
 	@ManyToOne
 	private SdGoal sdGoal;
-	@Transient
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
-	@Transient
 	private double value = 0.0;
 	
 	// CONSTRUCTOREN

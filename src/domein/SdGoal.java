@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "SDG")
 @NamedQueries({
 	@NamedQuery(name = "sdGoal.findByNaam", query = "select s from domein.SdGoal s where s.naam = :naam")})
-public class SdGoal implements Serializable
+public class SdGoal implements Serializable, ListViewInterface
 {
 	private static final long serialVersionUID = 1L;
 	

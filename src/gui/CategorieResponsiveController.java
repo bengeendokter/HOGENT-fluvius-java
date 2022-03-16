@@ -19,6 +19,7 @@ import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
 import domein.DomeinController;
+import domein.ListViewInterface;
 import domein.Rol;
 import domein.SdGoal;
 import domein.Som;
@@ -411,77 +412,81 @@ public class CategorieResponsiveController extends BorderPane
 			listSdGoal.setItems(FXCollections.observableList(
 					dc.getCategorien().stream().findFirst().get().getSdGoals().stream().collect(Collectors.toList())));
 			
+			onSelectListView(listSdGoal, listKiesSdGoal);
+			
 			//eerste keer overzicht tonen moet ook iconen tonen van SdGoal's van de categorie
-			listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
-			{
-				private ImageView imageView = new ImageView();
-				
-				@Override
-				public void updateItem(SdGoal name, boolean empty)
-				{
-					super.updateItem(name, empty);
-					if(empty)
-					{
-						setText(null);
-						setGraphic(null);
-					}
-					else
-					{
-						setText(name.getNaam());
-						imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
-						
-						setGraphic(imageView);
-					}
-				}
-			});
+//			listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
+//			{
+//				private ImageView imageView = new ImageView();
+//				
+//				@Override
+//				public void updateItem(SdGoal name, boolean empty)
+//				{
+//					super.updateItem(name, empty);
+//					if(empty)
+//					{
+//						setText(null);
+//						setGraphic(null);
+//					}
+//					else
+//					{
+//						setText(name.getNaam());
+//						imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
+//						
+//						setGraphic(imageView);
+//					}
+//				}
+//			});
 			
 			catIcoon.setImage(new Image(dc.getCategorien().stream().findFirst().get().getIcon(), 50, 50, true, true));
 			
-			listKiesSdGoal.getSelectionModel().selectFirst();
+			//listKiesSdGoal.getSelectionModel().selectFirst();
 			
-			listKiesSdGoal.getSelectionModel().selectedItemProperty()
-					.addListener((observableValue, oldValue, newValue) -> {
-						if(newValue != null)
-						{
-							
-							if(newValue.getIcon() != null)
-							{
-								
-								SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
-								System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
-								
-								listSdGoal.getItems().add(SdGoal);
-								
-								//voeg SdGoal to aan listview en categorie zelf bij aanmaken
-								listSdGoal.setItems(listSdGoal.getItems());
-								
-								listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
-								{
-									private ImageView imageView = new ImageView();
-									
-									@Override
-									public void updateItem(SdGoal name, boolean empty)
-									{
-										super.updateItem(name, empty);
-										if(empty)
-										{
-											setText(null);
-											setGraphic(null);
-										}
-										else
-										{
-											setText(name.getNaam());
-											imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
-											
-											setGraphic(imageView);
-										}
-									}
-								});
-								
-							}
-							
-						}
-					});
+			onSelectListView(listKiesSdGoal, listSdGoal);
+			
+//			listKiesSdGoal.getSelectionModel().selectedItemProperty()
+//					.addListener((observableValue, oldValue, newValue) -> {
+//						if(newValue != null)
+//						{
+//							
+//							if(newValue.getIcon() != null)
+//							{
+//								
+//								SdGoal SdGoal = listKiesSdGoal.getSelectionModel().getSelectedItem();
+//								System.out.printf("%s  - %s\n", SdGoal.getClass().getSimpleName(), SdGoal.getNaam());
+//								
+//								listSdGoal.getItems().add(SdGoal);
+//								
+//								//voeg SdGoal to aan listview en categorie zelf bij aanmaken
+//								listSdGoal.setItems(listSdGoal.getItems());
+//								
+//								listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
+//								{
+//									private ImageView imageView = new ImageView();
+//									
+//									@Override
+//									public void updateItem(SdGoal name, boolean empty)
+//									{
+//										super.updateItem(name, empty);
+//										if(empty)
+//										{
+//											setText(null);
+//											setGraphic(null);
+//										}
+//										else
+//										{
+//											setText(name.getNaam());
+//											imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
+//											
+//											setGraphic(imageView);
+//										}
+//									}
+//								});
+//								
+//							}
+//							
+//						}
+//					});
 			
 			ObservableList<Datasource> datasources = dc.getDatasources();
 			
@@ -571,7 +576,7 @@ public class CategorieResponsiveController extends BorderPane
 										.observableList(cat.getSdGoals().stream().collect(Collectors.toList())));
 								
 								//moet dit gebruikt worden
-								listSdGoal.getSelectionModel().selectFirst();
+								//listSdGoal.getSelectionModel().selectFirst();
 								
 								listSdGoal.setCellFactory(param -> new ListCell<SdGoal>()
 								{
@@ -683,7 +688,7 @@ public class CategorieResponsiveController extends BorderPane
 		listSdGoal.getItems().clear();
 //			
 		//placeholder als er geen SdGoal(') is/zijn geselecteerd
-		listSdGoal.setPlaceholder(new Label("Geen SdGoal('s)"));
+		//listSdGoal.setPlaceholder(new Label("Geen SdGoal('s)"));
 	}
 	
 	@FXML
@@ -742,8 +747,8 @@ public class CategorieResponsiveController extends BorderPane
 			}
 			else if(vartextCat.getText().equals("Wijzig categorie"))
 			{
-				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
-				dc.setCurrentCategorie(huidigeCategorie);
+//				Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
+//				dc.setCurrentCategorie(huidigeCategorie);
 				
 				DTOCategorie nieuweCategorie = new DTOCategorie(naamCategorie.getText(), catIcoon.getImage().getUrl(),
 						new ArrayList<SdGoal>(listSdGoal.getItems().stream().collect(Collectors.toList())));
@@ -870,7 +875,9 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	public void removeSdGoal(ActionEvent event)
 	{
+		listKiesSdGoal.getItems().addAll(listSdGoal.getItems());
 		listSdGoal.getItems().clear();
+		
 	}
 	
 	@FXML
@@ -893,6 +900,8 @@ public class CategorieResponsiveController extends BorderPane
 		listKiesSdGoal.setVisible(true);
 		arrow1.setVisible(true);
 		arrow2.setVisible(true);
+		
+
 	}
 	
 	@FXML
@@ -1224,8 +1233,8 @@ public class CategorieResponsiveController extends BorderPane
 		
 		onSelectDoelIcon(listDoelIcoon, doelIcoon);
 		
-		onSelectKiesSubDoel();
-		onSelectSubDoel();
+		onSelectListView(listDoelSubDoelen, listDoelKiesSubDoel );
+		onSelectListView(listDoelKiesSubDoel, listDoelSubDoelen );
 	}
 	
 	private void onSelectDoelIcon(ListView<String> iconenLijst, ImageView icoon)
@@ -1267,130 +1276,8 @@ public class CategorieResponsiveController extends BorderPane
 		});
 	}
 	
-	private void onSelectKiesSubDoel()
-	{
-		// view
-		listDoelKiesSubDoel.setCellFactory(param -> new ListCell<Doelstelling>()
-		{
-			private ImageView imageView = new ImageView();
-			
-			@Override
-			public void updateItem(Doelstelling subDoel, boolean empty)
-			{
-				super.updateItem(subDoel, empty);
-				if(empty)
-				{
-					setText(null);
-					setGraphic(null);
-				}
-				else
-				{
-					setText(subDoel.getNaam());
-					imageView.setImage(new Image(subDoel.getIcon(), 25, 25, true, true));
-					
-					setGraphic(imageView);
-				}
-			}
-		});
-		
-		// onSelect
-		listDoelKiesSubDoel.getSelectionModel().selectedItemProperty()
-				.addListener((observableValue, oldValue, newValue) -> {
-					if(newValue != null)
-					{
-						Doelstelling subDoel = newValue;
-						
-						List<Doelstelling> huidigeSubDoelen = listDoelSubDoelen.getItems();
-						
-						if(huidigeSubDoelen == null)
-						{
-							huidigeSubDoelen = FXCollections.observableList(new ArrayList<>());
-						}
-						huidigeSubDoelen.add(subDoel);
-						huidigeSubDoelen = new ArrayList<>(new HashSet<>(huidigeSubDoelen));
-						huidigeSubDoelen.sort(Comparator.comparing(Doelstelling::getNaam));
-						listDoelSubDoelen.setItems(FXCollections.observableList(huidigeSubDoelen));
-						
-						// verwijder newValue uit listDoelKiesSubDoel
-						// verpak dit in runLater want gui updaten in een lambda functie geeft error
-						Platform.runLater(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								List<Doelstelling> nieuweKiesSubDoelenLijst = new ArrayList<>(
-										listDoelKiesSubDoel.getItems());
-								nieuweKiesSubDoelenLijst.remove(newValue);
-								listDoelKiesSubDoel.setItems(FXCollections.observableList(nieuweKiesSubDoelenLijst));
-							}
-						});
-						
-					}
-				});
-	}
 	
-	private void onSelectSubDoel()
-	{
-		// view
-		listDoelSubDoelen.setCellFactory(param -> new ListCell<Doelstelling>()
-		{
-			private ImageView imageView = new ImageView();
-			
-			@Override
-			public void updateItem(Doelstelling subDoel, boolean empty)
-			{
-				super.updateItem(subDoel, empty);
-				if(empty)
-				{
-					setText(null);
-					setGraphic(null);
-				}
-				else
-				{
-					setText(subDoel.getNaam());
-					imageView.setImage(new Image(subDoel.getIcon(), 25, 25, true, true));
-					
-					setGraphic(imageView);
-				}
-			}
-		});
-		
-		// onSelect
-		listDoelSubDoelen.getSelectionModel().selectedItemProperty()
-				.addListener((observableValue, oldValue, newValue) -> {
-					if(newValue != null)
-					{
-						Doelstelling subDoel = newValue;
-						
-						List<Doelstelling> andereSubDoelen = listDoelKiesSubDoel.getItems();
-						
-						if(andereSubDoelen == null)
-						{
-							andereSubDoelen = new ArrayList<>();
-						}
-						andereSubDoelen.add(subDoel);
-						andereSubDoelen = new ArrayList<>(new HashSet<>(andereSubDoelen));
-						andereSubDoelen.sort(Comparator.comparing(Doelstelling::getNaam));
-						listDoelKiesSubDoel.setItems(FXCollections.observableList(andereSubDoelen));
-						
-						// verwijder newValue uit listDoelSubDoelen
-						// verpak dit in runLater want gui updaten in een lambda functie geeft error
-						Platform.runLater(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								List<Doelstelling> nieuwelistDoelSubDoelen = new ArrayList<>(
-										listDoelSubDoelen.getItems());
-								nieuwelistDoelSubDoelen.remove(newValue);
-								listDoelSubDoelen.setItems(FXCollections.observableList(nieuwelistDoelSubDoelen));
-							}
-						});
-						
-					}
-				});
-		
-	}
+	
 	
 	private void leegDoelVelden()
 	{
@@ -1603,4 +1490,65 @@ public class CategorieResponsiveController extends BorderPane
 	
 	// TODO toon errors
 	// TODO verander label detailscherm bij elke actie
+	
+	private <E extends ListViewInterface> void onSelectListView( ListView<E> oorsprong, ListView<E> bestemming)
+	{
+		// view
+		oorsprong.setCellFactory(param -> new ListCell<E>()
+		{
+			private ImageView imageView = new ImageView();
+			
+			@Override
+			public void updateItem(E type2, boolean empty)
+			{
+				super.updateItem(type2, empty);
+				if(empty)
+				{
+					setText(null);
+					setGraphic(null);
+				}
+				else
+				{
+					setText(type2.getNaam());
+					imageView.setImage(new Image(type2.getIcon(), 25, 25, true, true));
+					
+					setGraphic(imageView);
+				}
+			}
+		});
+		
+		// onSelect
+		oorsprong.getSelectionModel().selectedItemProperty()
+				.addListener((observableValue, oldValue, newValue) -> {
+					if(newValue != null)
+					{
+						E type3 = newValue;
+						
+						List<E> huidige = bestemming.getItems();
+						
+						if(huidige == null)
+						{
+							huidige = FXCollections.observableList(new ArrayList<>());
+						}
+						huidige.add(type3);
+						huidige = new ArrayList<>(new HashSet<>(huidige));
+						bestemming.setItems(FXCollections.observableList(huidige));
+						
+						// verwijder newValue uit listDoelKiesSubDoel
+						// verpak dit in runLater want gui updaten in een lambda functie geeft error
+						Platform.runLater(new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								List<E> nieuweLijst = new ArrayList<>(
+										oorsprong.getItems());
+								nieuweLijst.remove(newValue);
+								oorsprong.setItems(FXCollections.observableList(nieuweLijst));
+							}
+						});
+						
+					}
+				});
+	}
 }

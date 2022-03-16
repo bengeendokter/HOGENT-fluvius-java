@@ -3,7 +3,7 @@ package domein;
 import java.io.IOException;
 import java.util.List;
 
-public interface Doelstelling {
+public interface Doelstelling extends ListViewInterface {
 
 	public int getDoelstellingID();
 	public String getNaam();

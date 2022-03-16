@@ -358,14 +358,16 @@
                                           </BorderPane>
                                        </center>
                                        <top>
-                                          <HBox alignment="CENTER" BorderPane.alignment="TOP_LEFT">
-                                             <children>
-                                                <Label fx:id="titelDetailDoelstelling" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="641.0" text="Details MVO doelstelling" textFill="#004c69" HBox.hgrow="ALWAYS">
+                                          <BorderPane BorderPane.alignment="TOP_LEFT">
+                                             <left>
+                                                <Label fx:id="titelDetailDoelstelling" alignment="TOP_LEFT" prefWidth="382.0" text="Details MVO doelstelling" textFill="#004c69" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="System Bold" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="66.0" prefWidth="293.0" spacing="70.0">
+                                             </left>
+                                             <right>
+                                                <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="66.0" prefWidth="293.0" spacing="70.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Button fx:id="btnDoelWijzig" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doelBewerken" prefHeight="59.0" prefWidth="66.0" style="-fx-background-color: #2E4D68; -fx-background-radius: 50%;" textAlignment="CENTER" textFill="#004c69">
                                                          <graphic>
@@ -387,8 +389,8 @@
                                                       </Button>
                                                    </children>
                                                 </HBox>
-                                             </children>
-                                          </HBox>
+                                             </right>
+                                          </BorderPane>
                                        </top>
                                     </BorderPane>
                                  </center>

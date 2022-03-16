@@ -151,12 +151,20 @@ public class Fluvius
 		catch(IllegalArgumentException e) {
 			
 			if(categorie.naam.equals("") || categorie.naam == null) {
+				if(categorieRepo.isActive()) {
+					categorieRepo.rollbackTransaction();
+				}
 				throw new IllegalArgumentException(String.format("Naam mag niet leeg zijn", categorie.naam));
 			}
 			if(e.getMessage().equals("Er bestaat al een categorie met deze naam")) {
+				if(categorieRepo.isActive()) {
+					categorieRepo.rollbackTransaction();
+				}
 				throw new IllegalArgumentException(String.format("Categorie met naam %s bestaat al", categorie.naam));
 			}
-			categorieRepo.rollbackTransaction();
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
 			if(categorie.sdgoals.isEmpty() || categorie.sdgoals == null) {
 				throw new IllegalArgumentException(String.format("SDG's mogen niet leeg zijn", categorie.naam));
 			}
@@ -164,7 +172,9 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			categorieRepo.rollbackTransaction();
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
 			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Categorie");
 		}
@@ -191,11 +201,16 @@ public class Fluvius
 		}
 		catch(IllegalArgumentException e)
 		{
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
 			throw e;
 		}
 		catch(Exception e)
 		{
-			categorieRepo.rollbackTransaction();
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Categorie");
 		}
 		
@@ -252,11 +267,17 @@ public class Fluvius
 			categorieRepo.commitTransaction();
 		}
 		catch(IllegalArgumentException e) {
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
+			setCurrentCategorie(currentCategorie);
 			throw new IllegalArgumentException(e.getMessage());
 		}
 		catch(Exception e)
 		{
-			categorieRepo.rollbackTransaction();
+			if(categorieRepo.isActive()) {
+				categorieRepo.rollbackTransaction();
+			}
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Categorie update");
 		}
 		
