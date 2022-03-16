@@ -227,6 +227,12 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	private Label titelDetailDoelstelling;
 	
+	@FXML
+	private BorderPane bPaneDoelDatasource;
+	
+	@FXML
+	private VBox vboxDoelSubDoelen;
+	
 	public CategorieResponsiveController(DomeinController dc)
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieResponsive.fxml"));
@@ -1108,10 +1114,14 @@ public class CategorieResponsiveController extends BorderPane
 		hboxPijlenSubDoelen.setVisible(false);
 		hboxPijlenSubDoelen.setManaged(false);
 		
-		doelError.setVisible(false);
-		
 		btnOplaanDoel.setVisible(false);
 		btnAnuleerDoel.setVisible(false);
+		
+		vboxDoelSubDoelen.setVisible(true);
+		vboxDoelSubDoelen.setManaged(true);
+		
+		bPaneDoelDatasource.setVisible(true);
+		bPaneDoelDatasource.setManaged(true);
 		
 		btnDoelWijzig.setVisible(true);
 		btnDoelVerwijder.setVisible(true);
@@ -1128,6 +1138,7 @@ public class CategorieResponsiveController extends BorderPane
 		checkboxStakeholderRol.setDisable(true);
 		
 		titelDetailDoelstelling.setText("Details MVO doelstelling");
+		doelError.setText("");
 	}
 	
 	private void vulDoelList()
@@ -1162,6 +1173,8 @@ public class CategorieResponsiveController extends BorderPane
 		listDoelen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
+				leegDoelVelden();
+				
 				Doelstelling doel = newValue;
 				
 				naamDoel.setText(doel.getNaam());
@@ -1411,7 +1424,11 @@ public class CategorieResponsiveController extends BorderPane
 		hboxPijlenSubDoelen.setVisible(true);
 		hboxPijlenSubDoelen.setManaged(true);
 		
-		doelError.setVisible(false);
+		bPaneDoelDatasource.setVisible(false);
+		bPaneDoelDatasource.setManaged(false);
+		
+		vboxDoelSubDoelen.setVisible(true);
+		vboxDoelSubDoelen.setManaged(true);
 		
 		btnOplaanDoel.setVisible(true);
 		btnAnuleerDoel.setVisible(true);
@@ -1424,7 +1441,6 @@ public class CategorieResponsiveController extends BorderPane
 		selectionDoelBewerking.setDisable(false);
 		doelDoelwaarde.setEditable(true);
 		selectionDoelSDG.setDisable(false);
-		selectionDoelDatasource.setDisable(false);
 		checkboxMVORol.setDisable(false);
 		checkboxManagerRol.setDisable(false);
 		checkboxDirectieRol.setDisable(false);
@@ -1432,10 +1448,7 @@ public class CategorieResponsiveController extends BorderPane
 		
 		leegDoelVelden();
 		
-		titelDetailDoelstelling.setText("Maak nieuwe hoofd MVO doelstelling");
-		
-		// vul datasources in
-		selectionDoelDatasource.setItems(FXCollections.observableList(dc.getDatasources()));		
+		titelDetailDoelstelling.setText("Maak nieuwe hoofd MVO doelstelling");	
 		
 		// TODO vul kies listviews subdoelen in
 		// subdoelen die geen (groot)ouder hebben en geen (klein)kinderen hebben?
@@ -1445,13 +1458,54 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	private void addSubDoel(ActionEvent event)
 	{
+		listDoelen.getSelectionModel().clearSelection();
 		
+		// visibility
+		vboxListIcons.setVisible(true);
+		vboxListIcons.setManaged(true);
+		
+		vboxListSubDoelen.setVisible(false);
+		vboxListSubDoelen.setManaged(false);
+		hboxPijlenSubDoelen.setVisible(false);
+		hboxPijlenSubDoelen.setManaged(false);
+		
+		bPaneDoelDatasource.setVisible(true);
+		bPaneDoelDatasource.setManaged(true);
+		
+		vboxDoelSubDoelen.setVisible(false);
+		vboxDoelSubDoelen.setManaged(false);
+		
+		btnOplaanDoel.setVisible(true);
+		btnAnuleerDoel.setVisible(true);
+		
+		btnDoelWijzig.setVisible(false);
+		btnDoelVerwijder.setVisible(false);
+		
+		// editable
+		naamDoel.setEditable(true);
+		selectionDoelBewerking.setDisable(false);
+		doelDoelwaarde.setEditable(true);
+		selectionDoelSDG.setDisable(false);
+		checkboxMVORol.setDisable(false);
+		checkboxManagerRol.setDisable(false);
+		checkboxDirectieRol.setDisable(false);
+		checkboxStakeholderRol.setDisable(false);
+		
+		selectionDoelDatasource.setDisable(false);
+		
+		leegDoelVelden();
+		
+		titelDetailDoelstelling.setText("Maak nieuwe sub MVO doelstelling");
+		
+		// vul datasources in
+		selectionDoelDatasource.setItems(FXCollections.observableList(dc.getDatasources()));		
 	}
 	
 	@FXML
 	private void doelOpslaan(ActionEvent event)
 	{
-		// TODO
+		// TODO toon errors
+		// TODO verander label detailscherm bij elke actie
 	}
 	
 	@FXML

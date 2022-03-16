@@ -241,7 +241,7 @@
                                                             <ChoiceBox fx:id="selectionDoelSDG" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
                                                          </right>
                                                       </BorderPane>
-                                                      <BorderPane prefHeight="51.0" prefWidth="282.0">
+                                                      <BorderPane fx:id="bPaneDoelDatasource" prefHeight="51.0" prefWidth="282.0">
                                                          <left>
                                                             <Label text="Datasource:" textFill="#004c69" BorderPane.alignment="CENTER">
                                                                <font>
@@ -330,7 +330,7 @@
                                                                   </ImageView>
                                                                </children>
                                                             </HBox>
-                                                            <VBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="215.0">
+                                                            <VBox fx:id="vboxDoelSubDoelen" alignment="TOP_CENTER" prefHeight="278.0" prefWidth="215.0">
                                                                <children>
                                                                   <Label alignment="CENTER" prefHeight="20.0" prefWidth="500.0" text="Subdoelstellingen:" textFill="#004c69">
                                                                      <font>
