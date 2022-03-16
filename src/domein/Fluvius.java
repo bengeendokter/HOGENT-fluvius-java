@@ -86,6 +86,13 @@ public class Fluvius
 			}
 		});
 		//setSdGoals();
+		System.out.println("Beschikbare SdGoals ophalen");
+		return FXCollections.unmodifiableObservableList(sdGoals);
+	}
+	
+	public ObservableList<SdGoal> getSdgs()
+	{
+		setSdGoals();
 		System.out.println("Alle SdGoals ophalen");
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}

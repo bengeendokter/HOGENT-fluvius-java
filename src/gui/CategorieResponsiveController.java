@@ -1160,7 +1160,7 @@ public class CategorieResponsiveController extends BorderPane
 					doelDoelwaarde.setText(String.valueOf(doel.getDoelwaarde()));
 					doelIcoon.setImage(new Image(doel.getIcon(), 250, 250, true, true));
 					selectionDoelSDG.setValue(doel.getSdGoal());
-					// TODO subdoelen mogen nu geen Leaf zijn!!!!
+					selectionDoelDatasource.setValue(doel.getDatasource());
 					listDoelSubDoelen.setItems(FXCollections.observableList(doel.getComponents().stream().map(d -> (Doelstelling) d).collect(Collectors.toList())));
 					
 					
@@ -1183,9 +1183,6 @@ public class CategorieResponsiveController extends BorderPane
 						checkboxStakeholderRol.setSelected(true);
 					}
 					
-					// TODO datasources en subdoelen
-					selectionDoelDatasource.setValue(null);
-					
 					// indien hiervoor aan het bewerken was, sluit bewerkingsview
 					if(oldValue != newValue)
 					{
@@ -1198,8 +1195,10 @@ public class CategorieResponsiveController extends BorderPane
 			selectionDoelBewerking.setItems(FXCollections.observableList(doelTypes));
 			
 			// vul hoofd SDG choicebox
-			// TODO
-//			selectionDoelSDG.setItems(dc.getSdgs());
+			selectionDoelSDG.setItems(FXCollections.observableList(dc.getSdgs()));
+			
+			// vul datasources in
+			selectionDoelDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
 			
 			listDoelen.getSelectionModel().selectFirst();
 			
@@ -1322,18 +1321,18 @@ public class CategorieResponsiveController extends BorderPane
 		private void leegDoelVelden()
 		{
 			naamDoel.setText("");
-			// TODO set bewerking obj
-			// selectionDoelBewerking.setValue("");
+			selectionDoelBewerking.setValue(null);
 			doelDoelwaarde.setText("");
 			doelIcoon.setImage(null);
-			selectionDoelSDG.setValue(new SdGoal(""));
+			selectionDoelSDG.setValue(null);
+			selectionDoelDatasource.setValue(null);
 			listDoelSubDoelen.setItems(null);
 			checkboxMVORol.setSelected(false);
 			checkboxManagerRol.setSelected(false);
 			checkboxDirectieRol.setSelected(false);
 			checkboxStakeholderRol.setSelected(false);
-			// TODO denk na over empty value
-			selectionDoelDatasource.setValue(null);
+			
+			doelError.setText("");
 		}
 		
 		@FXML
@@ -1363,6 +1362,7 @@ public class CategorieResponsiveController extends BorderPane
 			selectionDoelBewerking.setDisable(false);
 			doelDoelwaarde.setEditable(true);
 			selectionDoelSDG.setDisable(false);
+			selectionDoelDatasource.setDisable(false);
 			checkboxMVORol.setDisable(false);
 			checkboxManagerRol.setDisable(false);
 			checkboxDirectieRol.setDisable(false);
@@ -1370,7 +1370,8 @@ public class CategorieResponsiveController extends BorderPane
 			
 			leegDoelVelden();
 			
-			// TODO vul kies listviews in
+			// TODO vul kies listviews subdoelen in
+			// subdoelen die geen (groot)ouder hebben en geen (klein)kinderen hebben?
 		}
 		
 		@FXML

@@ -15,6 +15,5 @@ public interface Doelstelling {
 	List<Component> getComponents();
 	public double getBerekendewaarde() throws IOException;
 
-//	public boolean isLeaf();
-//	public List<MVODatasource> getDatasources();
+	public MVODatasource getDatasource();
 }

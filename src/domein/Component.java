@@ -165,8 +165,15 @@ public abstract class Component implements Doelstelling, Serializable{
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public List<Component> getComponents(){
-		throw new UnsupportedOperationException();
+		return new ArrayList<>();
+	}
+	
+	@Override
+	public MVODatasource getDatasource()
+	{
+		return null;
 	}
 	
 	
