@@ -12,11 +12,11 @@ public class DTOMVODoelstelling
 	public List<Rol> rollen;
 	public SdGoal sdGoal;
 	public Datasource datasource;
-	public List<Component> subDoelstellingen;
+	public List<Doelstelling> subDoelstellingen;
 	public Bewerking bewerking;
 	
 	// Constructor
-	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Component> subDoelstellingen, Bewerking bewerking)
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking)
 	{
 		this.naam = naam;
 		this.icon = icon;

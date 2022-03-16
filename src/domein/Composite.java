@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -30,7 +31,7 @@ public class Composite extends Component implements Serializable{
 	// ---------------------------------------------------------------------------------------------------
 	public Composite(DTOMVODoelstelling d) {
 		super(d);
-		components = d.subDoelstellingen;
+		components = d.subDoelstellingen.stream().map(doel -> (Component) doel).collect(Collectors.toList());
 	}
 	
 	protected Composite() {

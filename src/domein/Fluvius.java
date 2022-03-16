@@ -333,6 +333,10 @@ public class Fluvius
 		{
 			throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.toString()));
 		}
+		catch(IllegalArgumentException e)
+		{
+			throw e;
+		}
 		catch(Exception e)
 		{
 			System.out.printf("%s", e.getMessage());
@@ -348,16 +352,23 @@ public class Fluvius
 			System.out.printf("Doelstelling %s inserten in databank%n", doelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
 			mvoDoelstellingRepo.insert(new Composite(doelstelling));
-			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(DatabaseException e)
 		{
 			throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.toString()));
 		}
+		catch (IllegalArgumentException e)
+		{
+			throw e;
+		}
 		catch(Exception e)
 		{
 			System.out.printf("%s", e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een MVO Doelstelling");
+		}
+		finally
+		{
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		
 		setDoelstellingen();

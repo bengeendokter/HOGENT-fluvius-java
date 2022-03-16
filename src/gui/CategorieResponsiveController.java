@@ -15,6 +15,7 @@ import domein.Bewerking;
 import domein.Categorie;
 import domein.DTOCategorie;
 import domein.DTODatasource;
+import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
 import domein.DomeinController;
@@ -1308,8 +1309,7 @@ public class CategorieResponsiveController extends BorderPane
 						huidigeSubDoelen.add(subDoel);
 						huidigeSubDoelen = new ArrayList<>(new HashSet<>(huidigeSubDoelen));
 						huidigeSubDoelen.sort(Comparator.comparing(Doelstelling::getNaam));
-						listDoelSubDoelen.setItems(
-								FXCollections.observableList(huidigeSubDoelen));
+						listDoelSubDoelen.setItems(FXCollections.observableList(huidigeSubDoelen));
 						
 						// verwijder newValue uit listDoelKiesSubDoel
 						// verpak dit in runLater want gui updaten in een lambda functie geeft error
@@ -1367,12 +1367,11 @@ public class CategorieResponsiveController extends BorderPane
 						if(andereSubDoelen == null)
 						{
 							andereSubDoelen = new ArrayList<>();
-						}	
+						}
 						andereSubDoelen.add(subDoel);
 						andereSubDoelen = new ArrayList<>(new HashSet<>(andereSubDoelen));
 						andereSubDoelen.sort(Comparator.comparing(Doelstelling::getNaam));
-						listDoelKiesSubDoel.setItems(
-								FXCollections.observableList(andereSubDoelen));
+						listDoelKiesSubDoel.setItems(FXCollections.observableList(andereSubDoelen));
 						
 						// verwijder newValue uit listDoelSubDoelen
 						// verpak dit in runLater want gui updaten in een lambda functie geeft error
@@ -1448,7 +1447,7 @@ public class CategorieResponsiveController extends BorderPane
 		
 		leegDoelVelden();
 		
-		titelDetailDoelstelling.setText("Maak nieuwe hoofd MVO doelstelling");	
+		titelDetailDoelstelling.setText("Maak nieuwe hoofd MVO doelstelling");
 		
 		// TODO vul kies listviews subdoelen in
 		// subdoelen die geen (groot)ouder hebben en geen (klein)kinderen hebben?
@@ -1498,14 +1497,79 @@ public class CategorieResponsiveController extends BorderPane
 		titelDetailDoelstelling.setText("Maak nieuwe sub MVO doelstelling");
 		
 		// vul datasources in
-		selectionDoelDatasource.setItems(FXCollections.observableList(dc.getDatasources()));		
+		selectionDoelDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
 	}
 	
 	@FXML
 	private void doelOpslaan(ActionEvent event)
 	{
-		// TODO toon errors
-		// TODO verander label detailscherm bij elke actie
+		try
+		{
+			boolean isLeaf = titelDetailDoelstelling.getText().contains("sub");
+			
+			String naam = naamDoel.getText();
+			
+			Image iconImage = doelIcoon.getImage();
+			String icoon = iconImage == null ? "" : iconImage.getUrl();
+			
+			// TODO controleer op parse double fout
+			double doelwaarde = 0.0;
+			try
+			{
+				doelwaarde = Double.parseDouble(doelDoelwaarde.getText());
+			}
+			catch(Exception e)
+			{
+				throw new IllegalArgumentException("De doelwaarde is geen geldig kommagetal gescheiden door een punt");
+			}
+			
+			List<Rol> rollen = new ArrayList<>();
+			if(checkboxMVORol.isSelected())
+			{
+				rollen.add(new Rol("MVO Coördinator"));
+			}
+			if(checkboxManagerRol.isSelected())
+			{
+				rollen.add(new Rol("Manager"));
+			}
+			if(checkboxDirectieRol.isSelected())
+			{
+				rollen.add(new Rol("Directie"));
+			}
+			if(checkboxStakeholderRol.isSelected())
+			{
+				rollen.add(new Rol("Stakeholder"));
+			}
+			
+			SdGoal sdGoal = selectionDoelSDG.getValue();
+			
+			Datasource datasource = selectionDoelDatasource.getValue();
+			List<Doelstelling> subDoelstellingen = listDoelSubDoelen.getItems();
+			
+			Bewerking bewerking = selectionDoelBewerking.getValue();
+			
+			DTOMVODoelstelling nieuweDoelstelling = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
+					datasource, subDoelstellingen, bewerking);
+			
+			if(isLeaf)
+			{
+				dc.voegMVODoelstellingToeZonderSubs(nieuweDoelstelling);
+			}
+			else
+			{
+				dc.voegMVODoelstellingToeMetSubs(nieuweDoelstelling);
+			}
+			
+			
+			leegDoelVelden();
+			showDoelMinimal();
+			listDoelen.getSelectionModel().selectLast();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			doelError.setText(e.getMessage());
+		}
 	}
 	
 	@FXML
