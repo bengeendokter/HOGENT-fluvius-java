@@ -123,7 +123,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	}
 
 	private void setRollen(List<Rol> rollen) {
-		if(rollen.isEmpty() || rollen == null) {
+		if(rollen == null || rollen.isEmpty()) {
 			throw new IllegalArgumentException("Een MVO Doelstelling moet minstens voor 1 rol zichtbaar zijn");
 		}
 		// Controleren dat de lijst van rollen niet bestaat uit dezelfde rollen
