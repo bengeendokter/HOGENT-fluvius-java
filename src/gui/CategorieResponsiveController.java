@@ -980,7 +980,56 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	public void datasourceVerwijderen(ActionEvent event)
 	{
-		
+		try
+		{
+			
+			//vragen of de gebruiker zeker is
+			Alert boodschap = new Alert(AlertType.CONFIRMATION);
+			boodschap.setTitle("Verwijderen");
+			
+			boodschap.setContentText("Bent u zeker dat u deze datasource wilt verwijderen?");
+			
+			boodschap.showAndWait().ifPresent(response -> {
+				if(response != ButtonType.CANCEL)
+				{
+					Datasource huidigeDatasource = listDatasources1.getSelectionModel().getSelectedItem();
+					dc.setCurrentDatasource(huidigeDatasource);
+					dc.verwijderMVODatasource();
+					
+					//alles terug goed zetten
+					vartextData.setText("Details datasource");
+					
+					listDatasources1.setDisable(false);
+					
+					listDatasources1.getSelectionModel().selectFirst();
+					Datasource d = listDatasources1.getSelectionModel().getSelectedItem();
+					naamDatasource.setText(d.getNaam());
+					datasourceLink.setText(d.getLink());
+					datasourceType.setValue(d.getTypeDatasource().toString());
+					
+					naamDatasource.setEditable(false);
+					datasourceLink.setEditable(false);
+					datasourceType.setDisable(true);
+					
+					btnDataAnnuleer.setVisible(false);
+					btnDataOpslaan.setVisible(false);
+					
+					btnDataBewerken.setDisable(false);
+					btnDataBewerken.setVisible(true);
+					btnDataVerwijderen.setDisable(false);
+					btnDataVerwijderen.setVisible(true);
+					
+					dataError.setVisible(false);
+					
+				}
+			});
+			
+		}
+		catch(IllegalArgumentException e)
+		{
+			catError.setText(e.getMessage());
+			catError.setVisible(true);
+		}
 	}
 	
 	@FXML
@@ -1485,8 +1534,34 @@ public class CategorieResponsiveController extends BorderPane
 	@FXML
 	private void doelVerwijderen(ActionEvent event)
 	{
-		// TODO
+		try
+		{
+			//vragen of de gebruiker zeker is
+			Alert boodschap = new Alert(AlertType.CONFIRMATION);
+			boodschap.setTitle("Verwijderen");
+			
+			boodschap.setContentText("Bent u zeker dat u deze doelstelling wilt verwijderen?");
+			
+			boodschap.showAndWait().ifPresent(response -> {
+				if(response != ButtonType.CANCEL)
+				{
+					Doelstelling huidigeDoelstelling = listDoelen.getSelectionModel().getSelectedItem();
+					dc.setCurrentDoelstelling(huidigeDoelstelling);
+					dc.verwijderMVODoelstelling();
+					
+					doelAnnuleer(event);
+				}
+			});
+			
+		}
+		catch(IllegalArgumentException e)
+		{
+			catError.setText(e.getMessage());
+			catError.setVisible(true);
+		}
 	}
+	
+	
 	
 	// TODO toon errors
 	// TODO verander label detailscherm bij elke actie
