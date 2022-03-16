@@ -244,6 +244,9 @@ public class Fluvius
 			categorieRepo.update(cat);
 			categorieRepo.commitTransaction();
 		}
+		catch(IllegalArgumentException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
 		catch(Exception e)
 		{
 			categorieRepo.rollbackTransaction();
