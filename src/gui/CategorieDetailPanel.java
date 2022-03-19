@@ -11,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -20,7 +23,9 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class CategorieDetailPanel<E> extends GridPane{
 	private E object;
@@ -121,7 +126,7 @@ public class CategorieDetailPanel<E> extends GridPane{
         this.add(treeView, 0,10);
 		
         
-        // Knop om te wijzigen en een knop om te verwijderen
+        // knop om te verwijderen
         Button btnDelete = new Button("Verwijder");
         btnDelete.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
         this.add(btnDelete, 0,15);
@@ -144,6 +149,28 @@ public class CategorieDetailPanel<E> extends GridPane{
 						maakLeeg();
 					}
 				});
+				
+			}
+		});
+        
+        
+        // Knop om te wijzigen 
+        Button btnUpdate = new Button("Wijzig");
+        btnUpdate.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+        this.add(btnUpdate, 0,16);
+        
+
+        btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent evt) {
+
+				UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, object, "Wijzig categorie");
+				// Eerst het hoofdscherm opvragen adhv dit scherm
+				Parent hoofdScherm = CategorieDetailPanel.this.getParent();
+				if (hoofdScherm instanceof BorderPane) {
+					// DetailsScherm opvragen adhv het hoofdScherm
+					((BorderPane) hoofdScherm).setCenter(vs);
+				}
 				
 			}
 		});

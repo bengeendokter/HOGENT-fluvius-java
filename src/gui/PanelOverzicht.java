@@ -10,6 +10,8 @@ import domein.ListViewInterface;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -64,6 +66,12 @@ public class PanelOverzicht<E> extends VBox {
 					if (details instanceof CategorieDetailPanel) {
 						((CategorieDetailPanel) details).initGui(newValue, dc);
 					}
+					else {
+						((BorderPane) hoofdScherm).setCenter(null);
+						((BorderPane) hoofdScherm).setCenter(cdp);
+						details = ( ((BorderPane) hoofdScherm).getCenter());
+						((CategorieDetailPanel) details).initGui(newValue, dc);
+					}
 				}
 			}
 		});
@@ -72,6 +80,21 @@ public class PanelOverzicht<E> extends VBox {
 		Button btnMaakNieuwe = new Button("+");
 		btnMaakNieuwe.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;");
 
+		btnMaakNieuwe.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent evt) {
+
+				UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, null, "Maak nieuwe categorie");
+				// Eerst het hoofdscherm opvragen adhv dit scherm
+				Parent hoofdScherm = PanelOverzicht.this.getParent();
+				if (hoofdScherm instanceof BorderPane) {
+					// DetailsScherm opvragen adhv het hoofdScherm
+					((BorderPane) hoofdScherm).setCenter(vs);
+				}
+				
+			}
+		});
+		
 		// Toevoegen aan het scherm
 		this.getChildren().addAll(lblOverzicht, list, btnMaakNieuwe);
 
