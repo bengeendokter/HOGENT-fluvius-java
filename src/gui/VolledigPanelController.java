@@ -23,13 +23,15 @@ public class VolledigPanelController<E> extends BorderPane{
 		try
 		{
 			loader.load();
+			DomeinController dc = new DomeinController(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
 		    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-		    Navigatiebalk nav = new Navigatiebalk();
+		    Navigatiebalk nav = new Navigatiebalk(dc);
 		    this.setTop(nav);
 		    
-		    DomeinController dc = new DomeinController(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
 		    
-		    PanelOverzicht ov = new PanelOverzicht(dc.getCategorien());
+		    
+		    PanelOverzicht ov = new PanelOverzicht();
+		    ov.initGui(dc.getCategorien(), "categorieën", dc);
 		    this.setLeft(ov);
 		    
 		    CategorieDetailPanel<E> detail = new CategorieDetailPanel<>();

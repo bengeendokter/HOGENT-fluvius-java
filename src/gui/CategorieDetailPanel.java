@@ -1,34 +1,119 @@
 package gui;
 
-import domein.Categorie;
-import domein.ListViewInterface;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import java.util.Comparator;
 
-public class CategorieDetailPanel<E> extends VBox{
+import domein.Categorie;
+import domein.DomeinController;
+import domein.SdGoal;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+
+public class CategorieDetailPanel<E> extends GridPane{
 	private E object;
+	private DomeinController dc;
+	
+	private final Image depIcon = 
+	        new Image(getClass().getResourceAsStream("/images/people.png"));
+	
 	
 	public CategorieDetailPanel() {
-		this.getChildren().add(new Label("test"));
 		
 		//initGui();
 	}
 
-	public void initGui(E object) {
+	public void initGui(E object, DomeinController dc) {
 		this.object = object;
+		this.dc = dc;
+		
+		this.setStyle("-fx-background-color: white;");
+		
 		// Scherm leegmaken
 		this.getChildren().clear();
 		
 		Label lblDetails = new Label("Details categorie");
-		Label lblNaam = new Label();
-
+		lblDetails.setStyle("-fx-text-fill: #004C69;  -fx-font-size: 20; -fx-underline:true");
+		this.add(lblDetails, 0, 0);
+		
+		Label lblNaam = new Label("Naam: ");
+		lblNaam.setStyle("-fx-text-fill: black;  -fx-font-size: 20; ");
+		this.add(lblNaam, 0, 1);
+		
+		Label lblNaamIngevuld = new Label();
+		lblNaamIngevuld.setStyle("-fx-background-color: white; -fx-text-fill: black;  -fx-font-size: 20; ");
 		if(object instanceof Categorie) {
-			lblNaam.setText(((Categorie) object).getNaam());
+			lblNaamIngevuld.setText(((Categorie) object).getNaam());
 		}
+		this.add(lblNaamIngevuld, 1, 1);
+		
+		Label lblIcoon = new Label("Icoon: ");
+		lblIcoon.setStyle("-fx-text-fill: black;  -fx-font-size: 20; ");
+		this.add(lblIcoon, 0, 2);
+		
+		Label lblIcoonIngevuld = new Label();
+		lblIcoonIngevuld.setStyle("-fx-background-color: white; -fx-text-fill: black;  -fx-font-size: 20; ");
+		
+		if(object instanceof Categorie) {
+			String pad = ((Categorie) object).getIcon();
+			int index = pad.indexOf("c");
+			pad = pad.substring(index+1);
+			// Mannetje weergeven
+			ImageView imgIcoon2 = new ImageView(new Image(getClass().getResourceAsStream(pad)));
+			
+			// Hoogte en breedte instellen van het logo
+			imgIcoon2.setFitWidth(40);
+			imgIcoon2.setFitHeight(40);
+			this.add(imgIcoon2, 1, 2);
+			
+		}
+
+		Label lblSdgs = new Label("SDG's: ");
+		lblSdgs.setStyle("-fx-text-fill: black;  -fx-font-size: 20; ");
+		this.add(lblSdgs, 0, 3);
+		
+		TreeItem<SdGoal> rootNode = 
+		        new TreeItem<SdGoal>(null);
+
 		
 		
-		this.getChildren().addAll(lblDetails, lblNaam);
+		for (SdGoal s : ((Categorie) object).getSdGoals()) {
+			System.out.println(s.getNaam());
+            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
+            boolean found = false;
+            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
+            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            		depNode.getChildren().add(empLeaf);
+                  found = true;
+                  break;
+            	}
+            }
+            String pad = s.getIcon();
+			int index = pad.indexOf("c");
+			pad = pad.substring(index+1);
+
+            if (!found) {
+                TreeItem<SdGoal> depNode = new TreeItem<SdGoal>(
+                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+                );
+                
+                rootNode.getChildren().add(depNode);
+            }
+        }
+ 
+ 
+        TreeView<SdGoal> treeView = new TreeView<SdGoal>(rootNode);
+        
+        this.add(treeView, 0,10);
+		
+		
+		// Ruimte instellen
+		this.setPadding(new Insets(10));
+		this.setAlignment(Pos.TOP_LEFT);
 		
 	}
 
