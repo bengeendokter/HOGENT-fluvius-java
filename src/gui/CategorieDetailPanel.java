@@ -107,7 +107,7 @@ public class CategorieDetailPanel<E> extends GridPane{
  
  
         TreeView<SdGoal> treeView = new TreeView<SdGoal>(rootNode);
-        
+        treeView.setShowRoot(false);
         this.add(treeView, 0,10);
 		
 		
