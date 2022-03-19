@@ -1,15 +1,23 @@
 package gui;
 
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import domein.Categorie;
 import domein.DomeinController;
 import domein.SdGoal;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -72,6 +80,8 @@ public class CategorieDetailPanel<E> extends GridPane{
 			
 		}
 
+		
+		// Sdg's weergeven en aanmaken in een treeview
 		Label lblSdgs = new Label("SDG's: ");
 		lblSdgs.setStyle("-fx-text-fill: black;  -fx-font-size: 20; ");
 		this.add(lblSdgs, 0, 3);
@@ -110,10 +120,42 @@ public class CategorieDetailPanel<E> extends GridPane{
         treeView.setShowRoot(false);
         this.add(treeView, 0,10);
 		
+        
+        // Knop om te wijzigen en een knop om te verwijderen
+        Button btnDelete = new Button("Verwijder");
+        btnDelete.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+        this.add(btnDelete, 0,15);
+        
+        // Als er op de verwijderknop geklikt wordt moet de categorie verwijderd worden
+        btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent evt) {
+				//vragen of de gebruiker zeker is
+				Alert boodschap = new Alert(AlertType.CONFIRMATION);
+				boodschap.setTitle("Verwijderen");
+				
+				boodschap.setContentText("Bent u zeker dat u deze categorie wilt verwijderen?");
+				
+				boodschap.showAndWait().ifPresent(response -> {
+					if(response != ButtonType.CANCEL)
+					{
+						dc.setCurrentCategorie((Categorie)object);
+						dc.verwijderCategorie();
+						maakLeeg();
+					}
+				});
+				
+			}
+		});
 		
 		// Ruimte instellen
 		this.setPadding(new Insets(10));
 		this.setAlignment(Pos.TOP_LEFT);
+		
+	}
+
+	public void maakLeeg() {
+		this.getChildren().clear();
 		
 	}
 

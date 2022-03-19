@@ -16,7 +16,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -46,6 +49,7 @@ public class PanelOverzicht<E> extends VBox {
 		ListView<E> list = new ListView<E>();
 		//ObservableList<String> items = FXCollections.observableArrayList("Single", "Double", "Suite", "Family App");
 		list.setItems(items);
+		
 		
 		list.getSelectionModel().selectedItemProperty()
 		.addListener((observableValue, oldValue, newValue) -> {
