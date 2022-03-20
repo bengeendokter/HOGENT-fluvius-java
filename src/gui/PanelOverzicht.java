@@ -101,14 +101,25 @@ public class PanelOverzicht<E> extends VBox {
 		btnMaakNieuwe.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-
-				UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, null, "Maak nieuwe categorie");
-				// Eerst het hoofdscherm opvragen adhv dit scherm
-				Parent hoofdScherm = PanelOverzicht.this.getParent();
-				if (hoofdScherm instanceof BorderPane) {
-					// DetailsScherm opvragen adhv het hoofdScherm
-					((BorderPane) hoofdScherm).setCenter(vs);
+				if(soort.equals("categorieën")) {
+					UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, null, "Maak nieuwe categorie");
+					// Eerst het hoofdscherm opvragen adhv dit scherm
+					Parent hoofdScherm = PanelOverzicht.this.getParent();
+					if (hoofdScherm instanceof BorderPane) {
+						// DetailsScherm opvragen adhv het hoofdScherm
+						((BorderPane) hoofdScherm).setCenter(vs);
+					}
 				}
+				if(soort.equals("doelstellingen")) {
+					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					// Eerst het hoofdscherm opvragen adhv dit scherm
+					Parent hoofdScherm = PanelOverzicht.this.getParent();
+					if (hoofdScherm instanceof BorderPane) {
+						// DetailsScherm opvragen adhv het hoofdScherm
+						((BorderPane) hoofdScherm).setCenter(vs);
+					}
+				}
+				
 				
 			}
 		});

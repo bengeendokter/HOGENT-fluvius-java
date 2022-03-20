@@ -11,19 +11,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblMaakOfWijzig" layoutX="26.0" layoutY="32.0" prefHeight="31.0" prefWidth="343.0" text="Maak nieuwe doelstelling">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="btnOpslaan" layoutX="918.0" layoutY="611.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
+      <Button fx:id="btnOpslaan" layoutX="919.0" layoutY="649.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
          <font>
             <Font size="21.0" />
          </font>
       </Button>
-      <Button fx:id="btnAnnuleer" layoutX="1050.0" layoutY="611.0" mnemonicParsing="false" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Annuleer">
+      <Button fx:id="btnAnnuleer" layoutX="1049.0" layoutY="649.0" mnemonicParsing="false" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Annuleer">
          <font>
             <Font size="21.0" />
          </font>
@@ -108,5 +108,10 @@
          </font>
       </Label>
       <ChoiceBox fx:id="choiceDatasource" layoutX="151.0" layoutY="410.0" prefHeight="25.0" prefWidth="261.0" />
+      <Label fx:id="lblErrorMessage" layoutX="27.0" layoutY="663.0" prefHeight="31.0" prefWidth="856.0" text="Label" textFill="RED">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

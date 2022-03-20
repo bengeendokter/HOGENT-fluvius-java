@@ -100,6 +100,8 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	private Label lblDatasource;
 	@FXML
 	private ChoiceBox choiceDatasource;
+	@FXML
+	private Label lblErrorMessage;
 	
 	private DomeinController dc;
 	private E object;
@@ -123,6 +125,61 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 		{
 			loader.load();
 			lblMaakOfWijzig.setText(wijzigMaak);
+			
+			if(object != null) {
+				txtnaam.setText(((Doelstelling)object).getNaam());
+				choiceBewerking.setValue(((Doelstelling)object).getFormule());
+				//txtDoelwaarde.setText(((Doelstelling)object).getDoelwaarde());
+				String pad2 = ((Doelstelling) object).getIcon();
+				int index2 = pad2.indexOf("c");
+				pad2 = pad2.substring(index2+1);
+				imgIcoon.setImage(new Image(((Doelstelling) object).getIcon(), 25,25,true, true));
+				choiceSdg.setValue(((Doelstelling) object).getSdGoal());
+				choiceDatasource.setValue(((Doelstelling) object).getDatasource());
+				
+				List<Rol> rollen = ((Doelstelling) object).getRollen();
+				
+				if(rollen.contains(new Rol("MVO Coördinator")))
+				{
+					kiesCoordinator.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Manager")))
+				{
+					kiesManager.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Directie")))
+				{
+					kiesDirectie.setSelected(true);
+				}
+				if(rollen.contains(new Rol("Stakeholder")))
+				{
+					kiesStakeholder.setSelected(true);
+				}
+				
+				for (Doelstelling s : ((Doelstelling)object).getComponents()) {
+					System.out.println(s.getNaam());
+		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
+		            boolean found = false;
+//		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
+//		            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+//		            		depNode.getChildren().add(empLeaf);
+//		                  found = true;
+//		                  break;
+//		            	}
+//		            }
+		            String pad = s.getIcon();
+					int index = pad.indexOf("c");
+					pad = pad.substring(index+1);
+
+		            if (!found) {
+		                TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(
+		                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+		                );
+		                
+		                rootNode2.getChildren().add(depNode);
+		            }
+		        }
+			}
 
 			//listIcoon opvullen met iconen
 			listIconen.setItems(FXCollections.observableList(iconen));
@@ -209,14 +266,15 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 
 			treeKiesSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
 			treeGekozenSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2);
-			
-			this.getChildren().addAll(imgIcoon, lblBewerking, lblDoelwaarde, lblIcoon, lblKiesIcoon, lblKiesSub, lblMaakOfWijzig, lblNaam, lblRollen, lblSdg, lblSubs, txtDoelwaarde, txtEenheid, txtnaam, treeKiesSubs, treeGekozenSubs, btnAnnuleer, btnOpslaan, choiceBewerking, choiceSdg, listIconen, kiesCoordinator, kiesDirectie, kiesManager, kiesStakeholder, lblDatasource, choiceDatasource);
+			lblErrorMessage.setVisible(false);
+			this.getChildren().addAll(lblErrorMessage, imgIcoon, lblBewerking, lblDoelwaarde, lblIcoon, lblKiesIcoon, lblKiesSub, lblMaakOfWijzig, lblNaam, lblRollen, lblSdg, lblSubs, txtDoelwaarde, txtEenheid, txtnaam, treeKiesSubs, treeGekozenSubs, btnAnnuleer, btnOpslaan, choiceBewerking, choiceSdg, listIconen, kiesCoordinator, kiesDirectie, kiesManager, kiesStakeholder, lblDatasource, choiceDatasource);
 			
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {
 					//lblErrorMessage.setVisible(false);
 					try {
+						lblErrorMessage.setVisible(false);
 					populateMap(rootNode2);
 					
 					String naam = txtnaam.getText();
@@ -272,7 +330,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 						dc.wijzigMVODoelstelling(doel);
 
 					}else {
-							dc.voegMVODoelstellingToeMetSubs(doel);
+						dc.voegMVODoelstellingToeMetSubs(doel);
 						
 						
 					}
@@ -281,8 +339,8 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 				}
 					catch(IllegalArgumentException e)
 					{
-//						lblErrorMessage.setText(e.getMessage());
-//						lblErrorMessage.setVisible(true);
+						lblErrorMessage.setText(e.getMessage());
+						lblErrorMessage.setVisible(true);
 					}
 					
 				}
