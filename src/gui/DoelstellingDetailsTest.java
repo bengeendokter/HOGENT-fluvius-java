@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,6 +27,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class DoelstellingDetailsTest<E> extends Pane{
@@ -164,6 +166,21 @@ public class DoelstellingDetailsTest<E> extends Pane{
 							
 						}
 					});
+					
+				}
+			});
+			
+			btnWijzigen.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent evt) {
+
+					UpdateOrCreateDoelstelling<E> vs = new UpdateOrCreateDoelstelling(dc, object, "Wijzig doelstelling");
+					// Eerst het hoofdscherm opvragen adhv dit scherm
+					Parent hoofdScherm = DoelstellingDetailsTest.this.getParent();
+					if (hoofdScherm instanceof BorderPane) {
+						// DetailsScherm opvragen adhv het hoofdScherm
+						((BorderPane) hoofdScherm).setCenter(vs);
+					}
 					
 				}
 			});

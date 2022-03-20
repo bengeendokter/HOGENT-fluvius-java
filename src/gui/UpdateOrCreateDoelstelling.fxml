@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMaakOfWijzig" layoutX="26.0" layoutY="32.0" prefHeight="31.0" prefWidth="343.0" text="Maak nieuwe doelstelling">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnOpslaan" layoutX="918.0" layoutY="611.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAnnuleer" layoutX="1050.0" layoutY="611.0" mnemonicParsing="false" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Annuleer">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblNaam" layoutX="26.0" layoutY="87.0" prefHeight="31.0" prefWidth="100.0" text="Naam: ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBewerking" layoutX="26.0" layoutY="136.0" prefHeight="31.0" prefWidth="112.0" text="Bewerking:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDoelwaarde" layoutX="25.0" layoutY="185.0" text="Doelwaarde:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblIcoon" layoutX="26.0" layoutY="237.0" prefHeight="31.0" prefWidth="68.0" text="Icoon:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblKiesIcoon" layoutX="27.0" layoutY="296.0" prefHeight="31.0" prefWidth="199.0" text="Kies icoon:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSdg" layoutX="27.0" layoutY="364.0" prefHeight="31.0" prefWidth="53.0" text="SDG:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRollen" layoutX="27.0" layoutY="442.0" text="Rollen:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="kiesCoordinator" layoutX="27.0" layoutY="489.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="MVO coördinator">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="kiesManager" layoutX="27.0" layoutY="533.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Manager">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="kiesDirectie" layoutX="27.0" layoutY="573.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Directie">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="kiesStakeholder" layoutX="27.0" layoutY="618.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Stakeholder">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <TextField fx:id="txtnaam" layoutX="152.0" layoutY="90.0" prefHeight="25.0" prefWidth="261.0" />
+      <ChoiceBox fx:id="choiceBewerking" layoutX="151.0" layoutY="139.0" prefHeight="25.0" prefWidth="261.0" />
+      <TextField fx:id="txtDoelwaarde" layoutX="152.0" layoutY="188.0" prefHeight="25.0" prefWidth="112.0" />
+      <TextField fx:id="txtEenheid" layoutX="274.0" layoutY="188.0" prefHeight="25.0" prefWidth="139.0" />
+      <ImageView fx:id="imgIcoon" fitHeight="65.0" fitWidth="78.0" layoutX="335.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="listIconen" layoutX="151.0" layoutY="296.0" orientation="HORIZONTAL" prefHeight="65.0" prefWidth="261.0" />
+      <ChoiceBox fx:id="choiceSdg" layoutX="151.0" layoutY="367.0" prefHeight="25.0" prefWidth="261.0" />
+      <Label fx:id="lblKiesSub" layoutX="583.0" layoutY="87.0" prefHeight="31.0" prefWidth="222.0" text="Kies subdoelstellingen:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSubs" layoutX="919.0" layoutY="87.0" prefHeight="31.0" prefWidth="222.0" text="Subdoelstellingen:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TreeView fx:id="treeKiesSubs" layoutX="583.0" layoutY="131.0" prefHeight="428.0" prefWidth="244.0" />
+      <TreeView fx:id="treeGekozenSubs" layoutX="918.0" layoutY="131.0" prefHeight="428.0" prefWidth="244.0" />
+      <Label fx:id="lblDatasource" layoutX="26.0" layoutY="407.0" text="Datasource:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceDatasource" layoutX="151.0" layoutY="410.0" prefHeight="25.0" prefWidth="261.0" />
+   </children>
+</Pane>
