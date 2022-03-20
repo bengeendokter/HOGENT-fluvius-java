@@ -75,6 +75,8 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	private Button btnSlaOp;
 	@FXML
 	private Button btnAnnuleer;
+	@FXML
+	private Label lblErrorMessage;
 	
 	private DomeinController dc;
 	
@@ -97,7 +99,8 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		try
 		{
 			loader.load();
-			
+			lblErrorMessage.setVisible(false);
+			this.getChildren().add(lblErrorMessage);
 			// label goed zetten
 			lblUpdateOrCreate.setText(wijzigMaak);
 			
@@ -198,19 +201,32 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			btnSlaOp.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {
-
+					lblErrorMessage.setVisible(false);
+					try {
 					populateMap(rootNode2);
 					DTOCategorie cat = new DTOCategorie(txtFNaam.getText(), imgIcoon.getImage().getUrl(),
 					new ArrayList<SdGoal>(map.values()));
 					
 					if(object != null) {
 						dc.setCurrentCategorie((Categorie)object);
-						dc.wijzigCategorie(cat);
+						
+							dc.wijzigCategorie(cat);
+						
+						
 					}else {
-						dc.voegCategorieToe(cat);
+						
+							dc.voegCategorieToe(cat);
+						
+						
 					}
 					
 					refreshScherm();
+				}
+					catch(IllegalArgumentException e)
+					{
+						lblErrorMessage.setText(e.getMessage());
+						lblErrorMessage.setVisible(true);
+					}
 					
 				}
 			});
@@ -221,6 +237,14 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		{
 			throw new RuntimeException(e);
 		}
+		
+		btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent evt) {
+				maakLeeg();
+			}
+		});
+		
 	}
 	
 
@@ -306,8 +330,10 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
         }
         else {
         	SdGoal node = (SdGoal) item.getValue();     
-            
-                map.put(node.toString(), node);
+            	if(node != null) {
+            		map.put(node.toString(), node);
+            	}
+                
         }
     }
 	

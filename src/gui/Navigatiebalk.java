@@ -49,7 +49,7 @@ public class Navigatiebalk<E> extends HBox {
 		
 
 		// Knoppen stijlen
-		btnCategorie.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+		btnCategorie.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20;");
 		btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 		btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 
@@ -79,7 +79,7 @@ public class Navigatiebalk<E> extends HBox {
 		btnCategorie.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnCategorie.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+				btnCategorie.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20;");
 				btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 				btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 
@@ -89,7 +89,7 @@ public class Navigatiebalk<E> extends HBox {
 		btnDatasource.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnDatasource.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+				btnDatasource.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20;");
 				btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 				btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 
@@ -100,7 +100,7 @@ public class Navigatiebalk<E> extends HBox {
 		btnDoelstelling.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnDoelstelling.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
+				btnDoelstelling.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20;");
 				btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 				btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #004C69;  -fx-font-size: 20;");
 			

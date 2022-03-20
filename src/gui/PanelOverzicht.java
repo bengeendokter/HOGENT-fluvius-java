@@ -41,7 +41,7 @@ public class PanelOverzicht<E> extends VBox {
 		
 		this.getChildren().clear();
 		
-		this.setStyle("-fx-background-color: #004C69;");
+		this.setStyle("-fx-background-color: #495973;");
 		
 		// Label aanmaken
 		Label lblOverzicht = new Label("Overzicht " + soort);
@@ -58,10 +58,13 @@ public class PanelOverzicht<E> extends VBox {
 			if(newValue != null)
 			{
 				CategorieDetailPanel cdp = new CategorieDetailPanel();
+
 				// Eerst het hoofdscherm opvragen adhv dit scherm
 				Parent hoofdScherm = PanelOverzicht.this.getParent();
+				
 				if (hoofdScherm instanceof BorderPane) {
-					// DetailsScherm opvragen adhv het hoofdScherm
+
+					 //DetailsScherm opvragen adhv het hoofdScherm
 					Node details = ( ((BorderPane) hoofdScherm).getCenter());
 					if (details instanceof CategorieDetailPanel) {
 						((CategorieDetailPanel) details).initGui(newValue, dc);
