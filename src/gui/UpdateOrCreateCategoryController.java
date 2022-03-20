@@ -3,8 +3,10 @@ package gui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.swing.event.TreeSelectionEvent;
@@ -21,10 +23,13 @@ import domein.SdGoal;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -37,7 +42,10 @@ import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class UpdateOrCreateCategoryController<E> extends Pane {
@@ -74,6 +82,11 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
 	
+	TreeItem<SdGoal> rootNode2 = 
+	        new TreeItem<SdGoal>(null);
+	
+	Map<String, SdGoal> map = new HashMap<String, SdGoal>();
+	
 	@SuppressWarnings("unchecked")
 	public UpdateOrCreateCategoryController(DomeinController dc,E object, String wijzigMaak ) {
 		
@@ -84,27 +97,13 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		try
 		{
 			loader.load();
-			// WIJZIGEN
+			
+			// label goed zetten
+			lblUpdateOrCreate.setText(wijzigMaak);
+			
 			if(object != null) {
-				lblUpdateOrCreate.setText(wijzigMaak);
-				txtFNaam.setText(((Categorie)object).getNaam());
-				
-				String pad2 = ((Categorie) object).getIcon();
-				int index2 = pad2.indexOf("c");
-				pad2 = pad2.substring(index2+1);
-				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad2)));
-
-				
-
+				wijzigBestaandeCategorie(object);
 			}
-			// NIEUWE AANMAKEN
-			else { // nieuwe aanmaken
-				lblUpdateOrCreate.setText(wijzigMaak);
-//				DTOCategorie nieuweCategorie = new DTOCategorie(txtFNaam.getText(), imgIcoon.getImage().getUrl(),
-//						new ArrayList<SdGoal>(treeviewGesSdgs.getItems().stream().collect(Collectors.toList())));
-//				dc.voegCategorieToe(nieuweCategorie);
-			}
-			// MOET SOWIESO GEBEUREN
 			
 			//listIcoon opvullen met iconen
 			listIcoon.setItems(FXCollections.observableList(iconen));
@@ -146,36 +145,11 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 				}
 			});
 			
-			TreeItem<SdGoal> rootNode2 = 
-			        new TreeItem<SdGoal>(null);
-			if(object != null) {
-				for (SdGoal s : ((Categorie)object).getSdGoals()) {
-					System.out.println(s.getNaam());
-		            TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
-		            boolean found2 = false;
-		            for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
-		            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
-		            		depNode2.getChildren().add(empLeaf2);
-		                  found2 = true;
-		                  break;
-		            	}
-		            }
-		            String pad3 = s.getIcon();
-					int index3 = pad3.indexOf("c");
-					pad3 = pad3.substring(index3+1);
-
-		            if (!found2) {
-		                TreeItem<SdGoal> depNode4 = new TreeItem<SdGoal>(
-		                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
-		                );
-		                
-		                rootNode2.getChildren().add(depNode4);
-		            }
-		        }
-			}
 			
+
 			treeviewGesSdgs.setRoot(rootNode2);
 			treeviewGesSdgs.setShowRoot(false);
+
 			
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
@@ -220,6 +194,27 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			this.getChildren().addAll(lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
 			
+			
+			btnSlaOp.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent evt) {
+
+					populateMap(rootNode2);
+					DTOCategorie cat = new DTOCategorie(txtFNaam.getText(), imgIcoon.getImage().getUrl(),
+					new ArrayList<SdGoal>(map.values()));
+					
+					if(object != null) {
+						dc.setCurrentCategorie((Categorie)object);
+						dc.wijzigCategorie(cat);
+					}else {
+						dc.voegCategorieToe(cat);
+					}
+					
+					refreshScherm();
+					
+				}
+			});
+			
 
 		}
 		catch(IOException e)
@@ -227,6 +222,42 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			throw new RuntimeException(e);
 		}
 	}
+	
+
+	private void wijzigBestaandeCategorie(E object) {
+		txtFNaam.setText(((Categorie)object).getNaam());
+		
+		String pad2 = ((Categorie) object).getIcon();
+		int index2 = pad2.indexOf("c");
+		pad2 = pad2.substring(index2+1);
+		imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad2)));
+		
+		for (SdGoal s : ((Categorie)object).getSdGoals()) {
+			System.out.println(s.getNaam());
+            TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
+            boolean found2 = false;
+            for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
+            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            		depNode2.getChildren().add(empLeaf2);
+                  found2 = true;
+                  break;
+            	}
+            }
+            String pad3 = s.getIcon();
+			int index3 = pad3.indexOf("c");
+			pad3 = pad3.substring(index3+1);
+
+            if (!found2) {
+                TreeItem<SdGoal> depNode4 = new TreeItem<SdGoal>(
+                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+                );
+                
+                rootNode2.getChildren().add(depNode4);
+            }
+        }
+	}
+	
+
 	
 	
 	private void handleMouseClicked(MouseEvent event) {
@@ -262,6 +293,37 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             
 	    	
 	    }
+	}
+	
+	// METHODE OM DE ELEMENTEN UIT DE TREEVIEW TE HALEN EN DAARNA OM TE ZETTEN NAAR EN LIST
+	private void populateMap(TreeItem<SdGoal> item){
+
+        if(item.getChildren().size() > 0){
+            for(TreeItem<SdGoal> subItem : item.getChildren()){
+                populateMap(subItem);
+            }
+        }
+        else {
+        	SdGoal node = (SdGoal) item.getValue();     
+            
+                map.put(node.toString(), node);
+        }
+    }
+	
+	private void refreshScherm() {
+		PanelOverzicht po = new PanelOverzicht();
+		// Eerst het hoofdscherm opvragen adhv dit scherm
+		Parent hoofdScherm = UpdateOrCreateCategoryController.this.getParent();
+		if (hoofdScherm instanceof BorderPane) {
+			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
+			((UpdateOrCreateCategoryController) details).maakLeeg();
+		}
+		
+		
+	}
+	public void maakLeeg() {
+		this.getChildren().clear();
+		
 	}
 
 }
