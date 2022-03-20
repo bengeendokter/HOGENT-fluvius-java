@@ -78,16 +78,13 @@ public class PanelOverzicht<E> extends VBox {
 							((CategorieDetailPanel) details).initGui(newValue, dc);
 						}
 					}
-					if(soort.equals("doelstellingen")) {
-						//DoelstellingDetailPanel dd = new DoelstellingDetailPanel(dc, newValue);
-						DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);
-						//DoelstellingDetailPanelController2 d2 = new DoelstellingDetailPanelController2(dc, newValue);
+					if(soort.equals("doelstellingen")) {						//DoelstellingDetailPanel dd = new DoelstellingDetailPanel(dc, newValue);
+						DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);						//DoelstellingDetailPanelController2 d2 = new DoelstellingDetailPanelController2(dc, newValue);
 							((BorderPane) hoofdScherm).setCenter(test);
-//							((BorderPane) hoofdScherm).setCenter(null);
-//							((BorderPane) hoofdScherm).setCenter(dd);
-//							details = ( ((BorderPane) hoofdScherm).getCenter());
-							
-						
+					}
+					if(soort.equals("datasources")) {
+						DatasourceDetailsController d = new DatasourceDetailsController<>(dc, newValue);
+						((BorderPane) hoofdScherm).setCenter(d);
 					}
 					
 				}
