@@ -122,7 +122,8 @@ public class Navigatiebalk<E> extends HBox {
 			}
 			
 			Node details = ((GridPane) ((BorderPane) hoofdScherm).getCenter());
-			((CategorieDetailPanel) details).maakLeeg();
+			((BorderPane) hoofdScherm).setCenter(null);
+			//((CategorieDetailPanel) details).maakLeeg();
 		}
 		
 		

@@ -58,6 +58,7 @@ public class PanelOverzicht<E> extends VBox {
 			if(newValue != null)
 			{
 				CategorieDetailPanel cdp = new CategorieDetailPanel();
+				
 
 				// Eerst het hoofdscherm opvragen adhv dit scherm
 				Parent hoofdScherm = PanelOverzicht.this.getParent();
@@ -66,15 +67,29 @@ public class PanelOverzicht<E> extends VBox {
 
 					 //DetailsScherm opvragen adhv het hoofdScherm
 					Node details = ( ((BorderPane) hoofdScherm).getCenter());
-					if (details instanceof CategorieDetailPanel) {
-						((CategorieDetailPanel) details).initGui(newValue, dc);
+					if(soort.equals("categorieën")) {
+						if (details instanceof CategorieDetailPanel) {
+							((CategorieDetailPanel) details).initGui(newValue, dc);
+						}
+						else {
+							((BorderPane) hoofdScherm).setCenter(null);
+							((BorderPane) hoofdScherm).setCenter(cdp);
+							details = ( ((BorderPane) hoofdScherm).getCenter());
+							((CategorieDetailPanel) details).initGui(newValue, dc);
+						}
 					}
-					else {
-						((BorderPane) hoofdScherm).setCenter(null);
-						((BorderPane) hoofdScherm).setCenter(cdp);
-						details = ( ((BorderPane) hoofdScherm).getCenter());
-						((CategorieDetailPanel) details).initGui(newValue, dc);
+					if(soort.equals("doelstellingen")) {
+						//DoelstellingDetailPanel dd = new DoelstellingDetailPanel(dc, newValue);
+						DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);
+						//DoelstellingDetailPanelController2 d2 = new DoelstellingDetailPanelController2(dc, newValue);
+							((BorderPane) hoofdScherm).setCenter(test);
+//							((BorderPane) hoofdScherm).setCenter(null);
+//							((BorderPane) hoofdScherm).setCenter(dd);
+//							details = ( ((BorderPane) hoofdScherm).getCenter());
+							
+						
 					}
+					
 				}
 			}
 		});
