@@ -19,4 +19,9 @@ public interface Datasource{
 	//data geven
 	//List<Double>
 	public List<Double> getData() throws IOException;
+	
+	//TODO
+	//meta data toevoegen als attribuut
+	//file kunnen uploaden
+	//wijzigingen worden opgeslagen
 }
