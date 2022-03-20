@@ -226,11 +226,12 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 
 	private void wijzigBestaandeCategorie(E object) {
 		txtFNaam.setText(((Categorie)object).getNaam());
-		
+
 		String pad2 = ((Categorie) object).getIcon();
 		int index2 = pad2.indexOf("c");
 		pad2 = pad2.substring(index2+1);
-		imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad2)));
+		imgIcoon.setImage(new Image(((Categorie) object).getIcon(), 25,25,true, true));
+		//imageView.setImage(new Image(name.getIcon(), 25, 25, true, true));
 		
 		for (SdGoal s : ((Categorie)object).getSdGoals()) {
 			System.out.println(s.getNaam());
