@@ -97,5 +97,10 @@
          </font>
       </Label>
       <ListView fx:id="listRollenIngevuld" layoutX="35.0" layoutY="468.0" prefHeight="147.0" prefWidth="393.0" />
+      <Label fx:id="lblErrorMessage" layoutX="35.0" layoutY="635.0" prefHeight="31.0" prefWidth="826.0" text="Label" textFill="RED">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

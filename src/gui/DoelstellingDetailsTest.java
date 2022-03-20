@@ -3,18 +3,28 @@ package gui;
 import java.io.IOException;
 
 import domein.Categorie;
+import domein.Component;
 import domein.Doelstelling;
 import domein.DomeinController;
+import domein.SdGoal;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -59,6 +69,8 @@ public class DoelstellingDetailsTest<E> extends Pane{
 	private Label lblDatasourceIngevuld;
 	@FXML
 	private ListView listRollenIngevuld;
+	@FXML
+	private Label lblErrorMessage;
 	private DomeinController dc;
 	private E object;
 	
@@ -71,6 +83,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 		try
 		{
 			loader.load();
+			lblErrorMessage.setVisible(false);
 			if(object instanceof Doelstelling) {
 				lblNaamIngevuld.setText(((Doelstelling) object).getNaam());
 				lblBewerkingIngevuld.setText(((Doelstelling)object).getFormule().toString());
@@ -78,15 +91,93 @@ public class DoelstellingDetailsTest<E> extends Pane{
 				lblSdgIngevuld.setText(((Doelstelling) object).getSdGoal().getNaam());
 				//lblDoelWaardeIngevuld.setText(((Doelstelling) object).getDoelwaarde());
 				lblEenheidIngevuld.setText("hier moet nog iets komen");
-				//listRollenIngevuld.setItems((ObservableList) ((Doelstelling)object).getRollen());
+				listRollenIngevuld.setItems(FXCollections.observableList(((Doelstelling)object).getRollen()));
+				
+				
+				TreeItem<Component> rootNode = 
+				        new TreeItem<Component>(null);
+
+				
+				
+				for (Component s : ((Doelstelling) object).getComponents()) {
+					System.out.println(s.getNaam());
+		            TreeItem<Component> empLeaf = new TreeItem<Component>(s);
+		            boolean found = false;
+//		            for (TreeItem<Component> depNode : rootNode.getChildren()) {
+//		            	if(depNode.getValue().g == s.getParentSDG_id()) {
+//		            		depNode.getChildren().add(empLeaf);
+//		                  found = true;
+//		                  break;
+//		            	}
+//		            }
+		            String pad = s.getIcon();
+					int index = pad.indexOf("c");
+					pad = pad.substring(index+1);
+
+		            if (!found) {
+		                TreeItem<Component> depNode = new TreeItem<Component>(
+		                    s
+		                );
+		                
+		                rootNode.getChildren().add(depNode);
+		            }
+		        }
+		 
+				treeViewSubDoelstellingen.setRoot(rootNode);
+		        treeViewSubDoelstellingen.setShowRoot(false);
+		        
+		        
+		        String pad = ((Doelstelling) object).getIcon();
+				int index = pad.indexOf("c");
+				pad = pad.substring(index+1);
+				// Mannetje weergeven
+				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				
 			}
 			
 			
-			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld);
+			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld, imgIcoon, lblErrorMessage);
+		
+			btnVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent evt) {
+					//vragen of de gebruiker zeker is
+					Alert boodschap = new Alert(AlertType.CONFIRMATION);
+					boodschap.setTitle("Verwijderen");
+					
+					boodschap.setContentText("Bent u zeker dat u deze doelstelling wilt verwijderen?");
+					
+					boodschap.showAndWait().ifPresent(response -> {
+						if(response != ButtonType.CANCEL)
+						{
+							try {
+								lblErrorMessage.setVisible(false);
+								dc.setCurrentDoelstelling((Doelstelling)object);
+								dc.verwijderMVODoelstelling();
+								maakLeeg();
+							}
+							catch(IllegalArgumentException e)
+							{
+								lblErrorMessage.setText(e.getMessage());
+								lblErrorMessage.setVisible(true);
+							}
+							
+						}
+					});
+					
+				}
+			});
+		
+		
 		}catch(IOException e)
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void maakLeeg() {
+		this.getChildren().clear();
+		
 	}
 
 }

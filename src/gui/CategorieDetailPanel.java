@@ -131,6 +131,11 @@ public class CategorieDetailPanel<E> extends GridPane{
         btnDelete.setStyle("-fx-background-color: #004C69;-fx-text-fill: white;  -fx-font-size: 20;");
         this.add(btnDelete, 0,15);
         
+        Label lblErrorMessage = new Label();
+        this.add(lblErrorMessage, 0, 17);
+        lblErrorMessage.setVisible(false);
+        lblErrorMessage.setStyle("-fx-text-fill: red;  -fx-font-size: 20;");
+        
         // Als er op de verwijderknop geklikt wordt moet de categorie verwijderd worden
         btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -144,9 +149,17 @@ public class CategorieDetailPanel<E> extends GridPane{
 				boodschap.showAndWait().ifPresent(response -> {
 					if(response != ButtonType.CANCEL)
 					{
-						dc.setCurrentCategorie((Categorie)object);
-						dc.verwijderCategorie();
-						maakLeeg();
+						try {
+							lblErrorMessage.setVisible(false);
+							dc.setCurrentCategorie((Categorie)object);
+							dc.verwijderCategorie();
+							maakLeeg();
+						}
+						catch(IllegalArgumentException e)
+						{
+							lblErrorMessage.setText(e.getMessage());
+							lblErrorMessage.setVisible(true);
+						}
 					}
 				});
 				
@@ -174,6 +187,8 @@ public class CategorieDetailPanel<E> extends GridPane{
 				
 			}
 		});
+        
+        
 		
 		// Ruimte instellen
 		this.setPadding(new Insets(10));
