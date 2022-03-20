@@ -7,25 +7,38 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.eclipse.persistence.jpa.rs.eventlistener.ChangeListener;
+
 import domein.Categorie;
 import domein.DTOCategorie;
 import domein.DomeinController;
 import domein.ListViewInterface;
 import domein.SdGoal;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 public class UpdateOrCreateCategoryController<E> extends Pane {
 	@FXML
@@ -67,10 +80,11 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		this.dc = dc;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateCategory.fxml"));
 		loader.setController(this);
-		//loader.setRoot(this);
+
 		try
 		{
 			loader.load();
+			// WIJZIGEN
 			if(object != null) {
 				lblUpdateOrCreate.setText(wijzigMaak);
 				txtFNaam.setText(((Categorie)object).getNaam());
@@ -80,38 +94,10 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 				pad2 = pad2.substring(index2+1);
 				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad2)));
 
-				TreeItem<SdGoal> rootNode2 = 
-				        new TreeItem<SdGoal>(null);
-
-				for (SdGoal s : ((Categorie)object).getSdGoals()) {
-					System.out.println(s.getNaam());
-		            TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
-		            boolean found2 = false;
-		            for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
-		            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
-		            		depNode2.getChildren().add(empLeaf2);
-		                  found2 = true;
-		                  break;
-		            	}
-		            }
-		            String pad3 = s.getIcon();
-					int index3 = pad3.indexOf("c");
-					pad3 = pad3.substring(index3+1);
-
-		            if (!found2) {
-		                TreeItem<SdGoal> depNode4 = new TreeItem<SdGoal>(
-		                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
-		                );
-		                
-		                rootNode2.getChildren().add(depNode4);
-		            }
-		        }
-				treeviewGesSdgs.setRoot(rootNode2);
-				treeviewGesSdgs.setShowRoot(false);
 				
-				//onSelectListView(treeviewSdgs, treeviewGesSdgs);
-				//onSelectListView(treeviewGesSdgs, treeviewSdgs);
+
 			}
+			// NIEUWE AANMAKEN
 			else { // nieuwe aanmaken
 				lblUpdateOrCreate.setText(wijzigMaak);
 //				DTOCategorie nieuweCategorie = new DTOCategorie(txtFNaam.getText(), imgIcoon.getImage().getUrl(),
@@ -160,6 +146,37 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 				}
 			});
 			
+			TreeItem<SdGoal> rootNode2 = 
+			        new TreeItem<SdGoal>(null);
+			if(object != null) {
+				for (SdGoal s : ((Categorie)object).getSdGoals()) {
+					System.out.println(s.getNaam());
+		            TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
+		            boolean found2 = false;
+		            for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
+		            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+		            		depNode2.getChildren().add(empLeaf2);
+		                  found2 = true;
+		                  break;
+		            	}
+		            }
+		            String pad3 = s.getIcon();
+					int index3 = pad3.indexOf("c");
+					pad3 = pad3.substring(index3+1);
+
+		            if (!found2) {
+		                TreeItem<SdGoal> depNode4 = new TreeItem<SdGoal>(
+		                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+		                );
+		                
+		                rootNode2.getChildren().add(depNode4);
+		            }
+		        }
+			}
+			
+			treeviewGesSdgs.setRoot(rootNode2);
+			treeviewGesSdgs.setShowRoot(false);
+			
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
 
@@ -187,7 +204,19 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	            }
 	        }
 			treeviewSdgs.setRoot(rootNode);
+			
 			treeviewSdgs.setShowRoot(false);
+			
+			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
+			    handleMouseClicked(event);
+			};
+			
+			EventHandler<MouseEvent> mouseEventHandle2 = (MouseEvent event) -> {
+			    handleMouseClickedBack(event);
+			};
+
+			treeviewSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
+			treeviewGesSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2); 
 			
 			this.getChildren().addAll(lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
 			
@@ -199,65 +228,40 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		}
 	}
 	
-//	private <E extends ListViewInterface> void onSelectListView( TreeView<E> oorsprong, TreeView<E> bestemming)
-//	{
-//		// view
-//		oorsprong.setCellFactory(param -> new ListCell<E>()
-//		{
-//			private ImageView imageView = new ImageView();
-//			
-//			@Override
-//			public void updateItem(E type2, boolean empty)
-//			{
-//				super.updateItem(type2, empty);
-//				if(empty)
-//				{
-//					setText(null);
-//					setGraphic(null);
-//				}
-//				else
-//				{
-//					setText(type2.getNaam());
-//					imageView.setImage(new Image(type2.getIcon(), 25, 25, true, true));
-//					
-//					setGraphic(imageView);
-//				}
-//			}
-//		});
-//		
-//		// onSelect
-//		oorsprong.getSelectionModel().selectedItemProperty()
-//				.addListener((observableValue, oldValue, newValue) -> {
-//					if(newValue != null)
-//					{
-//						E type3 = newValue;
-//						
-//						List<E> huidige = bestemming.getItems();
-//						
-//						if(huidige == null)
-//						{
-//							huidige = FXCollections.observableList(new ArrayList<>());
-//						}
-//						huidige.add(type3);
-//						huidige = new ArrayList<>(new HashSet<>(huidige));
-//						bestemming.setItems(FXCollections.observableList(huidige));
-//						
-//						// verwijder newValue uit listDoelKiesSubDoel
-//						// verpak dit in runLater want gui updaten in een lambda functie geeft error
-//						Platform.runLater(new Runnable()
-//						{
-//							@Override
-//							public void run()
-//							{
-//								List<E> nieuweLijst = new ArrayList<>(
-//										oorsprong.getItems());
-//								nieuweLijst.remove(newValue);
-//								oorsprong.setItems(FXCollections.observableList(nieuweLijst));
-//							}
-//						});
-//						
-//					}
-//				});
-//	}
+	
+	private void handleMouseClicked(MouseEvent event) {
+	    Node node = event.getPickResult().getIntersectedNode();
+	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+	    	TreeItem c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+            boolean remove = c.getParent().getChildren().remove(c);
+            treeviewGesSdgs.getSelectionModel().selectFirst();
+            TreeItem b = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
+            if(b == null || b.getParent() == null) {
+            	treeviewGesSdgs.getRoot().getChildren().add(c);
+            } else {
+                b.getParent().getChildren().add(c);
+            }
+            
+	    	
+	    }
+	}
+	
+	private void handleMouseClickedBack(MouseEvent event) {
+	    Node node = event.getPickResult().getIntersectedNode();
+	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+	    	TreeItem c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
+            boolean remove = c.getParent().getChildren().remove(c);
+            treeviewSdgs.getSelectionModel().selectFirst();
+        	TreeItem b = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+            if(b.getParent() == null) {
+            	treeviewSdgs.getRoot().getChildren().add(c);
+            } else {
+            	
+                b.getParent().getChildren().add(c);
+            }
+            
+	    	
+	    }
+	}
 
 }
