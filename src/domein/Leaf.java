@@ -54,8 +54,9 @@ public class Leaf extends Component {
 	}
 	
 	public double getBerekendewaarde() throws IOException {
-		
-		List<Double> lijst = new ArrayList<>(datasource.getData());
+		//kolom wordt gehaald van de datasource
+		int kolom = datasource.getKolom();
+		List<Double> lijst = new ArrayList<>(datasource.getData(kolom));
 		
 	
 		setValue(getFormule().calculate(lijst));

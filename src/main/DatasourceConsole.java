@@ -92,17 +92,29 @@ public class DatasourceConsole {
 		  ds = new MVODatasource(new DTODatasource("testdatabank1", "databank", null, null, "userX", "passwordX"));
 		  em.persist(ds);*/
 		  
-		AanmeldController aanmeldController = new AanmeldController();
+		AanmeldController aanmeldController = new AanmeldController(true);
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789"); 
 		
-		DTODatasource d = new DTODatasource("testdatabank1", "databank", "src/data/csvDouble.csv", "hostname", "username", "sfd");
+		DTODatasource d = new DTODatasource("co2 mercedes2", "csv", "src/data/csvDouble.csv",  null, null, null, true, "snel", "uitstoot", 1);
 		
-		//dc.voegMVODatasourceToe(d);
+		dc.voegMVODatasourceToe(d);
 		
-		boolean zitErin = dc.getDatasources().stream().map(e -> e.getLink()).collect(Collectors.toList()).contains(d.link);
+		DTODatasource d1 = new DTODatasource("co2 audi2", "excel", "src/data/xlsDouble.xls",  null, null, null, true, "traag", "uitstoot", 2);
+		
+		dc.voegMVODatasourceToe(d1);
+		dc.setCurrentDatasource(dc.getDatasources().get(dc.getDatasources().size()-1));
+		dc.wijzigMVODatasource(new DTODatasource("co2 audi3", "excel", "src/data/xlsDouble.xls",  null, null, null, true, "snel", "uitstootje", 1));
+		
+		dc.verwijderMVODatasource();
+		
+		/*DTODatasource d2 = new DTODatasource("c0", "databank", null,  "localhosttt", "testtt", "test123tt", true, "traag", "personen", 1);
+		
+		dc.voegMVODatasourceToe(d2);*/
+		
+		/*boolean zitErin = dc.getDatasources().stream().map(e -> e.getLink()).collect(Collectors.toList()).contains(d.link);
 		if (zitErin) {
 			throw new IllegalArgumentException("Er bestaat al een datasource met deze link");
-		}
+		}*/
 		  
 		
 		/*dc.voegMVODatasourceToe(new DTODatasource("test1", "csv", "file:src/data/dataProject.csv"));

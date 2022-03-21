@@ -29,7 +29,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	
 	public CsvDataSourceType(String link) {
 		setLink(link);
-		//System.out.println(getData());
+		System.out.println(getData(0));
 	}
 	
 	public void setLink(String link)
@@ -58,16 +58,16 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	
 	//List<Double>
 	public List<Double> getData(int kolom) {
-		List<List<Double>> li = new ArrayList<>();
+		/*List<List<Double>> li = new ArrayList<>();
 		li.add(Arrays.asList(9.9, 5.6, 7.8));
 		li.add(Arrays.asList(5.6, 7.8, 8.6));
 		li.add(Arrays.asList(3.4, 3.3, 7.8));
 		
-		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());
-		//return leesAf();
+		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());*/
+		return leesAf(kolom);
 	}
 	
-	public List<Double> leesAf() {
+	public List<Double> leesAf(int kolom) {
 		List<List<String>> meerdereKolommen =  new ArrayList<>();
     	List<String> eenKolom =  new ArrayList<>();
 		try (
@@ -113,8 +113,21 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	        catch (Exception e)  {
 	        	e.printStackTrace();
 	        }
-		List<Double> lijst1 = eenKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
-		return lijst1;
+		/*List<Double> lijst1 = eenKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+		//kolomnamen verwijderen uit lijst
+		meerdereKolommen.remove(0);
+        
+        //elementen uit lijst nemen met index de kolom
+        List<List<Double>> nieuw = meerdereKolommen.stream()
+        .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+        .collect(Collectors.toList());
+       
+        List<Double> lijstje = nieuw.stream().map(e -> e.get(kolom)).collect(Collectors.toList());
+        
+        //System.out.println(lijstje);
+        return lijstje;
 
 
     }

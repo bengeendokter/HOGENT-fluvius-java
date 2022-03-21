@@ -74,6 +74,10 @@ public class PopulateDB
 		// Datasources
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null,  "localhost", "test", "test123", true, "traag", "personen", 1)));
 		
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 mercedes", "csv", "src/data/csvDouble.csv",  null, null, null, true, "snel", "uitstoot", 1)));
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 audi", "excel", "src/data/xlsDouble.xls",  null, null, null, true, "traag", "uitstoot", 2)));
+		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 bmw", "excel", "src/data/xlsxDouble.xlsx",  null, null, null, true, "traag", "uitstoot", 3)));
+		
 		List<MVODatasource> datasources = new ArrayList<>();
 		MVODatasource mvd = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv", null, null, null, true, "snel", "kinderen", 2));
 		datasources.add(mvd);

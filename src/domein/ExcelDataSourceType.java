@@ -38,7 +38,8 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	//exception weg omdat print alleen voor te testen was
 	public ExcelDataSourceType(String link) throws IOException {
 		setLink(link);
-		//System.out.println(Arrays.toString(getData().toArray()));
+		//System.out.println(Arrays.toString(getData(1).toArray()));
+		System.out.println(getData(1));
 	}
 	
 	public void setLink(String link)
@@ -67,19 +68,19 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	
 	//List<Double>
 	public List<Double> getData(int kolom) throws IOException {
-		/*if (link.charAt(link.length()-1) == 'x') {
-			return leesAfXLSX();
+		if (link.charAt(link.length()-1) == 'x') {
+			return leesAfXLSX(kolom);
 		} 
-		return leesAfXLS();*/
-		List<List<Double>> li = new ArrayList<>();
+		return leesAfXLS(kolom);
+		/*List<List<Double>> li = new ArrayList<>();
 		li.add(Arrays.asList(9.9, 5.6, 7.8));
 		li.add(Arrays.asList(5.6, 7.8, 8.6));
 		li.add(Arrays.asList(3.4, 3.3, 7.8));
 		
-		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());
+		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());*/
 	}
 	
-	public List<Double> leesAfXLS() throws IOException  {  
+	public List<Double> leesAfXLS(int kolom) throws IOException  {  
 		FileInputStream fis=new FileInputStream(new File(link));  
 		@SuppressWarnings("resource")
 		HSSFWorkbook wb=new HSSFWorkbook(fis);   
@@ -124,11 +125,24 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 		}  
 		
 		if (!eenKolom) lijst =  new ArrayList<>();
-		List<Double> lijst1 = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
-		return lijst1;
+		/*List<Double> lijst1 = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+		//kolomnamen verwijderen uit lijst
+		lijstGeheel1.remove(0);
+        
+        //elementen uit lijst nemen met index de kolom
+        List<List<Double>> nieuw = lijstGeheel1.stream()
+        .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+        .collect(Collectors.toList());
+       
+        List<Double> lijstje = nieuw.stream().map(e -> e.get(kolom)).collect(Collectors.toList());
+        
+        //System.out.println(lijstje);
+        return lijstje;
 	}
 	
-	public List<Double> leesAfXLSX()  {  
+	public List<Double> leesAfXLSX(int kolom)  {  
 		List<List<String>> meerdereKolommen = new ArrayList<>();
 		List<String> enkelKolom = new ArrayList<>();
 		
@@ -197,8 +211,21 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 		catch(Exception e) { 
 			e.printStackTrace();  
 		}  
-		List<Double> lijst1 = enkelKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
-		return lijst1;
+		/*List<Double> lijst1 = enkelKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+		//kolomnamen verwijderen uit lijst
+		meerdereKolommen.remove(0);
+        
+        //elementen uit lijst nemen met index de kolom
+        List<List<Double>> nieuw = meerdereKolommen.stream()
+        .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+        .collect(Collectors.toList());
+       
+        List<Double> lijstje = nieuw.stream().map(e -> e.get(kolom)).collect(Collectors.toList());
+        
+        //System.out.println(lijstje);
+        return lijstje;
 	}
 	
 	@Override

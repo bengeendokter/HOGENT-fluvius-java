@@ -10,14 +10,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class CsvReader {
 	private static final String SAMPLE_CSV_FILE_PATH =
-			//"src/data/csvDouble.csv";
-			"src/data/verbruiksgegevens-per-maand.csv";
+			"src/data/csvDouble.csv";
+			//"src/data/verbruiksgegevens-per-maand.csv";
 			//"src/data/dataProject2.csv";
 
     public static void main(String[] args) {
@@ -39,7 +40,7 @@ public class CsvReader {
             String[] nextRecord;
             int teller = 0;
           //aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
-            while ((nextRecord = csvReader.readNext()) != null && teller < 2) {
+            while ((nextRecord = csvReader.readNext()) != null && teller >=0) {
                 
                 if (nextRecord != null) {
 
@@ -68,6 +69,20 @@ public class CsvReader {
             System.out.println(Arrays.toString(lijstGeheel2.toArray()));
             System.out.println("----------");
             System.out.println(Arrays.toString(lijstGeheel1.toArray()));
+            
+            //kolomnamen verwijderen uit lijst
+            lijstGeheel1.remove(0);
+            
+            //elementen uit lijst nemen met index de kolom
+            List<List<Double>> nieuw = lijstGeheel1.stream()
+            .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+            .collect(Collectors.toList());
+           
+            List<Double> lijstje = nieuw.stream().map(e -> e.get(1)).collect(Collectors.toList());
+            
+            System.out.println(lijstje);
+            
+            
         }
         catch (Exception e)  {
         	e.printStackTrace();

@@ -22,9 +22,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class ExcelReader {
-	/*public static void main(String args[]) throws IOException  {  
+	public static void main(String args[]) throws IOException  {  
 		//testex
-		FileInputStream fis=new FileInputStream(new File("src/data/testex.xls"));  
+		FileInputStream fis=new FileInputStream(new File("src/data/xlsDouble.xls"));  
 		@SuppressWarnings("resource")
 		HSSFWorkbook wb=new HSSFWorkbook(fis);   
 		HSSFSheet sheet=wb.getSheetAt(0);    
@@ -72,11 +72,23 @@ public class ExcelReader {
 		System.out.println(Arrays.toString(lijst.toArray()));
         System.out.println("----------");
         System.out.println(Arrays.toString(lijstGeheel1.toArray()));
-	}*/
+        
+        //kolomnamen verwijderen uit lijst
+        lijstGeheel1.remove(0);
+        
+        //elementen uit lijst nemen met index de kolom
+        List<List<Double>> nieuw = lijstGeheel1.stream()
+        .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+        .collect(Collectors.toList());
+       
+        List<Double> lijstje = nieuw.stream().map(e -> e.get(1)).collect(Collectors.toList());
+        
+        System.out.println(lijstje);
+	}
 	
-	public static void main(String[] args)  {  
+	/*public static void main(String[] args)  {  
 		try  {  
-			File file = new File("src/data/gegevens.xlsx");     
+			File file = new File("src/data/xlsxDouble.xlsx");     
 			FileInputStream fis = new FileInputStream(file);     
 			 
 			@SuppressWarnings("resource")
@@ -92,7 +104,7 @@ public class ExcelReader {
 			int teller = 0;
 			boolean eenKolom = false;
 			//aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
-			while (itr.hasNext() && teller < 3) {              
+			while (itr.hasNext() && teller >=0) {              
 		  
 				Row row = itr.next();  
 				Iterator<Cell> cellIterator = row.cellIterator();     
@@ -130,17 +142,28 @@ public class ExcelReader {
 			if (!eenKolom) lijst =  new ArrayList<>();
 				
 
-			//lijst = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).collect(Collectors.toList());
+			lijst = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).collect(Collectors.toList());
 			
 
 			System.out.println(Arrays.toString(lijst.toArray()));
             System.out.println("----------");
             System.out.println(Arrays.toString(lijstGeheel1.toArray()));
+            
+            //kolomnamen verwijderen uit lijst
+            lijstGeheel1.remove(0);
+            
+            //elementen uit lijst nemen met index de kolom
+            List<List<Double>> nieuw = lijstGeheel1.stream()
+            .map(line -> line.stream().map(Double::parseDouble).collect(Collectors.toList()))
+            .collect(Collectors.toList());
+           
+            List<Double> lijstje = nieuw.stream().map(e -> e.get(1)).collect(Collectors.toList());
+            
+            System.out.println(lijstje);
 
-			
 		}  
 		catch(Exception e) { 
 			e.printStackTrace();  
 		}  
-	} 
+	} */
 }
