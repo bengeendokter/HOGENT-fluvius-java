@@ -66,11 +66,17 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	}
 	
 	//List<Double>
-	public List<Double> getData() throws IOException {
-		if (link.charAt(link.length()-1) == 'x') {
+	public List<Double> getData(int kolom) throws IOException {
+		/*if (link.charAt(link.length()-1) == 'x') {
 			return leesAfXLSX();
 		} 
-		return leesAfXLS();
+		return leesAfXLS();*/
+		List<List<Double>> li = new ArrayList<>();
+		li.add(Arrays.asList(9.9, 5.6, 7.8));
+		li.add(Arrays.asList(5.6, 7.8, 8.6));
+		li.add(Arrays.asList(3.4, 3.3, 7.8));
+		
+		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());
 	}
 	
 	public List<Double> leesAfXLS() throws IOException  {  

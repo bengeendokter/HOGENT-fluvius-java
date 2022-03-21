@@ -507,7 +507,7 @@ public class Fluvius
 				throw new IllegalArgumentException("De type van een datasource mag niet leeg zijn");
 			}
 			
-			//controle op unieke link bij csv en excel type
+			/*//controle op unieke link bij csv en excel type
 			
 			if (datasource.typeDatasource.equals("csv") || datasource.typeDatasource.equals("excel")) {
 				//
@@ -515,7 +515,7 @@ public class Fluvius
 				if (zitErin) {
 					throw new IllegalArgumentException("Er bestaat al een datasource met deze link");
 				}
-			}
+			}*/
 			
 			System.out.printf("Datasource %s inserten in databank%n", datasource.toString());
 			mvoDatasourceRepo.startTransaction();

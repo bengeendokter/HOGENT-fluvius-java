@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "DataSource")
 @NamedQueries({
@@ -35,6 +37,16 @@ private static final long serialVersionUID = 1L;
 	@Column(unique=true)
 	private String naam;
 	
+	//nieuw
+	private LocalDate datum;
+	private boolean corrupt;
+	private String wijzigbaarheid;
+	private String maat;
+	private boolean wijzigNood;
+	private int kolom;
+	
+	
+	
 	//type uitbreiding
 	//private String typeDatasource;
 	@OneToOne(cascade = CascadeType.PERSIST)
@@ -42,9 +54,9 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	//List<Double>
-	public List<Double> getData() throws IOException {
-		return typeDatasource.getData();
-		//return Arrays.asList(3.4, 5.6, 7.8);
+	public List<Double> getData(int kolom) throws IOException {
+		//return typeDatasource.getData();
+		return typeDatasource.getData(getKolom());
 	}
 	
 	protected MVODatasource()
@@ -55,6 +67,14 @@ private static final long serialVersionUID = 1L;
 	public MVODatasource(DTODatasource dds) throws IOException
 	{
 		setNaam(dds.naam);
+		//nieuw
+		setDatum();
+		setKolom(dds.kolom);
+		setMaat(dds.maat);
+		setWijzigbaarheid(dds.wijzigbaarheid);
+		setCorrupt(dds.corrupt);
+		setWijzigNood(dds.wijzigbaarheid);
+		
 		//TODO setter met dds.typeDatasource waarde, dus String
 				//TODO size van ExcelDataSourceType met dds.size
 		if (dds.typeDatasource == null) {
@@ -66,6 +86,9 @@ private static final long serialVersionUID = 1L;
 			setTypeDatasource(new CsvDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("databank"))
 			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
+	
+		
+		
 	}
 	
 	
@@ -155,5 +178,81 @@ private static final long serialVersionUID = 1L;
 	public String getPassword() {
 		return typeDatasource.getPassword();
 	}
+	
+	//nieuw
+	@Override
+	public boolean getCorrupt() {
+		return corrupt;
+	}
+	
+	@Override
+	public LocalDate getDatum() {
+		return datum;
+	}
+	
+	@Override
+	public String getMaat() {
+		return maat;
+	}
+	
+	@Override
+	public String getWijzigbaarheid() {
+		return wijzigbaarheid;
+	}
+	
+	@Override
+	public boolean wijzigNood() {
+		return wijzigNood;
+	}
+	
+	@Override
+	public int getKolom() {
+		
+		return kolom;
+	}
+
+	public void setDatum() {
+		this.datum = LocalDate.now(); 
+	}
+
+	public void setCorrupt(boolean corrupt) {
+		this.corrupt = corrupt;
+	}
+
+	public void setWijzigbaarheid(String wijzigbaarheid) {
+		if(wijzigbaarheid == null || wijzigbaarheid.isBlank())
+		{
+			throw new IllegalArgumentException("De wijzigbaarheid van de Datasource mag niet leeg zijn");
+		}
+	
+		this.wijzigbaarheid = wijzigbaarheid;
+	}
+
+	public void setMaat(String maat) {
+		if(maat == null || maat.isBlank())
+		{
+			throw new IllegalArgumentException("De maat van de Datasource mag niet leeg zijn");
+		}
+		this.maat = maat;
+	}
+
+	public void setWijzigNood(String wijzigbaarheid) {
+		LocalDate d = getDatum();
+		
+		if (wijzigbaarheid.equals("snel") && d.isBefore(LocalDate.now().minusMonths(3))) 
+			this.wijzigNood = true;
+		this.wijzigNood = false;
+		
+	}
+
+	public void setKolom(int kolom) {
+		if(kolom <=0)
+		{
+			throw new IllegalArgumentException("De kolom van de Datasource is geen geldige waarde");
+		}
+		this.kolom = kolom;
+	}
+	
+	
 
 }

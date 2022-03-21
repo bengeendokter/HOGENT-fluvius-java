@@ -14,6 +14,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+
 
 
 @Entity
@@ -31,7 +33,7 @@ public abstract class TypeDatasource implements Serializable  {
 	
 	
 	//List<Double>
-	public abstract List<Double> getData() throws IOException; 
+	public abstract List<Double> getData(int kolom) throws IOException; 
 	
 	public abstract String getLink();
 	
@@ -40,7 +42,6 @@ public abstract class TypeDatasource implements Serializable  {
 	public abstract String getUsername();
 	public abstract String getPassword();
 	
-	public abstract String toString();
-		
+	public abstract String toString();		
 	
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import java.io.Reader;
@@ -32,7 +33,7 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 		setHostname(hostname);
 		setUsername(username);
 		setPassword(password);
-		System.out.println(getData());
+		//System.out.println(getData());
 	}
 	
 	
@@ -75,19 +76,26 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 	
 	
 	//List<Double>
-	public List<Double> getData() {
-		return leesAf();
+	public List<Double> getData(int kolom) {
+		//return leesAf();
+		List<List<Double>> li = new ArrayList<>();
+		li.add(Arrays.asList(9.9, 5.6, 7.8));
+		li.add(Arrays.asList(5.6, 7.8, 8.6));
+		li.add(Arrays.asList(3.4, 3.3, 7.8));
+		
+		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());
 	}
 	
 	public List<Double> leesAf() {
 		//TODO data uit databank halen
     	List<Double> eenKolom =  new ArrayList<>();
     	//eenKolom.add("databank");
+    	
+    	
     	eenKolom.add(26.5);
     	eenKolom.add(13.7);
     	eenKolom.add(5.0);
 		return eenKolom;
-
     }
 	
 	@Override

@@ -57,9 +57,14 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	}
 	
 	//List<Double>
-	public List<Double> getData() {
-		//return Arrays.asList(3.4, 5.6, 7.8);
-		return leesAf();
+	public List<Double> getData(int kolom) {
+		List<List<Double>> li = new ArrayList<>();
+		li.add(Arrays.asList(9.9, 5.6, 7.8));
+		li.add(Arrays.asList(5.6, 7.8, 8.6));
+		li.add(Arrays.asList(3.4, 3.3, 7.8));
+		
+		return li.stream().map(e -> e.get(kolom-1)).collect(Collectors.toList());
+		//return leesAf();
 	}
 	
 	public List<Double> leesAf() {
