@@ -58,6 +58,9 @@ public abstract class Component implements Doelstelling, Serializable{
 	private Bewerking formule;
 	private double value = 0.0;
 	
+	private Component parentComponent = null;
+	
+	
 	// CONSTRUCTOREN
 	// ---------------------------------------------------------------------------------------------------
 	public Component(DTOMVODoelstelling d) {
@@ -228,5 +231,50 @@ public abstract class Component implements Doelstelling, Serializable{
 	public abstract Iterator<domein.Component> createIterator();
 
 	public abstract boolean isLeaf();
+
+	public Component getParentComponent() {
+		return parentComponent;
+	}
+
+	protected void setParentComponent(Component parentComponent) {
+		this.parentComponent = parentComponent;
+		
+	}
+	
+	//telt aantal parent lagen 
+	protected int getNumberOfParentLayers(Component stop)
+	{
+		int numberOfParentLayers = 0;
+		Component parent = parentComponent;
+		while(parent != null && parent != stop)
+		{
+			numberOfParentLayers++;
+			parent = parent.getParentComponent();
+		}
+		
+		return numberOfParentLayers;
+	}
+	
+	protected int getNumberOfParentLayers()
+	{
+		return getNumberOfParentLayers(null);
+	}
+	
+	//telt aantal kind lagen 
+	protected int getNumberOfChildLayers()
+	{
+		int numberOfChildLayers = 0;
+		CompositeIterator it = new CompositeIterator(createIterator());
+		Component nextComp = null;
+		
+		while(it.hasNext())
+		{
+			nextComp = it.next();
+			int parents = nextComp.getNumberOfParentLayers(parentComponent);
+			if(parents > numberOfChildLayers) numberOfChildLayers = parents;
+		}
+		
+		return numberOfChildLayers;
+	}
 	
 }

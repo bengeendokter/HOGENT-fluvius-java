@@ -309,7 +309,7 @@ public class DoelstellingTest {
 	    
 		   // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling("Composite3", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite3), formule));
+	    	   new Composite(new DTOMVODoelstelling("Composite4", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite3), formule));
 	       });
 	}
 	
