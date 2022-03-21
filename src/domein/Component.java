@@ -58,7 +58,8 @@ public abstract class Component implements Doelstelling, Serializable{
 	private Bewerking formule;
 	private double value = 0.0;
 	
-	private Component parentComponent = null;
+	@ManyToOne
+	private Composite parentComponent = null;
 	
 	
 	// CONSTRUCTOREN
@@ -232,11 +233,11 @@ public abstract class Component implements Doelstelling, Serializable{
 
 	public abstract boolean isLeaf();
 
-	public Component getParentComponent() {
+	public Composite getParentComponent() {
 		return parentComponent;
 	}
 
-	protected void setParentComponent(Component parentComponent) {
+	protected void setParentComponent(Composite parentComponent) {
 		this.parentComponent = parentComponent;
 		
 	}

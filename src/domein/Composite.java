@@ -27,7 +27,7 @@ public class Composite extends Component implements Serializable{
 	
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="parentComponent")
 	private List<Component> components = new ArrayList<>();
 	
 	
