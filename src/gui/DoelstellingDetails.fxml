@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1188.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btnWijzigen" layoutX="850.0" layoutY="690.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Wijzigen">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <Button fx:id="btnVerwijderen" layoutX="999.0" layoutY="690.0" mnemonicParsing="false" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Verwijderen">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblDetailsDoelstelling1" layoutX="34.0" layoutY="33.0" prefHeight="31.0" prefWidth="420.0" text="Details MVO doelstelling">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblNaam" layoutX="35.0" layoutY="95.0" prefHeight="31.0" prefWidth="100.0" text="Naam: ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBewerking" layoutX="32.0" layoutY="140.0" prefHeight="31.0" prefWidth="112.0" text="Bewerking:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDoelwaarde" layoutX="32.0" layoutY="193.0" text="Doelwaarde:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblIcoon" layoutX="32.0" layoutY="244.0" prefHeight="31.0" prefWidth="68.0" text="Icoon:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgIcoon" fitHeight="67.0" fitWidth="78.0" layoutX="348.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="lblSdg" layoutX="32.0" layoutY="314.0" prefHeight="31.0" prefWidth="53.0" text="SDG:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDatasource" layoutX="32.0" layoutY="379.0" text="Datasource:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRollen" layoutX="32.0" layoutY="437.0" text="Rollen:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSubDoelstellingen" layoutX="850.0" layoutY="95.0" prefHeight="31.0" prefWidth="204.0" text="Subdoelstellingen:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TreeView fx:id="treeViewSubDoelstellingen" layoutX="850.0" layoutY="136.0" prefHeight="486.0" prefWidth="288.0" />
+      <Label fx:id="lblNaamIngevuld" layoutX="154.0" layoutY="95.0" prefHeight="31.0" prefWidth="400.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBewerkingIngevuld" layoutX="154.0" layoutY="140.0" prefHeight="31.0" prefWidth="400.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDoelWaardeIngevuld" layoutX="154.0" layoutY="193.0" prefHeight="31.0" prefWidth="100.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEenheidIngevuld" layoutX="266.0" layoutY="193.0" prefHeight="31.0" prefWidth="288.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSdgIngevuld" layoutX="158.0" layoutY="314.0" prefHeight="31.0" prefWidth="268.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDatasourceIngevuld" layoutX="158.0" layoutY="379.0" prefHeight="31.0" prefWidth="268.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <ListView fx:id="listRollenIngevuld" layoutX="35.0" layoutY="468.0" prefHeight="147.0" prefWidth="393.0" />
+      <Label fx:id="lblErrorMessage" layoutX="35.0" layoutY="635.0" prefHeight="31.0" prefWidth="826.0" text="Label" textFill="RED">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -38,16 +38,20 @@ public class PopulateDB
 		
 		// SdGoals
 		SdGoal goal1 = new SdGoal("1", "Geen armoede");
+		SdGoal goaltest = new SdGoal("1111", "test");
+		goaltest.setParentSDG_id(1);
 		SdGoal goal2 = new SdGoal("2", "Geen honger");
 		SdGoal goal3 = new SdGoal("3", "Goede gezondheid en welzijn");
+		SdGoal goal4 = new SdGoal("8", "Waardig werk en economische groei");
 		sdGoalRepo.insert(goal1);
 		sdGoalRepo.insert(goal2);
 		sdGoalRepo.insert(goal3);
+		sdGoalRepo.insert(goaltest);
 		sdGoalRepo.insert(new SdGoal("4", "Kwaliteitsonderwijs"));
 		sdGoalRepo.insert(new SdGoal("5", "Gendergelijkheid"));
 		sdGoalRepo.insert(new SdGoal("6", "Schoon water en sanitair"));
 		sdGoalRepo.insert(new SdGoal("7", "Betaalbare en duurzame energie"));
-		sdGoalRepo.insert(new SdGoal("8", "Waardig werk en economische groei"));
+		sdGoalRepo.insert(goal4);
 		sdGoalRepo.insert(new SdGoal("9", "Industrie, innovatie en infrastructuur"));
 		sdGoalRepo.insert(new SdGoal("10", "Ongelijkheid verminderen"));
 		sdGoalRepo.insert(new SdGoal("11", "Duurzame steden en gemeenschappen"));
@@ -59,8 +63,9 @@ public class PopulateDB
 		sdGoalRepo.insert(new SdGoal("17", "Partnershap om doelstellingen te bereiken"));
 		
 		// Categorien
-		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(goal1)))));
-		
+		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/people.png", new ArrayList<>(Arrays.asList(goal1, goaltest)))));
+		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Sociaal", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(goal2)))));
+		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Omgeving", "file:src/images/planet.jpg", new ArrayList<>(Arrays.asList(goal3)))));
 		// Rollen
 		List<Rol> rollen = new ArrayList<>();
 		Rol rol = new Rol("MVO Coördinator");

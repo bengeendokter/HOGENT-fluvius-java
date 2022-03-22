@@ -2,8 +2,10 @@ package domein;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -101,8 +103,11 @@ public class SDGCategorie implements Serializable, Categorie
 		{
 			throw new IllegalArgumentException("Een Categorie moet minstens 1 SdGoal hebben");
 		}
-		
+		System.out.println(sdGoals);
+		Collections.sort(sdGoals, Comparator.comparing(SdGoal::getAfbeeldingnaam).reversed());
 		this.sdGoals = sdGoals;
+		System.out.println(sdGoals);
+
 	}
 
 

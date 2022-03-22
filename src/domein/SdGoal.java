@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SDG")
 @NamedQueries({
-	@NamedQuery(name = "sdGoal.findByNaam", query = "select s from domein.SdGoal s where s.naam = :naam")})
+	@NamedQuery(name = "sdGoal.findByNaam", query = "select s from domein.SdGoal s where s.naam = :naam order by s.afbeeldingnaam")})
 public class SdGoal implements Serializable, ListViewInterface
 {
 	private static final long serialVersionUID = 1L;
@@ -51,6 +51,10 @@ public class SdGoal implements Serializable, ListViewInterface
 	protected SdGoal()
 	{
 
+	}
+	
+	public int getId() {
+		return this.sdGoalID;
 	}
 
 	public String getAfbeeldingnaam()
