@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -56,7 +57,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	private SdGoal sdGoal;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
-	private double value = 0.0;
+	private Map<String, Double> value;
 	
 	@ManyToOne
 	private Composite parentComponent = null;
@@ -160,18 +161,18 @@ public abstract class Component implements Doelstelling, Serializable{
 		this.formule = bewerking;
 	}
 	
-	public void setValue(double waarde) {
+	public void setValue(Map<String, Double> waarde) {
 		this.value = waarde;
 	}
 	
-	public double getValue() {
+	public Map<String, Double> getValue() {
 		return value;
 	}
 	
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------
 	public abstract void print();
-	public abstract double getBerekendewaarde() throws IOException;
+	public abstract Map<String, Double> getBerekendewaarde() throws IOException;
 	
 	// METHODEN DIE NIET OVERAL VOORKOMEN --> UNSUPPORTED
 	// ---------------------------------------------------------------------------------------------------

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -42,7 +43,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	//List<Double>
-	public List<Double> getData() throws IOException {
+	public Map<String, Double> getData() throws IOException {
 		return typeDatasource.getData();
 		//return Arrays.asList(3.4, 5.6, 7.8);
 	}

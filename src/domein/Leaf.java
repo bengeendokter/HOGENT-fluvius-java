@@ -2,8 +2,10 @@ package domein;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -53,12 +55,12 @@ public class Leaf extends Component {
 		this.datasource = datasource;
 	}
 	
-	public double getBerekendewaarde() throws IOException {
+	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
-		List<Double> lijst = new ArrayList<>(datasource.getData());
+		Map<String, Double> map = datasource.getData();
 		
 	
-		setValue(getFormule().calculate(lijst));
+		setValue(getFormule().calculate(map));
 		return getValue();
 	}
 

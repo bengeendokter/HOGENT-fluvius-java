@@ -3,8 +3,10 @@ package domein;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -97,22 +99,29 @@ public class Composite extends Component implements Serializable{
 		components.forEach(c -> c.setParentComponent(this));
 	}
 	
-	public double getBerekendewaarde() throws IOException {
+	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
-		List<Double> lijst = new ArrayList<>();
+		Map<String, Double> map = new HashMap<>();
+		int value = 0;
 		for(Component e: components) {
 				if(e instanceof Leaf) {
-					lijst.add( e.getBerekendewaarde());
+					e.getBerekendewaarde().entrySet().forEach(es -> {
+						map.put(String.format("%s",value), es.getValue());
+						value++;
+					});
 				}
 				else {
 					if(e.getComponents() != null) {
 						for(Component d: e.getComponents()) {
-							lijst.add((double) d.getBerekendewaarde());
+							e.getBerekendewaarde().entrySet().forEach(es -> {
+								map.put(String.format("%s",value), es.getValue());
+								value++;
+							});
 						}
 					}
 				}		
 		}
-		setValue(getFormule().calculate(lijst));
+		setValue(getFormule().calculate(map));
 		return getValue();
 	}
 

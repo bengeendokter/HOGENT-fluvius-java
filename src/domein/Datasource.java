@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface Datasource{
 	public int getDatasourceID();
@@ -18,5 +19,5 @@ public interface Datasource{
 	
 	//data geven
 	//List<Double>
-	public List<Double> getData() throws IOException;
+	public Map<String, Double> getData() throws IOException;
 }
