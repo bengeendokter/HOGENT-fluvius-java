@@ -8,6 +8,7 @@ import domein.Categorie;
 import domein.Doelstelling;
 import domein.DomeinController;
 import domein.ListViewInterface;
+import domein.Rol;
 import domein.SdGoal;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -64,13 +65,15 @@ public class PanelOverzichtTreeview extends VBox {
 			System.out.println(s.getNaam());
             TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
             boolean found = false;
-//            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
-//            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
-//            		depNode.getChildren().add(empLeaf);
-//                  found = true;
-//                  break;
-//            	}
-//            }
+            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
+            	if(s.getParentComponent() != null) {
+            		if(depNode.getValue().getDoelstellingID() == s.getParentComponent().getDoelstellingID()) {
+                		depNode.getChildren().add(empLeaf);
+                      found = true;
+                      break;
+                	}
+            	}	
+            }
             String pad = s.getIcon();
 			int index = pad.indexOf("c");
 			pad = pad.substring(index+1);
@@ -86,6 +89,31 @@ public class PanelOverzichtTreeview extends VBox {
  
 		treeview.setRoot(rootNode);
 		treeview.setShowRoot(false);
+		
+
+		
+		treeview.setCellFactory(param -> new TreeCell<Doelstelling>()
+		{
+			private ImageView imageView = new ImageView();
+			@Override
+			public void updateItem(Doelstelling doel, boolean empty)
+			{
+				super.updateItem(doel, empty);
+				if(empty)
+				{
+					setText(null);
+					setGraphic(null);
+				}
+				else
+				{
+					setText(doel.getNaam());
+					imageView.setImage(new Image(doel.getIcon(), 30, 30, true, true));
+					
+					setGraphic(imageView);
+
+				}
+			}
+		});
 		
 		EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 		    handleMouseClicked(event);

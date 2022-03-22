@@ -118,7 +118,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 						else
 						{
 							setText(doel.getRol());
-
+							
 
 						}
 					}

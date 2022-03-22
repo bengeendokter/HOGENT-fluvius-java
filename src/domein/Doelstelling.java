@@ -14,6 +14,6 @@ public interface Doelstelling extends ListViewInterface {
 	public SdGoal getSdGoal();
 	List<Component> getComponents();
 	public double getBerekendewaarde() throws IOException;
-
+	public Composite getParentComponent();
 	public MVODatasource getDatasource();
 }
