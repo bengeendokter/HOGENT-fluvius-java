@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="678.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1188.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnWijzigen" layoutX="568.0" layoutY="23.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Wijzigen">
+      <Button fx:id="btnWijzigen" layoutX="850.0" layoutY="690.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Wijzigen">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button fx:id="btnVerwijderen" layoutX="726.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Verwijderen">
+      <Button fx:id="btnVerwijderen" layoutX="999.0" layoutY="690.0" mnemonicParsing="false" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Verwijderen">
          <font>
             <Font size="21.0" />
          </font>
@@ -60,18 +60,18 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="lblSubDoelstellingen" layoutX="591.0" layoutY="95.0" prefHeight="31.0" prefWidth="204.0" text="Subdoelstellingen:">
+      <Label fx:id="lblSubDoelstellingen" layoutX="850.0" layoutY="95.0" prefHeight="31.0" prefWidth="204.0" text="Subdoelstellingen:">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <TreeView fx:id="treeViewSubDoelstellingen" layoutX="591.0" layoutY="136.0" prefHeight="486.0" prefWidth="270.0" />
-      <Label fx:id="lblNaamIngevuld" layoutX="154.0" layoutY="95.0" prefHeight="31.0" prefWidth="268.0" text="Label">
+      <TreeView fx:id="treeViewSubDoelstellingen" layoutX="850.0" layoutY="136.0" prefHeight="486.0" prefWidth="288.0" />
+      <Label fx:id="lblNaamIngevuld" layoutX="154.0" layoutY="95.0" prefHeight="31.0" prefWidth="400.0" text="Label">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="lblBewerkingIngevuld" layoutX="154.0" layoutY="140.0" prefHeight="31.0" prefWidth="270.0" text="Label">
+      <Label fx:id="lblBewerkingIngevuld" layoutX="154.0" layoutY="140.0" prefHeight="31.0" prefWidth="400.0" text="Label">
          <font>
             <Font size="21.0" />
          </font>
@@ -81,7 +81,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="lblEenheidIngevuld" layoutX="266.0" layoutY="193.0" prefHeight="31.0" prefWidth="159.0" text="Label">
+      <Label fx:id="lblEenheidIngevuld" layoutX="266.0" layoutY="193.0" prefHeight="31.0" prefWidth="288.0" text="Label">
          <font>
             <Font size="21.0" />
          </font>
