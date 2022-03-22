@@ -106,16 +106,14 @@ public class Composite extends Component implements Serializable{
 		for(Component e: components) {
 				if(e instanceof Leaf) {
 					e.getBerekendewaarde().entrySet().forEach(es -> {
-						map.put(String.format("%s",value), es.getValue());
-						value++;
+						map.put(String.format("%s",map.size()), es.getValue());
 					});
 				}
 				else {
 					if(e.getComponents() != null) {
 						for(Component d: e.getComponents()) {
 							e.getBerekendewaarde().entrySet().forEach(es -> {
-								map.put(String.format("%s",value), es.getValue());
-								value++;
+								map.put(String.format("%s",map.size()), es.getValue());
 							});
 						}
 					}

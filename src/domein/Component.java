@@ -166,6 +166,8 @@ public abstract class Component implements Doelstelling, Serializable{
 	}
 	
 	public Map<String, Double> getValue() {
+		System.out.printf("%s	|	%s%n", naam, formule.toString());
+		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
 		return value;
 	}
 	

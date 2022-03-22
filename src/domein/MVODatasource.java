@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -44,7 +45,11 @@ private static final long serialVersionUID = 1L;
 	@Override
 	//List<Double>
 	public Map<String, Double> getData() throws IOException {
-		return typeDatasource.getData();
+		Map<String, Double> map = new HashMap<>();
+		typeDatasource.getData().forEach(d -> {
+			map.put(String.format("%s_%s", naam, map.size()), d);
+			});
+		return map;
 		//return Arrays.asList(3.4, 5.6, 7.8);
 	}
 	
