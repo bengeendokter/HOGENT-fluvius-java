@@ -6,6 +6,7 @@ import domein.Categorie;
 import domein.Component;
 import domein.Doelstelling;
 import domein.DomeinController;
+import domein.Rol;
 import domein.SdGoal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -76,6 +78,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 	private DomeinController dc;
 	private E object;
 	
+	@SuppressWarnings("unchecked")
 	public DoelstellingDetailsTest(DomeinController dc, E object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DoelstellingDetails.fxml"));
 		loader.setController(this);
@@ -89,11 +92,37 @@ public class DoelstellingDetailsTest<E> extends Pane{
 			if(object instanceof Doelstelling) {
 				lblNaamIngevuld.setText(((Doelstelling) object).getNaam());
 				lblBewerkingIngevuld.setText(((Doelstelling)object).getFormule().toString());
-				//lblDatasourceIngevuld.setText(((Doelstelling) object).getDatasource().getNaam());
+				if(((Doelstelling) object).getDatasource() != null) {
+					lblDatasourceIngevuld.setText(((Doelstelling) object).getDatasource().getNaam());
+				} else {
+					lblDatasourceIngevuld.setText("");
+				}
+				
 				lblSdgIngevuld.setText(((Doelstelling) object).getSdGoal().getNaam());
 				//lblDoelWaardeIngevuld.setText(((Doelstelling) object).getDoelwaarde());
 				lblEenheidIngevuld.setText("hier moet nog iets komen");
 				listRollenIngevuld.setItems(FXCollections.observableList(((Doelstelling)object).getRollen()));
+				
+				listRollenIngevuld.setCellFactory(param -> new ListCell<Rol>()
+				{
+					
+					@Override
+					public void updateItem(Rol doel, boolean empty)
+					{
+						super.updateItem(doel, empty);
+						if(empty)
+						{
+							setText(null);
+							setGraphic(null);
+						}
+						else
+						{
+							setText(doel.getRol());
+
+
+						}
+					}
+				});
 				
 				
 				TreeItem<Component> rootNode = 

@@ -23,6 +23,7 @@ public class VolledigPanelController<E> extends BorderPane{
 		try
 		{
 			loader.load();
+			this.setStyle("-fx-background-color: white;");
 			DomeinController dc = new DomeinController(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
 		    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 		    Navigatiebalk nav = new Navigatiebalk(dc);

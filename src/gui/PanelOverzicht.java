@@ -52,12 +52,38 @@ public class PanelOverzicht<E> extends VBox {
 		//ObservableList<String> items = FXCollections.observableArrayList("Single", "Double", "Suite", "Family App");
 		list.setItems(items);
 		
+		if(soort.equals("categorieën")) {
+			list.setCellFactory(param -> new ListCell<E>()
+			{
+				private ImageView imageView = new ImageView();
+				
+				@Override
+				public void updateItem(E name, boolean empty)
+				{
+					super.updateItem(name, empty);
+					if(empty)
+					{
+						setText(null);
+						setGraphic(null);
+					}
+					else
+					{
+						setText(((Categorie)name).getNaam());
+						imageView.setImage(new Image(((Categorie)name).getIcon(), 40, 40, true, true));
+						
+						setGraphic(imageView);
+					}
+				}
+			});
+		}
+		
+		
 		
 		list.getSelectionModel().selectedItemProperty()
 		.addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
-				CategorieDetailPanel cdp = new CategorieDetailPanel();
+				//CategorieDetailPanel cdp = new CategorieDetailPanel();
 				
 
 				// Eerst het hoofdscherm opvragen adhv dit scherm
@@ -68,20 +94,13 @@ public class PanelOverzicht<E> extends VBox {
 					 //DetailsScherm opvragen adhv het hoofdScherm
 					Node details = ( ((BorderPane) hoofdScherm).getCenter());
 					if(soort.equals("categorieën")) {
-						if (details instanceof CategorieDetailPanel) {
-							((CategorieDetailPanel) details).initGui(newValue, dc);
-						}
-						else {
+
 							((BorderPane) hoofdScherm).setCenter(null);
+							CategorieDetailsController cdp = new CategorieDetailsController(dc, newValue);
 							((BorderPane) hoofdScherm).setCenter(cdp);
-							details = ( ((BorderPane) hoofdScherm).getCenter());
-							((CategorieDetailPanel) details).initGui(newValue, dc);
-						}
+
 					}
-					if(soort.equals("doelstellingen")) {						//DoelstellingDetailPanel dd = new DoelstellingDetailPanel(dc, newValue);
-						DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);						//DoelstellingDetailPanelController2 d2 = new DoelstellingDetailPanelController2(dc, newValue);
-							((BorderPane) hoofdScherm).setCenter(test);
-					}
+					
 					if(soort.equals("datasources")) {
 						DatasourceDetailsController d = new DatasourceDetailsController<>(dc, newValue);
 						((BorderPane) hoofdScherm).setCenter(d);
