@@ -104,7 +104,7 @@ public class SDGCategorie implements Serializable, Categorie
 			throw new IllegalArgumentException("Een Categorie moet minstens 1 SdGoal hebben");
 		}
 		System.out.println(sdGoals);
-		Collections.sort(sdGoals, Comparator.comparing(SdGoal::getAfbeeldingnaam).reversed());
+		//Collections.sort(sdGoals, Comparator.comparing(SdGoal::getAfbeeldingnaam).reversed());
 		this.sdGoals = sdGoals;
 		System.out.println(sdGoals);
 
