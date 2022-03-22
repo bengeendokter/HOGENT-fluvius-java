@@ -1051,11 +1051,11 @@ public class CategorieResponsiveController extends BorderPane
 			//toon overzicht van eerste of geselecteerde categorie
 			if(vartextData.getText().equals("Maak nieuwe datasource"))
 			{
-				DTODatasource newDatasource = new DTODatasource(naamDatasource.getText(), datasourceType.getValue(),
+				/*DTODatasource newDatasource = new DTODatasource(naamDatasource.getText(), datasourceType.getValue(),
 						datasourceLink.getText(), txtFieldDataHostnaam.getText(), txtFieldDataGebruikersnaam.getText(),
 						txtFieldDataWachtwoord.getText());
 				
-				dc.voegMVODatasourceToe(newDatasource);
+				dc.voegMVODatasourceToe(newDatasource);*/
 				
 				vartextData.setText("Details datasource");
 				
