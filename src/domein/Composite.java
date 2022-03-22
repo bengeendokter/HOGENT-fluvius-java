@@ -104,22 +104,40 @@ public class Composite extends Component implements Serializable{
 		Map<String, Double> map = new HashMap<>();
 		int value = 0;
 		for(Component e: components) {
-				if(e instanceof Leaf) {
-					e.getBerekendewaarde().entrySet().forEach(es -> {
-						map.put(String.format("%s",map.size()), es.getValue());
-					});
-				}
-				else {
-					if(e.getComponents() != null) {
-						for(Component d: e.getComponents()) {
-							e.getBerekendewaarde().entrySet().forEach(es -> {
-								map.put(String.format("%s",map.size()), es.getValue());
-							});
-						}
-					}
-				}		
+			e.getBerekendewaarde().entrySet().forEach(es -> {
+				map.put(es.getKey(), es.getValue());
+			});
+//				if(e instanceof Leaf) {
+//					e.getBerekendewaarde().entrySet().forEach(es -> {
+//						map.put(String.format("%s%s", e.getNaam(), map.size() > 1 ? String.format("_%s",value) : ""), es.getValue());
+//					});
+//				}
+//				else {
+//					if(e.getComponents() != null) {
+//						for(Component d: e.getComponents()) {
+//							e.getBerekendewaarde().entrySet().forEach(es -> {
+//								map.put(String.format("%s%s", d.getNaam(), map.size() > 1 ? String.format("_%s",value) : ""), es.getValue());
+//							});
+//						}
+//					}
+//				}		
 		}
-		setValue(getFormule().calculate(map));
+		
+		
+		Map<String, Double> tempMap = getFormule().calculate(map);
+		Map<String, Double> mapNewName = new HashMap<>();
+		if(getFormule() instanceof GeenBewerking)
+		{
+			setValue(tempMap);
+		}
+		else
+		{
+			final int size = tempMap.size();
+			tempMap.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
+			setValue(mapNewName);
+		}
+		
+		
 		return getValue();
 	}
 

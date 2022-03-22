@@ -58,9 +58,12 @@ public class Leaf extends Component {
 	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
 		Map<String, Double> map = datasource.getData();
+		map = getFormule().calculate(map);
+		Map<String, Double> mapNewName = new HashMap<>();
+		final int size = map.size();
+		map.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
 		
-	
-		setValue(getFormule().calculate(map));
+		setValue(mapNewName);
 		return getValue();
 	}
 
