@@ -160,6 +160,4 @@ public class Composite extends Component implements Serializable{
 	public boolean isLeaf() {
 		return false;
 	}
-
-  
 }

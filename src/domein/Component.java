@@ -183,7 +183,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------
 	public abstract void print();
-	public abstract Map<String, Double> getBerekendewaarde() throws IOException;
+	//public abstract Map<String, Double> Value() throws IOException;
 	
 	// METHODEN DIE NIET OVERAL VOORKOMEN --> UNSUPPORTED
 	// ---------------------------------------------------------------------------------------------------

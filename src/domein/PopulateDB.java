@@ -708,7 +708,7 @@ public class PopulateDB {
 		sdGoalRepo.insert(goal_15_6);
 
 		SdGoal goal_15_7 = new SdGoal("15",
-				"15.7 Dringende actie ondernemen om een ​​einde te maken aan stroperij en handel in beschermde soorten flora en fauna en zowel de vraag naar als het aanbod van illegale producten van wilde dieren aan te pakken");
+				"15.7 Dringende actie ondernemen om een einde te maken aan stroperij en handel in beschermde soorten flora en fauna en zowel de vraag naar als het aanbod van illegale producten van wilde dieren aan te pakken");
 		goal_15_7.setParentSDG_id(15);
 		sdGoalRepo.insert(goal_15_7);
 
