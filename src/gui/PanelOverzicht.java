@@ -1,20 +1,13 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import domein.Categorie;
 import domein.DomeinController;
-import domein.ListViewInterface;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -92,11 +85,12 @@ public class PanelOverzicht<E> extends VBox {
 				if (hoofdScherm instanceof BorderPane) {
 
 					 //DetailsScherm opvragen adhv het hoofdScherm
-					Node details = ( ((BorderPane) hoofdScherm).getCenter());
+//					Node details = ( ((BorderPane) hoofdScherm).getCenter());
 					if(soort.equals("categorieën")) {
 
 						((BorderPane) hoofdScherm).setCenter(null);
-						CategorieDetailsController cdp = new CategorieDetailsController(dc, newValue);
+						CategorieDetailsController<E> cdp = new CategorieDetailsController<>(dc, newValue);
+						
 						
 						Platform.runLater(new Runnable()
 						{
@@ -109,7 +103,7 @@ public class PanelOverzicht<E> extends VBox {
 					}
 					
 					if(soort.equals("datasources")) {
-						DatasourceDetailsController d = new DatasourceDetailsController<>(dc, newValue);
+						DatasourceDetailsController<E> d = new DatasourceDetailsController<>(dc, newValue);
 						
 						Platform.runLater(new Runnable()
 						{
@@ -133,7 +127,7 @@ public class PanelOverzicht<E> extends VBox {
 			@Override
 			public void handle(ActionEvent evt) {
 				if(soort.equals("categorieën")) {
-					UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, null, "Maak nieuwe categorie");
+					UpdateOrCreateCategoryController<E> vs = new UpdateOrCreateCategoryController<>(dc, null, "Maak nieuwe categorie");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzicht.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {
@@ -142,7 +136,7 @@ public class PanelOverzicht<E> extends VBox {
 					}
 				}
 				if(soort.equals("doelstellingen")) {
-					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					UpdateOrCreateDoelstelling<E> vs = new UpdateOrCreateDoelstelling<>(dc, null, "Maak nieuwe doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzicht.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {
@@ -171,6 +165,8 @@ public class PanelOverzicht<E> extends VBox {
 		this.setPadding(new Insets(10));
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
+		this.setMinWidth(USE_PREF_SIZE);
+//		this.setPrefHeight(USE_COMPUTED_SIZE);
 		
 		// Eerste item in ListView selecteren en weergeven
 		list.getSelectionModel().selectFirst();

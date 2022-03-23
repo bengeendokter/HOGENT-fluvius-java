@@ -1,42 +1,28 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import domein.Categorie;
 import domein.Doelstelling;
 import domein.DomeinController;
-import domein.ListViewInterface;
-import domein.Rol;
-import domein.SdGoal;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class PanelOverzichtTreeview extends VBox {
 	
-	private ObservableList<Doelstelling> items;
-	private DomeinController dc;
+//	private ObservableList<Doelstelling> items;
+//	private DomeinController dc;
 	TreeView<Doelstelling> treeview = new TreeView<>();
 
 	public PanelOverzichtTreeview() {
@@ -45,8 +31,8 @@ public class PanelOverzichtTreeview extends VBox {
 	}
 
 	public void initGui(ObservableList<Doelstelling> items, String soort, DomeinController dc) {
-		this.items = items;
-		this.dc = dc;
+//		this.items = items;
+//		this.dc = dc;
 		
 		this.getChildren().clear();
 		
@@ -129,7 +115,7 @@ public class PanelOverzichtTreeview extends VBox {
 				
 				if(hoofdScherm instanceof BorderPane)
 				{
-					DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);
+					DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue.getValue());
 
 						Platform.runLater(new Runnable()
 						{
@@ -153,7 +139,7 @@ public class PanelOverzichtTreeview extends VBox {
 			public void handle(ActionEvent evt) {
 
 				if(soort.equals("doelstellingen")) {
-					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc, null, "Maak nieuwe doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzichtTreeview.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {
@@ -173,6 +159,7 @@ public class PanelOverzichtTreeview extends VBox {
 		this.setPadding(new Insets(10));
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
+		this.setMinWidth(USE_PREF_SIZE);
 		
 		// Eerste item in TreeView selecteren en weergeven
 		treeview.getSelectionModel().selectFirst();

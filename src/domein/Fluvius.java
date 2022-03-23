@@ -1,12 +1,10 @@
 package domein;
 
-import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.RollbackException;
 
@@ -17,7 +15,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import repository.CategorieDao;
 import repository.CategorieDaoJpa;
-import repository.GenericDaoJpa;
 import repository.MVODatasourceDao;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;

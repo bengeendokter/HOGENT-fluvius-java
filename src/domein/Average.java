@@ -1,7 +1,6 @@
 package domein;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,6 +10,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("AVG")
 public class Average extends Bewerking{
 	
+	private static final long serialVersionUID = 1L;
+
 	public Average() {
 		
 	}

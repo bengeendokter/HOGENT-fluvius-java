@@ -1,9 +1,5 @@
 package domein;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 public class DTODatasource {
 	public String naam;
 	public String typeDatasource;

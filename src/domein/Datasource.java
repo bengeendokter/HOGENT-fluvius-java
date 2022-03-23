@@ -2,10 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
-
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 public interface Datasource{
 	public int getDatasourceID();

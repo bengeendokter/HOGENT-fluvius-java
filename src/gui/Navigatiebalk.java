@@ -4,7 +4,6 @@ import domein.DomeinController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,14 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
-public class Navigatiebalk<E> extends HBox {
+public class Navigatiebalk extends HBox {
 	
 	private DomeinController dc;
 
@@ -129,7 +127,7 @@ public class Navigatiebalk<E> extends HBox {
 	private <E> void refreshOverzicht(ObservableList<E> lijst, String soort) {
 		
 		
-		PanelOverzicht po = new PanelOverzicht();
+		PanelOverzicht<E> po = new PanelOverzicht<>();
 		// Eerst het hoofdscherm opvragen adhv dit scherm
 		Parent hoofdScherm = Navigatiebalk.this.getParent();
 		

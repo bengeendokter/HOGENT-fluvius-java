@@ -1,8 +1,6 @@
 package main;
 
 
-import java.io.IOException;
-
 import domein.PopulateDB;
 import gui.VolledigPanelController;
 import javafx.application.Application;

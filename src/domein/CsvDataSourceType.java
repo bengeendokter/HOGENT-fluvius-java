@@ -1,19 +1,16 @@
 package domein;
 
+import java.io.Reader;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-
 import javax.persistence.DiscriminatorValue;
-
+import javax.persistence.Entity;
 
 import com.opencsv.CSVReader;
 
@@ -67,6 +64,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 		return leesAf(kolom);
 	}
 	
+	@SuppressWarnings("unused")
 	public List<Double> leesAf(int kolom) {
 		List<List<String>> meerdereKolommen =  new ArrayList<>();
     	List<String> eenKolom =  new ArrayList<>();

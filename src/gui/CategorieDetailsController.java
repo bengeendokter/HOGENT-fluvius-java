@@ -11,18 +11,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
 
-public class CategorieDetailsController<E> extends Pane{
+public class CategorieDetailsController<E> extends BorderPane{
 	@FXML
 	private Label lblDetailsDatasource;
 	@FXML
@@ -38,20 +38,23 @@ public class CategorieDetailsController<E> extends Pane{
 	@FXML
 	private ImageView imgIcoon;
 	@FXML
-	private TreeView treeviewSdgs;
+	private TreeView<SdGoal>treeviewSdgs;
 	@FXML
 	private Label lblSdgs;
 	@FXML
 	private Label lblErrorMessage;
-	private DomeinController dc;
-	private E object;
+//	private DomeinController dc;
+//	private E object;
 	
 	public CategorieDetailsController(DomeinController dc, E object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieDetails.fxml"));
 		loader.setController(this);
-		this.dc = dc;
-		this.object = object;
+		loader.setRoot(this);
 		
+//		this.dc = dc;
+//		this.object = object;
+		
+//		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
 		
 
 		try
@@ -69,6 +72,10 @@ public class CategorieDetailsController<E> extends Pane{
 				pad = pad.substring(index+1);
 				// Mannetje weergeven
 				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				
+				// TODO verwijder 
+//				imgIcoon.setManaged(false);
+//				imgIcoon.setVisible(false);
 
 			}
 			
@@ -102,7 +109,7 @@ public class CategorieDetailsController<E> extends Pane{
 			treeviewSdgs.setRoot(rootNode);
 			treeviewSdgs.setShowRoot(false);
 			
-			this.getChildren().addAll(lblErrorMessage, lblDetailsDatasource, lblIcoon, lblNaam, lblNaamIngevuld, lblSdgs, treeviewSdgs, btnAnnuleer, btnOpslaan, imgIcoon);
+//			this.getChildren().addAll(lblErrorMessage, lblDetailsDatasource, lblIcoon, lblNaam, lblNaamIngevuld, lblSdgs, treeviewSdgs, btnAnnuleer, btnOpslaan, imgIcoon);
 		
 			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -137,7 +144,7 @@ public class CategorieDetailsController<E> extends Pane{
 					@Override
 					public void handle(ActionEvent evt) {
 
-						UpdateOrCreateCategoryController vs = new UpdateOrCreateCategoryController(dc, object, "Wijzig categorie");
+						UpdateOrCreateCategoryController<E> vs = new UpdateOrCreateCategoryController<>(dc, object, "Wijzig categorie");
 						// Eerst het hoofdscherm opvragen adhv dit scherm
 						Parent hoofdScherm = CategorieDetailsController.this.getParent();
 						if (hoofdScherm instanceof BorderPane) {
@@ -152,10 +159,11 @@ public class CategorieDetailsController<E> extends Pane{
 		{
 			throw new RuntimeException(e);
 		}
+		
 	}
 	
 	public void maakLeeg() {
-		this.getChildren().clear();
+//		this.getChildren().clear();
 		
 	}
 	

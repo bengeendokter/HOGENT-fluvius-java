@@ -2,25 +2,10 @@ package main;
 
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.RollbackException;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 import domein.AanmeldController;
 import domein.DTODatasource;
 import domein.DomeinController;
-import domein.MVODatasource;
-import repository.DatabaseSelector;
-import repository.GenericDaoJpa;
-import repository.MVODatasourceDao;
-import repository.MVODatasourceDaoJpa;
 
 public class DatasourceConsole {
 	

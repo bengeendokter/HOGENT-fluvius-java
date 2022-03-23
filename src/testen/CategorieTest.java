@@ -17,7 +17,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domein.Categorie;
 import domein.DTOCategorie;
 import domein.Fluvius;
 import domein.SDGCategorie;

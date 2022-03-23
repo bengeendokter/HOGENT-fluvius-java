@@ -12,10 +12,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
@@ -102,7 +99,7 @@ public class Composite extends Component implements Serializable{
 	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
 		Map<String, Double> map = new HashMap<>();
-		int value = 0;
+//		int value = 0;
 		for(Component e: components) {
 			e.getBerekendewaarde().entrySet().forEach(es -> {
 				map.put(es.getKey(), es.getValue());
@@ -160,6 +157,4 @@ public class Composite extends Component implements Serializable{
 	public boolean isLeaf() {
 		return false;
 	}
-
-  
 }

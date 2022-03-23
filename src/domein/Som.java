@@ -1,9 +1,7 @@
 package domein;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -11,6 +9,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("SOM")
 public class Som extends Bewerking{
 	
+	private static final long serialVersionUID = -6748766871256698422L;
+
 	public Som() {
 		
 	}
