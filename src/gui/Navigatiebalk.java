@@ -35,7 +35,7 @@ public class Navigatiebalk extends HBox {
 		ImageView imgLogo = new ImageView(new Image(getClass().getResourceAsStream("/images/logo.png")));
 		
 		// Hoogte en breedte instellen van het logo
-		imgLogo.setFitWidth(140);
+		imgLogo.setFitWidth(130);
 		imgLogo.setFitHeight(40);
 		
 

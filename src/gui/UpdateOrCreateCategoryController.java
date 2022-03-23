@@ -122,6 +122,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			//eerste element in listview selecteren omdat anders "oldvalue" null wordt
 			listIcoon.getSelectionModel().selectFirst();
+			imgIcoon.setImage(new Image((String) listIcoon.getSelectionModel().getSelectedItem()));
 			
 			//icoon verandert als je op een icoon klikt van de lijst
 			listIcoon.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -143,8 +144,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
-			//System.out.println(dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList()));
-			dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList()).forEach(e -> System.out.println(e));
+	
 			for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
 				
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);

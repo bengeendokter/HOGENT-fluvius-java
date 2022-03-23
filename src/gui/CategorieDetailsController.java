@@ -163,7 +163,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 	}
 	
 	public void maakLeeg() {
-//		this.getChildren().clear();
+		this.getChildren().clear();
 		
 	}
 	

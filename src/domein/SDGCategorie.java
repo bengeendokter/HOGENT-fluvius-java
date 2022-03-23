@@ -7,9 +7,11 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +36,14 @@ public class SDGCategorie implements Serializable, Categorie
 	private String icon;
 	
 	@OneToMany
+	@JoinColumn(
+	        name="CATID", 
+	        nullable=true,
+	        foreignKey = @ForeignKey(
+	                name="FK_SDG_ID",
+	                foreignKeyDefinition = "FOREIGN KEY (CATID) REFERENCES SDGOAL(idSDG) ON UPDATE CASCADE ON DELETE CASCADE"
+	        )
+	)
 	private List<SdGoal> sdGoals;
 	
 //	@OneToMany
