@@ -137,6 +137,7 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
         return lijstje;
 	}
 	
+	@SuppressWarnings("unused")
 	public List<Double> leesAfXLSX(int kolom)  {  
 		List<List<String>> meerdereKolommen = new ArrayList<>();
 		List<String> enkelKolom = new ArrayList<>();

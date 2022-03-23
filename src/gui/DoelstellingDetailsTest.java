@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 
-import domein.Component;
 import domein.Doelstelling;
 import domein.DomeinController;
 import domein.Rol;
@@ -26,7 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-public class DoelstellingDetailsTest<E> extends Pane{
+public class DoelstellingDetailsTest extends Pane{
 	@FXML
 	private Button btnWijzigen;
 	@FXML
@@ -52,7 +51,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 	@FXML
 	private Label lblSubDoelstellingen;
 	@FXML
-	private TreeView treeViewSubDoelstellingen;
+	private TreeView<Doelstelling> treeViewSubDoelstellingen;
 	@FXML
 	private Label lblNaamIngevuld;
 	@FXML
@@ -66,18 +65,18 @@ public class DoelstellingDetailsTest<E> extends Pane{
 	@FXML
 	private Label lblDatasourceIngevuld;
 	@FXML
-	private ListView listRollenIngevuld;
+	private ListView<Rol> listRollenIngevuld;
 	@FXML
 	private Label lblErrorMessage;
-	private DomeinController dc;
-	private E object;
+//	private DomeinController dc;
+//	private E object;
 	
-	@SuppressWarnings("unchecked")
-	public DoelstellingDetailsTest(DomeinController dc, E object){
+
+	public DoelstellingDetailsTest(DomeinController dc, Doelstelling object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DoelstellingDetails.fxml"));
 		loader.setController(this);
-		this.dc = dc;
-		this.object = object;
+//		this.dc = dc;
+//		this.object = object;
 
 		try
 		{
@@ -119,16 +118,16 @@ public class DoelstellingDetailsTest<E> extends Pane{
 				});
 				
 				
-				TreeItem<Component> rootNode = 
-				        new TreeItem<Component>(null);
+				TreeItem<Doelstelling> rootNode = 
+				        new TreeItem<Doelstelling>(null);
 
 				
 				
-				for (Component s : ((Doelstelling) object).getComponents()) {
+				for (Doelstelling s : object.getComponents()) {
 					System.out.println(s.getNaam());
-		            TreeItem<Component> empLeaf = new TreeItem<Component>(s);
+//		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
 		            boolean found = false;
-//		            for (TreeItem<Component> depNode : rootNode.getChildren()) {
+//		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
 //		            	if(depNode.getValue().g == s.getParentSDG_id()) {
 //		            		depNode.getChildren().add(empLeaf);
 //		                  found = true;
@@ -140,7 +139,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 					pad = pad.substring(index+1);
 
 		            if (!found) {
-		                TreeItem<Component> depNode = new TreeItem<Component>(
+		                TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(
 		                    s
 		                );
 		                
@@ -197,7 +196,7 @@ public class DoelstellingDetailsTest<E> extends Pane{
 				@Override
 				public void handle(ActionEvent evt) {
 
-					UpdateOrCreateDoelstelling<E> vs = new UpdateOrCreateDoelstelling(dc, object, "Wijzig doelstelling");
+					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc, object, "Wijzig doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = DoelstellingDetailsTest.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {

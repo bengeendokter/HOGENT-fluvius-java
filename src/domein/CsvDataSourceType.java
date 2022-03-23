@@ -64,6 +64,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 		return leesAf(kolom);
 	}
 	
+	@SuppressWarnings("unused")
 	public List<Double> leesAf(int kolom) {
 		List<List<String>> meerdereKolommen =  new ArrayList<>();
     	List<String> eenKolom =  new ArrayList<>();

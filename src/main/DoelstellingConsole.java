@@ -9,6 +9,7 @@ public class DoelstellingConsole {
 
 	public static void main(String[] args) throws SQLIntegrityConstraintViolationException, ExceptionInInitializerError {
 		AanmeldController aanmeldController = new AanmeldController();
+		@SuppressWarnings("unused")
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
 		
 //		DTOMVODoelstelling a = geenRollenToegekend();

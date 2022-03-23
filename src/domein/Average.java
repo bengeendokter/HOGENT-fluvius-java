@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("AVG")
 public class Average extends Bewerking{
 	
+	private static final long serialVersionUID = 1L;
+
 	public Average() {
 		
 	}

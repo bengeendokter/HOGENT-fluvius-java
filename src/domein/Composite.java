@@ -99,7 +99,7 @@ public class Composite extends Component implements Serializable{
 	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
 		Map<String, Double> map = new HashMap<>();
-		int value = 0;
+//		int value = 0;
 		for(Component e: components) {
 			e.getBerekendewaarde().entrySet().forEach(es -> {
 				map.put(es.getKey(), es.getValue());

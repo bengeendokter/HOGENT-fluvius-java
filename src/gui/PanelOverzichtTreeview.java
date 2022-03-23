@@ -21,8 +21,8 @@ import javafx.scene.layout.VBox;
 
 public class PanelOverzichtTreeview extends VBox {
 	
-	private ObservableList<Doelstelling> items;
-	private DomeinController dc;
+//	private ObservableList<Doelstelling> items;
+//	private DomeinController dc;
 	TreeView<Doelstelling> treeview = new TreeView<>();
 
 	public PanelOverzichtTreeview() {
@@ -31,8 +31,8 @@ public class PanelOverzichtTreeview extends VBox {
 	}
 
 	public void initGui(ObservableList<Doelstelling> items, String soort, DomeinController dc) {
-		this.items = items;
-		this.dc = dc;
+//		this.items = items;
+//		this.dc = dc;
 		
 		this.getChildren().clear();
 		
@@ -115,7 +115,7 @@ public class PanelOverzichtTreeview extends VBox {
 				
 				if(hoofdScherm instanceof BorderPane)
 				{
-					DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue);
+					DoelstellingDetailsTest test = new DoelstellingDetailsTest(dc, newValue.getValue());
 
 						Platform.runLater(new Runnable()
 						{
@@ -139,7 +139,7 @@ public class PanelOverzichtTreeview extends VBox {
 			public void handle(ActionEvent evt) {
 
 				if(soort.equals("doelstellingen")) {
-					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc, null, "Maak nieuwe doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzichtTreeview.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {

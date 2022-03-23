@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("GEENBEWERKING")
 public class GeenBewerking extends Bewerking{
 
+	private static final long serialVersionUID = 1L;
+
 	public GeenBewerking() {
 		
 	}

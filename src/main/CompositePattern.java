@@ -16,6 +16,7 @@ import domein.SdGoal;
 
 public class CompositePattern {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException, ExceptionInInitializerError {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("fluvius");
 		EntityManager em = emf.createEntityManager();

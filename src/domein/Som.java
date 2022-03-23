@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("SOM")
 public class Som extends Bewerking{
 	
+	private static final long serialVersionUID = -6748766871256698422L;
+
 	public Som() {
 		
 	}
