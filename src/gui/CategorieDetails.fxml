@@ -40,7 +40,7 @@
          </font>
       </Button>
       <ImageView fx:id="imgIcoon" fitHeight="100.0" fitWidth="116.0" layoutX="161.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
-      <TreeView fx:id="treeviewSdgs" layoutX="14.0" layoutY="270.0" prefHeight="351.0" prefWidth="263.0" />
+      <TreeView fx:id="treeviewSdgs" layoutX="14.0" layoutY="270.0" prefHeight="351.0" prefWidth="959.0" />
       <Label fx:id="lblSdgs" layoutX="14.0" layoutY="221.0" text="SDG's:">
          <font>
             <Font size="21.0" />
