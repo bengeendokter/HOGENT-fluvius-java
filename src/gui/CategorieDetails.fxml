@@ -11,19 +11,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox>
          <children>
             <HBox>
                <children>
-                  <Label fx:id="lblNaam" text="Naam:">
+                  <Label fx:id="lblNaam" prefHeight="31.0" prefWidth="74.0" text="Naam:">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblNaamIngevuld" prefHeight="31.0" prefWidth="134.0" text="dummynaam">
+                  <Label fx:id="lblNaamIngevuld" prefHeight="31.0" prefWidth="162.0" text="dummynaam">
                      <font>
                         <Font size="21.0" />
                      </font>
@@ -32,7 +31,7 @@
             </HBox>
             <HBox>
                <children>
-                  <Label fx:id="lblIcoon" text="Icoon:">
+                  <Label fx:id="lblIcoon" prefHeight="31.0" prefWidth="110.0" text="Icoon:">
                      <font>
                         <Font size="21.0" />
                      </font>
@@ -49,7 +48,7 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <TreeView fx:id="treeviewSdgs">
+            <TreeView fx:id="treeviewSdgs" prefHeight="311.0" prefWidth="886.0">
                <VBox.margin>
                   <Insets bottom="30.0" right="30.0" />
                </VBox.margin>
@@ -60,7 +59,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblDetailsDatasource" text="Details categorie">
+            <Label fx:id="lblDetailsDatasource" prefHeight="40.0" prefWidth="166.0" text="Details categorie">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -87,7 +86,7 @@
             </HBox>
          </right>
          <left>
-            <Label fx:id="lblErrorMessage" text="Label" textFill="RED" BorderPane.alignment="CENTER">
+            <Label fx:id="lblErrorMessage" prefHeight="31.0" prefWidth="582.0" text="Label" textFill="RED" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -99,4 +98,3 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </fx:root>
-
