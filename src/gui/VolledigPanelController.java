@@ -32,8 +32,9 @@ public class VolledigPanelController<E> extends BorderPane{
 		    
 		    
 		    PanelOverzicht ov = new PanelOverzicht();
-		    ov.initGui(dc.getCategorien(), "categorieën", dc);
 		    this.setLeft(ov);
+		    ov.initGui(dc.getCategorien(), "categorieën", dc);
+		    
 		    
 //		    CategorieDetailPanel<E> detail = new CategorieDetailPanel<>();
 //		    this.setCenter(detail);

@@ -107,9 +107,8 @@ public class Navigatiebalk<E> extends HBox {
 				Parent hoofdScherm = Navigatiebalk.this.getParent();
 					((BorderPane) hoofdScherm).setLeft(null);
 					PanelOverzichtTreeview p = new PanelOverzichtTreeview();
-					p.initGui(dc.getDoelstellingen(), "doelstellingen", dc);
 					((BorderPane) hoofdScherm).setLeft(p);
-
+					p.initGui(dc.getDoelstellingen(), "doelstellingen", dc);
 			}
 		});
 

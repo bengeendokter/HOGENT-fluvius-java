@@ -97,13 +97,31 @@ public class PanelOverzicht<E> extends VBox {
 
 							((BorderPane) hoofdScherm).setCenter(null);
 							CategorieDetailsController cdp = new CategorieDetailsController(dc, newValue);
-							((BorderPane) hoofdScherm).setCenter(cdp);
+							
+							Platform.runLater(new Runnable()
+							{
+								@Override
+								public void run()
+								{
+									((BorderPane) hoofdScherm).setCenter(cdp);
+								}
+							});
+							
+
 
 					}
 					
 					if(soort.equals("datasources")) {
 						DatasourceDetailsController d = new DatasourceDetailsController<>(dc, newValue);
-						((BorderPane) hoofdScherm).setCenter(d);
+						
+						Platform.runLater(new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								((BorderPane) hoofdScherm).setCenter(d);
+							}
+						});
 					}
 					
 				}
@@ -147,7 +165,9 @@ public class PanelOverzicht<E> extends VBox {
 		this.setPadding(new Insets(10));
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
-
+		
+		// Eerste item in ListView selecteren en weergeven
+		list.getSelectionModel().selectFirst();
 	}
 	
 
