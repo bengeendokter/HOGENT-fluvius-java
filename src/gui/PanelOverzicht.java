@@ -91,13 +91,13 @@ public class PanelOverzicht<E> extends VBox {
 						((BorderPane) hoofdScherm).setCenter(null);
 						CategorieDetailsController<E> cdp = new CategorieDetailsController<>(dc, newValue);
 						
+						
 						Platform.runLater(new Runnable()
 						{
 							@Override
 							public void run()
 							{
 								((BorderPane) hoofdScherm).setCenter(cdp);
-								cdp.setPrefWidth(900);
 							}
 						});
 					}

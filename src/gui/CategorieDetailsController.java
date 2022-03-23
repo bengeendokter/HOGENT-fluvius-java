@@ -49,10 +49,12 @@ public class CategorieDetailsController<E> extends BorderPane{
 	public CategorieDetailsController(DomeinController dc, E object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieDetails.fxml"));
 		loader.setController(this);
+		loader.setRoot(this);
+		
 //		this.dc = dc;
 //		this.object = object;
 		
-		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
+//		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
 		
 
 		try
@@ -70,6 +72,10 @@ public class CategorieDetailsController<E> extends BorderPane{
 				pad = pad.substring(index+1);
 				// Mannetje weergeven
 				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				
+				// TODO verwijder 
+//				imgIcoon.setManaged(false);
+//				imgIcoon.setVisible(false);
 
 			}
 			
@@ -103,7 +109,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 			treeviewSdgs.setRoot(rootNode);
 			treeviewSdgs.setShowRoot(false);
 			
-			this.getChildren().addAll(lblErrorMessage, lblDetailsDatasource, lblIcoon, lblNaam, lblNaamIngevuld, lblSdgs, treeviewSdgs, btnAnnuleer, btnOpslaan, imgIcoon);
+//			this.getChildren().addAll(lblErrorMessage, lblDetailsDatasource, lblIcoon, lblNaam, lblNaamIngevuld, lblSdgs, treeviewSdgs, btnAnnuleer, btnOpslaan, imgIcoon);
 		
 			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -153,10 +159,11 @@ public class CategorieDetailsController<E> extends BorderPane{
 		{
 			throw new RuntimeException(e);
 		}
+		
 	}
 	
 	public void maakLeeg() {
-		this.getChildren().clear();
+//		this.getChildren().clear();
 		
 	}
 	

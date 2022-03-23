@@ -24,8 +24,7 @@ public class VolledigPanelController extends BorderPane{
 //		    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 		    Navigatiebalk nav = new Navigatiebalk(dc);
 		    this.setTop(nav);
-		    
-		    
+		   
 		    
 		    PanelOverzicht<Categorie> ov = new PanelOverzicht<>();
 		    this.setLeft(ov);
