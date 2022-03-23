@@ -2,6 +2,7 @@ package domein;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -32,6 +33,6 @@ public abstract class Bewerking implements Serializable{
 
 	}
 
-	public abstract double calculate(List<Double> data);
+	public abstract Map<String, Double> calculate(Map<String, Double> data);
 
 }

@@ -19,6 +19,7 @@
 	<class>domein.Bewerking</class>
 	<class>domein.Som</class>
 	<class>domein.Average</class>
+	<class>domein.GeenBewerking</class>
 	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
@@ -48,6 +49,7 @@
 	<class>domein.Bewerking</class>
 	<class>domein.Som</class>
 	<class>domein.Average</class>
+	<class>domein.GeenBewerking</class>
   <properties>
     <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/fluvius?serverTimezone=UTC"/>
     <property name="javax.persistence.jdbc.user" value="root"/>
