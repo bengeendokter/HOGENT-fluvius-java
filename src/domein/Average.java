@@ -1,6 +1,8 @@
 package domein;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -14,8 +16,10 @@ public class Average extends Bewerking{
 	}
 
 	@Override
-	public double calculate(List<Double> data) {
-		return data.stream().mapToDouble(Double::doubleValue).average().getAsDouble();
+	public Map<String, Double> calculate(Map<String, Double> data) {
+		Map<String, Double> map = new HashMap<>();
+		map.put(toString(), data.values().stream().mapToDouble(Double::doubleValue).average().getAsDouble());
+		return map;
 	}
 	
 	@Override
