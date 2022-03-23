@@ -150,6 +150,15 @@ public class PanelOverzicht<E> extends VBox {
 						((BorderPane) hoofdScherm).setCenter(vs);
 					}
 				}
+				if(soort.equals("datasources")) {
+					//UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					// Eerst het hoofdscherm opvragen adhv dit scherm
+					Parent hoofdScherm = PanelOverzicht.this.getParent();
+					if (hoofdScherm instanceof BorderPane) {
+						// DetailsScherm opvragen adhv het hoofdScherm
+						//((BorderPane) hoofdScherm).setCenter(vs);
+					}
+				}
 				
 				
 			}

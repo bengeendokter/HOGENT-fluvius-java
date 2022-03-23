@@ -31,7 +31,7 @@ public class Navigatiebalk<E> extends HBox {
 
 	private void initGui() {
 		//this.setStyle("-fx-background-color: #B2D234;");
-		this.setStyle("-fx-background-color: #B2D234;");
+		this.setStyle("-fx-background-color: white;");
 		
 		// Logo aanmaken
 		ImageView imgLogo = new ImageView(new Image(getClass().getResourceAsStream("/images/logo.png")));
@@ -57,14 +57,14 @@ public class Navigatiebalk<E> extends HBox {
 		
 
 		// Knoppen stijlen
-		btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: black;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
-		btnDatasource.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
-		btnDoelstelling.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+		btnCategorie.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
+		btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+		btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 
 		
 		// Naam en functie weergeven
 		Label lblNaamFunctie = new Label(dc.getAangemeldeGebruiker().getRol() + "\n" + dc.getAangemeldeGebruiker().getGebruikersnaam());
-		lblNaamFunctie.setStyle("-fx-text-fill: white;  -fx-font-size: 16;");
+		lblNaamFunctie.setStyle("-fx-text-fill: #495973;  -fx-font-size: 16;");
 		lblNaamFunctie.setMinWidth(USE_PREF_SIZE);
 		
 		// Mannetje weergeven
@@ -92,9 +92,9 @@ public class Navigatiebalk<E> extends HBox {
 		btnCategorie.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: black;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
-				btnDatasource.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
-				btnDoelstelling.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnCategorie.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
+				btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 
 				refreshOverzicht(dc.getCategorien(), "categorieën");
 			}
@@ -102,9 +102,9 @@ public class Navigatiebalk<E> extends HBox {
 		btnDatasource.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: black;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
-				btnCategorie.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
-				btnDoelstelling.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnDatasource.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
+				btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 
 				
 				refreshOverzicht(dc.getDatasources(), "datasources");
@@ -113,9 +113,9 @@ public class Navigatiebalk<E> extends HBox {
 		btnDoelstelling.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
-				btnDoelstelling.setStyle("-fx-background-color: white;-fx-text-fill: black;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
-				btnCategorie.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
-				btnDatasource.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnDoelstelling.setStyle("-fx-background-color: #495973;-fx-text-fill: white;  -fx-font-size: 20; -fx-padding: 10 10 10 10;");
+				btnCategorie.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
+				btnDatasource.setStyle("-fx-background-color: white;-fx-text-fill: #495973;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 				Parent hoofdScherm = Navigatiebalk.this.getParent();
 					((BorderPane) hoofdScherm).setLeft(null);
 					PanelOverzichtTreeview p = new PanelOverzichtTreeview();
