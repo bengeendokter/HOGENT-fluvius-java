@@ -24,7 +24,7 @@ public interface Datasource{
 	//List<Double>
 	
 	//public List<Double> getData() throws IOException;
-	public Map<String, Double> getData() throws IOException;
+	public Map<String, Double> getData(int kolom) throws IOException;
 	
 	//TODO
 	//meta data toevoegen als attribuut

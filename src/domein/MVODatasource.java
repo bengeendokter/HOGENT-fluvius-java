@@ -56,9 +56,9 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	//List<Double>
-	public Map<String, Double> getData() throws IOException {
+	public Map<String, Double> getData(int kolom) throws IOException {
 		Map<String, Double> map = new HashMap<>();
-		typeDatasource.getData().forEach(d -> {
+		typeDatasource.getData(kolom).forEach(d -> {
 			map.put(String.format("%s_%s", naam, map.size()), d);
 			});
 		return map;

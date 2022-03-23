@@ -29,7 +29,7 @@ public class BerekeningStartup {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Som();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource(naam, "csv", "src/data/csvDouble.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource(naam, "csv", "src/data/csvDouble.csv","","","",true,"traag","test",1));
 		   
 		   Doelstelling aantalMannen = new Leaf(new DTOMVODoelstelling("aantal mannen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, new GeenBewerking()));
 		   Doelstelling aantalVrouwen = new Leaf(new DTOMVODoelstelling("aantal vrouwen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
@@ -38,7 +38,7 @@ public class BerekeningStartup {
 		   subDoelstellingen.add(aantalVrouwen);
 		   
 		   Doelstelling aantalWerknemers = new Composite(new DTOMVODoelstelling("aantal werknemers", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
-		   Doelstelling verhouding = new Composite(new DTOMVODoelstelling("verhouding man/vrouw", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, new GeenBewerking()));
+		   Doelstelling verhouding = new Composite(new DTOMVODoelstelling("verhouding man/vrouw", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, new Som()));
 
 		   aantalWerknemers.getBerekendewaarde();
 		   verhouding.getBerekendewaarde();

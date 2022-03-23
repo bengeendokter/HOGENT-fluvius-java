@@ -57,7 +57,7 @@ public class Leaf extends Component {
 	
 	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
-		Map<String, Double> map = datasource.getData();
+		Map<String, Double> map = datasource.getData(datasource.getKolom());
 		map = getFormule().calculate(map);
 		Map<String, Double> mapNewName = new HashMap<>();
 		final int size = map.size();
