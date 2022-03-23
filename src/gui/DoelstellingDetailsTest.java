@@ -25,13 +25,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-public class DoelstellingDetailsTest extends Pane{
+public class DoelstellingDetailsTest extends BorderPane{
 	@FXML
 	private Button btnWijzigen;
 	@FXML
 	private Button btnVerwijderen;
 	@FXML
-	private Label lblDetailsDoelstelling1;
+	private Label lblDetailsDoelstelling;
 	@FXML
 	private Label lblNaam;
 	@FXML
@@ -75,6 +75,7 @@ public class DoelstellingDetailsTest extends Pane{
 	public DoelstellingDetailsTest(DomeinController dc, Doelstelling object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DoelstellingDetails.fxml"));
 		loader.setController(this);
+		loader.setRoot(this);
 //		this.dc = dc;
 //		this.object = object;
 
@@ -160,7 +161,7 @@ public class DoelstellingDetailsTest extends Pane{
 			}
 			
 			
-			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld, imgIcoon, lblErrorMessage);
+//			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld, imgIcoon, lblErrorMessage);
 		
 			btnVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
