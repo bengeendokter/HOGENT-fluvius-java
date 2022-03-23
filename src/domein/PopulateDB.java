@@ -296,187 +296,187 @@ public class PopulateDB {
 		SdGoal goal6 = new SdGoal("6", "Schoon water en sanitair");
 		sdGoalRepo.insert(goal6);
 		SdGoal goalszes1 = new SdGoal("6", "6.1 Tegen 2030 universele en gelijke toegang tot veilig en betaalbaar drinkwater voor iedereen bereiken");
-		goalz1.setParentSDG_id(6);
+		goalszes1.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes1);
 
 		SdGoal goalszes2 = new SdGoal("6", "6.2 Tegen 2030 toegang krijgen tot adequate en billijke sanitaire voorzieningen en hygiëne voor iedereen en een einde maken aan openbare ontlasting, met speciale aandacht voor de behoeften van vrouwen en meisjes en mensen in kwetsbare situaties");
-		goalz1.setParentSDG_id(6);
+		goalszes2.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes2);
 
 		SdGoal goalszes3 = new SdGoal("6", "6.3 Tegen 2030 de waterkwaliteit verbeteren door de vervuiling te verminderen, het dumpen van gevaarlijke chemicaliën en materialen te elimineren en het vrijkomen van gevaarlijke chemicaliën en materialen tot een minimum te beperken, het aandeel onbehandeld afvalwater te halveren en de recycling en veilig hergebruik wereldwijd aanzienlijk te verhogen");
-		goalz1.setParentSDG_id(6);
+		goalszes3.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes3);
 
 		SdGoal goalszes4 = new SdGoal("6", "6.4 Tegen 2030 de efficiëntie van het watergebruik in alle sectoren aanzienlijk verhogen en zorgen voor duurzame onttrekking en levering van zoet water om waterschaarste aan te pakken en het aantal mensen dat lijdt aan waterschaarste aanzienlijk te verminderen");
-		goalz1.setParentSDG_id(6);
+		goalszes4.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes4);
 
 		SdGoal goalszes5 = new SdGoal("6", "6.5 Tegen 2030 geïntegreerd waterbeheer op alle niveaus implementeren, waar nodig ook door grensoverschrijdende samenwerking");
-		goalz1.setParentSDG_id(6);
+		goalszes5.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes5);
 
 		SdGoal goalszes6 = new SdGoal("6", "6.6 Tegen 2020 watergerelateerde ecosystemen beschermen en herstellen, waaronder bergen, bossen, wetlands, rivieren, watervoerende lagen en meren");
-		goalz1.setParentSDG_id(6);
+		goalszes6.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszes6);
 
 		SdGoal goalszesa = new SdGoal("6", "6.a Tegen 2030 de internationale samenwerking en steun voor capaciteitsopbouw uitbreiden naar ontwikkelingslanden op het gebied van water- en sanitaire activiteiten en programma's, waaronder waterwinning, ontzilting, waterefficiëntie, afvalwaterbehandeling, recycling en hergebruiktechnologieën");
-		goalz1.setParentSDG_id(6);
+		goalszesa.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszesa);
 
 		SdGoal goalszesb = new SdGoal("6", "6.b Ondersteuning en versterking van de participatie van lokale gemeenschappen bij het verbeteren van het water- en sanitatiebeheer");
-		goalz1.setParentSDG_id(6);
+		goalszesb.setParentSDG_id(6);
 		sdGoalRepo.insert(goalszesb);
 
 		// SDGOAL 7
 		SdGoal goal7 = new SdGoal("7", "Betaalbare en duurzame energie");
 		sdGoalRepo.insert(goal7);
 		SdGoal goalszeven1 = new SdGoal("7", "7.1 Tegen 2030 zorgen voor universele toegang tot betaalbare, betrouwbare en moderne energiediensten");
-		goalz1.setParentSDG_id(7);
+		goalszeven1.setParentSDG_id(7);
 		sdGoalRepo.insert(goalszeven1);
 
 		SdGoal goalszeven2 = new SdGoal("7", "7.2 Tegen 2030 het aandeel van hernieuwbare energie in de wereldwijde energiemix substantieel verhogen");
-		goalz1.setParentSDG_id(7);
+		goalszeven2.setParentSDG_id(7);
 		sdGoalRepo.insert(goalszeven2);
 
 		SdGoal goalszeven3= new SdGoal("7", "7.3 Tegen 2030 het wereldwijde tempo van verbetering van de energie-efficiëntie verdubbelen");
-		goalz1.setParentSDG_id(7);
+		goalszeven3.setParentSDG_id(7);
 		sdGoalRepo.insert(goalszeven3);
 
 		SdGoal goalszevena= new SdGoal("7", "7.a Tegen 2030 de internationale samenwerking versterken om de toegang tot onderzoek en technologie op het gebied van schone energie te vergemakkelijken, met inbegrip van hernieuwbare energie, energie-efficiëntie en geavanceerde en schonere fossiele brandstoftechnologie, en investeringen in energie-infrastructuur en technologie voor schone energie bevorderen");
-		goalz1.setParentSDG_id(7);
+		goalszevena.setParentSDG_id(7);
 		sdGoalRepo.insert(goalszevena);
 
 		SdGoal goalszevenb= new SdGoal("7", "7.b Tegen 2030 de infrastructuur uitbreiden en de technologie upgraden voor het leveren van moderne en duurzame energiediensten voor iedereen in ontwikkelingslanden, in het bijzonder de minst ontwikkelde landen, kleine eilandstaten in ontwikkeling en niet aan zee grenzende ontwikkelingslanden, in overeenstemming met hun respectieve steunprogramma's");
-		goalz1.setParentSDG_id(7);
+		goalszevenb.setParentSDG_id(7);
 		sdGoalRepo.insert(goalszevenb);
 
 		// SDGOAL 8
 		SdGoal goal8 = new SdGoal("8", "Waardig werk en economische groei");
 		sdGoalRepo.insert(goal8);
 		SdGoal goalsacht1 = new SdGoal("8", "8.1 Behoud de economische groei per hoofd van de bevolking in overeenstemming met de nationale omstandigheden en in het bijzonder een groei van het bruto binnenlands product van ten minste 7 procent per jaar in de minst ontwikkelde landen");
-		goalz1.setParentSDG_id(8);
+		goalsacht1.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht1);
 
 		SdGoal goalsacht2= new SdGoal("8", "8.2 Hogere niveaus van economische productiviteit bereiken door diversificatie, technologische modernisering en innovatie, onder meer door de nadruk te leggen op sectoren met een hoge toegevoegde waarde en arbeidsintensieve sectoren");
-		goalz1.setParentSDG_id(8);
+		goalsacht2.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht2);
 
 		SdGoal goalsacht3= new SdGoal("8", "8.3 Ontwikkelingsgericht beleid bevorderen dat productieve activiteiten, het scheppen van fatsoenlijke banen, ondernemerschap, creativiteit en innovatie ondersteunt, en de formalisering en groei van micro-, kleine en middelgrote ondernemingen aanmoedigen, onder meer door toegang tot financiële diensten");
-		goalz1.setParentSDG_id(8);
+		goalsacht3.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht3);
 
 		SdGoal goalsacht4= new SdGoal("8", "8.4 Geleidelijk, tot 2030, de wereldwijde hulpbronnenefficiëntie in consumptie en productie verbeteren en streven om economische groei los te koppelen van aantasting van het milieu, in overeenstemming met het tienjarige kader van programma's voor duurzame consumptie en productie, waarbij de ontwikkelde landen het voortouw nemen");
-		goalz1.setParentSDG_id(8);
+		goalsacht4.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht4);
 
 		SdGoal goalsacht5= new SdGoal("8", "8.5 Tegen 2030 volledige en productieve werkgelegenheid en waardig werk bereiken voor alle vrouwen en mannen, ook voor jongeren en personen met een handicap, en gelijk loon voor werk van gelijke waarde");
-		goalz1.setParentSDG_id(8);
+		goalsacht5.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht5);
 
 		SdGoal goalsacht6= new SdGoal("8", "8.6 Tegen 2020 het aandeel jongeren dat geen werk, onderwijs of opleiding heeft, aanzienlijk verminderen");
-		goalz1.setParentSDG_id(8);
+		goalsacht6.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht6);
 
 		SdGoal goalsacht7= new SdGoal("8", "8.7 Neem onmiddellijke en effectieve maatregelen om dwangarbeid uit te bannen, een einde te maken aan moderne slavernij en mensenhandel en het verbod en de uitbanning van de ergste vormen van kinderarbeid te verzekeren, inclusief rekrutering en inzet van kindsoldaten, en tegen 2025 een einde te maken aan kinderarbeid in al zijn vormen");
-		goalz1.setParentSDG_id(8);
+		goalsacht7.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht7);
 
 		SdGoal goalsacht8= new SdGoal("8", "8.8 Arbeidsrechten beschermen en veilige werkomgevingen bevorderen voor alle werknemers, met inbegrip van migrerende werknemers, in het bijzonder vrouwelijke migranten, en degenen met onzeker werk");
-		goalz1.setParentSDG_id(8);
+		goalsacht8.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht8);
 
 		SdGoal goalsacht9= new SdGoal("8", "8.9 Tegen 2030 beleid bedenken en implementeren om duurzaam toerisme te promoten dat banen creëert en de lokale cultuur en producten promoot");
-		goalz1.setParentSDG_id(8);
+		goalsacht9.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht9);
 
 		SdGoal goalsacht10= new SdGoal("8", "8.10 De capaciteit van binnenlandse financiële instellingen versterken om de toegang tot bank-, verzekerings- en financiële diensten voor iedereen aan te moedigen en uit te breiden");
-		goalz1.setParentSDG_id(8);
+		goalsacht10.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsacht10);
 
 		SdGoal goalsachta= new SdGoal("8", "8.a Meer steun voor handel in ontwikkelingslanden, in het bijzonder de minst ontwikkelde landen, onder meer via het verbeterde geïntegreerde kader voor handelsgerelateerde technische bijstand aan de minst ontwikkelde landen");
-		goalz1.setParentSDG_id(8);
+		goalsachta.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsachta);
 
 		SdGoal goalsachtb= new SdGoal("8", "8.b Tegen 2020 een wereldwijde strategie voor werkgelegenheid voor jongeren ontwikkelen en operationaliseren en het Global Jobs Pact van de Internationale Arbeidsorganisatie implementeren");
-		goalz1.setParentSDG_id(8);
+		goalsachtb.setParentSDG_id(8);
 		sdGoalRepo.insert(goalsachtb);
 
 		// SDGOAL 9
 		SdGoal goal9 = new SdGoal("9", "Industrie, innovatie en infrastructuur");
 		sdGoalRepo.insert(goal9);
 		SdGoal goalsnegen1 = new SdGoal("9", "9.1 Ontwikkeling van hoogwaardige, betrouwbare, duurzame en veerkrachtige infrastructuur, met inbegrip van regionale en grensoverschrijdende infrastructuur, ter ondersteuning van economische ontwikkeling en menselijk welzijn, met de nadruk op betaalbare en gelijke toegang voor iedereen");
-		goalz1.setParentSDG_id(9);
+		goalsnegen1.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegen1);
 
 		SdGoal goalsnegen2= new SdGoal("9", "9.2 Bevorderen van inclusieve en duurzame industrialisatie en, tegen 2030, het aandeel van de industrie in de werkgelegenheid en het bruto binnenlands product aanzienlijk verhogen, in overeenstemming met de nationale omstandigheden, en het aandeel ervan in de minst ontwikkelde landen verdubbelen");
-		goalz1.setParentSDG_id(9);
+		goalsnegen2.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegen2);
 
 		SdGoal goalsnegen3= new SdGoal("9", "9.3 Vergroten van de toegang van kleinschalige industriële en andere ondernemingen, met name in ontwikkelingslanden, tot financiële diensten, waaronder betaalbare kredieten, en hun integratie in waardeketens en markten");
-		goalz1.setParentSDG_id(9);
+		goalsnegen3.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegen3);
 
 		SdGoal goalsnegen4= new SdGoal("9", "9.4 Tegen 2030 de infrastructuur upgraden en industrieën ombouwen om ze duurzaam te maken, met een efficiënter gebruik van hulpbronnen en een grotere acceptatie van schone en milieuvriendelijke technologieën en industriële processen, waarbij alle landen actie ondernemen in overeenstemming met hun respectieve capaciteiten");
-		goalz1.setParentSDG_id(9);
+		goalsnegen4.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegen4);
 
 		SdGoal goalsnegen5= new SdGoal("9", "9.5 Verbetering van wetenschappelijk onderzoek, verbetering van de technologische capaciteiten van industriële sectoren in alle landen, met name ontwikkelingslanden, inclusief, tegen 2030, aanmoediging van innovatie en aanzienlijke verhoging van het aantal onderzoeks- en ontwikkelingswerkers per 1 miljoen mensen en publieke en particuliere uitgaven voor onderzoek en ontwikkeling");
-		goalz1.setParentSDG_id(9);
+		goalsnegen5.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegen5);
 
 		SdGoal goalsnegena= new SdGoal("9", "9.a Vergemakkelijken van duurzame en veerkrachtige infrastructuurontwikkeling in ontwikkelingslanden door middel van verbeterde financiële, technologische en technische ondersteuning aan Afrikaanse landen, minst ontwikkelde landen, niet aan zee grenzende ontwikkelingslanden en kleine eilandstaten in ontwikkeling");
-		goalz1.setParentSDG_id(9);
+		goalsnegena.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegena);
 
 		SdGoal goalsnegenb= new SdGoal("9", "9.b Ondersteuning van binnenlandse technologieontwikkeling, onderzoek en innovatie in ontwikkelingslanden, onder meer door te zorgen voor een gunstig beleidsklimaat voor onder meer industriële diversificatie en waardetoevoeging aan grondstoffen");
-		goalz1.setParentSDG_id(9);
+		goalsnegenb.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegenb);
 
 		SdGoal goalsnegenc = new SdGoal("9", "9.b De toegang tot informatie- en communicatietechnologie aanzienlijk vergroten en streven naar universele en betaalbare toegang tot internet in de minst ontwikkelde landen tegen 2020");
-		goalz1.setParentSDG_id(9);
+		goalsnegenc.setParentSDG_id(9);
 		sdGoalRepo.insert(goalsnegenc);
 
 		// SDGOAL 10
 		SdGoal goal10 = new SdGoal("10", "Ongelijkheid verminderen");
 		sdGoalRepo.insert(goal10);
 		SdGoal goalstien1 = new SdGoal("10", "10.1 Tegen 2030 geleidelijk een inkomensgroei van de onderste 40 procent van de bevolking bereiken en behouden in een tempo dat hoger ligt dan het nationale gemiddelde");
-		goalz1.setParentSDG_id(10);
+		goalstien1.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien1);
 
 		SdGoal goalstien2= new SdGoal("10", "10.2 Tegen 2030 de sociale, economische en politieke inclusie van iedereen versterken en bevorderen, ongeacht leeftijd, geslacht, handicap, ras, etniciteit, afkomst, religie of economische of andere status");
-		goalz1.setParentSDG_id(10);
+		goalstien2.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien2);
 
 		SdGoal goalstien3= new SdGoal("10", "10.3 Zorgen voor gelijke kansen en het verminderen van ongelijkheden in uitkomst, onder meer door discriminerende wetten, beleid en praktijken te elimineren en passende wetgeving, beleid en maatregelen in dit verband te bevorderen");
-		goalz1.setParentSDG_id(10);
+		goalstien3.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien3);
 
 		SdGoal goalstien4= new SdGoal("10", "10.4 Beleid aannemen, met name fiscaal, loon- en sociale beschermingsbeleid, en geleidelijk meer gelijkheid bereiken");
-		goalz1.setParentSDG_id(10);
+		goalstien4.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien4);
 
 		SdGoal goalstien5= new SdGoal("10", "10.5 Verbeter de regulering en monitoring van wereldwijde financiële markten en instellingen en versterk de implementatie van dergelijke regelgeving");
-		goalz1.setParentSDG_id(10);
+		goalstien5.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien5);
 
 		SdGoal goalstien6= new SdGoal("10", "10.6 Zorgen voor een betere vertegenwoordiging en stem voor ontwikkelingslanden bij de besluitvorming in wereldwijde internationale economische en financiële instellingen om effectievere, geloofwaardiger, verantwoordelijkere en legitiemere instellingen te leveren");
-		goalz1.setParentSDG_id(10);
+		goalstien6.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien6);
 
 		SdGoal goalstien7= new SdGoal("10", "10.7 Een ordelijke, veilige, regelmatige en verantwoorde migratie en mobiliteit van mensen vergemakkelijken, onder meer door de implementatie van gepland en goed beheerd migratiebeleid");
-		goalz1.setParentSDG_id(10);
+		goalstien7.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstien7);
 
 		SdGoal goalstiena= new SdGoal("10", "10.a Implementeren van het principe van speciale en gedifferentieerde behandeling voor ontwikkelingslanden, in het bijzonder de minst ontwikkelde landen, in overeenstemming met de overeenkomsten van de Wereldhandelsorganisatie");
-		goalz1.setParentSDG_id(10);
+		goalstiena.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstiena);
 
 		SdGoal goalstienb= new SdGoal("10", "10.b Aanmoediging van officiële ontwikkelingshulp en financiële stromen, met inbegrip van directe buitenlandse investeringen, naar staten waar de behoefte het grootst is, met name de minst ontwikkelde landen, Afrikaanse landen, kleine eilandstaten in ontwikkeling en niet aan zee grenzende ontwikkelingslanden, in overeenstemming met hun nationale plannen en programma's");
-		goalz1.setParentSDG_id(10);
+		goalstienb.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstienb);
 
 		SdGoal goalstienc= new SdGoal("10", "10.c Tegen 2030 de transactiekosten van geldovermakingen door migranten verminderen tot minder dan 3 procent en overboekingscorridors met kosten hoger dan 5 procent elimineren");
-		goalz1.setParentSDG_id(10);
+		goalstienc.setParentSDG_id(10);
 		sdGoalRepo.insert(goalstienc);
 
 
