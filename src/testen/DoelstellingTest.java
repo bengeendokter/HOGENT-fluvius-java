@@ -337,7 +337,7 @@ public class DoelstellingTest {
 		 
 	    
 		   // Controle
-		   Assertions.assertEquals( doesltellingLeaf.getBerekendewaarde(), 34.4f,0.005); 
+		   Assertions.assertEquals( doesltellingLeaf.getBerekendewaarde().values().stream().findFirst().get(), 34.4f,0.005); 
 	}
 	
 	

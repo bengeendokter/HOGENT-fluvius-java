@@ -1,6 +1,8 @@
 package domein;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
@@ -15,8 +17,10 @@ public class Som extends Bewerking{
 	
 
 	@Override
-	public double calculate(List<Double> data) {
-		return data.stream().mapToDouble(Double::doubleValue).sum();
+	public Map<String, Double> calculate(Map<String, Double> data) {
+		Map<String, Double> map = new HashMap<>();
+		map.put(toString(), data.values().stream().mapToDouble(Double::doubleValue).sum());
+		return map;
 	}
 	
 	@Override

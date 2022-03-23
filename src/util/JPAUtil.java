@@ -5,7 +5,7 @@ import javax.persistence.Persistence;
 
 public class JPAUtil
 {
-	private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("fluvius");
+	private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("local");
 	
 	public static EntityManagerFactory getEntityManagerFactory()
 	{

@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface Doelstelling extends ListViewInterface {
 
@@ -13,7 +14,7 @@ public interface Doelstelling extends ListViewInterface {
 	public List<Rol> getRollen();
 	public SdGoal getSdGoal();
 	List<Component> getComponents();
-	public double getBerekendewaarde() throws IOException;
+	public Map<String, Double> getBerekendewaarde() throws IOException;
 	public Composite getParentComponent();
 	public MVODatasource getDatasource();
 }

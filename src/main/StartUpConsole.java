@@ -1,13 +1,15 @@
 package main;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import domein.AanmeldController;
+import domein.PopulateDB;
 
 public class StartUpConsole
 {
 	
-	public static void main(String[] args) throws SQLIntegrityConstraintViolationException
+	public static void main(String[] args) throws SQLIntegrityConstraintViolationException, IOException
 	{
 //		AanmeldController aanmeldController = new AanmeldController();
 //		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789");
@@ -20,7 +22,8 @@ public class StartUpConsole
 //		dc.geefSdGoals();
 //		dc.wijzigCategorieDoelstellingen("Economie", new ArrayList<>(Arrays.asList("Geen armoede", "Geen honger")));
 //		dc.verwijderCategorie("Economie");
-		AanmeldController aanmeldController = new AanmeldController(true);
+		PopulateDB.run();
+		//AanmeldController aanmeldController = new AanmeldController(true);
 	}
 	
 }

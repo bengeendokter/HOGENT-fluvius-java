@@ -3,8 +3,10 @@ package domein;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -97,22 +99,45 @@ public class Composite extends Component implements Serializable{
 		components.forEach(c -> c.setParentComponent(this));
 	}
 	
-	public double getBerekendewaarde() throws IOException {
+	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
-		List<Double> lijst = new ArrayList<>();
+		Map<String, Double> map = new HashMap<>();
+		int value = 0;
 		for(Component e: components) {
-				if(e instanceof Leaf) {
-					lijst.add( e.getBerekendewaarde());
-				}
-				else {
-					if(e.getComponents() != null) {
-						for(Component d: e.getComponents()) {
-							lijst.add((double) d.getBerekendewaarde());
-						}
-					}
-				}		
+			e.getBerekendewaarde().entrySet().forEach(es -> {
+				map.put(es.getKey(), es.getValue());
+			});
+//				if(e instanceof Leaf) {
+//					e.getBerekendewaarde().entrySet().forEach(es -> {
+//						map.put(String.format("%s%s", e.getNaam(), map.size() > 1 ? String.format("_%s",value) : ""), es.getValue());
+//					});
+//				}
+//				else {
+//					if(e.getComponents() != null) {
+//						for(Component d: e.getComponents()) {
+//							e.getBerekendewaarde().entrySet().forEach(es -> {
+//								map.put(String.format("%s%s", d.getNaam(), map.size() > 1 ? String.format("_%s",value) : ""), es.getValue());
+//							});
+//						}
+//					}
+//				}		
 		}
-		setValue(getFormule().calculate(lijst));
+		
+		
+		Map<String, Double> tempMap = getFormule().calculate(map);
+		Map<String, Double> mapNewName = new HashMap<>();
+		if(getFormule() instanceof GeenBewerking)
+		{
+			setValue(tempMap);
+		}
+		else
+		{
+			final int size = tempMap.size();
+			tempMap.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
+			setValue(mapNewName);
+		}
+		
+		
 		return getValue();
 	}
 
