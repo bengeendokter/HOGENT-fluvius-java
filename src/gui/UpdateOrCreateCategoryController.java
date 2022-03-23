@@ -333,29 +333,71 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             // OP DE JUISTE PLAATS TOEVOEGEN
             if(!isHoofdSdg)
             {
-            	boolean toegevoegd = false;
-            	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
-            	
-            	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-                	if(n.getValue().getAfbeeldingnaam() == ((SdGoal)c.getValue()).getAfbeeldingnaam()) {
-                		c.getParent().getChildren().remove(c);
-                		n.getChildren().add(c);
-                		toegevoegd = true;
+            	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
+             	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
+            	TreeItem parent = c.getParent();
+            	if(c.getParent() != null)
+            	{
+            		rootNode.getChildren().addAll(parent.getChildren());
+            		parent.getChildren().clear();
+            		rootNode.getChildren().remove(c);
+            		parent.getChildren().add(c);
+            		rootNode.getChildren().remove(parent);
+            		rootNode3.getChildren().add(parent);
+            	}
+            	else
+            	{
+            		
+                	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+                		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id() ) {
+                			n.getChildren().add(c);
+                			rootNode.getChildren().remove(c);
+                		}
                 		
                 	}
-               	}
-                	
-                if(!toegevoegd)
-                {
-	            	
-	            	SdGoal parent = (SdGoal)c.getParent().getValue();
-	            	SdGoal copy = new SdGoal(parent.getAfbeeldingnaam(), parent.getNaam());
-	            	TreeItem<SdGoal> item = new TreeItem<>(copy);
-	            	c.getParent().getChildren().remove(c);
-	            	rootNode3.getChildren().add(item);
-	            	item.getChildren().add(c);
-	            	
-                }
+            	}
+            	
+            	
+//            	boolean toegevoegd = false;
+//            	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
+//            	
+//            	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+//                	if(n.getValue().getAfbeeldingnaam() == ((SdGoal)c.getValue()).getAfbeeldingnaam()) {
+//                		c.getParent().getChildren().remove(c);
+//                		n.getChildren().add(c);
+//                		toegevoegd = true;
+//                		
+//                	}
+//               	}
+//                	
+//                if(!toegevoegd)
+//                {
+//	            	
+//	            	SdGoal parent = (SdGoal)c.getParent().getValue();
+//	            	SdGoal copy = new SdGoal(parent.getAfbeeldingnaam(), parent.getNaam());
+//	            	TreeItem<SdGoal> item = new TreeItem<>(copy);
+//	            	c.getParent().getChildren().remove(c);
+//	            	rootNode3.getChildren().add(item);
+//	            	item.getChildren().add(c);
+//	            	
+//                }
+            }
+            else
+            {
+            	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
+            	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
+            	rootNode.getChildren().addAll(c.getChildren());
+            	c.getChildren().clear();
+            	rootNode.getChildren().remove(c);
+            	rootNode3.getChildren().add(c);
+            	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+            		if(n.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            			c.getChildren().add(n);
+            			
+            		}
+            		
+            	}
+            	rootNode3.getChildren().removeAll(c.getChildren());
             }
 //            TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
 //            boolean toegevoegd = false;
@@ -408,6 +450,10 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 
         if(item.getChildren().size() > 0){
             for(TreeItem<SdGoal> subItem : item.getChildren()){
+            	SdGoal node = (SdGoal) item.getValue();  
+            	if(node != null) {
+            		map.put(node.toString(), node);
+            	}
                 populateMap(subItem);
             }
         }
