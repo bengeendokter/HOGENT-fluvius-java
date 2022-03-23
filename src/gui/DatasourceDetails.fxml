@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox>
          <children>
@@ -19,8 +19,11 @@
                      <font>
                         <Font size="21.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="145.0" />
+                     </HBox.margin>
                   </Label>
-                  <Label fx:id="lblNaamIngevuld" prefHeight="31.0" prefWidth="134.0" text="dummynaam">
+                  <Label fx:id="lblNaamIngevuld" prefHeight="31.0" text="dummynaam">
                      <font>
                         <Font size="21.0" />
                      </font>
@@ -33,6 +36,9 @@
                      <font>
                         <Font size="21.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="154.0" />
+                     </HBox.margin>
                   </Label>
                   <Label fx:id="lblTypeIngevuld" text="dummytype">
                      <font>
@@ -41,46 +47,108 @@
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="lblLink" text="Link:">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <TextArea fx:id="areaLink">
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </TextArea>
-            <Label fx:id="lblHostnaam" text="Hostnaam:">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblHostnaamIngevuld" text="dummyhostnaam">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblGebruikersnaam" text="Gebruikersnaam:">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblGebruikersnaamIngevuld" text="dummygebruikersnaam">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblWachtwoord" text="Wachtwoord:">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblWachtwoordIngevuld" text="dummywachtwoord">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
+            <HBox prefHeight="33.0" prefWidth="200.0">
+               <children>
+                  <Label text="Wijzigsnelheid:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="65.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblWijzigSnelheid" text="dummySnelheid">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="200.0">
+               <children>
+                  <Label text="Maat:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="150.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblMaat" text="dummyEenheidType">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox fx:id="vBoxLink" prefHeight="209.0" prefWidth="880.0">
+               <children>
+                  <Label fx:id="lblLink" text="Link:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="areaLink">
+                     <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </VBox>
+            <HBox fx:id="hBoxHostnaam" prefHeight="33.0" prefWidth="880.0">
+               <children>
+                  <Label fx:id="lblHostnaam" text="Hostnaam:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="105.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblHostnaamIngevuld" text="dummyhostnaam">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="hBoxGebruikersnaam" prefHeight="33.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lblGebruikersnaam" text="Gebruikersnaam:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="48.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblGebruikersnaamIngevuld" text="dummygebruikersnaam">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="hBoxWachtwoord" prefHeight="33.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lblWachtwoord" text="Wachtwoord:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="80.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblWachtwoordIngevuld" text="dummywachtwoord">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
@@ -105,7 +173,7 @@
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAnnuleer" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Verwijderen">
+                  <Button fx:id="btnVerwijder" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Verwijderen">
                      <font>
                         <Font size="21.0" />
                      </font>
