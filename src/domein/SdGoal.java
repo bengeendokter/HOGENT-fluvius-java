@@ -58,6 +58,10 @@ public class SdGoal implements Serializable, ListViewInterface
 		return this.sdGoalID;
 	}
 
+	public void setId(int id) {
+		sdGoalID = id;
+	}
+	
 	public String getAfbeeldingnaam()
 	{
 		return afbeeldingnaam;
