@@ -18,7 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-public class DatasourceDetailsController<E> extends Pane {
+public class DatasourceDetailsController<E> extends BorderPane {
 	@FXML
 	private Label lblDetailsDatasource;
 	@FXML
@@ -40,25 +40,26 @@ public class DatasourceDetailsController<E> extends Pane {
 	@FXML
 	private Label lblGebruikersnaamIngevuld;
 	@FXML
-	private Label lblGebruikersnaam1;
+	private Label lblWachtwoord;
 	@FXML
 	private Label lblWachtwoordIngevuld;
 	@FXML
-	private Label errorMessage;
+	private Label lblErrorMessage;
 	@FXML
 	private Label lblTypeIngevuld;
 	@FXML
 	private Button btnOpslaan;
 	@FXML
 	private Button btnAnnuleer;
-	private DomeinController dc;
-	private E object;
+//	private DomeinController dc;
+//	private E object;
 
 	public DatasourceDetailsController(DomeinController dc, E object) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DatasourceDetails.fxml"));
 		loader.setController(this);
-		this.dc = dc;
-		this.object = object;
+		loader.setRoot(this);
+//		this.dc = dc;
+//		this.object = object;
 		
 		
 		try {
@@ -76,7 +77,7 @@ public class DatasourceDetailsController<E> extends Pane {
 				areaLink.setVisible(false);
 			}
 			if(((Datasource)object).getTypeDatasource().toString().equals("excel")) {
-				lblGebruikersnaam1.setVisible(false);
+				lblWachtwoord.setVisible(false);
 				lblGebruikersnaamIngevuld.setVisible(false);
 				lblWachtwoordIngevuld.setVisible(false);
 				lblHostnaam.setVisible(false);
@@ -84,7 +85,7 @@ public class DatasourceDetailsController<E> extends Pane {
 				lblGebruikersnaam.setVisible(false);
 			}
 			
-			this.getChildren().addAll(lblWachtwoordIngevuld, lblGebruikersnaam1,lblDetailsDatasource, lblGebruikersnaam, lblGebruikersnaamIngevuld, lblHostnaam, lblHostnaamIngevuld, lblLink, lblNaam, lblNaamIngevuld, lblType, btnAnnuleer, btnOpslaan, lblTypeIngevuld, errorMessage);
+			//this.getChildren().addAll(lblWachtwoordIngevuld, lblGebruikersnaam1,lblDetailsDatasource, lblGebruikersnaam, lblGebruikersnaamIngevuld, lblHostnaam, lblHostnaamIngevuld, lblLink, lblNaam, lblNaamIngevuld, lblType, btnAnnuleer, btnOpslaan, lblTypeIngevuld, errorMessage);
 		
 			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -99,15 +100,15 @@ public class DatasourceDetailsController<E> extends Pane {
 						if(response != ButtonType.CANCEL)
 						{
 							try {
-								errorMessage.setVisible(false);
+								lblErrorMessage.setVisible(false);
 								dc.setCurrentDatasource((Datasource)object);
 								dc.verwijderMVODatasource();
 								maakLeeg();
 							}
 							catch(IllegalArgumentException e)
 							{
-								errorMessage.setText(e.getMessage());
-								errorMessage.setVisible(true);
+								lblErrorMessage.setText(e.getMessage());
+								lblErrorMessage.setVisible(true);
 							}
 							
 						}
