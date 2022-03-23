@@ -292,13 +292,19 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             boolean remove = c.getParent().getChildren().remove(c);
             treeviewGesSdgs.getSelectionModel().selectFirst();
             TreeItem b = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
-            if(b == null || b.getParent() == null) {
-            	treeviewGesSdgs.getRoot().getChildren().add(c);
-            } else {
-                b.getParent().getChildren().add(c);
+
+            // OP DE JUISTE PLAATS TOEVOEGEN
+            TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
+            boolean toegevoegd = false;
+            for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+            	if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
+            		n.getChildren().add(c);
+            		toegevoegd = true;
+            	}
             }
-            
-	    	
+            if(!toegevoegd) {
+            	treeviewGesSdgs.getRoot().getChildren().add(c);
+            }
 	    }
 	}
 	
@@ -309,14 +315,22 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             boolean remove = c.getParent().getChildren().remove(c);
             treeviewSdgs.getSelectionModel().selectFirst();
         	TreeItem b = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
-            if(b.getParent() == null) {
-            	treeviewSdgs.getRoot().getChildren().add(c);
-            } else {
-            	
-                b.getParent().getChildren().add(c);
+        	//treeviewSdgs.getRoot().getChildren().add(c);
+        	
+        	// OP DE JUISTE PLAATS TOEVOEGEN
+        	// HIER NOG EENS NAAR KIJKEN
+            TreeItem<SdGoal> rootNode3 = treeviewSdgs.getRoot();
+            boolean toegevoegd = false;
+            for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+            	if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
+            		n.getChildren().add(c);
+            		toegevoegd = true;
+            	}
             }
-            
-	    	
+            if(!toegevoegd) {
+            	treeviewSdgs.getRoot().getChildren().add(c);
+            }
+
 	    }
 	}
 	
