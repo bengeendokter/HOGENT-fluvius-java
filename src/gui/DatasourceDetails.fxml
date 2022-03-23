@@ -81,6 +81,23 @@
                   </Label>
                </children>
             </HBox>
+            <HBox fx:id="hBoxKolomNummer" prefHeight="33.0" prefWidth="200.0">
+               <children>
+                  <Label text="Kolom:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="137.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblKolom" text="dummyKolomNummer">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <VBox fx:id="vBoxLink" prefHeight="209.0" prefWidth="880.0">
                <children>
                   <Label fx:id="lblLink" text="Link:">

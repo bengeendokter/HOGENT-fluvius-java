@@ -65,6 +65,10 @@ public class DatasourceDetailsController<E> extends BorderPane {
 	private Label lblWijzigSnelheid;
 	@FXML
 	private Label lblMaat;
+	@FXML
+	private Label lblKolom;
+	@FXML
+	private HBox hBoxKolomNummer;
 //	private DomeinController dc;
 //	private E object;
 
@@ -79,19 +83,22 @@ public class DatasourceDetailsController<E> extends BorderPane {
 		try {
 			loader.load();
 			
-			lblNaamIngevuld.setText(((Datasource) object).getNaam());
-			lblTypeIngevuld.setText(((Datasource) object).getTypeDatasource().toString());
-			lblWijzigSnelheid.setText(((Datasource) object).getWijzigbaarheid());
-			lblMaat.setText(((Datasource) object).getMaat());
+			Datasource huideDatasource = ((Datasource) object);
 			
-			areaLink.setText(((Datasource) object).getLink());
+			lblNaamIngevuld.setText(huideDatasource.getNaam());
+			lblTypeIngevuld.setText(huideDatasource.getTypeDatasource().toString());
+			lblWijzigSnelheid.setText(huideDatasource.getWijzigbaarheid());
+			lblMaat.setText(huideDatasource.getMaat());
+			lblKolom.setText(Integer.toString(huideDatasource.getKolom()));
+			
+			areaLink.setText(huideDatasource.getLink());
 			areaLink.setEditable(false);
-			lblHostnaamIngevuld.setText(((Datasource) object).getHostname());
-			lblGebruikersnaamIngevuld.setText(((Datasource) object).getUsername());
-			lblWachtwoordIngevuld.setText(((Datasource) object).getPassword());
+			lblHostnaamIngevuld.setText(huideDatasource.getHostname());
+			lblGebruikersnaamIngevuld.setText(huideDatasource.getUsername());
+			lblWachtwoordIngevuld.setText(huideDatasource.getPassword());
 			
 			//System.out.println(((Datasource)object).getTypeDatasource().toString());
-			if(((Datasource) object).getTypeDatasource().toString().equals("databank")) {
+			if(huideDatasource.getTypeDatasource().toString().equals("databank")) {
 				vBoxLink.setVisible(false);
 				vBoxLink.setManaged(false);
 				
@@ -120,8 +127,8 @@ public class DatasourceDetailsController<E> extends BorderPane {
 			lblErrorMessage.setText("");
 			lblErrorMessage.setVisible(false);
 			
-			Boolean isCorrupt = ((Datasource) object).getCorrupt();
-			Boolean updateNodig = ((Datasource) object).wijzigNood();
+			Boolean isCorrupt = huideDatasource.getCorrupt();
+			Boolean updateNodig = huideDatasource.wijzigNood();
 			
 			if (isCorrupt) {
 				lblErrorMessage.setVisible(true);
@@ -149,7 +156,7 @@ public class DatasourceDetailsController<E> extends BorderPane {
 						{
 							try {
 								lblErrorMessage.setVisible(false);
-								dc.setCurrentDatasource((Datasource) object);
+								dc.setCurrentDatasource(huideDatasource);
 								dc.verwijderMVODatasource();
 								maakLeeg();
 							}
