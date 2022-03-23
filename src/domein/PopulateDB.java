@@ -59,7 +59,7 @@ public class PopulateDB {
 		goalx5.setParentSDG_id(1);
 
 		SdGoal goalxa = new SdGoal("1",
-				"1.a Zorgen voor een aanzienlijke mobilisatie van middelen uit verschillende bronnen, onder meer door verbeterde ontwikkelingssamenwerking, om ontwikkelingslanden, met name de minst ontwikkelde landen, adequate en voorspelbare middelen te bieden om programma's en beleid uit te voeren om een ​​einde te maken aan armoede in al haar dimensies");
+				"1.a Zorgen voor een aanzienlijke mobilisatie van middelen uit verschillende bronnen, onder meer door verbeterde ontwikkelingssamenwerking, om ontwikkelingslanden, met name de minst ontwikkelde landen, adequate en voorspelbare middelen te bieden om programma's en beleid uit te voeren om een einde te maken aan armoede in al haar dimensies");
 		goalxa.setParentSDG_id(1);
 
 		SdGoal goalxb = new SdGoal("1",
@@ -708,7 +708,7 @@ public class PopulateDB {
 		sdGoalRepo.insert(goal_15_6);
 
 		SdGoal goal_15_7 = new SdGoal("15",
-				"15.7 Dringende actie ondernemen om een ​​einde te maken aan stroperij en handel in beschermde soorten flora en fauna en zowel de vraag naar als het aanbod van illegale producten van wilde dieren aan te pakken");
+				"15.7 Dringende actie ondernemen om een einde te maken aan stroperij en handel in beschermde soorten flora en fauna en zowel de vraag naar als het aanbod van illegale producten van wilde dieren aan te pakken");
 		goal_15_7.setParentSDG_id(15);
 		sdGoalRepo.insert(goal_15_7);
 

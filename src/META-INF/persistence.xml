@@ -20,13 +20,12 @@
 	<class>domein.Som</class>
 	<class>domein.Average</class>
 	<class>domein.GeenBewerking</class>
-	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ID372119_g10.db.webhosting.be/ID372119_g10?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="ID372119_g10"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="Zcm@p2ZKKNsmGh!"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
   
