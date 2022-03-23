@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,9 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 public class Navigatiebalk extends HBox {
@@ -133,20 +130,20 @@ public class Navigatiebalk extends HBox {
 		
 		if (hoofdScherm instanceof BorderPane) {
 			// Overzicht opvragen adhv het hoofdScherm
-			Node overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
-			if (overzicht instanceof PanelOverzicht) {
-				
-				((PanelOverzicht) overzicht).initGui(lijst, soort, dc);
-			}
-			if(overzicht instanceof PanelOverzichtTreeview) {
-				((BorderPane) hoofdScherm).setLeft(null);
+//			Node overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
+//			if (overzicht instanceof PanelOverzicht) {
+//				
+//				((PanelOverzicht) overzicht).initGui(lijst, soort, dc);
+//			}
+//			if(overzicht instanceof PanelOverzichtTreeview) {
+//				((BorderPane) hoofdScherm).setLeft(null);
 				((BorderPane) hoofdScherm).setLeft(po);
-				overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
-				((PanelOverzicht) overzicht).initGui(lijst, soort, dc);
-			}
+//				overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
+				po.initGui(lijst, soort, dc);
+//			}
 			
-			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
-			((BorderPane) hoofdScherm).setCenter(null);
+//			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
+//			((BorderPane) hoofdScherm).setCenter(null);
 			//((CategorieDetailPanel) details).maakLeeg();
 		}
 		

@@ -923,7 +923,7 @@ public class CategorieResponsiveController extends BorderPane
 			boodschap.showAndWait().ifPresent(response -> {
 				if(response != ButtonType.CANCEL)
 				{
-					Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
+//					Categorie huidigeCategorie = listCategorieen.getSelectionModel().getSelectedItem();
 					dc.verwijderCategorie();
 					
 					//alles terug goed zetten
