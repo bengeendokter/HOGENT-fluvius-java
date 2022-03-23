@@ -166,6 +166,7 @@ public class PanelOverzicht<E> extends VBox {
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setMinWidth(USE_PREF_SIZE);
+//		this.setPrefHeight(USE_COMPUTED_SIZE);
 		
 		// Eerste item in ListView selecteren en weergeven
 		list.getSelectionModel().selectFirst();
