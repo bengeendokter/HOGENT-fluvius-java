@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import domein.Categorie;
 import domein.DTOCategorie;
@@ -141,17 +143,29 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
-
-			for (SdGoal s : dc.getBeschikbareSdgs()) {
-				System.out.println(s.getNaam());
+			//System.out.println(dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList()));
+			dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList()).forEach(e -> System.out.println(e));
+			for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
+				
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
 	            boolean found = false;
 	            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
+	            	
 	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
 	            		depNode.getChildren().add(empLeaf);
 	                  found = true;
 	                  break;
 	            	}
+	            	else if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getAfbeeldingNaamAlsInt()) {
+	            		TreeItem<SdGoal> kind = depNode;
+	            		rootNode.getChildren().remove(depNode);
+	            		TreeItem<SdGoal> ob = new TreeItem<SdGoal>(s);
+	            		ob.getChildren().add(kind);
+	            		rootNode.getChildren().add(ob);
+	            		found = true;
+		                  break;
+	            	}
+	            	
 	            }
 	            String pad = s.getIcon();
 				int index = pad.indexOf("c");
@@ -274,7 +288,10 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	    Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
 	    	TreeItem c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
-            boolean remove = c.getParent().getChildren().remove(c);
+	    	if(((SdGoal)c.getValue()).getParentSDG_id() != 0){
+	    		boolean remove = c.getParent().getChildren().remove(c);
+	    	}
+            //boolean remove = c.getParent().getChildren().remove(c);
             treeviewGesSdgs.getSelectionModel().selectFirst();
             TreeItem b = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
 
@@ -307,10 +324,13 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             TreeItem<SdGoal> rootNode3 = treeviewSdgs.getRoot();
             boolean toegevoegd = false;
             for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-            	if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
-            		n.getChildren().add(c);
-            		toegevoegd = true;
+            	if(((SdGoal)c.getValue()).getParentSDG_id() != 0) {
+            		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
+                		n.getChildren().add(c);
+                		toegevoegd = true;
+                	}
             	}
+            	
             }
             if(!toegevoegd) {
             	treeviewSdgs.getRoot().getChildren().add(c);

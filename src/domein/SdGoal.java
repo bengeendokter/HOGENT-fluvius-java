@@ -28,6 +28,7 @@ public class SdGoal implements Serializable, ListViewInterface
 	private int sdGoalID;
 	
 	private String afbeeldingnaam;
+	@Column(length=4000)
 	private String naam;
 	private String icon;
 	private int parentSDG_id;
