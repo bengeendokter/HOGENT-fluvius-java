@@ -104,6 +104,7 @@ public class PanelOverzicht<E> extends VBox {
 							public void run()
 							{
 								((BorderPane) hoofdScherm).setCenter(cdp);
+								cdp.setPrefWidth(900);
 							}
 						});
 					}
@@ -162,6 +163,7 @@ public class PanelOverzicht<E> extends VBox {
 		this.setPadding(new Insets(10));
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
+		this.setMinWidth(USE_PREF_SIZE);
 		
 		// Eerste item in ListView selecteren en weergeven
 		list.getSelectionModel().selectFirst();

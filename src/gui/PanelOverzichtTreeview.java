@@ -173,6 +173,7 @@ public class PanelOverzichtTreeview extends VBox {
 		this.setPadding(new Insets(10));
 		this.setSpacing(5);
 		this.setAlignment(Pos.TOP_CENTER);
+		this.setMinWidth(USE_PREF_SIZE);
 		
 		// Eerste item in TreeView selecteren en weergeven
 		treeview.getSelectionModel().selectFirst();
