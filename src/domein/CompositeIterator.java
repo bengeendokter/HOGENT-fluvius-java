@@ -1,9 +1,7 @@
 package domein;
 
-import java.util.*;
 import java.util.Iterator;
-
-import javafx.collections.ObservableList;
+import java.util.Stack;
 
 public class CompositeIterator implements Iterator<Component> {
     private Stack<Iterator<Component>> stack = new Stack<>();

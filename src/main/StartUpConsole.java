@@ -3,7 +3,6 @@ package main;
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import domein.AanmeldController;
 import domein.PopulateDB;
 
 public class StartUpConsole

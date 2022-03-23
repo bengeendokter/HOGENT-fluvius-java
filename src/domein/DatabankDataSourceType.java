@@ -6,16 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-
 import javax.persistence.DiscriminatorValue;
-
-
-import com.opencsv.CSVReader;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("D")

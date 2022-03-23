@@ -3,7 +3,6 @@ package gui;
 import java.io.IOException;
 
 import domein.Datasource;
-import domein.Doelstelling;
 import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,15 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.ChoiceBox;
 
 public class DatasourceDetailsController<E> extends Pane {
 	@FXML

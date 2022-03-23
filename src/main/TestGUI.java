@@ -1,13 +1,7 @@
 package main;
 
-import domein.AanmeldController;
-import gui.AanmeldenResponsiveController;
-import gui.TestFrameController;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import repository.DatabaseSelector;
 
 public class TestGUI extends  Application {
 	public void start(Stage primaryStage)

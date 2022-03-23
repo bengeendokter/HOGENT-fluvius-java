@@ -1,15 +1,9 @@
 package main;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
 
 import domein.AanmeldController;
-import domein.DTODatasource;
-import domein.DTOMVODoelstelling;
 import domein.DomeinController;
-import domein.MVODatasource;
-import domein.Rol;
 
 public class DoelstellingConsole {
 

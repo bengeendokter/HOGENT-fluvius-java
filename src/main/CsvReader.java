@@ -1,9 +1,5 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 
 public class CsvReader {
 	private static final String SAMPLE_CSV_FILE_PATH =

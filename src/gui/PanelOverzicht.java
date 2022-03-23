@@ -1,14 +1,8 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import domein.Categorie;
 import domein.DomeinController;
-import domein.ListViewInterface;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

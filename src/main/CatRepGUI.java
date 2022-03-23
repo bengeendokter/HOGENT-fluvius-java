@@ -2,7 +2,6 @@ package main;
 
 import domein.DomeinController;
 import domein.Gebruiker;
-import gui.CategorieFrameController;
 import gui.CategorieResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;

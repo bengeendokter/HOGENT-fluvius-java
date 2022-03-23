@@ -9,8 +9,6 @@ import java.util.Map;
 
 import domein.Average;
 import domein.Bewerking;
-import domein.Categorie;
-import domein.DTOCategorie;
 import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
@@ -26,24 +24,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.scene.control.CheckBox;
-
-import javafx.scene.control.ChoiceBox;
-
-import javafx.scene.control.TreeView;
 
 public class UpdateOrCreateDoelstelling<E> extends Pane {
 	@FXML

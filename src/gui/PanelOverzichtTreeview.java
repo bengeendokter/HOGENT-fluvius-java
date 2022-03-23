@@ -1,37 +1,23 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import domein.Categorie;
 import domein.Doelstelling;
 import domein.DomeinController;
-import domein.ListViewInterface;
-import domein.Rol;
-import domein.SdGoal;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class PanelOverzichtTreeview extends VBox {
 	

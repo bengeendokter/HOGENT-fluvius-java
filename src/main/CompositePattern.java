@@ -3,8 +3,6 @@ package main;
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,18 +10,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import domein.AanmeldController;
-import domein.Component;
-import domein.Composite;
-import domein.CompositeIterator;
-import domein.DTODatasource;
-import domein.DTOMVODoelstelling;
 import domein.DomeinController;
-import domein.Fluvius;
-import domein.Leaf;
-import domein.MVODatasource;
 import domein.Rol;
 import domein.SdGoal;
-import domein.Som;
 
 public class CompositePattern {
 
