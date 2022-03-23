@@ -12,8 +12,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +32,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
+import javax.persistence.JoinColumn;
 
 
 @Entity
@@ -57,6 +60,11 @@ public abstract class Component implements Doelstelling, Serializable{
 	private SdGoal sdGoal;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
+	
+	@ElementCollection
+	@MapKeyColumn(name="name")
+	@Column(name="value")
+	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
 	private Map<String, Double> value;
 	
 	@ManyToOne
@@ -168,6 +176,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	public Map<String, Double> getValue() {
 		System.out.printf("%s	|	%s%n", naam, formule.toString());
 		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
+		System.out.printf("%n%n");
 		return value;
 	}
 	
