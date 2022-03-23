@@ -95,20 +95,17 @@ public class PanelOverzicht<E> extends VBox {
 					Node details = ( ((BorderPane) hoofdScherm).getCenter());
 					if(soort.equals("categorieën")) {
 
-							((BorderPane) hoofdScherm).setCenter(null);
-							CategorieDetailsController cdp = new CategorieDetailsController(dc, newValue);
-							
-							Platform.runLater(new Runnable()
+						((BorderPane) hoofdScherm).setCenter(null);
+						CategorieDetailsController cdp = new CategorieDetailsController(dc, newValue);
+						
+						Platform.runLater(new Runnable()
+						{
+							@Override
+							public void run()
 							{
-								@Override
-								public void run()
-								{
-									((BorderPane) hoofdScherm).setCenter(cdp);
-								}
-							});
-							
-
-
+								((BorderPane) hoofdScherm).setCenter(cdp);
+							}
+						});
 					}
 					
 					if(soort.equals("datasources")) {

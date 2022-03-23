@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 public class Navigatiebalk<E> extends HBox {
 	
@@ -39,9 +40,15 @@ public class Navigatiebalk<E> extends HBox {
 		imgLogo.setFitWidth(140);
 		imgLogo.setFitHeight(40);
 		
+
 		// Vrije ruimte instellen
 		Region r = new Region();
-		r.setPrefWidth(300);
+		r.setPrefWidth(15);
+		r.setMinWidth(USE_PREF_SIZE);
+		
+		Region r2 = new Region();
+		r2.setPrefWidth(30);
+		r2.setMinWidth(USE_PREF_SIZE);
 		
 		// Knoppen aanmaken
 		Button btnCategorie = new Button("Categorie beheren");
@@ -54,12 +61,11 @@ public class Navigatiebalk<E> extends HBox {
 		btnDatasource.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 		btnDoelstelling.setStyle("-fx-background-color: #B2D234;-fx-text-fill: white;  -fx-font-size: 20;-fx-padding: 10 10 10 10;");
 
-		Region r2 = new Region();
-		r2.setPrefWidth(300);
 		
 		// Naam en functie weergeven
 		Label lblNaamFunctie = new Label(dc.getAangemeldeGebruiker().getRol() + "\n" + dc.getAangemeldeGebruiker().getGebruikersnaam());
 		lblNaamFunctie.setStyle("-fx-text-fill: white;  -fx-font-size: 16;");
+		lblNaamFunctie.setMinWidth(USE_PREF_SIZE);
 		
 		// Mannetje weergeven
 		ImageView imgVentje = new ImageView(new Image(getClass().getResourceAsStream("/images/ventje.png")));
@@ -68,8 +74,14 @@ public class Navigatiebalk<E> extends HBox {
 		imgVentje.setFitWidth(40);
 		imgVentje.setFitHeight(40);
 		
+		// Navigatie centreren met HBox
+		HBox navHBox = new HBox(btnCategorie, btnDatasource, btnDoelstelling);
+		// zet breed genoeg (bv zo breed als scherm)
+		navHBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
+		navHBox.setAlignment(Pos.CENTER);
+		
 		// Toevoegen aan scherm
-		this.getChildren().addAll(imgLogo, r2, btnCategorie, btnDatasource, btnDoelstelling,r, lblNaamFunctie);
+		this.getChildren().addAll(r, imgLogo, navHBox, lblNaamFunctie, r2);
 
 		// Ruimte instellen
 		//this.setPadding(new Insets(5));
