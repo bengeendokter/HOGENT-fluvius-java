@@ -22,11 +22,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -36,7 +36,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -72,7 +71,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	@FXML
 	private TextField txtnaam;
 	@FXML
-	private ChoiceBox choiceBewerking;
+	private ChoiceBox<Bewerking> choiceBewerking;
 	@FXML
 	private TextField txtDoelwaarde;
 	@FXML
@@ -80,26 +79,26 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	@FXML
 	private ImageView imgIcoon;
 	@FXML
-	private ListView listIconen;
+	private ListView<String> listIconen;
 	@FXML
-	private ChoiceBox choiceSdg;
+	private ChoiceBox<SdGoal> choiceSdg;
 	@FXML
 	private Label lblKiesSub;
 	@FXML
 	private Label lblSubs;
 	@FXML
-	private TreeView treeKiesSubs;
+	private TreeView<Doelstelling> treeKiesSubs;
 	@FXML
-	private TreeView treeGekozenSubs;
+	private TreeView<Doelstelling> treeGekozenSubs;
 	@FXML
 	private Label lblDatasource;
 	@FXML
-	private ChoiceBox choiceDatasource;
+	private ChoiceBox<Datasource> choiceDatasource;
 	@FXML
 	private Label lblErrorMessage;
 	
-	private DomeinController dc;
-	private E object;
+//	private DomeinController dc;
+//	private E object;
 	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average()));
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
@@ -109,12 +108,11 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	
 	Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
 	
-	@SuppressWarnings("unchecked")
 	public UpdateOrCreateDoelstelling(DomeinController dc, E object, String wijzigMaak){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateDoelstelling.fxml"));
 		loader.setController(this);
-		this.dc = dc;
-		this.object = object;
+//		this.dc = dc;
+//		this.object = object;
 
 		try
 		{
@@ -153,7 +151,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 				
 				for (Doelstelling s : ((Doelstelling)object).getComponents()) {
 					System.out.println(s.getNaam());
-		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
+//		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
 		            boolean found = false;
 //		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
 //		            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
@@ -226,7 +224,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 
 			for (Doelstelling s : dc.getDoelstellingen()) {
 				System.out.println(s.getNaam());
-	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
+//	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
 	            boolean found = false;
 //	            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
 //	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
@@ -355,11 +353,11 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	
 	private void handleMouseClicked(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeKiesSubs.getSelectionModel().getSelectedItem();
-            boolean remove = c.getParent().getChildren().remove(c);
+	    if (node instanceof Text || (node instanceof TreeCell && ((Labeled) node).getText() != null)) {
+	    	TreeItem<Doelstelling> c = treeKiesSubs.getSelectionModel().getSelectedItem();
+            c.getParent().getChildren().remove(c);
             treeGekozenSubs.getSelectionModel().selectFirst();
-            TreeItem b = (TreeItem)treeGekozenSubs.getSelectionModel().getSelectedItem();
+            TreeItem<Doelstelling> b = treeGekozenSubs.getSelectionModel().getSelectedItem();
             if(b == null || b.getParent() == null) {
             	treeGekozenSubs.getRoot().getChildren().add(c);
             } else {
@@ -372,11 +370,11 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	
 	private void handleMouseClickedBack(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeGekozenSubs.getSelectionModel().getSelectedItem();
-            boolean remove = c.getParent().getChildren().remove(c);
+	    if (node instanceof Text || (node instanceof TreeCell && ((Labeled) node).getText() != null)) {
+	    	TreeItem<Doelstelling> c = treeGekozenSubs.getSelectionModel().getSelectedItem();
+            c.getParent().getChildren().remove(c);
             treeKiesSubs.getSelectionModel().selectFirst();
-        	TreeItem b = (TreeItem)treeKiesSubs.getSelectionModel().getSelectedItem();
+        	TreeItem<Doelstelling> b = treeKiesSubs.getSelectionModel().getSelectedItem();
             if(b.getParent() == null) {
             	treeKiesSubs.getRoot().getChildren().add(c);
             } else {
@@ -406,14 +404,14 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	    }
 		
 		private void refreshScherm() {
-			PanelOverzicht po = new PanelOverzicht();
-			// Eerst het hoofdscherm opvragen adhv dit scherm
-			Parent hoofdScherm = UpdateOrCreateDoelstelling.this.getParent();
-			if (hoofdScherm instanceof BorderPane) {
-				Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
-				((UpdateOrCreateDoelstelling) details).maakLeeg();
-			}
-			
+//			PanelOverzicht po = new PanelOverzicht();
+//			// Eerst het hoofdscherm opvragen adhv dit scherm
+//			Parent hoofdScherm = UpdateOrCreateDoelstelling.this.getParent();
+//			if (hoofdScherm instanceof BorderPane) {
+//				Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
+//				((UpdateOrCreateDoelstelling) details).maakLeeg();
+//			}
+			maakLeeg();
 			
 		}
 
