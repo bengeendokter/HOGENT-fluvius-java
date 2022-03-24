@@ -19,9 +19,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,7 +31,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -49,15 +48,15 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	@FXML
 	private Label lblKiesIcoon;
 	@FXML
-	private ListView listIcoon;
+	private ListView<String> listIcoon;
 	@FXML
 	private Label lblKiesSdgs;
 	@FXML
 	private Label lblGeselecteerdeSdgs;
 	@FXML
-	private TreeView treeviewSdgs;
+	private TreeView<SdGoal> treeviewSdgs;
 	@FXML
-	private TreeView treeviewGesSdgs;
+	private TreeView<SdGoal> treeviewGesSdgs;
 	@FXML
 	private Button btnSlaOp;
 	@FXML
@@ -71,7 +70,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	@FXML
 	private Button btnRemoveSdGoal;
 	
-	private DomeinController dc;
+//	private DomeinController dc;
 	
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
@@ -82,10 +81,9 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	
 	Map<String, SdGoal> map = new HashMap<String, SdGoal>();
 	
-	@SuppressWarnings("unchecked")
 	public UpdateOrCreateCategoryController(DomeinController dc,E object, String wijzigMaak ) {
 		
-		this.dc = dc;
+//		this.dc = dc;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateCategory.fxml"));
 		loader.setController(this);
 
@@ -292,14 +290,14 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	
 	private void handleMouseClicked(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+	    if (node instanceof Text || (node instanceof TreeCell &&  ((Labeled) node).getText() != null)) {
+	    	TreeItem<SdGoal> c = treeviewSdgs.getSelectionModel().getSelectedItem();
 	    	if(((SdGoal)c.getValue()).getParentSDG_id() != 0){
-	    		boolean remove = c.getParent().getChildren().remove(c);
+	    		c.getParent().getChildren().remove(c);
 	    	}
             //boolean remove = c.getParent().getChildren().remove(c);
             treeviewGesSdgs.getSelectionModel().selectFirst();
-            TreeItem b = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
+//            TreeItem<SdGoal> b = treeviewGesSdgs.getSelectionModel().getSelectedItem();
 
             // OP DE JUISTE PLAATS TOEVOEGEN
             TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
@@ -318,11 +316,11 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	
 	private void handleMouseClickedBack(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
-            boolean remove = c.getParent().getChildren().remove(c);
+	    if (node instanceof Text || (node instanceof TreeCell && ((Labeled) node).getText() != null)) {
+	    	TreeItem<SdGoal> c = treeviewGesSdgs.getSelectionModel().getSelectedItem();
+            c.getParent().getChildren().remove(c);
             treeviewSdgs.getSelectionModel().selectFirst();
-        	TreeItem b = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+//        	TreeItem<SdGoal> b = treeviewSdgs.getSelectionModel().getSelectedItem();
         	//treeviewSdgs.getRoot().getChildren().add(c);
         	
         	// OP DE JUISTE PLAATS TOEVOEGEN
@@ -363,14 +361,14 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
     }
 	
 	private void refreshScherm() {
-		PanelOverzicht po = new PanelOverzicht();
+//		PanelOverzicht<Categorie> po = new PanelOverzicht<>();
 		// Eerst het hoofdscherm opvragen adhv dit scherm
-		Parent hoofdScherm = UpdateOrCreateCategoryController.this.getParent();
-		if (hoofdScherm instanceof BorderPane) {
-			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
-			((UpdateOrCreateCategoryController) details).maakLeeg();
-		}
-		
+//		Parent hoofdScherm = UpdateOrCreateCategoryController.this.getParent();
+//		if (hoofdScherm instanceof BorderPane) {
+//			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
+//			((UpdateOrCreateCategoryController) details).maakLeeg();
+//		}
+		maakLeeg();
 		
 	}
 	public void maakLeeg() {
