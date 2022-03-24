@@ -150,13 +150,13 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
 	
-			for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
+			for (SdGoal s : dc.getBeschikbareSdgs()) {
 				
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
 	            boolean found = false;
 	            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
 	            	
-	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+	            	if(s.getParentSDG_id() != null && depNode.getValue().getId() == s.getParentSDG_id().getId()) {
 	            		depNode.getChildren().add(empLeaf);
 	                  found = true;
 	                  break;
@@ -285,7 +285,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
             boolean found2 = false;
             for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
-            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            	if(depNode2.getValue().getId() == s.getParentSDG_id().getId()) {
             		depNode2.getChildren().add(empLeaf2);
                   found2 = true;
                   break;
@@ -311,9 +311,9 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	private void handleMouseClicked(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+	    	TreeItem<SdGoal>  c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
 	    	
-	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == null;
 //	    	if(!isHoofdSdg){
 //	    		boolean remove = c.getParent().getChildren().remove(c);
 //	    	}
@@ -326,7 +326,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             {
             	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
              	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
-            	TreeItem parent = c.getParent();
+            	TreeItem<SdGoal> parent = c.getParent();
             	if(c.getParent() != null)
             	{
             		rootNode.getChildren().addAll(parent.getChildren());
@@ -340,7 +340,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             	{
             		
                 	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-                		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id() ) {
+                		if(n.getValue().getId() == ((SdGoal)c.getValue()).getParentSDG_id().getId() ) {
                 			rootNode.getChildren().remove(c);
                 			n.getChildren().add(c);
                 		}
@@ -382,7 +382,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             	rootNode.getChildren().remove(c);
             	rootNode3.getChildren().add(c);
             	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-            		if(n.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            		if(n.getValue().getParentSDG_id() != null && n.getValue().getParentSDG_id().getId() == ((SdGoal)c.getValue()).getId() ) {
             			c.getChildren().add(n);
             			
             		}
@@ -409,13 +409,13 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	private void handleMouseClickedBack(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
+	    	TreeItem<SdGoal>  c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
 	    	
-	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == null;
 	    	
 	    	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
 	    	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
-	    	TreeItem parent = c.getParent();
+	    	TreeItem<SdGoal>  parent = c.getParent();
 	    	if(!isHoofdSdg)rootNode.getChildren().add(c);
 	    	
 	    	if(isHoofdSdg)
@@ -424,7 +424,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	    		rootNode3.getChildren().remove(c);
 	    		List<TreeItem<SdGoal>> itemsToRemove = new ArrayList<>();
 	    		for (TreeItem<SdGoal> r : rootNode.getChildren()) {
-            		if(r.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            		if(r.getValue().getParentSDG_id() != null && r.getValue().getParentSDG_id().getId() == ((SdGoal)c.getValue()).getId() ) {
             			itemsToRemove.add(r);
             		}
 	    		}

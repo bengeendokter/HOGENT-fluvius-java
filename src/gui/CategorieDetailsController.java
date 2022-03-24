@@ -86,7 +86,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
 	            boolean found = false;
 	            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
-	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id().getId()) {
 	            		depNode.getChildren().add(empLeaf);
 	                  found = true;
 	                  break;

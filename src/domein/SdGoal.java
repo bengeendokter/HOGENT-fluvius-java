@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,7 +32,8 @@ public class SdGoal implements Serializable, ListViewInterface
 	@Column(length=4000)
 	private String naam;
 	private String icon;
-	private int parentSDG_id;
+	@ManyToOne
+	private SdGoal parentSDG_id;
 	
 	@OneToMany(mappedBy="sdGoal")
 	private List<Component> componenten;
@@ -85,12 +87,12 @@ public class SdGoal implements Serializable, ListViewInterface
 		this.icon = icon;
 	}
 
-	public int getParentSDG_id()
+	public SdGoal getParentSDG_id()
 	{
 		return parentSDG_id;
 	}
 
-	public void setParentSDG_id(int parentSDG_id)
+	public void setParentSDG_id(SdGoal parentSDG_id)
 	{
 		this.parentSDG_id = parentSDG_id;
 	}

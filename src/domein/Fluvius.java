@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.RollbackException;
 
@@ -83,6 +84,18 @@ public class Fluvius
 			}
 		});
 		//setSdGoals();
+		List<SdGoal> goalsToRemove = new ArrayList<>();
+		sdGoals.forEach(g -> {
+			if(g.getParentSDG_id() != null)
+			{
+				if(sdGoals.stream().filter(g2 -> {
+					return g.getParentSDG_id().getId() == g2.getId();}).findFirst().orElse(null) == null)
+				{
+					goalsToRemove.add(g);
+				}
+			}
+		});
+		goalsToRemove.forEach(g -> sdGoals.remove(g));
 		System.out.println("Beschikbare SdGoals ophalen");
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
