@@ -92,7 +92,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 		{
 			loader.load();
 			lblErrorMessage.setVisible(false);
-			this.getChildren().add(lblErrorMessage);
+//			this.getChildren().add(lblErrorMessage);
 			// label goed zetten
 			lblUpdateOrCreate.setText(wijzigMaak);
 			
@@ -199,7 +199,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			treeviewSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
 			treeviewGesSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2); 
 			
-			this.getChildren().addAll(arrow1, arrow2, btnRemoveSdGoal, lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
+//			this.getChildren().addAll(arrow1, arrow2, btnRemoveSdGoal, lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
 			
 			
 			btnSlaOp.setOnAction(new EventHandler<ActionEvent>() {
