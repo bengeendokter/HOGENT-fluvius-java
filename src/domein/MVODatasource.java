@@ -82,13 +82,20 @@ private static final long serialVersionUID = 1L;
 		if (dds.typeDatasource == null) {
 				throw new IllegalArgumentException("Selecteer aub een type");
 		}
-		if (dds.typeDatasource.equals("excel"))
-			setTypeDatasource(new ExcelDataSourceType(dds.link));
-		else if (dds.typeDatasource.equals("csv"))
-			setTypeDatasource(new CsvDataSourceType(dds.link));
-		else if (dds.typeDatasource.equals("databank"))
-			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
-	
+		
+		if (dds.typeDatasource != "excel" && dds.typeDatasource != "csv" && dds.typeDatasource != "databank") {
+			throw new IllegalArgumentException("Onbestaande type");
+		} else {
+			if (dds.typeDatasource.equals("excel"))
+				setTypeDatasource(new ExcelDataSourceType(dds.link));
+			else if (dds.typeDatasource.equals("csv"))
+				setTypeDatasource(new CsvDataSourceType(dds.link));
+			else if (dds.typeDatasource.equals("databank"))
+				setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
+		
+		}
+		
+		
 		
 		
 	}
