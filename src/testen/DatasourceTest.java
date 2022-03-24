@@ -388,6 +388,8 @@ public class DatasourceTest {
 	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM2);
 	}
 	
+	//eventueel controle voor status, maat en kolom
+	
 	
 	
 }
