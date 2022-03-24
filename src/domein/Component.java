@@ -57,11 +57,13 @@ public abstract class Component implements Doelstelling, Serializable{
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
 	
-	@ElementCollection
+	/*@ElementCollection
 	@MapKeyColumn(name="name")
 	@Column(name="value")
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
-	private Map<String, Double> value;
+	private Map<String, Double> value;*/
+	
+	private ComponentValue componentValue; 
 	
 	@ManyToOne
 	private Composite parentComponent = null;
@@ -165,16 +167,16 @@ public abstract class Component implements Doelstelling, Serializable{
 		this.formule = bewerking;
 	}
 	
-	public void setValue(Map<String, Double> waarde) {
+	/*public void setValue(Map<String, Double> waarde) {
 		this.value = waarde;
 	}
 	
 	public Map<String, Double> getValue() {
-		System.out.printf("%s	|	%s%n", naam, formule.toString());
+		//System.out.printf("%s	|	%s%n", naam, formule.toString());
 		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
 		System.out.printf("%n%n");
 		return value;
-	}
+	}*/
 	
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------
