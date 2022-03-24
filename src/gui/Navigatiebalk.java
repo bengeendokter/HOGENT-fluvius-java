@@ -13,9 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.stage.Screen;
 
-public class Navigatiebalk extends HBox {
+public class Navigatiebalk extends BorderPane {
 	
 	private DomeinController dc;
 
@@ -35,7 +34,7 @@ public class Navigatiebalk extends HBox {
 		imgLogo.setFitWidth(130);
 		imgLogo.setFitHeight(40);
 		
-
+		
 		// Vrije ruimte instellen
 		Region r = new Region();
 		r.setPrefWidth(15);
@@ -72,11 +71,26 @@ public class Navigatiebalk extends HBox {
 		// Navigatie centreren met HBox
 		HBox navHBox = new HBox(btnCategorie, btnDatasource, btnDoelstelling);
 		// zet breed genoeg (bv zo breed als scherm)
-		navHBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
 		navHBox.setAlignment(Pos.CENTER);
 		
+		// BorderPane om logo links, nav in het midden, en naam label recht uit te lijnen
+//		BorderPane navBorderPane = new BorderPane();
+		
+		HBox imgMetMarginLeft = new HBox();
+		imgMetMarginLeft.getChildren().addAll(r, imgLogo);
+		this.setLeft(imgMetMarginLeft);
+		
+		this.setCenter(navHBox);
+		BorderPane.setAlignment(navHBox ,Pos.CENTER );
+		
+		HBox lblNaamMetMarginRight = new HBox();
+		lblNaamMetMarginRight.getChildren().addAll(lblNaamFunctie, r2);
+		this.setRight(lblNaamMetMarginRight);
+		
+//		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() * 0.75);
+		
 		// Toevoegen aan scherm
-		this.getChildren().addAll(r, imgLogo, navHBox, lblNaamFunctie, r2);
+//		this.getChildren().addAll(navBorderPane);
 
 		// Ruimte instellen
 		//this.setPadding(new Insets(5));
