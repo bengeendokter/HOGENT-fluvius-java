@@ -67,10 +67,10 @@
                   </Label>
                   <Label fx:id="lblNaamIngevuld" text="dummynaam">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="85.0" />
+                        <Insets left="126.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -84,10 +84,10 @@
                   </Label>
                   <Label fx:id="lblBewerkingIngevuld" text="dummylabel">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="44.0" />
+                        <Insets left="85.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -101,15 +101,40 @@
                   </Label>
                   <Label fx:id="lblDoelWaardeIngevuld" text="dummydoelwaarde">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="71.0" />
                      </HBox.margin>
                   </Label>
                   <Label fx:id="lblEenheidIngevuld" text="dummyeenheid">
                      <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label fx:id="lblBerekendeWaarde" text="Berekende waarde:">
+                     <font>
                         <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblBerekendeWaardeIngevuld" text="dummyBerekendeWaarde">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblEenheidIngevuld2" text="dummyeenheid">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -129,7 +154,7 @@
                         <Image url="@../images/planet.jpg" />
                      </image>
                      <HBox.margin>
-                        <Insets left="89.0" />
+                        <Insets left="130.0" />
                      </HBox.margin>
                      <viewport>
                         <Rectangle2D minX="100.0" minY="100.0" />
@@ -149,10 +174,10 @@
                   </Label>
                   <Label fx:id="lblSdgIngevuld" text="dummySDG">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="141.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -166,10 +191,10 @@
                   </Label>
                   <Label fx:id="lblDatasourceIngevuld" text="dummydatasource">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="36.0" />
+                        <Insets left="77.0" />
                      </HBox.margin>
                   </Label>
                </children>

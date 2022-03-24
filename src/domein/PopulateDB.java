@@ -910,28 +910,46 @@ public class PopulateDB {
 
 		// Datasources
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
-				"test", "test123", false, "traag", "personen", 1)));
+				"test", "test123", false, "traag", "vrouwen", 1)));
 
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 mercedes", "csv", "src/data/csvDouble.csv", null,
-				null, null, false, "snel", "uitstoot", 1)));
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 audi", "excel", "src/data/xlsDouble.xls", null,
-				null, null, true, "traag", "uitstoot", 2)));
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
-				null, null, true, "traag", "uitstoot", 3)));
+		MVODatasource mvd1 = new MVODatasource(new DTODatasource("CO2 mercedes", "csv", "src/data/csvDouble.csv", null,
+				null, null, false, "snel", "kg/m³", 1));
+		MVODatasource mvd2 = new MVODatasource(new DTODatasource("CO2 audi", "excel", "src/data/xlsDouble.xls", null,
+				null, null, true, "traag", "kg/m³", 2));
+		MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
+				null, null, true, "traag", "kg/m³", 2));
 
 		List<MVODatasource> datasources = new ArrayList<>();
-		MVODatasource mvd = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv",
+		MVODatasource mvd4 = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv",
 				null, null, null, true, "snel", "kinderen", 2));
-		datasources.add(mvd);
+		datasources.add(mvd1);
+		datasources.add(mvd2);
+		datasources.add(mvd3);
+		datasources.add(mvd4);
 
 		// Doelstellingen
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Gelijkheid", "file:src/images/peace.png", 20,
-				rollen, goal1, mvd, new ArrayList<>(), new Average())));
-		Component d = new Composite(new DTOMVODoelstelling("CO2Neutraal", "file:src/images/planet.jpg", 20, rollen,
-				goal2, mvd, new ArrayList<>(), new Som()));
-		d.add(new Composite(new DTOMVODoelstelling("CO2Transport", "file:src/images/planet.jpg", 20, rollen, goal2, mvd,
-				new ArrayList<>(), new Som())));
-		doelstellingenRepo.insert(d);
+		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal kinderen", "file:src/images/peace.png", 16,
+				rollen, goal1, mvd4, new ArrayList<>(), new Som()));
+		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 mercedes", "file:src/images/planet.jpg", 50,
+				rollen, goal13, mvd1, new ArrayList<>(), new Average()));
+		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 audi", "file:src/images/planet.jpg", 40,
+				rollen, goal13, mvd2, new ArrayList<>(), new Average()));
+		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 bmw", "file:src/images/planet.jpg", 30,
+				rollen, goal13, mvd3, new ArrayList<>(), new Average()));
+		
+		doelstellingenRepo.insert(l1);
+		doelstellingenRepo.insert(l2);
+		doelstellingenRepo.insert(l3);
+		doelstellingenRepo.insert(l4);
+		
+		Composite c1 = new Composite(new DTOMVODoelstelling("CO2TrageAuto's", "file:src/images/planet.jpg", 10,
+		rollen, goal13, null, new ArrayList<>(Arrays.asList(l3, l4)), new Average()));			
+		
+		doelstellingenRepo.insert(c1);
+		
+		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
+				rollen, goal13, null, new ArrayList<>(Arrays.asList(c1, l2)), new Average())));		
+		
 		gebruikerRepo.commitTransaction();
 		sdGoalRepo.commitTransaction();
 		categorieRepo.commitTransaction();

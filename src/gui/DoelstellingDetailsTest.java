@@ -24,7 +24,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
-public class DoelstellingDetailsTest extends BorderPane{
+public class DoelstellingDetailsTest extends BorderPane
+{
 	@FXML
 	private Button btnWijzigen;
 	@FXML
@@ -67,66 +68,68 @@ public class DoelstellingDetailsTest extends BorderPane{
 	private ListView<Rol> listRollenIngevuld;
 	@FXML
 	private Label lblErrorMessage;
-//	private DomeinController dc;
-//	private E object;
+	@FXML
+	private Label lblBerekendeWaarde;
+	@FXML
+	private Label lblBerekendeWaardeIngevuld;
+	@FXML
+	private Label lblEenheidIngevuld2;
 	
-
-	public DoelstellingDetailsTest(DomeinController dc, Doelstelling object){
+	public DoelstellingDetailsTest(DomeinController dc, Doelstelling huidigeDoelstelling)
+	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DoelstellingDetails.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-//		this.dc = dc;
-//		this.object = object;
-
+		
 		try
 		{
 			loader.load();
 			lblErrorMessage.setVisible(false);
-			if(object instanceof Doelstelling) {
-				lblNaamIngevuld.setText(((Doelstelling) object).getNaam());
-				lblBewerkingIngevuld.setText(((Doelstelling)object).getFormule().toString());
-				if(((Doelstelling) object).getDatasource() != null) {
-					lblDatasourceIngevuld.setText(((Doelstelling) object).getDatasource().getNaam());
-				} else {
-					lblDatasourceIngevuld.setText("");
-				}
+			
+			lblNaamIngevuld.setText(huidigeDoelstelling.getNaam());
+			lblBewerkingIngevuld.setText(huidigeDoelstelling.getFormule().toString());
+			if(huidigeDoelstelling.getDatasource() != null)
+			{
+				lblDatasourceIngevuld.setText(huidigeDoelstelling.getDatasource().getNaam());
+			}
+			else
+			{
+				lblDatasourceIngevuld.setText("");
+			}
+			
+			lblSdgIngevuld.setText(huidigeDoelstelling.getSdGoal().getNaam());
+			lblDoelWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getDoelwaarde()));
+			lblEenheidIngevuld.setText(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getKey());
+			lblBerekendeWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getValue()));
+			lblEenheidIngevuld2.setText(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getKey());
+			listRollenIngevuld.setItems(FXCollections.observableList(huidigeDoelstelling.getRollen()));
+			listRollenIngevuld.setCellFactory(param -> new ListCell<Rol>()
+			{
 				
-				lblSdgIngevuld.setText(((Doelstelling) object).getSdGoal().getNaam());
-				//lblDoelWaardeIngevuld.setText(((Doelstelling) object).getDoelwaarde());
-				lblEenheidIngevuld.setText("hier moet nog iets komen");
-				listRollenIngevuld.setItems(FXCollections.observableList(((Doelstelling)object).getRollen()));
-				
-				listRollenIngevuld.setCellFactory(param -> new ListCell<Rol>()
+				@Override
+				public void updateItem(Rol doel, boolean empty)
 				{
-					
-					@Override
-					public void updateItem(Rol doel, boolean empty)
+					super.updateItem(doel, empty);
+					if(empty)
 					{
-						super.updateItem(doel, empty);
-						if(empty)
-						{
-							setText(null);
-							setGraphic(null);
-						}
-						else
-						{
-							setText(doel.getRol());
-							
-
-						}
+						setText(null);
+						setGraphic(null);
 					}
-				});
-				
-				
-				TreeItem<Doelstelling> rootNode = 
-				        new TreeItem<Doelstelling>(null);
-
-				
-				
-				for (Doelstelling s : object.getComponents()) {
-					System.out.println(s.getNaam());
+					else
+					{
+						setText(doel.getRol());
+						
+					}
+				}
+			});
+			
+			TreeItem<Doelstelling> rootNode = new TreeItem<Doelstelling>(null);
+			
+			for(Doelstelling s : huidigeDoelstelling.getComponents())
+			{
+				System.out.println(s.getNaam());
 //		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
-		            boolean found = false;
+				boolean found = false;
 //		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
 //		            	if(depNode.getValue().g == s.getParentSDG_id()) {
 //		            		depNode.getChildren().add(empLeaf);
@@ -134,37 +137,34 @@ public class DoelstellingDetailsTest extends BorderPane{
 //		                  break;
 //		            	}
 //		            }
-		            String pad = s.getIcon();
-					int index = pad.indexOf("c");
-					pad = pad.substring(index+1);
-
-		            if (!found) {
-		                TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(
-		                    s
-		                );
-		                
-		                rootNode.getChildren().add(depNode);
-		            }
-		        }
-		 
-				treeViewSubDoelstellingen.setRoot(rootNode);
-		        treeViewSubDoelstellingen.setShowRoot(false);
-		        
-		        
-		        String pad = ((Doelstelling) object).getIcon();
+				String pad = s.getIcon();
 				int index = pad.indexOf("c");
-				pad = pad.substring(index+1);
-				// Mannetje weergeven
-				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				pad = pad.substring(index + 1);
 				
+				if(!found)
+				{
+					TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(s);
+					
+					rootNode.getChildren().add(depNode);
+				}
 			}
 			
+			treeViewSubDoelstellingen.setRoot(rootNode);
+			treeViewSubDoelstellingen.setShowRoot(false);
+			
+			String pad = huidigeDoelstelling.getIcon();
+			int index = pad.indexOf("c");
+			pad = pad.substring(index + 1);
+			// Mannetje weergeven
+			imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
 			
 //			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld, imgIcoon, lblErrorMessage);
-		
-			btnVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+			
+			btnVerwijderen.setOnAction(new EventHandler<ActionEvent>()
+			{
 				@Override
-				public void handle(ActionEvent evt) {
+				public void handle(ActionEvent evt)
+				{
 					//vragen of de gebruiker zeker is
 					Alert boodschap = new Alert(AlertType.CONFIRMATION);
 					boodschap.setTitle("Verwijderen");
@@ -174,9 +174,10 @@ public class DoelstellingDetailsTest extends BorderPane{
 					boodschap.showAndWait().ifPresent(response -> {
 						if(response != ButtonType.CANCEL)
 						{
-							try {
+							try
+							{
 								lblErrorMessage.setVisible(false);
-								dc.setCurrentDoelstelling((Doelstelling)object);
+								dc.setCurrentDoelstelling(huidigeDoelstelling);
 								dc.verwijderMVODoelstelling();
 								maakLeeg();
 							}
@@ -192,31 +193,36 @@ public class DoelstellingDetailsTest extends BorderPane{
 				}
 			});
 			
-			btnWijzigen.setOnAction(new EventHandler<ActionEvent>() {
+			btnWijzigen.setOnAction(new EventHandler<ActionEvent>()
+			{
 				@Override
-				public void handle(ActionEvent evt) {
-
-					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc, object, "Wijzig doelstelling");
+				public void handle(ActionEvent evt)
+				{
+					
+					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc,
+							huidigeDoelstelling, "Wijzig doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = DoelstellingDetailsTest.this.getParent();
-					if (hoofdScherm instanceof BorderPane) {
+					if(hoofdScherm instanceof BorderPane)
+					{
 						// DetailsScherm opvragen adhv het hoofdScherm
 						((BorderPane) hoofdScherm).setCenter(vs);
 					}
 					
 				}
 			});
-		
-		
-		}catch(IOException e)
+			
+		}
+		catch(IOException e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public void maakLeeg() {
+	public void maakLeeg()
+	{
 		this.getChildren().clear();
 		
 	}
-
+	
 }

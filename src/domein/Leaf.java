@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -17,7 +18,7 @@ public class Leaf extends Component {
 
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST) 
 	private MVODatasource datasource;
 
 	// CONSTRUCTOREN
@@ -57,7 +58,7 @@ public class Leaf extends Component {
 		map = getFormule().calculate(map);
 		Map<String, Double> mapNewName = new HashMap<>();
 		final int size = map.size();
-		map.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
+		map.values().forEach(v -> mapNewName.put(String.format("%s%s", datasource.getMaat(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
 		
 		setValue(mapNewName);
 		return getValue();

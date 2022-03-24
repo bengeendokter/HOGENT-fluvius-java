@@ -13,6 +13,7 @@ import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
 import domein.DomeinController;
+import domein.GeenBewerking;
 import domein.Rol;
 import domein.SdGoal;
 import domein.Som;
@@ -108,7 +109,7 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	
 //	private DomeinController dc;
 //	private E object;
-	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average()));
+	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average(), new GeenBewerking()));
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
