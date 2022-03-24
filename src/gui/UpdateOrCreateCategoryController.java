@@ -31,10 +31,11 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class UpdateOrCreateCategoryController<E> extends Pane {
+public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	@FXML
 	private Label lblUpdateOrCreate;
 	@FXML
@@ -57,8 +58,9 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	private TreeView<SdGoal> treeviewSdgs;
 	@FXML
 	private TreeView<SdGoal> treeviewGesSdgs;
+
 	@FXML
-	private Button btnSlaOp;
+	private Button btnOpslaan;
 	@FXML
 	private Button btnAnnuleer;
 	@FXML
@@ -98,6 +100,10 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			if(object != null) {
 				wijzigBestaandeCategorie(object);
+				
+			}
+			else {
+				imgIcoon.setImage(new Image((String) listIcoon.getSelectionModel().getSelectedItem()));
 			}
 			
 			//listIcoon opvullen met iconen
@@ -127,7 +133,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			
 			//eerste element in listview selecteren omdat anders "oldvalue" null wordt
 			listIcoon.getSelectionModel().selectFirst();
-			imgIcoon.setImage(new Image((String) listIcoon.getSelectionModel().getSelectedItem()));
+			
 			
 			//icoon verandert als je op een icoon klikt van de lijst
 			listIcoon.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -202,7 +208,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 //			this.getChildren().addAll(arrow1, arrow2, btnRemoveSdGoal, lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
 			
 			
-			btnSlaOp.setOnAction(new EventHandler<ActionEvent>() {
+			btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {
 					lblErrorMessage.setVisible(false);

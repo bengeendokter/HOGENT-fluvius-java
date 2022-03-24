@@ -1,6 +1,7 @@
 package main;
 
 import domein.AanmeldController;
+import domein.PopulateDB;
 import gui.AanmeldenResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ public class StartUpGui extends Application
 	{
 		try
 		{
+	
 			// ga naar de repository.DatabaseSelector Class om een lokale databank te gebruiken
 			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST);
 			

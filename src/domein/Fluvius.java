@@ -94,10 +94,10 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
 	
-	public void voegSdGoalObserverToe(ListChangeListener<SdGoal> listener)
-	{
-		sdGoals.addListener(listener);
-	}
+//	public void voegSdGoalObserverToe(ListChangeListener<SdGoal> listener)
+//	{
+//		sdGoals.addListener(listener);
+//	}
 	
 	// CATEGORIE BEHEREN
 	// ______________________________________________________________________________________________
@@ -121,10 +121,10 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>)(Object)categorien);
 	}
 	
-	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
-	{
-		categorien.addListener(listener);
-	}
+//	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
+//	{
+//		categorien.addListener(listener);
+//	}
 	
 	public void voegCategorieToe(DTOCategorie categorie)
 	{
@@ -303,8 +303,8 @@ public class Fluvius
 		return FXCollections.unmodifiableObservableList((ObservableList<Doelstelling>)(Object)doelstellingen);
 	}
 	
-	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
-		List<Component> doelZonderSubs = new ArrayList<>();
+	public List<Doelstelling> geefDoelstellingenDieGeenSubsHebben(){
+		List<Doelstelling> doelZonderSubs = new ArrayList<>();
 		doelstellingen.forEach(d -> {
 			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
 			while (iterator.hasNext()) {
@@ -319,8 +319,8 @@ public class Fluvius
 		return doelZonderSubs;
 	}
 	
-	public List<Component> geefDoelstellingenDieSubsHebben(){
-		List<Component> doelMetSubs = new ArrayList<>();
+	public List<Doelstelling> geefDoelstellingenDieSubsHebben(){
+		List<Doelstelling> doelMetSubs = new ArrayList<>();
 		doelstellingen.forEach(d -> {
 			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
 			while (iterator.hasNext()) {

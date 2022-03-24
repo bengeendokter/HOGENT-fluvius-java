@@ -76,10 +76,10 @@ public class DomeinController
 		fluvius.voegCategorieToe(categorie);
 	}
 	
-	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
-	{
-		fluvius.voegCategorieObserverToe(listener);
-	}
+//	public void voegCategorieObserverToe(ListChangeListener<Categorie> listener)
+//	{
+//		fluvius.voegCategorieObserverToe(listener);
+//	}
 	
 	public void verwijderCategorie()
 	{
@@ -106,11 +106,11 @@ public class DomeinController
 		return fluvius.getDoelstellingen();
 	}
 	
-	public List<Component> geefDoelstellingenDieGeenSubsHebben(){
+	public List<Doelstelling> geefDoelstellingenDieGeenSubsHebben(){
 		return fluvius.geefDoelstellingenDieGeenSubsHebben();
 	}
 	
-	public List<Component> geefDoelstellingenDieSubsHebben(){
+	public List<Doelstelling> geefDoelstellingenDieSubsHebben(){
 		return fluvius.geefDoelstellingenDieSubsHebben();
 	}
 	
