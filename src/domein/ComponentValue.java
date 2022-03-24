@@ -12,9 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 @Entity
+@Table(name = "CValue")
 public class ComponentValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -33,23 +35,30 @@ public class ComponentValue implements Serializable {
 	private LocalDate datum;
 
 	public ComponentValue(Map<String, Double> value, LocalDate datum) {
+		//eerste keer aanmaken
+		if (value==null) this.datum = datum;
 		setValue(value);
-		setDatum(datum);
+		setDatum(datum, value);
 		/*this.value = value;
 		this.datum = datum;*/
 	}
+	
+	public ComponentValue() {
+	}
 
-	public void setDatum(LocalDate datum) {
+	public void setDatum(LocalDate datum1, Map<String, Double> value) {
 		
-		
+		//alleen overschrijven als YEAR hetzelfde is
+		if (datum.getYear() == datum1.getYear()) {
+			this.datum = datum;
+			setValue(value);
+		}	
 	}
 
 	public void setValue(Map<String, Double> value) {
 		this.value = value;
 		
 	}
-
-	
 
 	public LocalDate getDatum() {
 		return datum;
@@ -58,7 +67,7 @@ public class ComponentValue implements Serializable {
 	public Map<String, Double> getValue() {
 		//System.out.printf("%s	|	%s%n", naam, formule.toString());
 		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
-		System.out.printf("%n%n");
+		//System.out.printf("%n%n");
 		return value;
 	}
 	

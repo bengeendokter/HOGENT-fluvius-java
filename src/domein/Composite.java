@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,9 +34,16 @@ public class Composite extends Component implements Serializable{
 	
 	// CONSTRUCTOREN
 	// ---------------------------------------------------------------------------------------------------
-	public Composite(DTOMVODoelstelling d) {
+	public Composite(DTOMVODoelstelling d) throws IOException {
 		super(d);
 		setComponents(d.subDoelstellingen);
+		
+		//historiek
+		//initeel setten
+		Map<String, Double> x = getBerekendewaarde();
+		getComponentValue().setValue(x);
+		
+		getComponentValue().setDatum(LocalDate.now(), x);
 	}
 
 	protected Composite() {
@@ -125,17 +133,23 @@ public class Composite extends Component implements Serializable{
 		Map<String, Double> mapNewName = new HashMap<>();
 		if(getFormule() instanceof GeenBewerking)
 		{
-			setValue(tempMap);
+			//historiek
+			//setValue(tempMap);
+			getComponentValue().setValue(tempMap);
 		}
 		else
 		{
 			final int size = tempMap.size();
 			tempMap.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
-			setValue(mapNewName);
+			
+			//historiek
+			//setValue(mapNewName);
+			getComponentValue().setValue(mapNewName);
 		}
 		
 		
-		return getValue();
+		//return getValue();
+		return getComponentValue().getValue();
 	}
 
 	@Override

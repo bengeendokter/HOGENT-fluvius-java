@@ -925,13 +925,13 @@ public class PopulateDB {
 		datasources.add(mvd);
 
 		// Doelstellingen
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Gelijkheid", "file:src/images/peace.png", 20,
+		/*doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Gelijkheid", "file:src/images/peace.png", 20,
 				rollen, goal1, mvd, new ArrayList<>(), new Average())));
 		Component d = new Composite(new DTOMVODoelstelling("CO2Neutraal", "file:src/images/planet.jpg", 20, rollen,
 				goal2, mvd, new ArrayList<>(), new Som()));
 		d.add(new Composite(new DTOMVODoelstelling("CO2Transport", "file:src/images/planet.jpg", 20, rollen, goal2, mvd,
 				new ArrayList<>(), new Som())));
-		doelstellingenRepo.insert(d);
+		doelstellingenRepo.insert(d);*/
 		gebruikerRepo.commitTransaction();
 		sdGoalRepo.commitTransaction();
 		categorieRepo.commitTransaction();

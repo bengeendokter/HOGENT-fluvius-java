@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,7 +65,16 @@ public abstract class Component implements Doelstelling, Serializable{
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
 	private Map<String, Double> value;*/
 	
-	private ComponentValue componentValue; 
+	@OneToMany//(cascade = CascadeType.PERSIST)
+	@JoinColumn(
+	        name="COMPONENTID", 
+	        nullable=true,
+	        foreignKey = @ForeignKey(
+	                name="FK_CValue_ID",
+	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(componentvalueID) ON UPDATE CASCADE ON DELETE CASCADE"
+	        )
+	)
+	private List<ComponentValue> componentValue; 
 	
 	@ManyToOne
 	private Composite parentComponent = null;
@@ -78,8 +89,18 @@ public abstract class Component implements Doelstelling, Serializable{
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
 		setFormule(d.bewerking);
+		setComponentValue(new ComponentValue(null, LocalDate.now()));
 	}
 	
+	private void setComponentValue(ComponentValue componentValue) {
+		this.componentValue = componentValue;
+		
+	}
+	
+	public ComponentValue getComponentValue() {
+		return componentValue;
+	}
+
 	protected Component() {
 		
 	}
