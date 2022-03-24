@@ -5,6 +5,10 @@ import java.util.List;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import repository.CategorieDaoJpa;
+import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDaoJpa;
 
 public class DomeinController
 {
@@ -21,7 +25,7 @@ public class DomeinController
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
-		setFluvius(new Fluvius());
+		setFluvius(new Fluvius(new CategorieDaoJpa(), new SdGoalDaoJpa(),new MVODoelstellingDaoJpa(), new MVODatasourceDaoJpa()));
 		
 	}
 	
@@ -48,10 +52,10 @@ public class DomeinController
 		return fluvius.getBeschikbareSdgs();
 	}
 	
-	public ObservableList<SdGoal> getSdgs()
-	{
-		return fluvius.getSdgs();
-	}
+//	public ObservableList<SdGoal> getSdgs()
+//	{
+//		return fluvius.getSdgs();
+//	}
 	
 	// CATEGORIE BEHEREN
 	// ______________________________________________________________________________________________

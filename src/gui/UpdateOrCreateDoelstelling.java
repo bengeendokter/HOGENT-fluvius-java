@@ -222,7 +222,7 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 			});
 			
 			choiceBewerking.setItems(FXCollections.observableList(doelTypes));
-			choiceSdg.setItems(FXCollections.observableList(dc.getSdgs()));
+			choiceSdg.setItems(FXCollections.observableList(dc.getBeschikbareSdgs()));
 			choiceDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
 			
 			treeGekozenSubs.setRoot(rootNode2);

@@ -45,17 +45,19 @@ public class Fluvius
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
-	public Fluvius()
+	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa)
 	{
-		setCategorieRepo(new CategorieDaoJpa());
-		setSdGoalRepo(new SdGoalDaoJpa());
-		setMVODoelstellingenRepo(new MVODoelstellingDaoJpa());
-		setMVODatasourceRepo(new MVODatasourceDaoJpa());
+		setCategorieRepo(categorieDaoJpa);
+		setSdGoalRepo(sdGoalDaoJpa);
+		setMVODoelstellingenRepo(mvoDoelstellingDaoJpa);
+		setMVODatasourceRepo(mvoDatasourceDaoJpa);
 		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
+		
+		
 		
 	}
 	
@@ -125,6 +127,15 @@ public class Fluvius
 //	{
 //		categorien.addListener(listener);
 //	}
+	public Categorie getCurrentCategorie()
+	{
+		return currentCategorie;
+	}
+	
+	public void setCurrentCategorie(Categorie categorie)
+	{
+		currentCategorie = categorie;
+	}
 	
 	public void voegCategorieToe(DTOCategorie categorie)
 	{
@@ -242,15 +253,9 @@ public class Fluvius
 		updateCategorie(categorie);
 	}
 
-	public void setCurrentCategorie(Categorie categorie)
-	{
-		currentCategorie = categorie;
-	}
+	
 
-	public Categorie getCurrentCategorie()
-	{
-		return currentCategorie;
-	}
+	
 	
 	private void updateCategorie(DTOCategorie categorie)
 	{
@@ -604,6 +609,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			
 			mvoDatasourceRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
 		}

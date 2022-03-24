@@ -72,7 +72,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	@FXML
 	private Button btnRemoveSdGoal;
 	
-//	private DomeinController dc;
+	private DomeinController dc;
 	
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
@@ -85,7 +85,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	
 	public UpdateOrCreateCategoryController(DomeinController dc,E object, String wijzigMaak ) {
 		
-//		this.dc = dc;
+		this.dc = dc;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateCategory.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
@@ -510,6 +510,48 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	}
 	public void maakLeeg() {
 		this.getChildren().clear();
+		
+	}
+	
+	@FXML
+	public void resetSdgs(ActionEvent event) {
+		treeviewGesSdgs.getRoot().getChildren().clear();
+		treeviewSdgs.getRoot().getChildren().clear();
+		TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
+		for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
+			
+            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
+            boolean found = false;
+            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
+            	
+            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            		depNode.getChildren().add(empLeaf);
+                  found = true;
+                  break;
+            	}
+            	else if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getAfbeeldingNaamAlsInt()) {
+            		TreeItem<SdGoal> kind = depNode;
+            		rootNode.getChildren().remove(depNode);
+            		TreeItem<SdGoal> ob = new TreeItem<SdGoal>(s);
+            		ob.getChildren().add(kind);
+            		rootNode.getChildren().add(ob);
+            		found = true;
+	                  break;
+            	}
+            	
+            }
+            String pad = s.getIcon();
+			int index = pad.indexOf("c");
+			pad = pad.substring(index+1);
+
+            if (!found) {
+                TreeItem<SdGoal> depNode = new TreeItem<SdGoal>(
+                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+                );
+                
+                rootNode.getChildren().add(depNode);
+            }
+        }
 		
 	}
 
