@@ -45,17 +45,19 @@ public class Fluvius
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
-	public Fluvius()
+	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa)
 	{
-		setCategorieRepo(new CategorieDaoJpa());
-		setSdGoalRepo(new SdGoalDaoJpa());
-		setMVODoelstellingenRepo(new MVODoelstellingDaoJpa());
-		setMVODatasourceRepo(new MVODatasourceDaoJpa());
+		setCategorieRepo(categorieDaoJpa);
+		setSdGoalRepo(sdGoalDaoJpa);
+		setMVODoelstellingenRepo(mvoDoelstellingDaoJpa);
+		setMVODatasourceRepo(mvoDatasourceDaoJpa);
 		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
+		
+		
 		
 	}
 	
