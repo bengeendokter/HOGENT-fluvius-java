@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1208.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1208.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblUpdateOrCreate" layoutX="24.0" layoutY="31.0" prefHeight="36.0" prefWidth="430.0" text="Wijzig categorie">
          <font>
@@ -73,10 +73,10 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="btnRemoveSdGoal" layoutX="906.0" layoutY="607.0" mnemonicParsing="false"  prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: red;" text="RESET SDG's" textFill="WHITE">
+      <Button fx:id="btnRemoveSdGoal" layoutX="906.0" layoutY="607.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: red;" text="RESET SDG's" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
    </children>
-</Pane>
+</fx:root>

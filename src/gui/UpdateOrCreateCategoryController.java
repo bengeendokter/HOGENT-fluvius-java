@@ -86,6 +86,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 //		this.dc = dc;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateCategory.fxml"));
 		loader.setController(this);
+		loader.setRoot(this);
 
 		try
 		{
