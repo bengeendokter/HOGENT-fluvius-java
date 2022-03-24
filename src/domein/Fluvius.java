@@ -125,6 +125,15 @@ public class Fluvius
 //	{
 //		categorien.addListener(listener);
 //	}
+	public Categorie getCurrentCategorie()
+	{
+		return currentCategorie;
+	}
+	
+	public void setCurrentCategorie(Categorie categorie)
+	{
+		currentCategorie = categorie;
+	}
 	
 	public void voegCategorieToe(DTOCategorie categorie)
 	{
@@ -242,15 +251,9 @@ public class Fluvius
 		updateCategorie(categorie);
 	}
 
-	public void setCurrentCategorie(Categorie categorie)
-	{
-		currentCategorie = categorie;
-	}
+	
 
-	public Categorie getCurrentCategorie()
-	{
-		return currentCategorie;
-	}
+	
 	
 	private void updateCategorie(DTOCategorie categorie)
 	{

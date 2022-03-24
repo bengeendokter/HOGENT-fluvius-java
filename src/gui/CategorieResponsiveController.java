@@ -1283,7 +1283,7 @@ public class CategorieResponsiveController extends BorderPane
 		selectionDoelBewerking.setItems(FXCollections.observableList(doelTypes));
 		
 		// vul hoofd SDG choicebox
-		selectionDoelSDG.setItems(FXCollections.observableList(dc.getSdgs()));
+		selectionDoelSDG.setItems(FXCollections.observableList(dc.getBeschikbareSdgs()));
 		
 		listDoelen.getSelectionModel().selectFirst();
 		
