@@ -499,11 +499,6 @@ public class Fluvius
 				throw new IllegalArgumentException("Er bestaat al een datasource met deze naam");
 			}
 			
-			// controle of er wel een type gekozen is
-			if (datasource.typeDatasource == null) {
-				throw new IllegalArgumentException("De type van een datasource mag niet leeg zijn");
-			}
-			
 			/*//controle op unieke link bij csv en excel type
 			
 			if (datasource.typeDatasource.equals("csv") || datasource.typeDatasource.equals("excel")) {
@@ -532,7 +527,9 @@ public class Fluvius
 		}
 		catch(DatabaseException e)
 		{
-			mvoDatasourceRepo.rollbackTransaction();
+			if (mvoDatasourceRepo.isActive()) {
+				mvoDatasourceRepo.rollbackTransaction();
+			}
 			throw new IllegalArgumentException(String.format("Datasource met naam '%s' bestaat al", datasource.toString()));
 		}
 		
@@ -542,8 +539,6 @@ public class Fluvius
 			if (mvoDatasourceRepo.isActive()) {
 				mvoDatasourceRepo.rollbackTransaction();
 			}
-			/*System.out.println(e);
-			GenericDaoJpa.rollbackTransaction();*/
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het toevoegen van een Datasource");
 		}
 		

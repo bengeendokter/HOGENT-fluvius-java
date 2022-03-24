@@ -145,12 +145,12 @@ public class PanelOverzicht<E> extends VBox {
 					}
 				}
 				if(soort.equals("datasources")) {
-					//UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null, "Maak nieuwe doelstelling");
+					UpdateOrCreateDatasourceController<E> vs = new UpdateOrCreateDatasourceController<>(dc, null, "Maak nieuw datasource");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzicht.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {
 						// DetailsScherm opvragen adhv het hoofdScherm
-						//((BorderPane) hoofdScherm).setCenter(vs);
+						((BorderPane) hoofdScherm).setCenter(vs);
 					}
 				}
 				

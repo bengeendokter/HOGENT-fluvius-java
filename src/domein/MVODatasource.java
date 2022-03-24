@@ -69,18 +69,9 @@ private static final long serialVersionUID = 1L;
 	public MVODatasource(DTODatasource dds) throws IOException
 	{
 		setNaam(dds.naam);
-		//nieuw
-		setDatum();
-		setKolom(dds.kolom);
-		setMaat(dds.maat);
-		setWijzigbaarheid(dds.wijzigbaarheid);
-		setCorrupt(dds.corrupt);
-		setWijzigNood(dds.wijzigbaarheid);
 		
-		//TODO setter met dds.typeDatasource waarde, dus String
-				//TODO size van ExcelDataSourceType met dds.size
 		if (dds.typeDatasource == null) {
-				throw new IllegalArgumentException("Selecteer aub een type");
+			throw new IllegalArgumentException("Selecteer aub een type");
 		}
 		if (dds.typeDatasource.equals("excel"))
 			setTypeDatasource(new ExcelDataSourceType(dds.link));
@@ -88,6 +79,16 @@ private static final long serialVersionUID = 1L;
 			setTypeDatasource(new CsvDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("databank"))
 			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
+		
+		setWijzigbaarheid(dds.wijzigbaarheid);
+		setDatum();
+		setMaat(dds.maat);
+		setKolom(dds.kolom);
+		setCorrupt(dds.corrupt);
+		setWijzigNood(dds.wijzigbaarheid);
+		
+		//TODO setter met dds.typeDatasource waarde, dus String
+				//TODO size van ExcelDataSourceType met dds.size
 	
 		
 		

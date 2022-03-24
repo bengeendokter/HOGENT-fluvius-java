@@ -26,7 +26,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	
 	public CsvDataSourceType(String link) {
 		setLink(link);
-		System.out.println(getData(0));
+		//System.out.println(getData(0));
 	}
 	
 	public void setLink(String link)
