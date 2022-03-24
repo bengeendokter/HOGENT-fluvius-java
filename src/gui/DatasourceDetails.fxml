@@ -177,6 +177,24 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Label>
+            <Label text="(STATUS =">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="lblStatus" text="IN ORDE" textFill="GREEN">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label text=")">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </top>
