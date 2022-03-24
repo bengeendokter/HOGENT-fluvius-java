@@ -91,6 +91,17 @@ public class CategorieDetailsController<E> extends BorderPane{
 	                  found = true;
 	                  break;
 	            	}
+	            	else if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getAfbeeldingNaamAlsInt()) {
+                        TreeItem<SdGoal> kind = depNode;
+                        rootNode.getChildren().remove(depNode);
+                        TreeItem<SdGoal> ob = new TreeItem<SdGoal>(
+                                s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
+                                );
+                        ob.getChildren().add(kind);
+                        rootNode.getChildren().add(ob);
+                        found = true;
+                          break;
+                    }
 	            }
 	            String pad = s.getIcon();
 				int index = pad.indexOf("c");
