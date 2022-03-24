@@ -18,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class DatasourceDetailsController<E> extends BorderPane {
 	@FXML
@@ -68,6 +69,8 @@ public class DatasourceDetailsController<E> extends BorderPane {
 	private Label lblKolom;
 	@FXML
 	private HBox hBoxKolomNummer;
+	@FXML
+	private Label lblStatus;
 //	private DomeinController dc;
 //	private E object;
 
@@ -126,17 +129,20 @@ public class DatasourceDetailsController<E> extends BorderPane {
 			lblErrorMessage.setText("");
 			lblErrorMessage.setVisible(false);
 			
+			lblStatus.setText("IN ORDE");
+			lblStatus.setTextFill(Color.GREEN);
+			
 			Boolean isCorrupt = huideDatasource.getCorrupt();
 			Boolean updateNodig = huideDatasource.wijzigNood();
 			
 			if (isCorrupt) {
-				lblErrorMessage.setVisible(true);
-				lblErrorMessage.setText("Deze datasource is corrupt. Bewerk of verwijder het aub.");
+				lblStatus.setText("CORRUPT");
+				lblStatus.setTextFill(Color.RED);
 			}
 			
 			if (updateNodig) {
-				lblErrorMessage.setVisible(true);
-				lblErrorMessage.setText("Deze datasource bevat verouderde data. Update het aub.");
+				lblStatus.setText("VEROUDERD");
+				lblStatus.setTextFill(Color.RED);
 			}
 			
 			//this.getChildren().addAll(lblWachtwoordIngevuld, lblGebruikersnaam1,lblDetailsDatasource, lblGebruikersnaam, lblGebruikersnaamIngevuld, lblHostnaam, lblHostnaamIngevuld, lblLink, lblNaam, lblNaamIngevuld, lblType, btnAnnuleer, btnOpslaan, lblTypeIngevuld, errorMessage);
