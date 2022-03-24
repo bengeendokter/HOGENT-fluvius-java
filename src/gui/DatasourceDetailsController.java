@@ -181,13 +181,14 @@ public class DatasourceDetailsController<E> extends BorderPane {
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {
-					// TODO: hier moet het wijzigscherm aangemaakt worden
+
+					UpdateOrCreateDatasourceController<E> vs = new UpdateOrCreateDatasourceController<>(dc, object, "Wijzig datasource");
 					
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = DatasourceDetailsController.this.getParent();
 					if (hoofdScherm instanceof BorderPane) {
 						// DetailsScherm opvragen adhv het hoofdScherm
-						//((BorderPane) hoofdScherm).setCenter(vs);
+						((BorderPane) hoofdScherm).setCenter(vs);
 					}
 					
 				}
