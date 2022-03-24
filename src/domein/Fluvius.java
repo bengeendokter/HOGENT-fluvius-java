@@ -609,6 +609,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			
 			mvoDatasourceRepo.rollbackTransaction();
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
 		}

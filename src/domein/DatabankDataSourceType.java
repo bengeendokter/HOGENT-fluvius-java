@@ -25,7 +25,7 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 		setHostname(hostname);
 		setUsername(username);
 		setPassword(password);
-		System.out.println(getData(1));
+		//System.out.println(getData(1));
 	}
 	
 	
