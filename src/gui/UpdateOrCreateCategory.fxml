@@ -33,12 +33,12 @@
          <right>
             <HBox prefHeight="46.0" prefWidth="309.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnOpslaan" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="162.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Wijzigen">
+                  <Button fx:id="btnOpslaan" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="162.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAnnuleer" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Verwijderen">
+                  <Button fx:id="btnAnnuleer" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="138.0" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Annuleer">
                      <font>
                         <Font size="21.0" />
                      </font>
