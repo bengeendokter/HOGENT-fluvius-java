@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class UpdateOrCreateDoelstelling<E> extends BorderPane {
@@ -98,6 +99,12 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	private ChoiceBox<Datasource> choiceDatasource;
 	@FXML
 	private Label lblErrorMessage;
+	@FXML
+	private CheckBox isSubdoelstelling;
+	@FXML
+	private HBox hboxSubdoelstellingen;
+	@FXML
+	private HBox hboxDatasource;
 	
 //	private DomeinController dc;
 //	private E object;
