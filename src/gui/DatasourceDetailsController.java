@@ -16,6 +16,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class DatasourceDetailsController<E> extends BorderPane {
 	@FXML
@@ -49,7 +52,23 @@ public class DatasourceDetailsController<E> extends BorderPane {
 	@FXML
 	private Button btnOpslaan;
 	@FXML
-	private Button btnAnnuleer;
+	private Button btnVerwijder;
+	@FXML
+	private VBox vBoxLink;
+	@FXML
+	private HBox hBoxHostnaam;
+	@FXML
+	private HBox hBoxGebruikersnaam;
+	@FXML
+	private HBox hBoxWachtwoord;
+	@FXML
+	private Label lblWijzigSnelheid;
+	@FXML
+	private Label lblMaat;
+	@FXML
+	private Label lblKolom;
+	@FXML
+	private HBox hBoxKolomNummer;
 //	private DomeinController dc;
 //	private E object;
 
@@ -64,29 +83,66 @@ public class DatasourceDetailsController<E> extends BorderPane {
 		try {
 			loader.load();
 			
-			lblNaamIngevuld.setText(((Datasource)object).getNaam());
-			areaLink.setText(((Datasource)object).getLink());
-			lblHostnaamIngevuld.setText(((Datasource)object).getHostname());
-			lblGebruikersnaamIngevuld.setText(((Datasource)object).getUsername());
-			lblWachtwoordIngevuld.setText(((Datasource)object).getPassword());
-			lblTypeIngevuld.setText(((Datasource)object).getTypeDatasource().toString());
-			System.out.println(((Datasource)object).getTypeDatasource().toString());
-			if(((Datasource)object).getTypeDatasource().toString().equals("databank")) {
-				lblLink.setVisible(false);
-				areaLink.setVisible(false);
+			Datasource huideDatasource = ((Datasource) object);
+			
+			lblNaamIngevuld.setText(huideDatasource.getNaam());
+			lblTypeIngevuld.setText(huideDatasource.getTypeDatasource().toString());
+			lblWijzigSnelheid.setText(huideDatasource.getWijzigbaarheid());
+			lblMaat.setText(huideDatasource.getMaat());
+			lblKolom.setText(Integer.toString(huideDatasource.getKolom()));
+			
+			areaLink.setText(huideDatasource.getLink());
+			areaLink.setEditable(false);
+			lblHostnaamIngevuld.setText(huideDatasource.getHostname());
+			lblGebruikersnaamIngevuld.setText(huideDatasource.getUsername());
+			lblWachtwoordIngevuld.setText(huideDatasource.getPassword());
+			
+			//System.out.println(((Datasource)object).getTypeDatasource().toString());
+			if(huideDatasource.getTypeDatasource().toString().equals("databank")) {
+				vBoxLink.setVisible(false);
+				vBoxLink.setManaged(false);
+				
+				hBoxGebruikersnaam.setVisible(true);
+				hBoxGebruikersnaam.setManaged(true);
+				
+				hBoxHostnaam.setVisible(true);
+				hBoxHostnaam.setVisible(true);
+				
+				hBoxWachtwoord.setVisible(true);
+				hBoxWachtwoord.setVisible(true);
+			} else {
+				vBoxLink.setVisible(true);
+				vBoxLink.setManaged(true);
+				
+				hBoxGebruikersnaam.setVisible(false);
+				hBoxGebruikersnaam.setManaged(false);
+				
+				hBoxHostnaam.setVisible(false);
+				hBoxHostnaam.setVisible(false);
+				
+				hBoxWachtwoord.setVisible(false);
+				hBoxWachtwoord.setVisible(false);
 			}
-			if(((Datasource)object).getTypeDatasource().toString().equals("excel")) {
-				lblWachtwoord.setVisible(false);
-				lblGebruikersnaamIngevuld.setVisible(false);
-				lblWachtwoordIngevuld.setVisible(false);
-				lblHostnaam.setVisible(false);
-				lblHostnaamIngevuld.setVisible(false);
-				lblGebruikersnaam.setVisible(false);
+			
+			lblErrorMessage.setText("");
+			lblErrorMessage.setVisible(false);
+			
+			Boolean isCorrupt = huideDatasource.getCorrupt();
+			Boolean updateNodig = huideDatasource.wijzigNood();
+			
+			if (isCorrupt) {
+				lblErrorMessage.setVisible(true);
+				lblErrorMessage.setText("Deze datasource is corrupt. Bewerk of verwijder het aub.");
+			}
+			
+			if (updateNodig) {
+				lblErrorMessage.setVisible(true);
+				lblErrorMessage.setText("Deze datasource bevat verouderde data. Update het aub.");
 			}
 			
 			//this.getChildren().addAll(lblWachtwoordIngevuld, lblGebruikersnaam1,lblDetailsDatasource, lblGebruikersnaam, lblGebruikersnaamIngevuld, lblHostnaam, lblHostnaamIngevuld, lblLink, lblNaam, lblNaamIngevuld, lblType, btnAnnuleer, btnOpslaan, lblTypeIngevuld, errorMessage);
 		
-			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
+			btnVerwijder.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {
 					//vragen of de gebruiker zeker is
@@ -100,7 +156,7 @@ public class DatasourceDetailsController<E> extends BorderPane {
 						{
 							try {
 								lblErrorMessage.setVisible(false);
-								dc.setCurrentDatasource((Datasource)object);
+								dc.setCurrentDatasource(huideDatasource);
 								dc.verwijderMVODatasource();
 								maakLeeg();
 							}

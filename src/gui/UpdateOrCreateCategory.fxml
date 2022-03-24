@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -45,12 +46,37 @@
          </font>
       </Label>
       <TreeView fx:id="treeviewSdgs" layoutX="428.0" layoutY="139.0" prefHeight="508.0" prefWidth="270.0" />
-      <TreeView fx:id="treeviewGesSdgs" layoutX="906.0" layoutY="139.0" prefHeight="508.0" prefWidth="270.0" />
-      <Button fx:id="btnSlaOp" layoutX="998.0" layoutY="673.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="OPSLAAN" />
-      <Button fx:id="btnAnnuleer" layoutX="1090.0" layoutY="673.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="ANNULEER" />
-      <Label fx:id="lblErrorMessage" layoutX="24.0" layoutY="670.0" prefHeight="31.0" prefWidth="584.0" text="Label" textFill="RED">
+      <TreeView fx:id="treeviewGesSdgs" layoutX="906.0" layoutY="139.0" prefHeight="455.0" prefWidth="270.0" />
+      <Button fx:id="btnSlaOp" layoutX="906.0" layoutY="663.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="129.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <Button fx:id="btnAnnuleer" layoutX="1047.0" layoutY="663.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="129.0" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Annuleer">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <Label fx:id="lblErrorMessage" layoutX="24.0" layoutY="670.0" prefHeight="31.0" prefWidth="849.0" text="Label" textFill="RED">
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Label>
+      <Pane layoutX="768.0" layoutY="205.0" prefHeight="343.0" prefWidth="59.0">
+         <children>
+            <ImageView fx:id="arrow1" fitHeight="45.0" fitWidth="45.0" layoutX="750.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="arrow2" fitHeight="45.0" fitWidth="45.0" layoutX="750.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
+               <image>
+                  <Image url="@../images/arrow.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="btnRemoveSdGoal" layoutX="906.0" layoutY="607.0" mnemonicParsing="false"  prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: red;" text="RESET SDG's" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

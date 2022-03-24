@@ -910,10 +910,10 @@ public class PopulateDB {
 
 		// Datasources
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
-				"test", "test123", true, "traag", "personen", 1)));
+				"test", "test123", false, "traag", "personen", 1)));
 
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 mercedes", "csv", "src/data/csvDouble.csv", null,
-				null, null, true, "snel", "uitstoot", 1)));
+				null, null, false, "snel", "uitstoot", 1)));
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 audi", "excel", "src/data/xlsDouble.xls", null,
 				null, null, true, "traag", "uitstoot", 2)));
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("co2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
