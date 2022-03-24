@@ -350,14 +350,14 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
             		
                 	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
                 		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id() ) {
-                			n.getChildren().add(c);
                 			rootNode.getChildren().remove(c);
+                			n.getChildren().add(c);
                 		}
                 		
                 	}
             	}
             	
-            	
+            	//System.out.println(c.getParent());
 //            	boolean toegevoegd = false;
 //            	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
 //            	
@@ -419,28 +419,62 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	    Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
 	    	TreeItem c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
-            boolean remove = c.getParent().getChildren().remove(c);
-            treeviewSdgs.getSelectionModel().selectFirst();
-        	TreeItem b = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
-        	//treeviewSdgs.getRoot().getChildren().add(c);
-        	
-        	boolean isHoofdSDG = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
-        	// OP DE JUISTE PLAATS TOEVOEGEN
-        	// HIER NOG EENS NAAR KIJKEN
-            TreeItem<SdGoal> rootNode3 = treeviewSdgs.getRoot();
-            boolean toegevoegd = false;
-            for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-            	if(!isHoofdSDG) {
-            		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
-                		n.getChildren().add(c);
-                		toegevoegd = true;
-                	}
-            	}
-            	
-            }
-            if(!toegevoegd && !isHoofdSDG) {
-            	treeviewSdgs.getRoot().getChildren().add(c);
-            }
+	    	
+	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+	    	
+	    	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
+	    	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
+	    	TreeItem parent = c.getParent();
+	    	if(!isHoofdSdg)rootNode.getChildren().add(c);
+	    	
+	    	if(isHoofdSdg)
+	    	{
+	    		
+	    		rootNode3.getChildren().remove(c);
+	    		List<TreeItem<SdGoal>> itemsToRemove = new ArrayList<>();
+	    		for (TreeItem<SdGoal> r : rootNode.getChildren()) {
+            		if(r.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            			itemsToRemove.add(r);
+            		}
+	    		}
+	    		
+	    		itemsToRemove.forEach(i ->rootNode.getChildren().remove(i));
+	    		itemsToRemove.forEach(i -> c.getChildren().add(i));
+	    		rootNode.getChildren().add(c);
+	    	}
+	    	else
+	    	{
+
+	    		if(parent != null)
+	    			parent.getChildren().remove(c);
+	    	}
+	    	
+	    	
+	    	
+	    	System.out.println(c.getParent());
+	    	
+//            boolean remove = c.getParent().getChildren().remove(c);
+//            treeviewSdgs.getSelectionModel().selectFirst();
+//        	TreeItem b = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+//        	//treeviewSdgs.getRoot().getChildren().add(c);
+//        	
+//        	boolean isHoofdSDG = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+//        	// OP DE JUISTE PLAATS TOEVOEGEN
+//        	// HIER NOG EENS NAAR KIJKEN
+//            TreeItem<SdGoal> rootNode3 = treeviewSdgs.getRoot();
+//            boolean toegevoegd = false;
+//            for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
+//            	if(!isHoofdSDG) {
+//            		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id()) {
+//                		n.getChildren().add(c);
+//                		toegevoegd = true;
+//                	}
+//            	}
+//            	
+//            }
+//            if(!toegevoegd && !isHoofdSDG) {
+//            	treeviewSdgs.getRoot().getChildren().add(c);
+//            }
 
 	    }
 	}
