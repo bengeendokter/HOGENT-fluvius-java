@@ -64,6 +64,12 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 	private Button btnAnnuleer;
 	@FXML
 	private Label lblErrorMessage;
+	@FXML
+	private ImageView arrow1;
+	@FXML
+	private ImageView arrow2;
+	@FXML
+	private Button btnRemoveSdGoal;
 	
 	private DomeinController dc;
 	
@@ -194,7 +200,7 @@ public class UpdateOrCreateCategoryController<E> extends Pane {
 			treeviewSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
 			treeviewGesSdgs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2); 
 			
-			this.getChildren().addAll(lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
+			this.getChildren().addAll(arrow1, arrow2, btnRemoveSdGoal, lblUpdateOrCreate, lblGeselecteerdeSdgs, lblIcoon, lblKiesIcoon, lblKiesSdgs, lblNaam, listIcoon, treeviewGesSdgs, treeviewSdgs, imgIcoon, txtFNaam, btnSlaOp, btnAnnuleer);
 			
 			
 			btnSlaOp.setOnAction(new EventHandler<ActionEvent>() {
