@@ -36,10 +36,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
-public class UpdateOrCreateDoelstelling<E> extends Pane {
+public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	@FXML
 	private Label lblMaakOfWijzig;
 	@FXML
@@ -89,6 +89,8 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	@FXML
 	private TreeView<Doelstelling> treeKiesSubs;
 	@FXML
+	private Label lblSubDoelstellingen;
+	@FXML
 	private TreeView<Doelstelling> treeGekozenSubs;
 	@FXML
 	private Label lblDatasource;
@@ -111,6 +113,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 	public UpdateOrCreateDoelstelling(DomeinController dc, E object, String wijzigMaak){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateDoelstelling.fxml"));
 		loader.setController(this);
+		loader.setRoot(this);
 //		this.dc = dc;
 //		this.object = object;
 
@@ -260,7 +263,7 @@ public class UpdateOrCreateDoelstelling<E> extends Pane {
 			treeKiesSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
 			treeGekozenSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2);
 			lblErrorMessage.setVisible(false);
-			this.getChildren().addAll(lblErrorMessage, imgIcoon, lblBewerking, lblDoelwaarde, lblIcoon, lblKiesIcoon, lblKiesSub, lblMaakOfWijzig, lblNaam, lblRollen, lblSdg, lblSubs, txtDoelwaarde, txtEenheid, txtnaam, treeKiesSubs, treeGekozenSubs, btnAnnuleer, btnOpslaan, choiceBewerking, choiceSdg, listIconen, kiesCoordinator, kiesDirectie, kiesManager, kiesStakeholder, lblDatasource, choiceDatasource);
+			//this.getChildren().addAll(lblErrorMessage, imgIcoon, lblBewerking, lblDoelwaarde, lblIcoon, lblKiesIcoon, lblKiesSub, lblMaakOfWijzig, lblNaam, lblRollen, lblSdg, lblSubs, txtDoelwaarde, txtEenheid, txtnaam, treeKiesSubs, treeGekozenSubs, btnAnnuleer, btnOpslaan, choiceBewerking, choiceSdg, listIconen, kiesCoordinator, kiesDirectie, kiesManager, kiesStakeholder, lblDatasource, choiceDatasource);
 			
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
