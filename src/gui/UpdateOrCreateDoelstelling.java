@@ -326,7 +326,7 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 					Bewerking bewerking = (Bewerking) choiceBewerking.getValue();
 					
 					DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
-							datasource, subDoelstellingen, bewerking);
+							datasource, subDoelstellingen, bewerking, 2020);
 					
 					if(object != null) {
 						dc.setCurrentDoelstelling((Doelstelling)object);
