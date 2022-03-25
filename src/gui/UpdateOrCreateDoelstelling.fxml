@@ -224,7 +224,7 @@
             <Insets left="30.0" />
          </BorderPane.margin>
          <children>
-            <CheckBox fx:id="isSubdoelstelling" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Is een subdoelstelling">
+            <CheckBox fx:id="isSubdoelstelling" mnemonicParsing="false" text="Is gekoppeld aan datasource">
                <font>
                   <Font size="21.0" />
                </font>

@@ -22,12 +22,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -36,12 +34,11 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
-public class UpdateOrCreateDoelstelling<E> extends BorderPane {
+public class UpdateOrCreateDoelstelling extends BorderPane
+{
 	@FXML
 	private Label lblMaakOfWijzig;
 	@FXML
@@ -109,42 +106,74 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	@FXML
 	private Label lblEenheid;
 	
-//	private DomeinController dc;
-//	private E object;
 	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average(), new GeenBewerking()));
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
-	TreeItem<Doelstelling> rootNode2 = 
-	        new TreeItem<Doelstelling>(null);
+	private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
 	
-	Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
-	
-	public UpdateOrCreateDoelstelling(DomeinController dc, E object, String wijzigMaak){
+	public UpdateOrCreateDoelstelling(DomeinController dc, Doelstelling doelstellingToUpdate,
+			String titelWijzigOfMaakAan)
+	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateDoelstelling.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-//		this.dc = dc;
-//		this.object = object;
-
+		
 		try
 		{
 			loader.load();
-			lblMaakOfWijzig.setText(wijzigMaak);
+			lblMaakOfWijzig.setText(titelWijzigOfMaakAan);
 			
-			if(object != null) {
-				txtnaam.setText(((Doelstelling)object).getNaam());
-				choiceBewerking.setValue(((Doelstelling)object).getFormule());
-				//txtDoelwaarde.setText(((Doelstelling)object).getDoelwaarde());
-				String pad2 = ((Doelstelling) object).getIcon();
-				int index2 = pad2.indexOf("c");
-				pad2 = pad2.substring(index2+1);
-				imgIcoon.setImage(new Image(((Doelstelling) object).getIcon(), 25,25,true, true));
-				choiceSdg.setValue(((Doelstelling) object).getSdGoal());
-				choiceDatasource.setValue(((Doelstelling) object).getDatasource());
+			// treeView rootNodes
+			TreeItem<Doelstelling> rootNode = new TreeItem<Doelstelling>(null);
+			treeGekozenSubs.setRoot(rootNode);
+			treeGekozenSubs.setShowRoot(false);
+			
+			// indien wijzig doelstelling
+			if(doelstellingToUpdate != null)
+			{
+				// toon gepaste velden indien Leaf of Composite
+				isSubdoelstelling.setVisible(false);
+				if(doelstellingToUpdate.getDatasource() == null)
+				{
+					hboxDatasource.setVisible(false);
+				}
+				else
+				{
+					hboxSubdoelstellingen.setVisible(false);
+				}
 				
-				List<Rol> rollen = ((Doelstelling) object).getRollen();
+				txtnaam.setText(doelstellingToUpdate.getNaam());
+				choiceBewerking.setValue(doelstellingToUpdate.getFormule());
+				txtDoelwaarde.setText(Double.toString(doelstellingToUpdate.getDoelwaarde()));
+				imgIcoon.setImage(new Image(doelstellingToUpdate.getIcon(), 250, 250, true, true));
 				
+				// stel hoofd en sub sdGoal velden in
+				SdGoal sdg = doelstellingToUpdate.getSdGoal();
+				if(sdg.getParentSDG_id() == 0) // sdGoal is een hoofdSdg
+				{
+					choiceSdg.setValue(sdg);
+					
+					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
+							.filter(subSdg -> subSdg.getParentSDG_id() == Integer.valueOf(sdg.getAfbeeldingnaam()))
+							.toList()));
+				}
+				else // sdGoal is een subdSdg
+				{
+					choiceSubSdg.setValue(sdg);
+					
+					choiceSdg.setValue(dc.getSdgs().stream()
+							// get alle hoofd sdg's
+							.filter(hoodSdg -> hoodSdg.getParentSDG_id() == 0)
+							// zoek de hoofd sdGoal die bij de subSgd hoort
+							.filter(hoodSdg -> Integer.valueOf(hoodSdg.getAfbeeldingnaam()) == sdg.getParentSDG_id())
+							.findFirst().get());
+				}
+				
+				choiceDatasource.setValue(doelstellingToUpdate.getDatasource());
+				lblEenheid.setText(doelstellingToUpdate.getEenheid());
+				
+				List<Rol> rollen = doelstellingToUpdate.getRollen();
 				if(rollen.contains(new Rol("MVO Coördinator")))
 				{
 					kiesCoordinator.setSelected(true);
@@ -162,31 +191,11 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 					kiesStakeholder.setSelected(true);
 				}
 				
-				for (Doelstelling s : ((Doelstelling)object).getComponents()) {
-					System.out.println(s.getNaam());
-//		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
-		            boolean found = false;
-//		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
-//		            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
-//		            		depNode.getChildren().add(empLeaf);
-//		                  found = true;
-//		                  break;
-//		            	}
-//		            }
-		            String pad = s.getIcon();
-					int index = pad.indexOf("c");
-					pad = pad.substring(index+1);
-
-		            if (!found) {
-		                TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(
-		                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
-		                );
-		                
-		                rootNode2.getChildren().add(depNode);
-		            }
-		        }
+				// subDoelstellingen toevoegen
+				rootNode.getChildren().addAll(doelstellingToUpdate.getComponents().stream()
+						.map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
 			}
-
+			
 			//listIcoon opvullen met iconen
 			listIconen.setItems(FXCollections.observableList(iconen));
 			listIconen.setCellFactory(param -> new ListCell<String>()
@@ -212,145 +221,133 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 				}
 			});
 			
+			// stel iconen en namen van TreeCellen gekozenSubs in
+			treeGekozenSubs.setCellFactory(param -> new TreeCell<Doelstelling>()
+			{
+				private ImageView imageView = new ImageView();
+				
+				@Override
+				public void updateItem(Doelstelling doel, boolean empty)
+				{
+					super.updateItem(doel, empty);
+					if(empty)
+					{
+						setText(null);
+						setGraphic(null);
+					}
+					else
+					{
+						setText(doel.getNaam());
+						imageView.setImage(new Image(doel.getIcon(), 30, 30, true, true));
+						
+						setGraphic(imageView);
+						
+					}
+				}
+			});
+			
 			//icoon verandert als je op een icoon klikt van de lijst
 			listIconen.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 				if(newValue != null)
 				{
-					
 					String icoonPath = (String) listIconen.getSelectionModel().getSelectedItem();
 					
-					imgIcoon.setImage(new Image(icoonPath, 25, 25, true, true));
-					
+					imgIcoon.setImage(new Image(icoonPath, 250, 250, true, true));
 				}
 			});
 			
 			choiceBewerking.setItems(FXCollections.observableList(doelTypes));
-			choiceSdg.setItems(FXCollections.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == 0).toList()));
+			choiceSdg.setItems(FXCollections
+					.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == 0).toList()));
 			
+			// subSdGoal
 			choiceSdg.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 				if(newValue != null)
 				{
-					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == Integer.valueOf(newValue.getAfbeeldingnaam())).toList()));
+					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
+							.filter(sdg -> sdg.getParentSDG_id() == Integer.valueOf(newValue.getAfbeeldingnaam()))
+							.toList()));
 				}
 			});
 			
 			choiceDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
-			
-			treeGekozenSubs.setRoot(rootNode2);
-			treeGekozenSubs.setShowRoot(false);
-
-			
-			TreeItem<Doelstelling> rootNode = 
-			        new TreeItem<Doelstelling>(null);
-
-			for (Doelstelling s : dc.getDoelstellingen()) {
-				System.out.println(s.getNaam());
-//	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
-	            boolean found = false;
-//	            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
-//	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
-//	            		depNode.getChildren().add(empLeaf);
-//	                  found = true;
-//	                  break;
-//	            	}
-//	            }
-	            String pad = s.getIcon();
-				int index = pad.indexOf("c");
-				pad = pad.substring(index+1);
-
-	            if (!found) {
-	                TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(
-	                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
-	                );
-	                
-	                rootNode.getChildren().add(depNode);
-	            }
-	        }
-			treeKiesSubs.setRoot(rootNode);
-			
-			treeKiesSubs.setShowRoot(false);
-			
-			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
-			    handleMouseClicked(event);
-			};
-			
-			EventHandler<MouseEvent> mouseEventHandle2 = (MouseEvent event) -> {
-			    handleMouseClickedBack(event);
-			};
-
-			treeKiesSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
-			treeGekozenSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2);
 			lblErrorMessage.setVisible(false);
-			//this.getChildren().addAll(lblErrorMessage, imgIcoon, lblBewerking, lblDoelwaarde, lblIcoon, lblKiesIcoon, lblKiesSub, lblMaakOfWijzig, lblNaam, lblRollen, lblSdg, lblSubs, txtDoelwaarde, txtEenheid, txtnaam, treeKiesSubs, treeGekozenSubs, btnAnnuleer, btnOpslaan, choiceBewerking, choiceSdg, listIconen, kiesCoordinator, kiesDirectie, kiesManager, kiesStakeholder, lblDatasource, choiceDatasource);
 			
-			btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
+			// TODO kies SDG's
+			
+			// Opslaan TODO
+			btnOpslaan.setOnAction(new EventHandler<ActionEvent>()
+			{
 				@Override
-				public void handle(ActionEvent evt) {
+				public void handle(ActionEvent evt)
+				{
 					//lblErrorMessage.setVisible(false);
-					try {
-						lblErrorMessage.setVisible(false);
-					populateMap(rootNode2);
-					
-					String naam = txtnaam.getText();
-					
-					Image iconImage = imgIcoon.getImage();
-					if(iconImage == null)
-					{
-						throw new IllegalArgumentException("MVO Doelstelling moet een icoon hebben");
-					}
-					String icoon = iconImage.getUrl();
-					
-					// TODO controleer op parse double fout
-					double doelwaarde = 0.0;
 					try
 					{
-						doelwaarde = Double.parseDouble(txtDoelwaarde.getText());
-					}
-					catch(Exception e)
-					{
-						throw new IllegalArgumentException("De doelwaarde is geen geldig kommagetal gescheiden door een punt");
-					}
-					List<Rol> rollen = new ArrayList<>();
-					if(kiesCoordinator.isSelected())
-					{
-						rollen.add(new Rol("MVO Coördinator"));
-					}
-					if(kiesManager.isSelected())
-					{
-						rollen.add(new Rol("Manager"));
-					}
-					if(kiesDirectie.isSelected())
-					{
-						rollen.add(new Rol("Directie"));
-					}
-					if(kiesStakeholder.isSelected())
-					{
-						rollen.add(new Rol("Stakeholder"));
-					}
-					
-					SdGoal sdGoal = (SdGoal) choiceSdg.getValue();
-					
-					Datasource datasource = (Datasource) choiceDatasource.getValue();
-					List<Doelstelling> subDoelstellingen = new ArrayList<Doelstelling>(map.values());
+						lblErrorMessage.setVisible(false);
+						
+						String naam = txtnaam.getText();
+						
+						Image iconImage = imgIcoon.getImage();
+						if(iconImage == null)
+						{
+							throw new IllegalArgumentException("MVO Doelstelling moet een icoon hebben");
+						}
+						String icoon = iconImage.getUrl();
+						
+						// TODO controleer op parse double fout
+						double doelwaarde = 0.0;
+						try
+						{
+							doelwaarde = Double.parseDouble(txtDoelwaarde.getText());
+						}
+						catch(Exception e)
+						{
+							throw new IllegalArgumentException(
+									"De doelwaarde is geen geldig kommagetal gescheiden door een punt");
+						}
+						List<Rol> rollen = new ArrayList<>();
+						if(kiesCoordinator.isSelected())
+						{
+							rollen.add(new Rol("MVO Coördinator"));
+						}
+						if(kiesManager.isSelected())
+						{
+							rollen.add(new Rol("Manager"));
+						}
+						if(kiesDirectie.isSelected())
+						{
+							rollen.add(new Rol("Directie"));
+						}
+						if(kiesStakeholder.isSelected())
+						{
+							rollen.add(new Rol("Stakeholder"));
+						}
+						
+						SdGoal sdGoal = (SdGoal) choiceSdg.getValue();
+						
+						Datasource datasource = (Datasource) choiceDatasource.getValue();
+						List<Doelstelling> subDoelstellingen = new ArrayList<Doelstelling>(map.values());
+						
+						Bewerking bewerking = (Bewerking) choiceBewerking.getValue();
+						
+						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
+								datasource, subDoelstellingen, bewerking);
+						
+						if(doelstellingToUpdate != null)
+						{
+							dc.setCurrentDoelstelling(doelstellingToUpdate);
+							dc.wijzigMVODoelstelling(doel);
 							
-					
-					Bewerking bewerking = (Bewerking) choiceBewerking.getValue();
-					
-					DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
-							datasource, subDoelstellingen, bewerking);
-					
-					if(object != null) {
-						dc.setCurrentDoelstelling((Doelstelling)object);
-						dc.wijzigMVODoelstelling(doel);
-
-					}else {
-						dc.voegMVODoelstellingToeMetSubs(doel);
+						}
+						else
+						{
+							dc.voegMVODoelstellingToeMetSubs(doel);
+							
+						}
 						
-						
+						refreshScherm();
 					}
-					
-					refreshScherm();
-				}
 					catch(IllegalArgumentException e)
 					{
 						lblErrorMessage.setText(e.getMessage());
@@ -360,80 +357,21 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 				}
 			});
 			
-		}catch(IOException e)
+		}
+		catch(IOException e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public void maakLeeg() {
+	public void maakLeeg()
+	{
 		this.getChildren().clear();
-		
-	}
-
-	
-	private void handleMouseClicked(MouseEvent event) {
-	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((Labeled) node).getText() != null)) {
-	    	TreeItem<Doelstelling> c = treeKiesSubs.getSelectionModel().getSelectedItem();
-            c.getParent().getChildren().remove(c);
-            treeGekozenSubs.getSelectionModel().selectFirst();
-            TreeItem<Doelstelling> b = treeGekozenSubs.getSelectionModel().getSelectedItem();
-            if(b == null || b.getParent() == null) {
-            	treeGekozenSubs.getRoot().getChildren().add(c);
-            } else {
-                b.getParent().getChildren().add(c);
-            }
-            
-	    	
-	    }
 	}
 	
-	private void handleMouseClickedBack(MouseEvent event) {
-	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((Labeled) node).getText() != null)) {
-	    	TreeItem<Doelstelling> c = treeGekozenSubs.getSelectionModel().getSelectedItem();
-            c.getParent().getChildren().remove(c);
-            treeKiesSubs.getSelectionModel().selectFirst();
-        	TreeItem<Doelstelling> b = treeKiesSubs.getSelectionModel().getSelectedItem();
-            if(b.getParent() == null) {
-            	treeKiesSubs.getRoot().getChildren().add(c);
-            } else {
-            	
-                b.getParent().getChildren().add(c);
-            }
-            
-	    	
-	    }
+	private void refreshScherm()
+	{
+		maakLeeg();
 	}
 	
-	// METHODE OM DE ELEMENTEN UIT DE TREEVIEW TE HALEN EN DAARNA OM TE ZETTEN NAAR EN LIST
-		private void populateMap(TreeItem<Doelstelling> item){
-
-	        if(item.getChildren().size() > 0){
-	            for(TreeItem<Doelstelling> subItem : item.getChildren()){
-	                populateMap(subItem);
-	            }
-	        }
-	        else {
-	        	Doelstelling node = (Doelstelling) item.getValue();     
-	            	if(node != null) {
-	            		map.put(node.toString(), node);
-	            	}
-	                
-	        }
-	    }
-		
-		private void refreshScherm() {
-//			PanelOverzicht po = new PanelOverzicht();
-//			// Eerst het hoofdscherm opvragen adhv dit scherm
-//			Parent hoofdScherm = UpdateOrCreateDoelstelling.this.getParent();
-//			if (hoofdScherm instanceof BorderPane) {
-//				Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
-//				((UpdateOrCreateDoelstelling) details).maakLeeg();
-//			}
-			maakLeeg();
-			
-		}
-
 }

@@ -231,7 +231,7 @@ public class DoelstellingDetailsTest extends BorderPane
 				public void handle(ActionEvent evt)
 				{
 					
-					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc,
+					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc,
 							huidigeDoelstelling, "Wijzig doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = DoelstellingDetailsTest.this.getParent();

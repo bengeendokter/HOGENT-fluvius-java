@@ -108,7 +108,7 @@ public class PanelOverzichtTreeview extends VBox
 			{
 				if(soort.equals("doelstellingen"))
 				{
-					UpdateOrCreateDoelstelling<Doelstelling> vs = new UpdateOrCreateDoelstelling<>(dc, null,
+					UpdateOrCreateDoelstelling vs = new UpdateOrCreateDoelstelling(dc, null,
 							"Maak nieuwe doelstelling");
 					// Eerst het hoofdscherm opvragen adhv dit scherm
 					Parent hoofdScherm = PanelOverzichtTreeview.this.getParent();

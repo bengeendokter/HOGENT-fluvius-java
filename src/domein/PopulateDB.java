@@ -931,7 +931,7 @@ public class PopulateDB {
 		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal kinderen", "file:src/images/peace.png", 16,
 				rollen, goal1, mvd4, new ArrayList<>(), new Som()));
 		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 mercedes", "file:src/images/planet.jpg", 50,
-				rollen, goal13, mvd1, new ArrayList<>(), new Average()));
+				rollen, goal_13_1, mvd1, new ArrayList<>(), new Average()));
 		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 audi", "file:src/images/planet.jpg", 40,
 				rollen, goal13, mvd2, new ArrayList<>(), new Average()));
 		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 bmw", "file:src/images/planet.jpg", 30,
