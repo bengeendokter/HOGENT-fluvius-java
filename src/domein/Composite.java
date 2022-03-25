@@ -43,7 +43,8 @@ public class Composite extends Component implements Serializable{
 		Map<String, Double> x = getBerekendewaarde();
 		getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
-		getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
+		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
+		
 	}
 
 	protected Composite() {

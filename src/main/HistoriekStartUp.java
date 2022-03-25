@@ -14,6 +14,7 @@ import domein.Composite;
 import domein.DTODatasource;
 import domein.DTOMVODoelstelling;
 import domein.Datasource;
+import domein.Doelstelling;
 import domein.DomeinController;
 import domein.Leaf;
 import domein.MVODatasource;
@@ -64,11 +65,28 @@ public class HistoriekStartUp {
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789"); 
 		
 		MVODatasource d = (MVODatasource) dc.getDatasources().stream().sorted(Comparator.comparing(e -> e.getKolom())).collect(Collectors.toList()).get(0);
+		MVODatasource d1 = (MVODatasource) dc.getDatasources().stream().sorted(Comparator.comparing(e -> e.getKolom())).collect(Collectors.toList()).get(1);
 		
 		SdGoal sg = dc.getBeschikbareSdgs().get(1);
 		
-		doelstellingenRepo.insert(new Leaf(new DTOMVODoelstelling("TestTest", "file:src/images/peace.png", 20,
-				rollen, sg, d, null, new Som(), 2022)));
+		List<Doelstelling> lijst = new ArrayList<>();
+		
+		Component m1 = new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
+				rollen, sg, d, null, new Som(), 2022));
+		
+		Component m2 = new Leaf(new DTOMVODoelstelling("Leaf1", "file:src/images/peace.png", 20,
+				rollen, sg, d1, null, new Som(), 2022));
+		
+		lijst.add(m1);
+		lijst.add(m2);
+		
+		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("LeafSum", "file:src/images/peace.png", 20,
+				rollen, sg, d, lijst, new Som(), 2022)));
+		
+		/*doelstellingenRepo.insert(new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
+				rollen, sg, d, null, new Som(), 2022)));*/
+		
+		
 		/*Component d = new Composite(new DTOMVODoelstelling("CO2Neutraal", "file:src/images/planet.jpg", 20, rollen,
 				goal2, mvd, new ArrayList<>(), new Som()));
 		d.add(new Composite(new DTOMVODoelstelling("CO2Transport", "file:src/images/planet.jpg", 20, rollen, goal2, mvd,
