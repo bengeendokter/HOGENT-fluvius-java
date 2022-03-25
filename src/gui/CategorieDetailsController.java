@@ -82,7 +82,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 			        new TreeItem<SdGoal>(null);
 
 			for (SdGoal s : ((Categorie) object).getSdGoals()) {
-				System.out.println(s.getNaam());
+				
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
 	            boolean found = false;
 	            boolean toe = false;

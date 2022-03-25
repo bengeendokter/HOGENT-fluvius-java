@@ -102,9 +102,9 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 				wijzigBestaandeCategorie(object);
 				
 			}
-			else {
-				imgIcoon.setImage(new Image((String) listIcoon.getSelectionModel().getSelectedItem()));
-			}
+			
+				
+			
 			
 			//listIcoon opvullen met iconen
 			listIcoon.setItems(FXCollections.observableList(iconen));
@@ -133,7 +133,9 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 			
 			//eerste element in listview selecteren omdat anders "oldvalue" null wordt
 			listIcoon.getSelectionModel().selectFirst();
-			
+			if(object == null) {
+				imgIcoon.setImage(new Image((String) listIcoon.getSelectionModel().getSelectedItem()));
+			}
 			
 			//icoon verandert als je op een icoon klikt van de lijst
 			listIcoon.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
