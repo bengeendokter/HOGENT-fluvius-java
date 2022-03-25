@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.util.List;
 
 import domein.Doelstelling;
 import domein.DomeinController;
@@ -18,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -84,8 +86,8 @@ public class DoelstellingDetailsTest extends BorderPane
 		try
 		{
 			loader.load();
-			lblErrorMessage.setVisible(false);
 			
+			lblErrorMessage.setVisible(false);
 			lblNaamIngevuld.setText(huidigeDoelstelling.getNaam());
 			lblBewerkingIngevuld.setText(huidigeDoelstelling.getFormule().toString());
 			if(huidigeDoelstelling.getDatasource() != null)
@@ -103,9 +105,13 @@ public class DoelstellingDetailsTest extends BorderPane
 			lblBerekendeWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getValue()));
 			lblEenheidIngevuld2.setText(huidigeDoelstelling.getEenheid());
 			listRollenIngevuld.setItems(FXCollections.observableList(huidigeDoelstelling.getRollen()));
+			
+			// icoon doelstelling
+			imgIcoon.setImage(new Image(huidigeDoelstelling.getIcon(), 250, 250, true, true));
+			
+			// geef de naam van de rollen weer in de ListView
 			listRollenIngevuld.setCellFactory(param -> new ListCell<Rol>()
 			{
-				
 				@Override
 				public void updateItem(Rol doel, boolean empty)
 				{
@@ -118,48 +124,43 @@ public class DoelstellingDetailsTest extends BorderPane
 					else
 					{
 						setText(doel.getRol());
+					}
+				}
+			});
+			
+			// vul subdoelstellingen in
+			TreeItem<Doelstelling> rootNode = new TreeItem<Doelstelling>(null);
+			addToTreeItem(rootNode, huidigeDoelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
+			
+			treeViewSubDoelstellingen.setRoot(rootNode);
+			treeViewSubDoelstellingen.setShowRoot(false);
+			
+			// stel iconen en namen van TreeCellen in
+			treeViewSubDoelstellingen.setCellFactory(param -> new TreeCell<Doelstelling>()
+			{
+				private ImageView imageView = new ImageView();
+				
+				@Override
+				public void updateItem(Doelstelling doel, boolean empty)
+				{
+					super.updateItem(doel, empty);
+					if(empty)
+					{
+						setText(null);
+						setGraphic(null);
+					}
+					else
+					{
+						setText(doel.getNaam());
+						imageView.setImage(new Image(doel.getIcon(), 30, 30, true, true));
+						
+						setGraphic(imageView);
 						
 					}
 				}
 			});
 			
-			TreeItem<Doelstelling> rootNode = new TreeItem<Doelstelling>(null);
-			
-			for(Doelstelling s : huidigeDoelstelling.getComponents())
-			{
-				System.out.println(s.getNaam());
-//		            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(s);
-				boolean found = false;
-//		            for (TreeItem<Doelstelling> depNode : rootNode.getChildren()) {
-//		            	if(depNode.getValue().g == s.getParentSDG_id()) {
-//		            		depNode.getChildren().add(empLeaf);
-//		                  found = true;
-//		                  break;
-//		            	}
-//		            }
-				String pad = s.getIcon();
-				int index = pad.indexOf("c");
-				pad = pad.substring(index + 1);
-				
-				if(!found)
-				{
-					TreeItem<Doelstelling> depNode = new TreeItem<Doelstelling>(s);
-					
-					rootNode.getChildren().add(depNode);
-				}
-			}
-			
-			treeViewSubDoelstellingen.setRoot(rootNode);
-			treeViewSubDoelstellingen.setShowRoot(false);
-			
-			String pad = huidigeDoelstelling.getIcon();
-			int index = pad.indexOf("c");
-			pad = pad.substring(index + 1);
-			// Mannetje weergeven
-			imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
-			
-//			this.getChildren().addAll(btnWijzigen, btnVerwijderen, lblBewerking, lblDatasource, lblDetailsDoelstelling1, lblDoelwaarde, lblIcoon, lblNaam, lblRollen, lblSdg, lblSubDoelstellingen, treeViewSubDoelstellingen, lblDoelWaardeIngevuld, lblEenheidIngevuld, lblNaamIngevuld, lblBewerkingIngevuld, lblDatasourceIngevuld, lblSdgIngevuld, listRollenIngevuld, imgIcoon, lblErrorMessage);
-			
+			// verwijder knop
 			btnVerwijderen.setOnAction(new EventHandler<ActionEvent>()
 			{
 				@Override
@@ -193,6 +194,7 @@ public class DoelstellingDetailsTest extends BorderPane
 				}
 			});
 			
+			// wijzig knop
 			btnWijzigen.setOnAction(new EventHandler<ActionEvent>()
 			{
 				@Override
@@ -208,7 +210,6 @@ public class DoelstellingDetailsTest extends BorderPane
 						// DetailsScherm opvragen adhv het hoofdScherm
 						((BorderPane) hoofdScherm).setCenter(vs);
 					}
-					
 				}
 			});
 			
@@ -225,4 +226,16 @@ public class DoelstellingDetailsTest extends BorderPane
 		
 	}
 	
+	private void addToTreeItem(TreeItem<Doelstelling> rootDoelstelling, List<Doelstelling> doelstellingen)
+	{
+		for(Doelstelling doelstelling : doelstellingen)
+		{
+			TreeItem<Doelstelling> parentDoelstelling = new TreeItem<>(doelstelling);
+			
+			addToTreeItem(parentDoelstelling,
+					doelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
+			
+			rootDoelstelling.getChildren().add(parentDoelstelling);
+		}
+	}
 }
