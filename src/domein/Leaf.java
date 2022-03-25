@@ -26,14 +26,16 @@ public class Leaf extends Component {
 	public Leaf(DTOMVODoelstelling d) throws IOException {
 		super(d);
 		setDatasource((MVODatasource) d.datasource);
-		System.out.println(datasource.getData(1));
+		//System.out.println(datasource.getData(1));
+		
+		
 		
 		//historiek
 		//initeel setten
-		/*Map<String, Double> x = getBerekendewaarde();
-		getComponentValue().setValue(x);
+		Map<String, Double> x = getBerekendewaarde();
+		getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
-		getComponentValue().setDatum(LocalDate.now(), x);*/
+		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 	}
 
 	protected Leaf() {
@@ -72,11 +74,11 @@ public class Leaf extends Component {
 	
 		//historiek
 		//setValue(mapNewName);
-		getComponentValue().setValue(mapNewName);
+		getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
 		
 		
 		//return getValue();
-		return getComponentValue().getValue();
+		return getComponentValue(getJaar(), getDoelstellingID()).getValue();
 	}
 
 

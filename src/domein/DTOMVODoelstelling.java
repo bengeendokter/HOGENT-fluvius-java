@@ -15,8 +15,12 @@ public class DTOMVODoelstelling
 	public List<Doelstelling> subDoelstellingen;
 	public Bewerking bewerking;
 	
+	//historiek
+	public int jaar;
+	
 	// Constructor
-	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking)
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking
+			,int jaar)
 	{
 		this.naam = naam;
 		this.icon = icon;
@@ -26,6 +30,8 @@ public class DTOMVODoelstelling
 		this.datasource = datasource;
 		this.subDoelstellingen = subDoelstellingen;
 		this.bewerking = bewerking;
+		this.jaar = jaar;
 	}
+	
 	
 }

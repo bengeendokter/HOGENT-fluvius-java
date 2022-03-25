@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "CValue")
@@ -24,6 +27,9 @@ public class ComponentValue implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int componentvalueID;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private Component c;
 
 	@ElementCollection
 	@MapKeyColumn(name="name")
@@ -32,13 +38,15 @@ public class ComponentValue implements Serializable {
 	joinColumns= @JoinColumn(name="componentvalueID"))
 	private Map<String, Double> value;
 	
+	//historiek
 	private LocalDate datum;
 
-	public ComponentValue(Map<String, Double> value, LocalDate datum) {
+	public ComponentValue(Map<String, Double> value, LocalDate datum, Component c) {
 		//eerste keer aanmaken
 		if (value==null) this.datum = datum;
 		setValue(value);
-		setDatum(datum, value);
+		setC(c);
+		//setDatum(datum, value);
 		/*this.value = value;
 		this.datum = datum;*/
 	}
@@ -70,6 +78,16 @@ public class ComponentValue implements Serializable {
 		//System.out.printf("%n%n");
 		return value;
 	}
+
+	public Component getC() {
+		return c;
+	}
+
+	public void setC(Component c) {
+		this.c = c;
+	}
+	
+	
 	
 	
 	

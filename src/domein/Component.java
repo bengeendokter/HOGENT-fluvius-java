@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -65,7 +66,8 @@ public abstract class Component implements Doelstelling, Serializable{
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
 	private Map<String, Double> value;*/
 	
-	@OneToMany//(cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="c", cascade = CascadeType.PERSIST)
+	private List<ComponentValue> componentValues = new ArrayList<>();
 	@JoinColumn(
 	        name="COMPONENTID", 
 	        nullable=true,
@@ -74,7 +76,10 @@ public abstract class Component implements Doelstelling, Serializable{
 	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(componentvalueID) ON UPDATE CASCADE ON DELETE CASCADE"
 	        )
 	)
-	private List<ComponentValue> componentValue; 
+	
+	
+	//LocalDate.now().getYear()
+	private int jaar;
 	
 	@ManyToOne
 	private Composite parentComponent = null;
@@ -89,16 +94,38 @@ public abstract class Component implements Doelstelling, Serializable{
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
 		setFormule(d.bewerking);
-		setComponentValue(new ComponentValue(null, LocalDate.now()));
-	}
-	
-	private void setComponentValue(ComponentValue componentValue) {
-		this.componentValue = componentValue;
+		
+		//historiek
+		setJaar(d.jaar);
+		
+		//intieel aanmaken
+		if (componentValues.isEmpty())
+			setComponentValue(new ComponentValue(null, LocalDate.now(), this));
+		else {
+			//dan wijzigen bij zelfde jaar
+			//getComponentValue(jaar, doelstellingID);
+		}
 		
 	}
 	
-	public ComponentValue getComponentValue() {
-		return componentValue;
+	private void setJaar(int jaar) {
+		this.jaar = jaar;
+		
+	}
+	
+
+	public int getJaar() {
+		return jaar;
+		
+	}
+
+	private void setComponentValue(ComponentValue componentValue) {
+		componentValues.add(componentValue);
+		
+	}
+	
+	public ComponentValue getComponentValue(int jaar, int id ) {
+		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum().getYear() == jaar)).collect(Collectors.toList()).get(0);
 	}
 
 	protected Component() {

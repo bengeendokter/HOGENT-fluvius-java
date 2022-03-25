@@ -3,7 +3,9 @@ package main;
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domein.AanmeldController;
 import domein.Average;
@@ -52,18 +54,21 @@ public class HistoriekStartUp {
 		SdGoal goalnul1= new SdGoal("0",
 		"0.1 TestSubSDG");*/
 		
-		MVODatasource ds = new MVODatasource(new DTODatasource("testtest", "csv", "src/data/csvDouble.csv", null,
+		/*MVODatasource ds = new MVODatasource(new DTODatasource("testtest", "csv", "src/data/csvDouble.csv", null,
 				null, null, false, "snel", "uitstoot", 1));
 		
-		datasourceRepo.insert(ds);
+		datasourceRepo.insert(ds);*/
+		
 		
 		AanmeldController aanmeldController = new AanmeldController(true);
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789"); 
 		
+		MVODatasource d = (MVODatasource) dc.getDatasources().stream().sorted(Comparator.comparing(e -> e.getKolom())).collect(Collectors.toList()).get(0);
+		
 		SdGoal sg = dc.getBeschikbareSdgs().get(1);
 		
 		doelstellingenRepo.insert(new Leaf(new DTOMVODoelstelling("TestTest", "file:src/images/peace.png", 20,
-				rollen, sg, ds, null, new Som())));
+				rollen, sg, d, null, new Som(), 2022)));
 		/*Component d = new Composite(new DTOMVODoelstelling("CO2Neutraal", "file:src/images/planet.jpg", 20, rollen,
 				goal2, mvd, new ArrayList<>(), new Som()));
 		d.add(new Composite(new DTOMVODoelstelling("CO2Transport", "file:src/images/planet.jpg", 20, rollen, goal2, mvd,
