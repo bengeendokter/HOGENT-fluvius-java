@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -26,7 +27,7 @@ public class Composite extends Component implements Serializable{
 	
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="parentComponent")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy="parentComponent")
 	private List<Component> components = new ArrayList<>();
 	
 	

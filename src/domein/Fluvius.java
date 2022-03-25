@@ -40,6 +40,8 @@ public class Fluvius
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
 	private Datasource currentDatasource;
+	private List<Component> list;
+	private List<Component> list2;
 	
 	
 	// CONSTRUCTOR
@@ -420,7 +422,13 @@ public class Fluvius
 			
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
-			mvoDoelstellingRepo.delete( (Component)currentDoelstelling);
+			Component parent = currentDoelstelling.getParentComponent();
+			mvoDoelstellingRepo.delete((Component)currentDoelstelling);
+			if(parent != null)
+			{
+				parent.getComponents().remove(currentDoelstelling);
+				mvoDoelstellingRepo.update(parent);
+			}
 			mvoDoelstellingRepo.commitTransaction();	
 		}
 		catch(IllegalArgumentException e)

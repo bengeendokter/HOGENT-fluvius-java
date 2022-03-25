@@ -943,12 +943,18 @@ public class PopulateDB {
 		doelstellingenRepo.insert(l4);
 		
 		Composite c1 = new Composite(new DTOMVODoelstelling("CO2TrageAuto's", "file:src/images/planet.jpg", 10,
-		rollen, goal13, null, new ArrayList<>(Arrays.asList(l3, l4)), new Average()));			
+		rollen, goal13, null, new ArrayList<>(), new Average()));
+		c1.add(l3);
+		c1.add(l4);
 		
 		doelstellingenRepo.insert(c1);
 		
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
-				rollen, goal13, null, new ArrayList<>(Arrays.asList(c1, l2)), new Average())));		
+		Composite c2 = new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
+				rollen, goal13, null, new ArrayList<>(), new Average()));		
+		c2.add(c1);
+		c2.add(l2);
+		
+		doelstellingenRepo.insert(c2);
 		
 		gebruikerRepo.commitTransaction();
 		sdGoalRepo.commitTransaction();

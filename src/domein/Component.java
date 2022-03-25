@@ -50,7 +50,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	private String naam;
 	private String icon;
 	private double doelwaarde;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Rol> rollen = new ArrayList<>();
 	@ManyToOne
 	private SdGoal sdGoal;

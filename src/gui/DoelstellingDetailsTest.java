@@ -7,6 +7,7 @@ import domein.Doelstelling;
 import domein.DomeinController;
 import domein.Rol;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -180,7 +181,15 @@ public class DoelstellingDetailsTest extends BorderPane
 								lblErrorMessage.setVisible(false);
 								dc.setCurrentDoelstelling(huidigeDoelstelling);
 								dc.verwijderMVODoelstelling();
-								maakLeeg();
+								
+								// refresh scherm
+								Parent hoofdScherm = DoelstellingDetailsTest.this.getParent();
+								((BorderPane) hoofdScherm).setLeft(null);
+								PanelOverzichtTreeview p = new PanelOverzichtTreeview();
+								((BorderPane) hoofdScherm).setLeft(p);
+								ObservableList<Doelstelling> dcDoelstellingen = dc.getDoelstellingen();
+								dcDoelstellingen.forEach(c -> System.out.println(c.getNaam() + " " + c.getComponents()));
+								p.initGui(dcDoelstellingen, "doelstellingen", dc);
 							}
 							catch(IllegalArgumentException e)
 							{
@@ -218,12 +227,6 @@ public class DoelstellingDetailsTest extends BorderPane
 		{
 			throw new RuntimeException(e);
 		}
-	}
-	
-	public void maakLeeg()
-	{
-		this.getChildren().clear();
-		
 	}
 	
 	private void addToTreeItem(TreeItem<Doelstelling> rootDoelstelling, List<Doelstelling> doelstellingen)
