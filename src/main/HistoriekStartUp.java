@@ -72,42 +72,52 @@ public class HistoriekStartUp {
 		List<Doelstelling> lijst = new ArrayList<>();
 		List<Doelstelling> lijst1 = new ArrayList<>();
 		
-		Component m1 = new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
+		/*Component m1 = new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
 				rollen, sg, d, null, new Som(), 2022));
 		
 		Component m2 = new Leaf(new DTOMVODoelstelling("Leaf1", "file:src/images/peace.png", 20,
-				rollen, sg, d1, null, new Som(), 2022));
+				rollen, sg, d1, null, new Som(), 2022));*/
 		
 		Component m3 = new Leaf(new DTOMVODoelstelling("LeafMeAlone", "file:src/images/peace.png", 10,
 				rollen, sg, d1, null, new Average(), 2021));
 		
-		Component m4 = new Leaf(new DTOMVODoelstelling("Leaf02020", "file:src/images/peace.png", 10,
+		/*Component m4 = new Leaf(new DTOMVODoelstelling("Leaf02020", "file:src/images/peace.png", 10,
 				rollen, sg, d1, null, new Average(), 2020));
 		
 		Component m5 = new Leaf(new DTOMVODoelstelling("Leaf12020", "file:src/images/peace.png", 10,
 				rollen, sg, d1, null, new Average(), 2020));
 		
 		Component m6 = new Leaf(new DTOMVODoelstelling("Leaf22020", "file:src/images/peace.png", 10,
-				rollen, sg, d1, null, new Average(), 2020));
+				rollen, sg, d1, null, new Average(), 2020));*/
 		
-		lijst.add(m1);
+		/*lijst.add(m1);
 		lijst.add(m2);
 		
 		lijst1.add(m4);
 		lijst1.add(m5);
-		lijst1.add(m6);
+		lijst1.add(m6);*/
 		
 		//doelstelling met 2 subs (2022)
-		Component head = new Composite(new DTOMVODoelstelling("Head2022", "file:src/images/peace.png", 20,
+		/*Component head = new Composite(new DTOMVODoelstelling("Head2022", "file:src/images/peace.png", 20,
 				rollen, sg, d, lijst, new Som(), 2022));
-		doelstellingenRepo.insert(head);
+		doelstellingenRepo.insert(head);*/
 		
 		//subdoelstelling (2021)
 		doelstellingenRepo.insert(m3);
 		
 		//doelstelling met 2 subs (2023)
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Head2020", "file:src/images/peace.png", 20,
-				rollen, sg, d, lijst1, new Som(), 2020)));
+		/*doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Head2020", "file:src/images/peace.png", 20,
+				rollen, sg, d, lijst1, new Som(), 2020)));*/
+		
+		/*Thread.sleep(10000);
+		
+		dc.setCurrentDoelstelling(m3);
+		//dc.verwijderMVODoelstelling();
+		DTOMVODoelstelling dto = new DTOMVODoelstelling("LeafMeAlone1", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Som(), 2021);
+		dc.wijzigMVODoelstelling(dto);*/
+		
+		
 		
 		
 		
@@ -127,13 +137,18 @@ public class HistoriekStartUp {
 		doelstellingenRepo.commitTransaction();
 		datasourceRepo.commitTransaction();
 		
+		Thread.sleep(5000);
 		
-		/*Thread.sleep(10000);
 		doelstellingenRepo.startTransaction();
-		dc.setCurrentDoelstelling(head);
-		dc.verwijderMVODoelstelling();
+		dc.setCurrentDoelstelling(m3);
+		//dc.verwijderMVODoelstelling();
+		System.out.println(dc.getCurrentDoelstelling().getNaam());
+		DTOMVODoelstelling dto = new DTOMVODoelstelling("LeafMeAlone1", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Som(), 2021);
+		dc.wijzigMVODoelstelling(dto);
 		
-		doelstellingenRepo.commitTransaction();*/
+		
+		doelstellingenRepo.commitTransaction();
 		
 		//System.out.println(head.getComponentValue(2022, head.getDoelstellingID()).getValue().toString());
 	}

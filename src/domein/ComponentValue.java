@@ -36,7 +36,7 @@ public class ComponentValue implements Serializable {
 	@Column(name="value")
 	@CollectionTable(name="valueattributes",
 	joinColumns= @JoinColumn(name="componentvalueID"))
-	private Map<String, Double> value;
+	private Map<String, Double> value;// = null;
 	
 	//historiek
 	private int datum;
@@ -63,6 +63,7 @@ public class ComponentValue implements Serializable {
 		//eerste keer aanmaken
 		if (value == null) {
 			this.datum = datum1;
+			//this.value = null;
 		} else {
 			//alleen overschrijven als YEAR hetzelfde is
 			if (datum == datum1) {
@@ -85,9 +86,13 @@ public class ComponentValue implements Serializable {
 	
 	public Map<String, Double> getValue() {
 		//System.out.printf("%s	|	%s%n", naam, formule.toString());
-		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
-		//System.out.printf("%n%n");
-		return value;
+		if (value != null) {
+			value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
+			//System.out.printf("%n%n");
+			return value;
+		} 
+		return null;
+		
 	}
 
 	public Component getC() {
