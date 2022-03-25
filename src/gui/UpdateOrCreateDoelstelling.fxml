@@ -47,7 +47,7 @@
 				</HBox>
 			</right>
 			<left>
-				<Label fx:id="lblErrorMessage" text="Label" textFill="RED" BorderPane.alignment="CENTER">
+				<Label fx:id="lblErrorMessage" maxWidth="680.0" text="Label" textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
 					<font>
 						<Font name="System Bold" size="21.0" />
 					</font>
@@ -104,11 +104,14 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</TextField>
-						<TextField fx:id="txtEenheid">
-							<HBox.margin>
-								<Insets left="10.0" />
-							</HBox.margin>
-						</TextField>
+                  <Label fx:id="lblEenheid" alignment="CENTER" contentDisplay="CENTER" text="Eenheid">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
 					</children>
 				</HBox>
 				<HBox minHeight="100.0">
@@ -159,6 +162,20 @@
 						</ChoiceBox>
 					</children>
 				</HBox>
+            <HBox>
+               <children>
+                  <Label fx:id="lblSdg1" text="Sub SDG:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="choiceSubSdg" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="39.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+               </children>
+            </HBox>
 				<HBox fx:id="hboxDatasource">
 					<children>
 						<Label fx:id="lblDatasource" text="Datasource:">

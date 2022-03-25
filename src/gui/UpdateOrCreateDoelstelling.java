@@ -77,13 +77,13 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	@FXML
 	private TextField txtDoelwaarde;
 	@FXML
-	private TextField txtEenheid;
-	@FXML
 	private ImageView imgIcoon;
 	@FXML
 	private ListView<String> listIconen;
 	@FXML
 	private ChoiceBox<SdGoal> choiceSdg;
+	@FXML
+	private ChoiceBox<SdGoal> choiceSubSdg;
 	@FXML
 	private Label lblKiesSub;
 	@FXML
@@ -106,6 +106,8 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 	private HBox hboxSubdoelstellingen;
 	@FXML
 	private HBox hboxDatasource;
+	@FXML
+	private Label lblEenheid;
 	
 //	private DomeinController dc;
 //	private E object;
@@ -223,7 +225,15 @@ public class UpdateOrCreateDoelstelling<E> extends BorderPane {
 			});
 			
 			choiceBewerking.setItems(FXCollections.observableList(doelTypes));
-			choiceSdg.setItems(FXCollections.observableList(dc.getBeschikbareSdgs()));
+			choiceSdg.setItems(FXCollections.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == 0).toList()));
+			
+			choiceSdg.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+				if(newValue != null)
+				{
+					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == Integer.valueOf(newValue.getAfbeeldingnaam())).toList()));
+				}
+			});
+			
 			choiceDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
 			
 			treeGekozenSubs.setRoot(rootNode2);
