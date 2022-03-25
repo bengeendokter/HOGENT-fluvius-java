@@ -17,4 +17,5 @@ public interface Doelstelling extends ListViewInterface {
 	public Map<String, Double> getBerekendewaarde() throws IOException;
 	public Composite getParentComponent();
 	public MVODatasource getDatasource();
+	public String getEenheid();
 }

@@ -157,4 +157,16 @@ public class Composite extends Component implements Serializable{
 	public boolean isLeaf() {
 		return false;
 	}
+
+	@Override
+	public String getEenheid()
+	{
+		if(getComponents().isEmpty())
+		{
+			return "";
+		}
+		
+		// vraag recursief eenheid tot een leaf gevonden wordt
+		return getComponents().get(0).getEenheid();
+	}
 }

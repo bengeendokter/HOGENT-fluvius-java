@@ -58,7 +58,7 @@ public class Leaf extends Component {
 		map = getFormule().calculate(map);
 		Map<String, Double> mapNewName = new HashMap<>();
 		final int size = map.size();
-		map.values().forEach(v -> mapNewName.put(String.format("%s%s", datasource.getMaat(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
+		map.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
 		
 		setValue(mapNewName);
 		return getValue();
@@ -77,6 +77,12 @@ public class Leaf extends Component {
 
 	public boolean isLeaf() {
 		return true;
+	}
+
+	@Override
+	public String getEenheid()
+	{
+		return datasource.getMaat();
 	}
 
 

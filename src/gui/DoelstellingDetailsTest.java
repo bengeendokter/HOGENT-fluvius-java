@@ -99,9 +99,9 @@ public class DoelstellingDetailsTest extends BorderPane
 			
 			lblSdgIngevuld.setText(huidigeDoelstelling.getSdGoal().getNaam());
 			lblDoelWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getDoelwaarde()));
-			lblEenheidIngevuld.setText(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getKey());
+			lblEenheidIngevuld.setText(huidigeDoelstelling.getEenheid());
 			lblBerekendeWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getValue()));
-			lblEenheidIngevuld2.setText(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getKey());
+			lblEenheidIngevuld2.setText(huidigeDoelstelling.getEenheid());
 			listRollenIngevuld.setItems(FXCollections.observableList(huidigeDoelstelling.getRollen()));
 			listRollenIngevuld.setCellFactory(param -> new ListCell<Rol>()
 			{
