@@ -41,7 +41,7 @@ public class Composite extends Component implements Serializable{
 		//historiek
 		//initeel setten
 		Map<String, Double> x = getBerekendewaarde();
-		getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
+		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 		
@@ -136,6 +136,7 @@ public class Composite extends Component implements Serializable{
 		{
 			//historiek
 			//setValue(tempMap);
+			
 			getComponentValue(getJaar(), getDoelstellingID()).setValue(tempMap);
 		}
 		else
@@ -145,6 +146,8 @@ public class Composite extends Component implements Serializable{
 			
 			//historiek
 			//setValue(mapNewName);
+			
+			
 			getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
 		}
 		

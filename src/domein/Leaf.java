@@ -33,7 +33,7 @@ public class Leaf extends Component {
 		//historiek
 		//initeel setten
 		Map<String, Double> x = getBerekendewaarde();
-		getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
+		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 	}
@@ -74,6 +74,8 @@ public class Leaf extends Component {
 	
 		//historiek
 		//setValue(mapNewName);
+		
+		
 		getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
 		
 		

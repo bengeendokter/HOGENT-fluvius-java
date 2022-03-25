@@ -39,13 +39,18 @@ public class ComponentValue implements Serializable {
 	private Map<String, Double> value;
 	
 	//historiek
-	private LocalDate datum;
+	private int datum;
 
-	public ComponentValue(Map<String, Double> value, LocalDate datum, Component c) {
+	public ComponentValue(Map<String, Double> value, int datum, Component c) {
 		//eerste keer aanmaken
-		if (value==null) this.datum = datum;
-		setValue(value);
-		setC(c);
+		if (value==null) {
+			//this.datum = datum;
+			setDatum(datum, value);
+			setC(c);
+			
+		}
+		//setValue(value);
+		
 		//setDatum(datum, value);
 		/*this.value = value;
 		this.datum = datum;*/
@@ -54,13 +59,19 @@ public class ComponentValue implements Serializable {
 	public ComponentValue() {
 	}
 
-	public void setDatum(LocalDate datum1, Map<String, Double> value) {
+	public void setDatum(int datum1, Map<String, Double> value) {
+		//eerste keer aanmaken
+		if (value == null) {
+			this.datum = datum1;
+		} else {
+			//alleen overschrijven als YEAR hetzelfde is
+			if (datum == datum1) {
+				/*this.datum = datum;
+				setValue(value);*/
+			}
+		}
 		
-		//alleen overschrijven als YEAR hetzelfde is
-		if (datum.getYear() == datum1.getYear()) {
-			this.datum = datum;
-			setValue(value);
-		}	
+			
 	}
 
 	public void setValue(Map<String, Double> value) {
@@ -68,7 +79,7 @@ public class ComponentValue implements Serializable {
 		
 	}
 
-	public LocalDate getDatum() {
+	public int getDatum() {
 		return datum;
 	}
 	

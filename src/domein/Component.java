@@ -99,11 +99,23 @@ public abstract class Component implements Doelstelling, Serializable{
 		setJaar(d.jaar);
 		
 		//intieel aanmaken
-		if (componentValues.isEmpty())
-			setComponentValue(new ComponentValue(null, LocalDate.now(), this));
+		if (componentValues.isEmpty()) {
+			System.out.println("lege aanmaken");
+			System.out.println(getJaar());
+			ComponentValue v1 = new ComponentValue(null, getJaar(), null);
+			v1.setC(this);
+			setComponentValue(v1);
+			System.out.println(componentValues.size());
+			System.out.println( componentValues.get(0).getC().getDoelstellingID());
+			System.out.println( componentValues.get(0).getC().getJaar());
+			System.out.println(  componentValues.get(0).getDatum());
+			
+		}
 		else {
 			//dan wijzigen bij zelfde jaar
 			//getComponentValue(jaar, doelstellingID);
+			
+			//alle velden van component worden aangepast -> ook aangepast bij valueattributes (naam) ?
 		}
 		
 	}
@@ -125,7 +137,7 @@ public abstract class Component implements Doelstelling, Serializable{
 	}
 	
 	public ComponentValue getComponentValue(int jaar, int id ) {
-		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum().getYear() == jaar)).collect(Collectors.toList()).get(0);
+		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum() == jaar)).collect(Collectors.toList()).get(0);
 	}
 
 	protected Component() {

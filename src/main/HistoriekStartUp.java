@@ -33,7 +33,7 @@ import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 
 public class HistoriekStartUp {
-	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException {
+	public static void main(String[] args) throws IOException, SQLIntegrityConstraintViolationException, InterruptedException {
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
 		CategorieDao categorieRepo = new CategorieDaoJpa();
@@ -70,6 +70,7 @@ public class HistoriekStartUp {
 		SdGoal sg = dc.getBeschikbareSdgs().get(1);
 		
 		List<Doelstelling> lijst = new ArrayList<>();
+		List<Doelstelling> lijst1 = new ArrayList<>();
 		
 		Component m1 = new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
 				rollen, sg, d, null, new Som(), 2022));
@@ -77,11 +78,38 @@ public class HistoriekStartUp {
 		Component m2 = new Leaf(new DTOMVODoelstelling("Leaf1", "file:src/images/peace.png", 20,
 				rollen, sg, d1, null, new Som(), 2022));
 		
+		Component m3 = new Leaf(new DTOMVODoelstelling("LeafMeAlone", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Average(), 2021));
+		
+		Component m4 = new Leaf(new DTOMVODoelstelling("Leaf02020", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Average(), 2020));
+		
+		Component m5 = new Leaf(new DTOMVODoelstelling("Leaf12020", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Average(), 2020));
+		
+		Component m6 = new Leaf(new DTOMVODoelstelling("Leaf22020", "file:src/images/peace.png", 10,
+				rollen, sg, d1, null, new Average(), 2020));
+		
 		lijst.add(m1);
 		lijst.add(m2);
 		
-		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("LeafSum", "file:src/images/peace.png", 20,
-				rollen, sg, d, lijst, new Som(), 2022)));
+		lijst1.add(m4);
+		lijst1.add(m5);
+		lijst1.add(m6);
+		
+		//doelstelling met 2 subs (2022)
+		Component head = new Composite(new DTOMVODoelstelling("Head2022", "file:src/images/peace.png", 20,
+				rollen, sg, d, lijst, new Som(), 2022));
+		doelstellingenRepo.insert(head);
+		
+		//subdoelstelling (2021)
+		doelstellingenRepo.insert(m3);
+		
+		//doelstelling met 2 subs (2023)
+		doelstellingenRepo.insert(new Composite(new DTOMVODoelstelling("Head2020", "file:src/images/peace.png", 20,
+				rollen, sg, d, lijst1, new Som(), 2020)));
+		
+		
 		
 		/*doelstellingenRepo.insert(new Leaf(new DTOMVODoelstelling("Leaf0", "file:src/images/peace.png", 20,
 				rollen, sg, d, null, new Som(), 2022)));*/
@@ -98,5 +126,15 @@ public class HistoriekStartUp {
 		//categorieRepo.commitTransaction();
 		doelstellingenRepo.commitTransaction();
 		datasourceRepo.commitTransaction();
+		
+		
+		/*Thread.sleep(10000);
+		doelstellingenRepo.startTransaction();
+		dc.setCurrentDoelstelling(head);
+		dc.verwijderMVODoelstelling();
+		
+		doelstellingenRepo.commitTransaction();*/
+		
+		//System.out.println(head.getComponentValue(2022, head.getDoelstellingID()).getValue().toString());
 	}
 }
