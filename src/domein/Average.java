@@ -19,7 +19,7 @@ public class Average extends Bewerking{
 	@Override
 	public Map<String, Double> calculate(Map<String, Double> data) {
 		Map<String, Double> map = new HashMap<>();
-		map.put(toString(), data.values().stream().mapToDouble(Double::doubleValue).average().getAsDouble());
+		map.put(toString(), data.values().stream().mapToDouble(Double::doubleValue).average().orElse(0.0));
 		return map;
 	}
 	

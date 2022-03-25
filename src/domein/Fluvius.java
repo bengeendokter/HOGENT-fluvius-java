@@ -11,7 +11,6 @@ import javax.persistence.RollbackException;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import repository.CategorieDao;
 import repository.CategorieDaoJpa;
@@ -40,8 +39,6 @@ public class Fluvius
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
 	private Datasource currentDatasource;
-	private List<Component> list;
-	private List<Component> list2;
 	
 	
 	// CONSTRUCTOR

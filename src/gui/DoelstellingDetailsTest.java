@@ -5,6 +5,7 @@ import java.util.List;
 
 import domein.Doelstelling;
 import domein.DomeinController;
+import domein.GeenBewerking;
 import domein.Rol;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,12 +21,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 public class DoelstellingDetailsTest extends BorderPane
 {
@@ -77,6 +80,12 @@ public class DoelstellingDetailsTest extends BorderPane
 	private Label lblBerekendeWaardeIngevuld;
 	@FXML
 	private Label lblEenheidIngevuld2;
+	@FXML
+	private HBox hBoxBereekendeWaarde;
+	@FXML
+	private Tooltip tooltipSDG;
+	@FXML
+	private HBox hBoxDatasource;
 	
 	public DoelstellingDetailsTest(DomeinController dc, Doelstelling huidigeDoelstelling)
 	{
@@ -97,13 +106,25 @@ public class DoelstellingDetailsTest extends BorderPane
 			}
 			else
 			{
-				lblDatasourceIngevuld.setText("");
+				hBoxDatasource.setVisible(false);;
 			}
 			
 			lblSdgIngevuld.setText(huidigeDoelstelling.getSdGoal().getNaam());
+			tooltipSDG.setText(huidigeDoelstelling.getSdGoal().getNaam());
 			lblDoelWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getDoelwaarde()));
 			lblEenheidIngevuld.setText(huidigeDoelstelling.getEenheid());
-			lblBerekendeWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getValue()));
+			
+			// toon berekende waarde indien er een bewerking is
+			if(!(huidigeDoelstelling.getFormule() instanceof GeenBewerking))
+			{
+				lblBerekendeWaardeIngevuld.setText(Double.toString(
+						huidigeDoelstelling.getBerekendewaarde().entrySet().iterator().next().getValue()));
+			}
+			else
+			{
+				hBoxBereekendeWaarde.setVisible(false);
+			}
+			
 			lblEenheidIngevuld2.setText(huidigeDoelstelling.getEenheid());
 			listRollenIngevuld.setItems(FXCollections.observableList(huidigeDoelstelling.getRollen()));
 			
