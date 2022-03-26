@@ -23,6 +23,14 @@ public class Leaf extends Component {
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
 	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(
+	        name="LEAFID", 
+	        nullable=true,
+	        foreignKey = @ForeignKey(
+	                name="FK_leafdata_ID",
+	                foreignKeyDefinition = "FOREIGN KEY (LEAFID) REFERENCES DataSource(id) ON UPDATE CASCADE ON DELETE CASCADE"
+	        )
+	)
 	private MVODatasource datasource;
 
 	// CONSTRUCTOREN
@@ -81,9 +89,9 @@ public class Leaf extends Component {
 		
 		//gevallen waarbij value moet veranderen: initeel of bij zelfde datum
 		ComponentValue cv = getComponentValue(getJaar(), getDoelstellingID());
-		if (cv.getValue() == null ||  getJaar() == cv.getDatum())
+		if (cv.getValue() == null ||  getJaar() == cv.getDatum()) {
 			getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
-		
+		}
 		
 		//return getValue();
 		return getComponentValue(getJaar(), getDoelstellingID()).getValue();
@@ -98,6 +106,7 @@ public class Leaf extends Component {
 	
 	public Iterator<Component> createIterator() {
 		return new NullIterator();
+		
 	}
 
 	public boolean isLeaf() {

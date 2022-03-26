@@ -28,7 +28,7 @@ public class Composite extends Component implements Serializable{
 	
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy="parentComponent")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="parentComponent")
 	private List<Component> components = new ArrayList<>();
 	
 	
@@ -41,13 +41,12 @@ public class Composite extends Component implements Serializable{
 		
 		//historiek
 		//initeel setten
+		
 		Map<String, Double> x = getBerekendewaarde();
 		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
-		
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 		
 	}
-
 	protected Composite() {
 		
 	}

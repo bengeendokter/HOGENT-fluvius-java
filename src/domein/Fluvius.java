@@ -456,10 +456,21 @@ public class Fluvius
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
 			Component parent = currentDoelstelling.getParentComponent();
+
+			while (parent.getParentComponent() != null) {
+				parent = parent.getParentComponent();
+			}
+			
+			System.out.printf("Dit is de naam van de parent : %s", parent.getNaam());
+			
+			
 			mvoDoelstellingRepo.delete((Component)currentDoelstelling);
 			if(parent != null)
 			{
-				parent.getComponents().remove(currentDoelstelling);
+				currentDoelstelling.getParentComponent().getComponents().remove(currentDoelstelling);
+				
+				
+				
 				mvoDoelstellingRepo.update(parent);
 			}
 			mvoDoelstellingRepo.commitTransaction();	
@@ -505,7 +516,11 @@ public class Fluvius
 		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
 		try
 		{
+			
 			mvoDoelstellingRepo.startTransaction();
+			
+			
+			
 			Component comp;
 			if(doelstelling.datasource == null) {
 				comp = new Composite(doelstelling);
@@ -514,9 +529,31 @@ public class Fluvius
 			{
 				comp = new Leaf(doelstelling);
 			}
+			
+			comp.setParentComponent(currentDoelstelling.getParentComponent());
 			comp.setDoelstellingID(currentDoelstelling.getDoelstellingID());
+			
 			mvoDoelstellingRepo.update(comp);
 			mvoDoelstellingRepo.commitTransaction();
+			
+			Component parent = comp;
+			
+			//parent = parent.getParentComponent();
+			
+			
+			while (parent.getParentComponent() != null) {
+				parent = parent.getParentComponent();
+			}
+			
+			System.out.printf("Dit is de naam van de parent : %s", parent.getNaam());
+	
+			mvoDoelstellingRepo.startTransaction();
+			parent.getBerekendewaarde();
+			mvoDoelstellingRepo.update(parent);
+			mvoDoelstellingRepo.commitTransaction();
+			
+			
+			
 		}
 		catch(Exception e)
 		{
@@ -524,6 +561,7 @@ public class Fluvius
 				mvoDoelstellingRepo.rollbackTransaction();
 			}
 			
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
