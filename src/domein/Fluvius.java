@@ -471,9 +471,16 @@ public class Fluvius
 		try
 		{
 			mvoDoelstellingRepo.startTransaction();
-			Composite d = new Composite(doelstelling);
-			d.setDoelstellingID(currentDoelstelling.getDoelstellingID());
-			mvoDoelstellingRepo.update(d);
+			Component comp;
+			if(doelstelling.datasource == null) {
+				comp = new Composite(doelstelling);
+			}
+			else
+			{
+				comp = new Leaf(doelstelling);
+			}
+			comp.setDoelstellingID(currentDoelstelling.getDoelstellingID());
+			mvoDoelstellingRepo.update(comp);
 			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(Exception e)

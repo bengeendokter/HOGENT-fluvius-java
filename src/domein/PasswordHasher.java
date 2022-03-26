@@ -8,12 +8,11 @@ import at.gadermaier.argon2.Argon2Factory;
 public class PasswordHasher {
 	public static String hash(String password, byte[] bytes)
 	{
-		byte[] pwd = password.getBytes(StandardCharsets.UTF_8);
 		String hash = Argon2Factory.create()
        .setIterations(2)
         .setMemory(14)
         .setParallelism(1)
-        .hash(pwd, bytes);
+        .hash(password.getBytes(StandardCharsets.UTF_8), bytes);
 		
 		return hash;
 	}
