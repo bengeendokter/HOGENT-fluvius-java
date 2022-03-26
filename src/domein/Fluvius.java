@@ -242,7 +242,7 @@ public class Fluvius
 		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
 		Categorie c = currentCategorie;
 		SDGCategorie nieuweCategorie = categorieRepo.getByNaam(categorie.naam); 
-		System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());
+		//System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());
 		if(nieuweCategorie != null && nieuweCategorie.getCategorieID() != currentCategorie.getCategorieID())
 		{
 			throw new IllegalArgumentException("Er bestaat al een categorie met deze naam");
