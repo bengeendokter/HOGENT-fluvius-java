@@ -1,6 +1,9 @@
 package domein;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -30,13 +33,21 @@ public class Gebruiker implements Serializable
 	private String wachtwoord;
 	private String rol;
 	private String status;
+	private String salt = null;
 	
 	public Gebruiker(String gebruikersnaam, String wachtwoord, String rol, String status)
 	{
 		this.gebruikersnaam = gebruikersnaam;
-		this.wachtwoord = wachtwoord;
+		SecureRandom random = new SecureRandom();
+		byte[] array = new byte[16];
+		random.nextBytes(array);
+		
+		salt = new String(array, Charset.forName("UTF-8"));
+	
+		this.wachtwoord = PasswordHasher.hash(wachtwoord,getSalt());
 		this.rol = rol;
 		this.status = status;
+		
 	}
 	
 	protected Gebruiker()
@@ -67,6 +78,11 @@ public class Gebruiker implements Serializable
 	public String getRol()
 	{
 		return rol;
+	}
+	
+	public byte[] getSalt()
+	{
+		return salt.getBytes();
 	}
 	
 	@Override
