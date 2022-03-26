@@ -496,8 +496,8 @@ public class Fluvius
 	private void updateMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
 		//bestaande historiek verwijderen
-		ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
-		valueRepo.delete(cvc);
+		/*ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
+		valueRepo.delete(cvc);*/
 		
 		
 		
@@ -514,7 +514,10 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			mvoDoelstellingRepo.rollbackTransaction();
+			if (mvoDoelstellingRepo.isActive()) {
+				mvoDoelstellingRepo.rollbackTransaction();
+			}
+			
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
