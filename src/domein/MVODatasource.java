@@ -70,7 +70,7 @@ private static final long serialVersionUID = 1L;
 	{
 		setNaam(dds.naam);
 		
-		if (dds.typeDatasource == null) {
+		if (dds.typeDatasource == null || dds.typeDatasource.isBlank()) {
 			throw new IllegalArgumentException("Selecteer aub een type");
 		}
 		if (dds.typeDatasource.equals("excel"))
@@ -79,6 +79,7 @@ private static final long serialVersionUID = 1L;
 			setTypeDatasource(new CsvDataSourceType(dds.link));
 		else if (dds.typeDatasource.equals("databank"))
 			setTypeDatasource(new DatabankDataSourceType(dds.hostname, dds.username, dds.password));
+		else throw new IllegalArgumentException("Ongeldige type geselecteerd");
 		
 		setWijzigbaarheid(dds.wijzigbaarheid);
 		setDatum();
