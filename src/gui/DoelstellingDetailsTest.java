@@ -155,7 +155,8 @@ public class DoelstellingDetailsTest extends BorderPane{
 				int index = pad.indexOf("c");
 				pad = pad.substring(index+1);
 				// Mannetje weergeven
-				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				System.out.println(pad);
+				//imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
 				
 			}
 			

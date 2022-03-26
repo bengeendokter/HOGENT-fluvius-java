@@ -66,14 +66,14 @@ public abstract class Component implements Doelstelling, Serializable{
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
 	private Map<String, Double> value;*/
 	
-	@OneToMany(mappedBy="c", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="c", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentValue> componentValues = new ArrayList<>();
 	@JoinColumn(
 	        name="COMPONENTID", 
 	        nullable=true,
 	        foreignKey = @ForeignKey(
 	                name="FK_CValue_ID",
-	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(componentvalueID) ON UPDATE CASCADE ON DELETE CASCADE"
+	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(id) ON UPDATE CASCADE ON DELETE CASCADE"
 	        )
 	)
 	

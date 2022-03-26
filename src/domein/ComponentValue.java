@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -20,15 +22,17 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "CValue")
+@NamedQueries({
+	@NamedQuery(name = "cvalue.findByID", query = "select c from domein.ComponentValue c where c.c.doelstellingID = :id")})
 public class ComponentValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// ---------------------------------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int componentvalueID;
+	private int id;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Component c;
 
 	@ElementCollection

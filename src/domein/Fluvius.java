@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.RollbackException;
 
@@ -21,6 +22,8 @@ import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
+import repository.ValueDao;
+import repository.ValueDaoJpa;
 
 public class Fluvius
 {
@@ -32,10 +35,15 @@ public class Fluvius
 	private ObservableList<Component> doelstellingen = FXCollections.observableArrayList();
 	private ObservableList<MVODatasource> datasources = FXCollections.observableArrayList();
 	
+	//private List<ComponentValue> values = new ArrayList<>();
+	private ObservableList<ComponentValue> values = FXCollections.observableArrayList();
+	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
 	private MVODoelstellingDao mvoDoelstellingRepo;
 	private MVODatasourceDao mvoDatasourceRepo;
+	
+	private ValueDao valueRepo;
 	
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
@@ -45,23 +53,38 @@ public class Fluvius
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
-	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa)
+	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa
+			, ValueDaoJpa valueDaoJpa)
 	{
 		setCategorieRepo(categorieDaoJpa);
 		setSdGoalRepo(sdGoalDaoJpa);
 		setMVODoelstellingenRepo(mvoDoelstellingDaoJpa);
 		setMVODatasourceRepo(mvoDatasourceDaoJpa);
 		
+		setValueRepo(valueDaoJpa);
+		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
 		
+		setValues();
+		
 		
 		
 	}
 	
-	
+	private void setValues()
+	{
+		values.clear();
+		values.addAll(valueRepo.findAll());
+	}
+
+	public void setValueRepo(ValueDao mock)
+	{
+		valueRepo = mock;
+	}
+
 	// SDG
 	// ______________________________________________________________________________________________
 	public void setSdGoalRepo(SdGoalDao mock)
@@ -355,8 +378,15 @@ public class Fluvius
 			{
 				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
 			}
+			//historiek
+			Component c = new Leaf(doelstelling);
+			ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			System.out.println("adding leaf");
+			System.out.println(cv.toString());
+			values.add(cv);
 			
-			mvoDoelstellingRepo.insert(new Leaf(doelstelling));
+			
+			mvoDoelstellingRepo.insert(c);
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -387,7 +417,13 @@ public class Fluvius
 				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
 			}
 			
-			mvoDoelstellingRepo.insert(new Composite(doelstelling));
+			Component c = new Composite(doelstelling);
+			ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			System.out.println("adding value");
+			System.out.println(cv.toString());
+			values.add(cv);
+			
+			mvoDoelstellingRepo.insert(c);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -444,18 +480,30 @@ public class Fluvius
 		{
 			throw new IllegalArgumentException("Er bestaat al een MVO Doelstelling met deze naam");
 		}
+		
+		//verwijder de doelstelling dat al bestaat omdat een nieuwe aangemaakt zal worden
+		/*setCurrentDoelstelling(doelstellingInRepo);
+		verwijderMVODoelstelling();*/
 
 		updateMVODoelstelling(doelstelling);
 	}
 	
 	private void updateMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
+		//bestaande historiek verwijderen
+		ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
+		valueRepo.delete(cvc);
+		
+		
+		
+		
 		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
 		try
 		{
 			mvoDoelstellingRepo.startTransaction();
 			Composite d = new Composite(doelstelling);
 			d.setDoelstellingID(currentDoelstelling.getDoelstellingID());
+			//d.getComponentValue(d.getJaar(), d.getDoelstellingID());
 			mvoDoelstellingRepo.update(d);
 			mvoDoelstellingRepo.commitTransaction();
 		}
@@ -465,7 +513,10 @@ public class Fluvius
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
+		System.out.println("After");
+		System.out.println(values.toString());
 		setDoelstellingen();
+		
 	}
 	
 	
