@@ -9,6 +9,7 @@ import repository.CategorieDaoJpa;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDaoJpa;
+import repository.ValueDaoJpa;
 
 public class DomeinController
 {
@@ -25,7 +26,7 @@ public class DomeinController
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
-		setFluvius(new Fluvius(new CategorieDaoJpa(), new SdGoalDaoJpa(),new MVODoelstellingDaoJpa(), new MVODatasourceDaoJpa()));
+		setFluvius(new Fluvius(new CategorieDaoJpa(), new SdGoalDaoJpa(),new MVODoelstellingDaoJpa(), new MVODatasourceDaoJpa(), new ValueDaoJpa()));
 		
 	}
 	

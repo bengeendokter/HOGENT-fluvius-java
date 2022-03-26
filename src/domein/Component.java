@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -16,6 +18,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,11 +60,26 @@ public abstract class Component implements Doelstelling, Serializable{
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
 	
-	@ElementCollection
+	/*@ElementCollection
 	@MapKeyColumn(name="name")
 	@Column(name="value")
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
-	private Map<String, Double> value;
+	private Map<String, Double> value;*/
+	
+	@OneToMany(mappedBy="c", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ComponentValue> componentValues = new ArrayList<>();
+	@JoinColumn(
+	        name="COMPONENTID", 
+	        nullable=true,
+	        foreignKey = @ForeignKey(
+	                name="FK_CValue_ID",
+	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(id) ON UPDATE CASCADE ON DELETE CASCADE"
+	        )
+	)
+	
+	
+	//LocalDate.now().getYear()
+	private int jaar;
 	
 	@ManyToOne
 	private Composite parentComponent = null;
@@ -76,8 +94,52 @@ public abstract class Component implements Doelstelling, Serializable{
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
 		setFormule(d.bewerking);
+		
+		//historiek
+		setJaar(d.jaar);
+		
+		//intieel aanmaken
+		if (componentValues.isEmpty()) {
+			System.out.println("lege aanmaken");
+			System.out.println(getJaar());
+			ComponentValue v1 = new ComponentValue(null, getJaar(), null);
+			v1.setC(this);
+			setComponentValue(v1);
+			System.out.println(componentValues.size());
+			System.out.println( componentValues.get(0).getC().getDoelstellingID());
+			System.out.println( componentValues.get(0).getC().getJaar());
+			System.out.println(  componentValues.get(0).getDatum());
+			
+		}
+		else {
+			//dan wijzigen bij zelfde jaar
+			//getComponentValue(jaar, doelstellingID);
+			
+			//alle velden van component worden aangepast -> ook aangepast bij valueattributes (naam) ?
+		}
+		
 	}
 	
+	private void setJaar(int jaar) {
+		this.jaar = jaar;
+		
+	}
+	
+
+	public int getJaar() {
+		return jaar;
+		
+	}
+
+	private void setComponentValue(ComponentValue componentValue) {
+		componentValues.add(componentValue);
+		
+	}
+	
+	public ComponentValue getComponentValue(int jaar, int id ) {
+		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum() == jaar)).collect(Collectors.toList()).get(0);
+	}
+
 	protected Component() {
 		
 	}
@@ -165,16 +227,16 @@ public abstract class Component implements Doelstelling, Serializable{
 		this.formule = bewerking;
 	}
 	
-	public void setValue(Map<String, Double> waarde) {
+	/*public void setValue(Map<String, Double> waarde) {
 		this.value = waarde;
 	}
 	
 	public Map<String, Double> getValue() {
-		System.out.printf("%s	|	%s%n", naam, formule.toString());
+		//System.out.printf("%s	|	%s%n", naam, formule.toString());
 		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
 		System.out.printf("%n%n");
 		return value;
-	}
+	}*/
 	
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------

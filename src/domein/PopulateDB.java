@@ -929,13 +929,13 @@ public class PopulateDB {
 
 		// Doelstellingen
 		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal kinderen", "file:src/images/peace.png", 16,
-				rollen, goal1, mvd4, new ArrayList<>(), new Som()));
+				rollen, goal1, mvd4, new ArrayList<>(), new Som(), 2020));
 		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 mercedes", "file:src/images/planet.jpg", 50,
-				rollen, goal_13_1, mvd1, new ArrayList<>(), new Average()));
+				rollen, goal_13_1, mvd1, new ArrayList<>(), new Average(), 2020));
 		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 audi", "file:src/images/planet.jpg", 40,
-				rollen, goal13, mvd2, new ArrayList<>(), new Average()));
+				rollen, goal13, mvd2, new ArrayList<>(), new Average(), 2020));
 		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 bmw", "file:src/images/planet.jpg", 30,
-				rollen, goal13, mvd3, new ArrayList<>(), new Average()));
+				rollen, goal13, mvd3, new ArrayList<>(), new Average(), 2020));
 		
 		doelstellingenRepo.insert(l1);
 		doelstellingenRepo.insert(l2);
@@ -943,14 +943,14 @@ public class PopulateDB {
 		doelstellingenRepo.insert(l4);
 		
 		Composite c1 = new Composite(new DTOMVODoelstelling("CO2TrageAuto's", "file:src/images/planet.jpg", 10,
-		rollen, goal13, null, new ArrayList<>(), new Average()));
+		rollen, goal13, null, new ArrayList<>(), new Average(), 2020));
 		c1.add(l3);
 		c1.add(l4);
 		
 		doelstellingenRepo.insert(c1);
 		
 		Composite c2 = new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
-				rollen, goal13, null, new ArrayList<>(), new Average()));		
+				rollen, goal13, null, new ArrayList<>(), new Average(), 2020));		
 		c2.add(c1);
 		c2.add(l2);
 		

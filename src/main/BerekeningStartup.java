@@ -33,6 +33,7 @@ public class BerekeningStartup {
 		   Doelstelling aantalMannen = new Leaf(new DTOMVODoelstelling("aantal mannen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		   Doelstelling aantalVrouwen = new Leaf(new DTOMVODoelstelling("aantal vrouwen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		   
+		   
 		   subDoelstellingen.add(aantalMannen);
 		   subDoelstellingen.add(aantalVrouwen);
 		   

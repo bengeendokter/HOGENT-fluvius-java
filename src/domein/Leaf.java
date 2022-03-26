@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,9 +27,19 @@ public class Leaf extends Component {
 
 	// CONSTRUCTOREN
 	// ---------------------------------------------------------------------------------------------------
-	public Leaf(DTOMVODoelstelling d) {
+	public Leaf(DTOMVODoelstelling d) throws IOException {
 		super(d);
 		setDatasource((MVODatasource) d.datasource);
+		//System.out.println(datasource.getData(1));
+		
+		
+		
+		//historiek
+		//initeel setten
+		Map<String, Double> x = getBerekendewaarde();
+		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
+		
+		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 	}
 
 	protected Leaf() {
@@ -58,13 +69,24 @@ public class Leaf extends Component {
 	public Map<String, Double> getBerekendewaarde() throws IOException {
 		
 		Map<String, Double> map = datasource.getData(datasource.getKolom());
+		System.out.println(map.toString());
 		map = getFormule().calculate(map);
 		Map<String, Double> mapNewName = new HashMap<>();
 		final int size = map.size();
 		map.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
 		
-		setValue(mapNewName);
-		return getValue();
+	
+		//historiek
+		//setValue(mapNewName);
+		
+		//gevallen waarbij value moet veranderen: initeel of bij zelfde datum
+		ComponentValue cv = getComponentValue(getJaar(), getDoelstellingID());
+		if (cv.getValue() == null ||  getJaar() == cv.getDatum())
+			getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
+		
+		
+		//return getValue();
+		return getComponentValue(getJaar(), getDoelstellingID()).getValue();
 	}
 
 
