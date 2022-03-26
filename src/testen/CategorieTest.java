@@ -21,7 +21,6 @@ import domein.DTOCategorie;
 import domein.Fluvius;
 import domein.SDGCategorie;
 import domein.SdGoal;
-import repository.CategorieDao;
 import repository.CategorieDaoJpa;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDaoJpa;

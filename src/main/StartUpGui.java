@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repository.DatabaseSelector;
+import repository.GebruikerDaoJpa;
 
 public class StartUpGui extends Application
 {
@@ -18,7 +19,7 @@ public class StartUpGui extends Application
 		{
 	
 			// ga naar de repository.DatabaseSelector Class om een lokale databank te gebruiken
-			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST);
+			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST, new GebruikerDaoJpa());
 			
 			//AanmeldSchermController root = new AanmeldSchermController(aanmeldController);
 			AanmeldenResponsiveController root = new AanmeldenResponsiveController(aanmeldController);

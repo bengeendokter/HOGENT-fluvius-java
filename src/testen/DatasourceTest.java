@@ -20,13 +20,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domein.DTODatasource;
 import domein.Fluvius;
 import domein.MVODatasource;
-import repository.CategorieDao;
 import repository.CategorieDaoJpa;
-import repository.MVODatasourceDao;
 import repository.MVODatasourceDaoJpa;
-import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
-import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
 
 @ExtendWith(MockitoExtension.class)
