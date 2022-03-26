@@ -119,6 +119,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
 			fileChooser.getExtensionFilters().add(extFilter);
 			
+	        
 			openButton.setOnAction(
 		            new EventHandler<ActionEvent>() {
 		                @Override
@@ -135,6 +136,8 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 		        				Image m = new Image(getClass().getResource(pad).toExternalForm());
 		        				imgIcoon.setImage(m);
 		                    }
+		                    
+		                    
 		                }
 		            });
 			
