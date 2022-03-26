@@ -87,13 +87,13 @@ public class CategorieDetailsController<E> extends BorderPane{
 	            boolean found = false;
 	            boolean toe = false;
 	            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
-	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+	            	if(s.getParentSDG() != null && depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG().getAfbeeldingNaamAlsInt()) {
 	            		depNode.getChildren().add(empLeaf);
 	                  found = true;
 	                  break;
 	            	}
 	            	else if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getAfbeeldingNaamAlsInt()) {
-	            		if(s.getParentSDG_id() == 0 && toe == false) {
+	            		if(s.getParentSDG() == null && toe == false) {
 	            			TreeItem<SdGoal> kind = depNode;
 	                        rootNode.getChildren().remove(depNode);
 	                        TreeItem<SdGoal> ob = new TreeItem<SdGoal>(
@@ -121,7 +121,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 
 	            if (!found) {
 	            	TreeItem<SdGoal> depNode;
-	            	if(s.getParentSDG_id() == 0) {
+	            	if(s.getParentSDG() == null) {
 	            		depNode = new TreeItem<SdGoal>(
 	    	                    s, new ImageView(new Image(s.getIcon(), 30, 30, true, true))
 	    	                );

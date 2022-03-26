@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -32,7 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class UpdateOrCreateCategoryController<E> extends BorderPane {
@@ -158,13 +156,13 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 			TreeItem<SdGoal> rootNode = 
 			        new TreeItem<SdGoal>(null);
 	
-			for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
+			for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(e -> ((SdGoal) e).getParentSDG() == null? -1 : ((SdGoal) e).getParentSDG().getId())).collect(Collectors.toList())) {
 				
 	            TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
 	            boolean found = false;
 	            for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
 	            	
-	            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+	            	if(s.getParentSDG() != null && depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG().getAfbeeldingNaamAlsInt()) {
 	            		depNode.getChildren().add(empLeaf);
 	                  found = true;
 	                  break;
@@ -293,7 +291,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
             TreeItem<SdGoal> empLeaf2 = new TreeItem<SdGoal>(s);
             boolean found2 = false;
             for (TreeItem<SdGoal> depNode2 : rootNode2.getChildren()) {
-            	if(depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            	if(s.getParentSDG() != null && depNode2.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG().getAfbeeldingNaamAlsInt()) {
             		depNode2.getChildren().add(empLeaf2);
                   found2 = true;
                   break;
@@ -318,10 +316,10 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	
 	private void handleMouseClicked(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewSdgs.getSelectionModel().getSelectedItem();
+	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
+	    	TreeItem<SdGoal> c = (TreeItem<SdGoal>)treeviewSdgs.getSelectionModel().getSelectedItem();
 	    	
-	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG() == null;
 //	    	if(!isHoofdSdg){
 //	    		boolean remove = c.getParent().getChildren().remove(c);
 //	    	}
@@ -334,7 +332,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
             {
             	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
              	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
-            	TreeItem parent = c.getParent();
+            	TreeItem<SdGoal> parent = c.getParent();
             	if(c.getParent() != null)
             	{
             		rootNode.getChildren().addAll(parent.getChildren());
@@ -348,7 +346,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
             	{
             		
                 	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-                		if(n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG_id() ) {
+                		if(((SdGoal)c.getValue()).getParentSDG() != null && n.getValue().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getParentSDG().getAfbeeldingNaamAlsInt() ) {
                 			rootNode.getChildren().remove(c);
                 			n.getChildren().add(c);
                 		}
@@ -390,7 +388,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
             	rootNode.getChildren().remove(c);
             	rootNode3.getChildren().add(c);
             	for (TreeItem<SdGoal> n : rootNode3.getChildren()) {
-            		if(n.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            		if(n.getValue().getParentSDG() != null && n.getValue().getParentSDG().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
             			c.getChildren().add(n);
             			
             		}
@@ -416,14 +414,14 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	
 	private void handleMouseClickedBack(MouseEvent event) {
 	    Node node = event.getPickResult().getIntersectedNode();
-	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-	    	TreeItem c = (TreeItem)treeviewGesSdgs.getSelectionModel().getSelectedItem();
+	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
+	    	TreeItem<SdGoal> c = (TreeItem<SdGoal>)treeviewGesSdgs.getSelectionModel().getSelectedItem();
 	    	
-	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG_id() == 0;
+	    	boolean isHoofdSdg = ((SdGoal)c.getValue()).getParentSDG() == null;
 	    	
 	    	TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
 	    	TreeItem<SdGoal> rootNode3 = treeviewGesSdgs.getRoot();
-	    	TreeItem parent = c.getParent();
+	    	TreeItem<SdGoal> parent = c.getParent();
 	    	if(!isHoofdSdg)rootNode.getChildren().add(c);
 	    	
 	    	if(isHoofdSdg)
@@ -432,7 +430,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	    		rootNode3.getChildren().remove(c);
 	    		List<TreeItem<SdGoal>> itemsToRemove = new ArrayList<>();
 	    		for (TreeItem<SdGoal> r : rootNode.getChildren()) {
-            		if(r.getValue().getParentSDG_id() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
+            		if(r.getValue().getParentSDG() != null && r.getValue().getParentSDG().getAfbeeldingNaamAlsInt() == ((SdGoal)c.getValue()).getAfbeeldingNaamAlsInt() ) {
             			itemsToRemove.add(r);
             		}
 	    		}
@@ -520,13 +518,13 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 		treeviewGesSdgs.getRoot().getChildren().clear();
 		treeviewSdgs.getRoot().getChildren().clear();
 		TreeItem<SdGoal> rootNode = treeviewSdgs.getRoot();
-		for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(SdGoal::getParentSDG_id)).collect(Collectors.toList())) {
+		for (SdGoal s : dc.getBeschikbareSdgs().stream().sorted(Comparator.comparing(e -> ((SdGoal) e).getParentSDG() == null? -1 : ((SdGoal) e).getParentSDG().getId())).collect(Collectors.toList())) {
 			
             TreeItem<SdGoal> empLeaf = new TreeItem<SdGoal>(s);
             boolean found = false;
             for (TreeItem<SdGoal> depNode : rootNode.getChildren()) {
             	
-            	if(depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG_id()) {
+            	if(s.getParentSDG() != null && depNode.getValue().getAfbeeldingNaamAlsInt() == s.getParentSDG().getAfbeeldingNaamAlsInt()) {
             		depNode.getChildren().add(empLeaf);
                   found = true;
                   break;
