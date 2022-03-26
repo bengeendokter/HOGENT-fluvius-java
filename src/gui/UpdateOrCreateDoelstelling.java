@@ -156,12 +156,12 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				
 				// stel hoofd en sub sdGoal velden in
 				SdGoal sdg = doelstellingToUpdate.getSdGoal();
-				if(sdg.getParentSDG_id() == 0) // sdGoal is een hoofdSdg
+				if(sdg.getParentSDG() == null) // sdGoal is een hoofdSdg
 				{
 					choiceSdg.setValue(sdg);
 					
 					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
-							.filter(subSdg -> subSdg.getParentSDG_id() == Integer.valueOf(sdg.getAfbeeldingnaam()))
+							.filter(subSdg -> {return subSdg.getParentSDG() != null && subSdg.getParentSDG().getId() == Integer.valueOf(sdg.getId());})
 							.toList()));
 				}
 				else // sdGoal is een subdSdg
@@ -170,9 +170,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 					
 					choiceSdg.setValue(dc.getSdgs().stream()
 							// get alle hoofd sdg's
-							.filter(hoodSdg -> hoodSdg.getParentSDG_id() == 0)
+							.filter(hoodSdg -> hoodSdg.getParentSDG() == null)
 							// zoek de hoofd sdGoal die bij de subSgd hoort
-							.filter(hoodSdg -> Integer.valueOf(hoodSdg.getAfbeeldingnaam()) == sdg.getParentSDG_id())
+							.filter(hoodSdg -> Integer.valueOf(hoodSdg.getId()) == sdg.getParentSDG().getId())
 							.findFirst().get());
 				}
 				
@@ -268,14 +268,14 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			
 			choiceBewerking.setItems(FXCollections.observableList(doelTypes));
 			choiceSdg.setItems(FXCollections
-					.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG_id() == 0).toList()));
+					.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG() == null).toList()));
 			
 			// subSdGoal
 			choiceSdg.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 				if(newValue != null)
 				{
 					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
-							.filter(sdg -> sdg.getParentSDG_id() == Integer.valueOf(newValue.getAfbeeldingnaam()))
+							.filter(sdg -> sdg.getParentSDG().getId() == Integer.valueOf(newValue.getId()))
 							.toList()));
 				}
 			});
