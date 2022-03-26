@@ -67,14 +67,19 @@ public class CategorieDetailsController<E> extends BorderPane{
 			
 			if(object instanceof Categorie) {
 				String pad = ((Categorie) object).getIcon();
-				int index = pad.indexOf("c");
-				pad = pad.substring(index+1);
-				// Mannetje weergeven
-				imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
-				
-				// TODO verwijder 
-//				imgIcoon.setManaged(false);
-//				imgIcoon.setVisible(false);
+				int indexcdubbelpunt = pad.indexOf("C:");
+				if(indexcdubbelpunt == -1) {
+					int index = pad.indexOf("c");
+					pad = pad.substring(index+1);
+
+					imgIcoon.setImage(new Image(getClass().getResourceAsStream(pad)));
+				}else {
+					int index = pad.indexOf("bin");
+	            	pad = pad.substring(index + 3);
+	            	pad = pad.replace("\\", "/");
+					Image m = new Image(getClass().getResource(pad).toExternalForm());
+					imgIcoon.setImage(m);
+				}
 
 			}
 			

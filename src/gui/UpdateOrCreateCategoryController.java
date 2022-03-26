@@ -1,12 +1,19 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import domein.Categorie;
@@ -32,6 +39,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	@FXML
@@ -69,6 +78,8 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 	private ImageView arrow2;
 	@FXML
 	private Button btnRemoveSdGoal;
+	@FXML
+	private Button openButton;
 	
 	private DomeinController dc;
 	
@@ -102,7 +113,30 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 			}
 			
 				
+			Stage stage = new Stage();
+			final FileChooser fileChooser = new FileChooser();
+			// om ervoor te zorgen dat enkel afbeeldingen kunnen aangeklikt worden
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+			fileChooser.getExtensionFilters().add(extFilter);
 			
+			openButton.setOnAction(
+		            new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(final ActionEvent e) {
+		                	
+		                    File file = fileChooser.showOpenDialog(stage);
+		                    if (file != null) {
+		                    	Path copied =  saveFile(file);
+		                    	String pad = copied.toString();
+		                    	int index = pad.indexOf("c");
+		                    	pad = pad.substring(index + 1);
+		                    	pad = pad.replace("\\", "/");
+		        				//System.out.println(pad);
+		        				Image m = new Image(getClass().getResource(pad).toExternalForm());
+		        				imgIcoon.setImage(m);
+		                    }
+		                }
+		            });
 			
 			//listIcoon opvullen met iconen
 			listIcoon.setItems(FXCollections.observableList(iconen));
@@ -273,6 +307,8 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 				maakLeeg();
 			}
 		});
+		
+		
 		
 	}
 	
@@ -554,5 +590,21 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
         }
 		
 	}
+	private Path saveFile(File file) {
+        try {
+        	Path copied = Paths.get("src/images/" + file.getName());
+            Path originalPath = file.toPath();
+            Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+            return copied;
+        } catch (IOException ex) {
+            Logger.getLogger(
+                UpdateOrCreateCategoryController.class.getName()).log(
+                    Level.SEVERE, null, ex
+                );
+            return null;
+        }
+        
+    }
+	
 
 }
