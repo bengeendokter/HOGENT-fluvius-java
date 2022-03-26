@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import domein.Average;
 import domein.Bewerking;
@@ -18,10 +19,12 @@ import domein.Rol;
 import domein.SdGoal;
 import domein.Som;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -111,10 +114,13 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
 	private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
+	private DomeinController dc;
 	
 	public UpdateOrCreateDoelstelling(DomeinController dc, Doelstelling doelstellingToUpdate,
 			String titelWijzigOfMaakAan)
 	{
+		this.dc = dc;
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateOrCreateDoelstelling.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
@@ -195,6 +201,10 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				rootNode.getChildren().addAll(doelstellingToUpdate.getComponents().stream()
 						.map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
 			}
+			else // ga er van uit dat nieuwe sdGoal Composite is
+			{
+				hboxDatasource.setVisible(false);
+			}
 			
 			//listIcoon opvullen met iconen
 			listIconen.setItems(FXCollections.observableList(iconen));
@@ -273,15 +283,65 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			choiceDatasource.setItems(FXCollections.observableList(dc.getDatasources()));
 			lblErrorMessage.setVisible(false);
 			
-			// TODO kies SDG's
+			// stel iconen en namen van TreeCellen te kiezen SubDoelen in
+			treeKiesSubs.setCellFactory(param -> new TreeCell<Doelstelling>()
+			{
+				private ImageView imageView = new ImageView();
+				
+				@Override
+				public void updateItem(Doelstelling doel, boolean empty)
+				{
+					super.updateItem(doel, empty);
+					if(empty)
+					{
+						setText(null);
+						setGraphic(null);
+					}
+					else
+					{
+						setText(doel.getNaam());
+						imageView.setImage(new Image(doel.getIcon(), 30, 30, true, true));
+						
+						setGraphic(imageView);
+					}
+				}
+			});
 			
-			// Opslaan TODO
+			// switch tussen Leaf en Composite on isSubdoelstelling change via hBoxen
+			isSubdoelstelling.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+				if(newValue != null)
+				{
+					if(newValue)
+					{
+						hboxDatasource.setVisible(true);
+						hboxSubdoelstellingen.setVisible(false);
+					}
+					else
+					{
+						hboxSubdoelstellingen.setVisible(true);
+						hboxDatasource.setVisible(false);
+					}
+				}
+			});
+			
+			// TODO filter kies sub doelstellingen
+			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
+			treeKiesSubs.setRoot(rootNodeKies);
+			treeKiesSubs.setShowRoot(false);
+			
+			rootNodeKies.getChildren().addAll(
+					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
+			
+			// TODO datasource/suboelen on select change eenheid
+			
+			// TODO move subdoelen tussen kies en gekozen onclick
+			
+			// Opslaan TODO fixen
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>()
 			{
 				@Override
 				public void handle(ActionEvent evt)
 				{
-					//lblErrorMessage.setVisible(false);
 					try
 					{
 						lblErrorMessage.setVisible(false);
@@ -295,7 +355,6 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 						}
 						String icoon = iconImage.getUrl();
 						
-						// TODO controleer op parse double fout
 						double doelwaarde = 0.0;
 						try
 						{
@@ -324,13 +383,19 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							rollen.add(new Rol("Stakeholder"));
 						}
 						
-						SdGoal sdGoal = (SdGoal) choiceSdg.getValue();
+						SdGoal sdGoal = choiceSubSdg.getValue();
+						if(sdGoal == null)
+						{
+							sdGoal = choiceSdg.getValue();
+						}
 						
-						Datasource datasource = (Datasource) choiceDatasource.getValue();
-						List<Doelstelling> subDoelstellingen = new ArrayList<Doelstelling>(map.values());
+						Bewerking bewerking = choiceBewerking.getValue();
 						
-						Bewerking bewerking = (Bewerking) choiceBewerking.getValue();
-						
+						// zonder subs
+						Datasource datasource = choiceDatasource.getValue();
+						// met subs
+						List<Doelstelling> subDoelstellingen = rootNode.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
+
 						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
 								datasource, subDoelstellingen, bewerking);
 						
@@ -338,12 +403,17 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 						{
 							dc.setCurrentDoelstelling(doelstellingToUpdate);
 							dc.wijzigMVODoelstelling(doel);
-							
 						}
 						else
 						{
-							dc.voegMVODoelstellingToeMetSubs(doel);
-							
+							if(isSubdoelstelling.isSelected())
+							{
+								dc.voegMVODoelstellingToeZonderSubs(doel);
+							}
+							else
+							{
+								dc.voegMVODoelstellingToeMetSubs(doel);
+							}
 						}
 						
 						refreshScherm();
@@ -357,6 +427,15 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				}
 			});
 			
+			// annuleer knop
+			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>()
+			{
+				@Override
+				public void handle(ActionEvent evt)
+				{
+					refreshScherm();
+				}
+			});
 		}
 		catch(IOException e)
 		{
@@ -364,14 +443,14 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		}
 	}
 	
-	public void maakLeeg()
-	{
-		this.getChildren().clear();
-	}
-	
 	private void refreshScherm()
 	{
-		maakLeeg();
+		// refresh scherm
+		Parent hoofdScherm = UpdateOrCreateDoelstelling.this.getParent();
+		PanelOverzichtTreeview p = new PanelOverzichtTreeview();
+		((BorderPane) hoofdScherm).setLeft(p);
+		ObservableList<Doelstelling> dcDoelstellingen = dc.getDoelstellingen();
+		p.initGui(dcDoelstellingen, "doelstellingen", dc);
 	}
 	
 }

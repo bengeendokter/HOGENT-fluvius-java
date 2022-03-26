@@ -913,11 +913,11 @@ public class PopulateDB {
 				"test", "test123", false, "traag", "vrouwen", 1)));
 
 		MVODatasource mvd1 = new MVODatasource(new DTODatasource("CO2 mercedes", "csv", "src/data/csvDouble.csv", null,
-				null, null, false, "snel", "kg/m³", 1));
+				null, null, false, "snel", "kg", 1));
 		MVODatasource mvd2 = new MVODatasource(new DTODatasource("CO2 audi", "excel", "src/data/xlsDouble.xls", null,
-				null, null, true, "traag", "kg/m³", 2));
+				null, null, true, "traag", "kg", 2));
 		MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
-				null, null, true, "traag", "kg/m³", 2));
+				null, null, true, "traag", "kg", 2));
 
 		List<MVODatasource> datasources = new ArrayList<>();
 		MVODatasource mvd4 = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv",
@@ -959,8 +959,8 @@ public class PopulateDB {
 		gebruikerRepo.commitTransaction();
 		sdGoalRepo.commitTransaction();
 		categorieRepo.commitTransaction();
-		doelstellingenRepo.commitTransaction();
 		datasourceRepo.commitTransaction();
+		doelstellingenRepo.commitTransaction();
 
 	}
 }

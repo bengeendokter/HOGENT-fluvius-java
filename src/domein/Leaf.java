@@ -8,7 +8,10 @@ import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LEAF")
@@ -18,7 +21,7 @@ public class Leaf extends Component {
 
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
-	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private MVODatasource datasource;
 
 	// CONSTRUCTOREN
