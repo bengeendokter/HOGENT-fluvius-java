@@ -2,6 +2,7 @@ package domein;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,9 +35,17 @@ public class Composite extends Component implements Serializable{
 	
 	// CONSTRUCTOREN
 	// ---------------------------------------------------------------------------------------------------
-	public Composite(DTOMVODoelstelling d) {
+	public Composite(DTOMVODoelstelling d) throws IOException {
 		super(d);
 		setComponents(d.subDoelstellingen);
+		
+		//historiek
+		//initeel setten
+		Map<String, Double> x = getBerekendewaarde();
+		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
+		
+		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
+		
 	}
 
 	protected Composite() {
@@ -126,17 +135,33 @@ public class Composite extends Component implements Serializable{
 		Map<String, Double> mapNewName = new HashMap<>();
 		if(getFormule() instanceof GeenBewerking)
 		{
-			setValue(tempMap);
+			//historiek
+			//setValue(tempMap);
+			
+			//gevallen waarbij value moet veranderen: initeel of bij zelfde datum
+			ComponentValue cv = getComponentValue(getJaar(), getDoelstellingID());
+			if (cv.getValue() == null ||  getJaar() == cv.getDatum())
+				getComponentValue(getJaar(), getDoelstellingID()).setValue(tempMap);
+			
 		}
 		else
 		{
 			final int size = tempMap.size();
 			tempMap.values().forEach(v -> mapNewName.put(String.format("%s%s", getNaam(), size > 1 ? String.format("_%s",mapNewName.size()) : ""), v));
-			setValue(mapNewName);
+			
+			//historiek
+			//setValue(mapNewName);
+			
+			
+			//gevallen waarbij value moet veranderen: initeel of bij zelfde datum
+			ComponentValue cv = getComponentValue(getJaar(), getDoelstellingID());
+			if (cv.getValue() == null ||  getJaar() == cv.getDatum())
+				getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
 		}
 		
 		
-		return getValue();
+		//return getValue();
+		return getComponentValue(getJaar(), getDoelstellingID()).getValue();
 	}
 
 	@Override
