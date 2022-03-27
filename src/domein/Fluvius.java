@@ -331,17 +331,23 @@ public class Fluvius
 	}
 	
 	public List<Doelstelling> geefDoelstellingenDieGeenSubsHebben(){
+//		List<Doelstelling> doelZonderSubs = new ArrayList<>();
+//		doelstellingen.forEach(d -> {
+//			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
+//			while (iterator.hasNext()) {
+//	            Component component = iterator.next();
+//
+//	            if(component.isLeaf() ) {
+//	            	doelZonderSubs.add(component);
+//	            }
+//	        }
+//		});
 		List<Doelstelling> doelZonderSubs = new ArrayList<>();
-		doelstellingen.forEach(d -> {
-			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
-			while (iterator.hasNext()) {
-	            Component component = iterator.next();
-
-	            if(component.isLeaf() ) {
-	            	doelZonderSubs.add(component);
-	            }
-	        }
-		});
+		for(Doelstelling d: doelstellingen) {
+			if(d.getParentComponent() == null && d.getComponents().isEmpty()) {
+				doelZonderSubs.add(d);
+			}
+		}
 		
 		return doelZonderSubs;
 	}

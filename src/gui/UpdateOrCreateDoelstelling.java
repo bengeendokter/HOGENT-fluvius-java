@@ -459,9 +459,11 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 
 
 						
-						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
-								datasource, subDoelstellingen, bewerking, 2020);
+//						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
+//								datasource, subDoelstellingen, bewerking, 2020);
 
+						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal, 
+								datasource, subDoelstellingen, bewerking, jaar );
 						
 						if(doelstellingToUpdate != null)
 						{
