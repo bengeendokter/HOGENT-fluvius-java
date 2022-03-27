@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,8 +38,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class UpdateOrCreateDoelstelling extends BorderPane
 {
@@ -335,6 +338,16 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			// TODO datasource/suboelen on select change eenheid
 			
 			// TODO move subdoelen tussen kies en gekozen onclick
+			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
+			    handleMouseClicked(event);
+			};
+			
+			EventHandler<MouseEvent> mouseEventHandle2 = (MouseEvent event) -> {
+			    handleMouseClickedBack(event);
+			};
+
+			treeKiesSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
+			treeGekozenSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2); 
 			
 			// Opslaan TODO fixen
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>()
@@ -451,6 +464,33 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		((BorderPane) hoofdScherm).setLeft(p);
 		ObservableList<Doelstelling> dcDoelstellingen = dc.getDoelstellingen();
 		p.initGui(dcDoelstellingen, "doelstellingen", dc);
+	}
+	
+	private void handleMouseClicked(MouseEvent event) {
+		 Node node = event.getPickResult().getIntersectedNode();
+		    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
+		    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeKiesSubs.getSelectionModel().getSelectedItem();
+		    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
+             	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
+             	
+             	rootNodeKies.getChildren().remove(verwijderde);
+             	rootNodeGekozen.getChildren().add(verwijderde);
+		    	
+		    }
+     
+	}
+	
+	private void handleMouseClickedBack(MouseEvent event) {
+		Node node = event.getPickResult().getIntersectedNode();
+	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
+	    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeGekozenSubs.getSelectionModel().getSelectedItem();
+	    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
+         	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
+         	
+         	rootNodeGekozen.getChildren().remove(verwijderde);
+         	rootNodeKies.getChildren().add(verwijderde);
+	    	
+	    }
 	}
 	
 }
