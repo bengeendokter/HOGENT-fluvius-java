@@ -455,7 +455,7 @@ public class Fluvius
 			
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
-			Component parent = currentDoelstelling.getParentComponent();
+			/*Component parent = currentDoelstelling.getParentComponent();
 
 			while (parent.getParentComponent() != null) {
 				parent = parent.getParentComponent();
@@ -473,7 +473,56 @@ public class Fluvius
 				
 				mvoDoelstellingRepo.update(parent);
 			}
-			mvoDoelstellingRepo.commitTransaction();	
+			mvoDoelstellingRepo.commitTransaction();*/	
+			
+			//kan sub zijn -> hoogste nivau
+			//kan hoofd zijn -> hoogste niveau
+			//kan sub met hoofd zijn
+			
+			
+			//hoogste niveau
+			Component parent = null;
+			
+			if (currentDoelstelling.getParentComponent() == null) {
+				System.out.println("test");
+				mvoDoelstellingRepo.delete((Component)currentDoelstelling);
+				
+			} 
+			
+			//bevat hoofd
+				else {
+					System.out.println("test1");
+					//verwijderen en alles weer updaten tot hoogste niveau
+					parent = currentDoelstelling.getParentComponent();
+					
+					/*if (!mvoDatasourceRepo.isActive())
+						mvoDoelstellingRepo.startTransaction();*/
+					
+					
+					mvoDoelstellingRepo.delete((Component)currentDoelstelling);
+					parent.getComponents().remove(currentDoelstelling);
+					
+					
+					//mvoDoelstellingRepo.update(parent);
+					
+					//mvoDoelstellingRepo.commitTransaction();
+					
+					/*while (parent != null) {
+						mvoDoelstellingRepo.update(parent);
+						parent = parent.getParentComponent();
+					}*/
+					
+					while (parent.getParentComponent() != null) {
+						parent = parent.getParentComponent();
+					}
+					
+					parent.getBerekendewaarde();
+					mvoDoelstellingRepo.update(parent);
+					
+
+			}
+
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -481,6 +530,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een MVO Doelstelling");
 		}
 		
