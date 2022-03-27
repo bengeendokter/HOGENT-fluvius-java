@@ -1,7 +1,6 @@
 package main;
 
 import domein.AanmeldController;
-import domein.PopulateDB;
 import gui.AanmeldenResponsiveController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,9 +9,8 @@ import javafx.stage.Stage;
 import repository.DatabaseSelector;
 import repository.GebruikerDaoJpa;
 
-public class StartUpGui extends Application
-{
-	
+public class StartUpApplicatie extends Application{
+
 	public void start(Stage primaryStage)
 	{
 		try
@@ -49,5 +47,4 @@ public class StartUpGui extends Application
 	{
 		launch(args);
 	}
-	
 }

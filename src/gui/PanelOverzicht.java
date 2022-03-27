@@ -22,6 +22,7 @@ public class PanelOverzicht<E> extends VBox {
 	
 	private ObservableList<E> items;
 	private DomeinController dc;
+	
 
 	public PanelOverzicht() {
 		
@@ -45,6 +46,7 @@ public class PanelOverzicht<E> extends VBox {
 		//ObservableList<String> items = FXCollections.observableArrayList("Single", "Double", "Suite", "Family App");
 		list.setItems(items);
 		
+		
 		if(soort.equals("categorieën")) {
 			list.setCellFactory(param -> new ListCell<E>()
 			{
@@ -63,14 +65,17 @@ public class PanelOverzicht<E> extends VBox {
 					{
 						setText(((Categorie)name).getNaam());
 						imageView.setImage(new Image(((Categorie)name).getIcon(), 40, 40, true, true));
-						
 						setGraphic(imageView);
+						
+						//setStyle(getIndex() == 0 ? "-fx-background-color: #B2D234": "");
+						
 					}
 				}
 			});
 		}
 		
 		
+
 		
 		list.getSelectionModel().selectedItemProperty()
 		.addListener((observableValue, oldValue, newValue) -> {
@@ -78,6 +83,9 @@ public class PanelOverzicht<E> extends VBox {
 			{
 				//CategorieDetailPanel cdp = new CategorieDetailPanel();
 				
+				list.setStyle("-fx-background-color: white");
+				list.setStyle("-fx-selection-bar:#B2D234; -fx-background-insets: 0 ;");
+
 
 				// Eerst het hoofdscherm opvragen adhv dit scherm
 				Parent hoofdScherm = PanelOverzicht.this.getParent();
@@ -171,6 +179,7 @@ public class PanelOverzicht<E> extends VBox {
 		
 		// Eerste item in ListView selecteren en weergeven
 		list.getSelectionModel().selectFirst();
+		
 	}
 	
 

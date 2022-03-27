@@ -20,14 +20,27 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domein.DTODatasource;
 import domein.Fluvius;
 import domein.MVODatasource;
-import repository.MVODatasourceDao;
+import repository.CategorieDaoJpa;
+import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDaoJpa;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DatasourceTest {
 	
 	@Mock
-    private MVODatasourceDao datasourceRepo;
+	private CategorieDaoJpa categorieRepo;
+	
+	@Mock
+	private SdGoalDaoJpa sdGoalsRepo;
+	
+	@Mock
+	private MVODoelstellingDaoJpa mvoDoelstellingRepo;
+	
+	@Mock
+	private MVODatasourceDaoJpa datasourceRepo;
+	
 	
 	@InjectMocks
 	private static Fluvius fluvius;
@@ -65,30 +78,34 @@ public class DatasourceTest {
 	 * En met type en link
 	 * @throws IOException 
 	 */
-//	@Test
-//	public void maakDatasource_BestaandeNaam_aangemaakt() throws IOException
-//	{
-//		   // Alles klaarzetten
-//		   final String DATASOURCENAAM = "DatasourceTest";
-//		   final String TYPE = "csv";
-//		   final String LINK = "map/data.csv";
-//		   
-//		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","","");
-//		   MVODatasource mvoDatasource = new MVODatasource(datasource);
-//		   mvoDatasource.setDatasourceID(1);
-//		   
-//		   //train mock object
-//		   Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
-//		   
-//	       // Controle
-//		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
-//	    	   fluvius.voegMVODatasourceToe(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","",""));
-//	       });
-//		   
-//		   // Na de test verifiëren
-//	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM);
-//	}
-//	
+	@Test
+	public void maakDatasource_BestaandeNaam_aangemaakt() throws IOException
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "map/data.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+		   final int KOLOM = 1;
+		   
+		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM);
+		   MVODatasource mvoDatasource = new MVODatasource(datasource);
+		   mvoDatasource.setDatasourceID(1);
+		   
+		   //train mock object
+		   Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
+		   
+	       // Controle
+		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
+	    	   fluvius.voegMVODatasourceToe(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+		   
+		   // Na de test verifiëren
+	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM);
+	}
+	
 	/**
 	 * Datasource aanmaken
 	 * Foutieve scenario:

@@ -17,10 +17,10 @@ public class AanmeldController
 	private GebruikerDaoJpa gJpa;
 	public AanmeldController() throws SQLIntegrityConstraintViolationException
 	{
-		this(false);
+		this(false, new GebruikerDaoJpa());
 	}
 	
-	public AanmeldController(boolean withInit) throws SQLIntegrityConstraintViolationException
+	public AanmeldController(boolean withInit, GebruikerDaoJpa gjpa) throws SQLIntegrityConstraintViolationException
 	{
 		if(withInit)
 		{
@@ -33,6 +33,11 @@ public class AanmeldController
 				e.printStackTrace();
 			}
 		}
+		setGjpa(gjpa);
+	}
+	
+	public void setGjpa(GebruikerDaoJpa mock) {
+		this.gJpa = mock;
 	}
 	
 	public DomeinController meldAan(String gebruikersnaam, String wachtwoord) throws ExceptionInInitializerError, SQLIntegrityConstraintViolationException
@@ -41,7 +46,7 @@ public class AanmeldController
 		
 		try
 		{
-			gJpa = new GebruikerDaoJpa();
+			//gJpa = new GebruikerDaoJpa();
 			gJpa.startTransaction();
 		}
 		catch(ExceptionInInitializerError e)

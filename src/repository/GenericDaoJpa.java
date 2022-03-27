@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 public class GenericDaoJpa<T> implements GenericDao<T>
 {
-	private static final String PU_NAME = DatabaseSelector.ISLOCALHOST ? "local" : "fluvius";
+	private static final String PU_NAME = DatabaseSelector.ISLOCALHOST ? "local2" : "fluvius";
 	private  final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
 	protected   final EntityManager em = emf.createEntityManager();
 	private final Class<T> type;

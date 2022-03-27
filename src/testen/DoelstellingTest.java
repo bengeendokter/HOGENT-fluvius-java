@@ -36,18 +36,29 @@ import domein.MVODatasource;
 import domein.Rol;
 import domein.SdGoal;
 import domein.Som;
-import repository.MVODoelstellingDao;
+import repository.CategorieDaoJpa;
+import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDaoJpa;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DoelstellingTest {
-
+	
 	@Mock
-    private MVODoelstellingDao doelstellingRepo;
+    private CategorieDaoJpa categorieRepo;
+	
+	@Mock
+    private SdGoalDaoJpa sdgoalRepo;
+	
+	@Mock
+    private MVODoelstellingDaoJpa mvoDoelstellingRepo;
+	
+	@Mock
+    private MVODatasourceDaoJpa dataRepo;
 	
 	@InjectMocks
-	private static Fluvius fluvius;
-	
+	private  static Fluvius fluvius;
 	
 	/**
 	 * Doelstelling composite aanmaken 
@@ -67,7 +78,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -94,10 +105,11 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Component doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		 
-		   Mockito.when(doelstellingRepo.getByNaam(naam)).thenReturn(doelstelling);
+		   Mockito.when(mvoDoelstellingRepo
+				   .getByNaam(naam)).thenReturn(doelstelling);
 	       // Controle
 		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
 	    	  fluvius.voegMVODoelstellingToeZonderSubs(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
@@ -124,7 +136,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 			
 	       
 	       // Controle
@@ -151,7 +163,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Doelstelling doelstellingComposite = new Composite(new DTOMVODoelstelling("Composite", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		   subDoelstellingen.add(doelstellingComposite);
@@ -183,7 +195,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -211,7 +223,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = null;
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 		   // Controle
@@ -238,7 +250,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = null;
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 		   // Controle
@@ -275,7 +287,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -302,7 +314,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Doelstelling doelstellingComposite1 = new Composite(new DTOMVODoelstelling("Composite1", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		   Doelstelling doelstellingComposite2 = new Composite(new DTOMVODoelstelling("Composite2", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite1), formule));
 		   Doelstelling doelstellingComposite3 = new Composite(new DTOMVODoelstelling("Composite3", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite2), formule));
@@ -332,12 +344,16 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Som();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource(naam, "csv", "src/data/csvDouble.csv","","",""));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
 		 
 	    
 		   // Controle
-		   Assertions.assertEquals( doesltellingLeaf.getBerekendewaarde().values().stream().findFirst().get(), 34.4f,0.005); 
+		   Assertions.assertEquals(
+				   doesltellingLeaf.getBerekendewaarde().values().stream().findFirst().get()
+				   , 22.7f
+				   ,0.005
+				   ); 
 	}
 	
 	

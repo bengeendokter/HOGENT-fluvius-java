@@ -21,7 +21,10 @@ import domein.DTOCategorie;
 import domein.Fluvius;
 import domein.SDGCategorie;
 import domein.SdGoal;
-import repository.CategorieDao;
+import repository.CategorieDaoJpa;
+import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDaoJpa;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -29,10 +32,19 @@ import repository.CategorieDao;
 public class CategorieTest{
 
 	@Mock
-    private CategorieDao categorieRepo;
+    private CategorieDaoJpa categorieRepo;
+	
+	@Mock
+    private SdGoalDaoJpa sdgoalRepo;
+	
+	@Mock
+    private MVODoelstellingDaoJpa doelstellingRepo;
+	
+	@Mock
+    private MVODatasourceDaoJpa dataRepo;
 	
 	@InjectMocks
-	private static Fluvius fluvius;
+	private  static Fluvius fluvius;
 	
 	
 	/**
@@ -134,16 +146,15 @@ public class CategorieTest{
 	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
 
 	}
-	
 	/**
 	 * Categorie wijzigen
 	 * Foutieve scenario's:
 	 * Categorie wijzigen zonder een naam 
 	 * Met sdg's
 	 */
-	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = {"        "})
+	@ParameterizedTest
 	public void wijzigCategorieNaam_foutieveNaamSdg_exception(String naam)
 	{
 		   // Alles klaarzetten
@@ -155,21 +166,28 @@ public class CategorieTest{
 	       List<SdGoal> sdgs1 = new ArrayList<>(Arrays.asList(sdg1));
 	       List<SdGoal> sdgs2 = new ArrayList<>(Arrays.asList(sdg2));
 	       SDGCategorie eenCategorie = new SDGCategorie(new DTOCategorie(CATEGORIENAAMOLD, ICON, sdgs1));
-	       SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie("TestCategorie", ICON, sdgs2));
+	       //SDGCategorie tweedeCategorie = new SDGCategorie(new DTOCategorie("TestCategorie", ICON, sdgs2));
 	       eenCategorie.setCategorieID(0);
-	       tweedeCategorie.setCategorieID(1);
+	       //tweedeCategorie.setCategorieID(1);
 	       fluvius.setCurrentCategorie(eenCategorie);
 	       // Het mock object trainen
-	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(eenCategorie);
+	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie)));
+	       //Mockito.lenient().when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(tweedeCategorie);
+	       Mockito.lenient().when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
 	    		   () -> fluvius.wijzigCategorie(new DTOCategorie(CATEGORIENAAMNEW, ICON, sdgs1)));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo, Mockito.times(1)).findAll();
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMNEW);
+	      if(naam == null){
+	    	  Mockito.verify(categorieRepo, Mockito.times(2)).findAll();
+	      }
+	      else if(naam.isBlank()) {
+	    	  Mockito.verify(categorieRepo, Mockito.times(1)).findAll();
+	      }
+
+	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAMOLD);
 	}
 	
 	/**
@@ -198,7 +216,7 @@ public class CategorieTest{
 	       // Het mock object trainen
 	       Mockito.lenient().when(categorieRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(eenCategorie, tweedeCategorie)));
 	       //Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMOLD)).thenReturn(eenCategorie);
-	       Mockito.when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(tweedeCategorie);
+	       Mockito.lenient().when(categorieRepo.getByNaam(CATEGORIENAAMNEW)).thenReturn(tweedeCategorie);
 	       
 	       // Uitvoeren
 	       Assertions.assertThrows(IllegalArgumentException.class, 
@@ -241,7 +259,7 @@ public class CategorieTest{
 	    		   () -> fluvius.wijzigCategorie(new DTOCategorie(CATEGORIENAAM2, ICON, sdgs3)));
 	       
 	       // Na de test verifiëren
-	       Mockito.verify(categorieRepo).getByNaam(CATEGORIENAAM2);
+	       Mockito.verify(categorieRepo, Mockito.times(2)).getByNaam(CATEGORIENAAM2);
 	       
 	}
 	

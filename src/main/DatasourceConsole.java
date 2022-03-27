@@ -6,6 +6,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import domein.AanmeldController;
 import domein.DTODatasource;
 import domein.DomeinController;
+import repository.GebruikerDaoJpa;
 
 public class DatasourceConsole {
 	
@@ -77,7 +78,7 @@ public class DatasourceConsole {
 		  ds = new MVODatasource(new DTODatasource("testdatabank1", "databank", null, null, "userX", "passwordX"));
 		  em.persist(ds);*/
 		  
-		AanmeldController aanmeldController = new AanmeldController(true);
+		AanmeldController aanmeldController = new AanmeldController(true, new GebruikerDaoJpa());
 		DomeinController dc = aanmeldController.meldAan("JanJansens", "123456789"); 
 		
 		DTODatasource d = new DTODatasource("co2 mercedes2", "csv", "src/data/csvDouble.csv",  null, null, null, true, "snel", "uitstoot", 1);
