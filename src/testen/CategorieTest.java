@@ -21,9 +21,13 @@ import domein.DTOCategorie;
 import domein.Fluvius;
 import domein.SDGCategorie;
 import domein.SdGoal;
+import repository.CategorieDao;
 import repository.CategorieDaoJpa;
+import repository.MVODatasourceDao;
 import repository.MVODatasourceDaoJpa;
+import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
 
 
@@ -32,16 +36,16 @@ import repository.SdGoalDaoJpa;
 public class CategorieTest{
 
 	@Mock
-    private CategorieDaoJpa categorieRepo;
+    private CategorieDao categorieRepo;
 	
 	@Mock
-    private SdGoalDaoJpa sdgoalRepo;
+    private SdGoalDao sdgoalRepo;
 	
 	@Mock
-    private MVODoelstellingDaoJpa doelstellingRepo;
+    private MVODoelstellingDao doelstellingRepo;
 	
 	@Mock
-    private MVODatasourceDaoJpa dataRepo;
+    private MVODatasourceDao dataRepo;
 	
 	@InjectMocks
 	private  static Fluvius fluvius;

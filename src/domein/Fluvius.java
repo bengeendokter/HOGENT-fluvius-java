@@ -52,7 +52,7 @@ public class Fluvius
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
-	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa
+	public Fluvius(CategorieDao categorieDaoJpa, SdGoalDao sdGoalDaoJpa, MVODoelstellingDao mvoDoelstellingDaoJpa, MVODatasourceDao mvoDatasourceDaoJpa
 			)
 	{
 		setCategorieRepo(categorieDaoJpa);
@@ -332,22 +332,16 @@ public class Fluvius
 	
 	public List<Doelstelling> geefDoelstellingenDieGeenSubsHebben(){
 		List<Doelstelling> doelZonderSubs = new ArrayList<>();
-		for(Doelstelling d: doelstellingen) {
-			if(d.getParentComponent() == null && d.getComponents().isEmpty()) {
-				doelZonderSubs.add(d);
-			}
-		}
-//		List<Doelstelling> doelZonderSubs = new ArrayList<>();
-//		doelstellingen.forEach(d -> {
-//			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
-//			while (iterator.hasNext()) {
-//	            Component component = iterator.next();
-//
-//	            if(component.isLeaf() ) {
-//	            	doelZonderSubs.add(component);
-//	            }
-//	        }
-//		});
+		doelstellingen.forEach(d -> {
+			Iterator<Component> iterator = new CompositeIterator(Arrays.asList(d).iterator());
+			while (iterator.hasNext()) {
+	            Component component = iterator.next();
+
+	            if(component.isLeaf() ) {
+	            	doelZonderSubs.add(component);
+	            }
+	        }
+		});
 		
 		return doelZonderSubs;
 	}
@@ -462,7 +456,6 @@ public class Fluvius
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
 			/*Component parent = currentDoelstelling.getParentComponent();
-
 			while (parent.getParentComponent() != null) {
 				parent = parent.getParentComponent();
 			}

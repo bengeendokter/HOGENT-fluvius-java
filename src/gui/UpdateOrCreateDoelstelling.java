@@ -457,8 +457,11 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 						// met subs
 						List<Doelstelling> subDoelstellingen = rootNode.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
 
-						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal, 
-								datasource, subDoelstellingen, bewerking, jaar );
+
+						
+						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
+								datasource, subDoelstellingen, bewerking, 2020);
+
 						
 						if(doelstellingToUpdate != null)
 						{

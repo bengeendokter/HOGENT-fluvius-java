@@ -995,11 +995,5 @@ public class PopulateDB {
 		datasourceRepo.commitTransaction();
 		doelstellingenRepo.commitTransaction();
 
-		l1.setJaar(2021);
-		l1.setFormule(new Average());
-		l1.getBerekendewaarde();
-		//doelstellingenRepo.startTransaction();
-		//doelstellingenRepo.update(l1);
-		//doelstellingenRepo.commitTransaction();
 	}
 }
