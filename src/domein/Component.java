@@ -58,6 +58,8 @@ public abstract class Component implements Doelstelling, Serializable{
 	private List<Rol> rollen = new ArrayList<>();
 	@ManyToOne
 	private SdGoal sdGoal;
+	
+	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bewerking formule;
 	
@@ -100,6 +102,7 @@ public abstract class Component implements Doelstelling, Serializable{
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
 		setFormule(d.bewerking);
+		
 		
 		//historiek
 		setJaar(d.jaar);
@@ -176,6 +179,8 @@ public abstract class Component implements Doelstelling, Serializable{
 		return sdGoal;
 	}
 	
+
+	
 	public Bewerking getFormule() {
 		return formule;
 	}
@@ -223,6 +228,8 @@ public abstract class Component implements Doelstelling, Serializable{
 		
 		this.sdGoal = goal;
 	}
+	
+
 	
 	public void setFormule(Bewerking bewerking) {
 		if(bewerking == null)

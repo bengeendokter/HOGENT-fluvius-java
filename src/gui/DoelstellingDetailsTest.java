@@ -21,6 +21,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -86,6 +87,10 @@ public class DoelstellingDetailsTest extends BorderPane
 	private Tooltip tooltipSDG;
 	@FXML
 	private HBox hBoxDatasource;
+	@FXML
+	private Label lblJaar;
+	@FXML
+	private Label datapickerJaar;
 	
 	public DoelstellingDetailsTest(DomeinController dc, Doelstelling huidigeDoelstelling)
 	{
@@ -96,7 +101,7 @@ public class DoelstellingDetailsTest extends BorderPane
 		try
 		{
 			loader.load();
-			
+			datapickerJaar.setText(String.format("%d", huidigeDoelstelling.getJaar()));
 			lblErrorMessage.setVisible(false);
 			lblNaamIngevuld.setText(huidigeDoelstelling.getNaam());
 			lblBewerkingIngevuld.setText(huidigeDoelstelling.getFormule().toString());

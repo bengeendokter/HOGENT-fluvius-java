@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
 
 import domein.Average;
 import domein.Bewerking;
+import domein.Categorie;
 import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
@@ -18,6 +21,7 @@ import domein.GeenBewerking;
 import domein.Rol;
 import domein.SdGoal;
 import domein.Som;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,9 +33,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -111,6 +118,10 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	private HBox hboxDatasource;
 	@FXML
 	private Label lblEenheid;
+	@FXML
+	private Label lblJaar;
+	@FXML
+	private Spinner datepickerJaar;
 	
 	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average(), new GeenBewerking()));
 	private List<String> iconen = (List<String>) Arrays
@@ -138,9 +149,17 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			treeGekozenSubs.setRoot(rootNode);
 			treeGekozenSubs.setShowRoot(false);
 			
+			// jaar instellen
+			
+			datepickerJaar.setEditable(true);
+			datepickerJaar.valueProperty().addListener((observableValue, oldValue, newValue) -> handleSpin(observableValue, oldValue, newValue));
+			
 			// indien wijzig doelstelling
 			if(doelstellingToUpdate != null)
 			{
+			
+				datepickerJaar.getValueFactory().setValue(doelstellingToUpdate.getJaar());
+				
 				// toon gepaste velden indien Leaf of Composite
 				isSubdoelstelling.setVisible(false);
 				if(doelstellingToUpdate.getDatasource() == null)
@@ -207,6 +226,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			else // ga er van uit dat nieuwe sdGoal Composite is
 			{
 				hboxDatasource.setVisible(false);
+				datepickerJaar.getValueFactory().setValue(LocalDateTime.now().getYear());
 			}
 			
 			//listIcoon opvullen met iconen
@@ -270,16 +290,25 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			});
 			
 			choiceBewerking.setItems(FXCollections.observableList(doelTypes));
+			
+			// ITEMS INSTELLEN
 			choiceSdg.setItems(FXCollections
 					.observableList(dc.getSdgs().stream().filter(sdg -> sdg.getParentSDG() == null).toList()));
 			
+	
 			// subSdGoal
 			choiceSdg.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 				if(newValue != null)
 				{
-					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
-							.filter(sdg -> sdg.getParentSDG().getId() == Integer.valueOf(newValue.getId()))
-							.toList()));
+					List<SdGoal> bijhorendegoals = new ArrayList<>();
+					for(SdGoal s: dc.getSdgs()) {
+						if(s.getParentSDG() != null) {
+							if(s.getParentSDG().getId() == newValue.getId()) {
+								bijhorendegoals.add(s);
+							}
+						}
+					}
+					choiceSubSdg.setItems(FXCollections.observableList(bijhorendegoals));
 				}
 			});
 			
@@ -329,12 +358,22 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			
 			// TODO filter kies sub doelstellingen
 			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
+			
+			
+			
+			System.out.println(dc.geefDoelstellingenDieGeenSubsHebben());
+			for (Doelstelling d : dc.geefDoelstellingenDieGeenSubsHebben()) {
+				
+	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(d);
+	            rootNodeKies.getChildren().add(empLeaf);
+			}
+			
 			treeKiesSubs.setRoot(rootNodeKies);
 			treeKiesSubs.setShowRoot(false);
 			
-			rootNodeKies.getChildren().addAll(
-					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
-			
+//			rootNodeKies.getChildren().addAll(
+//					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
+//			
 			// TODO datasource/suboelen on select change eenheid
 			
 			// TODO move subdoelen tussen kies en gekozen onclick
@@ -402,15 +441,24 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							sdGoal = choiceSdg.getValue();
 						}
 						
+						
 						Bewerking bewerking = choiceBewerking.getValue();
 						
 						// zonder subs
 						Datasource datasource = choiceDatasource.getValue();
+						
+						Object e = datepickerJaar.getValueFactory().getValue();
+						int jaar = 0;
+						if(e != null) {
+							jaar = (Integer) e;
+						} else {
+							jaar = LocalDateTime.now().getYear();
+						}
 						// met subs
 						List<Doelstelling> subDoelstellingen = rootNode.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
 
-						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
-								datasource, subDoelstellingen, bewerking);
+						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal, 
+								datasource, subDoelstellingen, bewerking, jaar );
 						
 						if(doelstellingToUpdate != null)
 						{
@@ -492,5 +540,15 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	    	
 	    }
 	}
+	
+	private void handleSpin(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+        try {
+            if (newValue == null) {
+                datepickerJaar.getValueFactory().setValue((int)oldValue);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 	
 }

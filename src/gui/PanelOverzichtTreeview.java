@@ -77,6 +77,8 @@ public class PanelOverzichtTreeview extends VBox
 		treeview.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 			if(newValue != null)
 			{
+				treeview.setStyle("-fx-background-color: white");
+				treeview.setStyle("-fx-selection-bar:#D3D3D3; -fx-background-insets: 0 ;");
 				// Eerst het hoofdscherm opvragen adhv dit scherm
 				Parent hoofdScherm = PanelOverzichtTreeview.this.getParent();
 				

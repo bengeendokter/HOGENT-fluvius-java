@@ -18,4 +18,5 @@ public interface Doelstelling extends ListViewInterface {
 	public Composite getParentComponent();
 	public MVODatasource getDatasource();
 	public String getEenheid();
+	public int getJaar();
 }

@@ -84,7 +84,7 @@ public class PanelOverzicht<E> extends VBox {
 				//CategorieDetailPanel cdp = new CategorieDetailPanel();
 				
 				list.setStyle("-fx-background-color: white");
-				list.setStyle("-fx-selection-bar:#B2D234; -fx-background-insets: 0 ;");
+				list.setStyle("-fx-selection-bar:#D3D3D3; -fx-background-insets: 0 ;");
 
 
 				// Eerst het hoofdscherm opvragen adhv dit scherm

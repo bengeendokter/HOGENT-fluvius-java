@@ -18,11 +18,14 @@ import repository.MVODatasourceDao;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
+import repository.SdGoalDao;
+import repository.SdGoalDaoJpa;
 
 public class PopulateDB {
 	public static void run() throws IOException, SQLIntegrityConstraintViolationException {
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
-		GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
+		SdGoalDao sdGoalRepo = new SdGoalDaoJpa();
+		//GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
 		CategorieDao categorieRepo = new CategorieDaoJpa();
 		MVODoelstellingDao doelstellingenRepo = new MVODoelstellingDaoJpa();
 		MVODatasourceDao datasourceRepo = new MVODatasourceDaoJpa();
@@ -897,14 +900,23 @@ public class PopulateDB {
 		sdGoalRepo.insert(goalp17);
 		sdGoalRepo.insert(goalp18);
 		sdGoalRepo.insert(goalp19);
+		
+		sdGoalRepo.commitTransaction();
+		SdGoal d1 = sdGoalRepo.getByNaam("Geen armoede");
+		SdGoal d2 = sdGoalRepo.getByNaam("1.1 Tegen 2030 extreme armoede uitroeien voor alle mensen overal, momenteel gemeten als mensen die leven van minder dan $ 1,25 per dag");
+		SdGoal d3 = sdGoalRepo.getByNaam("1.2 Tegen 2030 het aandeel mannen, vrouwen en kinderen van alle leeftijden dat in al zijn dimensies in armoede leeft, met minstens de helft verminderen volgens nationale definities");
+		SdGoal d4 = sdGoalRepo.getByNaam("1.3 Implementeer nationaal passende socialebeschermingsstelsels en maatregelen voor iedereen, inclusief vloeren, en bereik tegen 2030 een substantiële dekking van de armen en de kwetsbaren");
+		SdGoal d5 = sdGoalRepo.getByNaam("1.4 Tegen 2030 ervoor zorgen dat alle mannen en vrouwen, in het bijzonder de armen en de kwetsbaren, gelijke rechten hebben op economische hulpbronnen, evenals toegang tot basisdiensten, eigendom en controle over land en andere vormen van eigendom, erfenis, natuurlijke hulpbronnen, passende nieuwe technologie en financiële diensten, waaronder microfinanciering");
 
+		SdGoal dgoal4 = sdGoalRepo.getByNaam("Kwaliteitsonderwijs");
+		SdGoal dgoal3 = sdGoalRepo.getByNaam("Goede gezondheid en welzijn");
 		// Categorien
 		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/people.png",
-				new ArrayList<>(Arrays.asList(goal1, goalx1, goalx2, goalx3, goalx4)))));
+				new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5)))));
 		categorieRepo.insert(new SDGCategorie(
-				new DTOCategorie("Sociaal", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(goal4)))));
+				new DTOCategorie("Sociaal", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(dgoal4)))));
 		categorieRepo.insert(new SDGCategorie(
-				new DTOCategorie("Omgeving", "file:src/images/planet.jpg", new ArrayList<>(Arrays.asList(goal3)))));
+				new DTOCategorie("Omgeving", "file:src/images/planet.jpg", new ArrayList<>(Arrays.asList(dgoal3)))));
 		// Rollen
 		List<Rol> rollen = new ArrayList<>();
 		Rol rol = new Rol("MVO Coördinator");
@@ -928,20 +940,25 @@ public class PopulateDB {
 		datasources.add(mvd2);
 		datasources.add(mvd3);
 		datasources.add(mvd4);
-
+		
 		// Doelstellingen
 		
 		List<Doelstelling> lijst1 = new ArrayList<>();
 		List<Doelstelling> lijst2 = new ArrayList<>();
 		
+		
+		SdGoal g13 = sdGoalRepo.getByNaam("Klimaatactie");
+		SdGoal g131 = sdGoalRepo.getByNaam("13.1 Versterking van de veerkracht en het aanpassingsvermogen aan klimaatgerelateerde gevaren en natuurrampen in alle landen");
+				
+		
 		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal kinderen", "file:src/images/peace.png", 16,
-				rollen, goal1, mvd4, new ArrayList<>(), new Som(), 2020));
+				rollen, d1,  mvd4, new ArrayList<>(), new Som(), 2020));
 		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 mercedes", "file:src/images/planet.jpg", 50,
-				rollen, goal_13_1, mvd1, new ArrayList<>(), new Average(), 2020));
+				rollen, g131, mvd1, new ArrayList<>(), new Average(), 2020));
 		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 audi", "file:src/images/planet.jpg", 40,
-				rollen, goal13, mvd2, new ArrayList<>(), new Average(), 2020));
+				rollen, g13, mvd2, new ArrayList<>(), new Average(), 2020));
 		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 bmw", "file:src/images/planet.jpg", 30,
-				rollen, goal13, mvd3, new ArrayList<>(), new Average(), 2020));
+				rollen, g13, mvd3, new ArrayList<>(), new Average(), 2020));
 		
 		doelstellingenRepo.insert(l1);
 		doelstellingenRepo.insert(l2);
@@ -952,25 +969,28 @@ public class PopulateDB {
 		lijst1.add(l3);
 		lijst1.add(l4);
 		
+		
+		
 		Composite c1 = new Composite(new DTOMVODoelstelling("CO2TrageAuto's", "file:src/images/planet.jpg", 10,
-		rollen, goal13, null, lijst1, new Average(), 2020));
+		rollen, g13, null, lijst1, new Average(), 2020));
 		/*c1.add(l3);
 		c1.add(l4);*/
 		
 		doelstellingenRepo.insert(c1);
 		
 		
+		
+
 		lijst2.add(c1);
 		lijst2.add(l2);
 		Composite c2 = new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
-				rollen, goal13, null, lijst2, new Average(), 2020));		
+				rollen, g13, null, lijst2, new Average(), 2020));		
 		/*c2.add(c1);
 		c2.add(l2);*/
 		
 		doelstellingenRepo.insert(c2);
-		
 		gebruikerRepo.commitTransaction();
-		sdGoalRepo.commitTransaction();
+		
 		categorieRepo.commitTransaction();
 		datasourceRepo.commitTransaction();
 		doelstellingenRepo.commitTransaction();

@@ -68,7 +68,7 @@
                   </Label>
                   <Label fx:id="lblNaamIngevuld" text="dummynaam">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="126.0" />
@@ -85,7 +85,7 @@
                   </Label>
                   <Label fx:id="lblBewerkingIngevuld" text="dummylabel">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="85.0" />
@@ -102,7 +102,7 @@
                   </Label>
                   <Label fx:id="lblDoelWaardeIngevuld" text="dummydoelwaarde">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="71.0" />
@@ -110,7 +110,7 @@
                   </Label>
                   <Label fx:id="lblEenheidIngevuld" text="dummyeenheid">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -125,9 +125,9 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblBerekendeWaardeIngevuld" text="dummyBerWa">
+                  <Label fx:id="lblBerekendeWaardeIngevuld" prefHeight="31.0" prefWidth="178.0" text="dummyBerWa">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -135,7 +135,7 @@
                   </Label>
                   <Label fx:id="lblEenheidIngevuld2" text="dummyeenheid">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -175,7 +175,7 @@
                   </Label>
                   <Label fx:id="lblSdgIngevuld" maxWidth="356.0" text="dummySDG">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="141.0" />
@@ -195,10 +195,30 @@
                   </Label>
                   <Label fx:id="lblDatasourceIngevuld" text="dummydatasource">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="77.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lblJaar" prefHeight="31.0" prefWidth="127.0" text="Jaar:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="datapickerJaar" prefHeight="31.0" prefWidth="411.0" text="dummyjaar">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="120.0" />
                      </HBox.margin>
                   </Label>
                </children>

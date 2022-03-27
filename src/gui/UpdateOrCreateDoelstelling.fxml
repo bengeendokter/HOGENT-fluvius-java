@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.util.* ?>
+<?import java.lang.*?>
+<?import java.util.*?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -16,7 +21,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="629.0" prefWidth="985.0" type="BorderPane"
+	xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<HBox BorderPane.alignment="CENTER">
 			<children>
@@ -33,12 +39,18 @@
 			<right>
 				<HBox spacing="20.0" BorderPane.alignment="CENTER">
 					<children>
-						<Button fx:id="btnOpslaan" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #B2D234; -fx-text-fill: white;" text="Opslaan">
+						<Button fx:id="btnOpslaan" minWidth="-Infinity"
+							mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0"
+							style="-fx-background-color: #B2D234; -fx-text-fill: white;"
+							text="Opslaan">
 							<font>
 								<Font size="21.0" />
 							</font>
 						</Button>
-						<Button fx:id="btnAnnuleer" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #495973; -fx-text-fill: white;" text="Annuleer">
+						<Button fx:id="btnAnnuleer" minWidth="-Infinity"
+							mnemonicParsing="false" prefHeight="45.0" prefWidth="139.0"
+							style="-fx-background-color: #495973; -fx-text-fill: white;"
+							text="Annuleer">
 							<font>
 								<Font size="21.0" />
 							</font>
@@ -47,7 +59,8 @@
 				</HBox>
 			</right>
 			<left>
-				<Label fx:id="lblErrorMessage" maxWidth="680.0" text="Label" textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
+				<Label fx:id="lblErrorMessage" maxWidth="680.0" text="Label"
+					textFill="RED" wrapText="true" BorderPane.alignment="CENTER">
 					<font>
 						<Font name="System Bold" size="21.0" />
 					</font>
@@ -68,7 +81,8 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<TextField fx:id="txtnaam">
+						<TextField fx:id="txtnaam" prefHeight="26.0"
+							prefWidth="182.0">
 							<HBox.margin>
 								<Insets left="65.0" />
 							</HBox.margin>
@@ -85,7 +99,8 @@
 								<Insets />
 							</HBox.margin>
 						</Label>
-						<ChoiceBox fx:id="choiceBewerking" prefWidth="150.0">
+						<ChoiceBox fx:id="choiceBewerking" prefHeight="26.0"
+							prefWidth="180.0">
 							<HBox.margin>
 								<Insets left="24.0" />
 							</HBox.margin>
@@ -99,19 +114,21 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<TextField fx:id="txtDoelwaarde">
+						<TextField fx:id="txtDoelwaarde" prefHeight="26.0"
+							prefWidth="181.0">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</TextField>
-                  <Label fx:id="lblEenheid" alignment="CENTER" contentDisplay="CENTER" text="Eenheid">
-                     <font>
-                        <Font name="System Bold" size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
+						<Label fx:id="lblEenheid" alignment="CENTER"
+							contentDisplay="CENTER" text="Eenheid">
+							<font>
+								<Font size="21.0" />
+							</font>
+							<HBox.margin>
+								<Insets left="10.0" />
+							</HBox.margin>
+						</Label>
 					</children>
 				</HBox>
 				<HBox minHeight="100.0">
@@ -121,7 +138,8 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<ImageView fx:id="imgIcoon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+						<ImageView fx:id="imgIcoon" fitHeight="100.0"
+							fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@../images/planet.jpg" />
 							</image>
@@ -141,7 +159,8 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<ListView fx:id="listIconen" orientation="HORIZONTAL" prefHeight="80.0" prefWidth="282.0">
+						<ListView fx:id="listIconen" orientation="HORIZONTAL"
+							prefHeight="80.0" prefWidth="282.0">
 							<HBox.margin>
 								<Insets left="26.0" />
 							</HBox.margin>
@@ -155,27 +174,29 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<ChoiceBox fx:id="choiceSdg" prefWidth="150.0">
+						<ChoiceBox fx:id="choiceSdg" prefHeight="26.0"
+							prefWidth="180.0">
 							<HBox.margin>
 								<Insets left="80.0" />
 							</HBox.margin>
 						</ChoiceBox>
 					</children>
 				</HBox>
-            <HBox>
-               <children>
-                  <Label fx:id="lblSdg1" text="Sub SDG:">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="choiceSubSdg" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets left="39.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-               </children>
-            </HBox>
+				<HBox>
+					<children>
+						<Label fx:id="lblSdg1" text="Sub SDG:">
+							<font>
+								<Font size="21.0" />
+							</font>
+						</Label>
+						<ChoiceBox fx:id="choiceSubSdg" prefHeight="26.0"
+							prefWidth="179.0">
+							<HBox.margin>
+								<Insets left="39.0" />
+							</HBox.margin>
+						</ChoiceBox>
+					</children>
+				</HBox>
 				<HBox fx:id="hboxDatasource">
 					<children>
 						<Label fx:id="lblDatasource" text="Datasource:">
@@ -183,11 +204,30 @@
 								<Font size="21.0" />
 							</font>
 						</Label>
-						<ChoiceBox fx:id="choiceDatasource" prefWidth="150.0">
+						<ChoiceBox fx:id="choiceDatasource" prefHeight="26.0"
+							prefWidth="178.0">
 							<HBox.margin>
 								<Insets left="16.0" />
 							</HBox.margin>
 						</ChoiceBox>
+					</children>
+				</HBox>
+				<HBox prefHeight="100.0" prefWidth="200.0">
+					<children>
+						<Label fx:id="lblJaar" prefHeight="31.0" prefWidth="126.0"
+							text="Jaar: ">
+							<font>
+								<Font size="21.0" />
+							</font>
+						</Label>
+						<fx:define>
+							<Integer fx:id="min" fx:value="1900" />
+							<Integer fx:id="max" fx:value="2022" />
+						</fx:define>
+						<Spinner fx:id="datepickerJaar"
+							accessibleRole="DATE_PICKER" prefHeight="26.0" prefWidth="177.0"
+							min="$min" max="$max">
+						</Spinner>
 					</children>
 				</HBox>
 				<Label fx:id="lblRollen" text="Rollen:">
@@ -195,22 +235,26 @@
 						<Font size="21.0" />
 					</font>
 				</Label>
-				<CheckBox fx:id="kiesCoordinator" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="MVO coördinator">
+				<CheckBox fx:id="kiesCoordinator" mnemonicParsing="false"
+					prefHeight="31.0" prefWidth="296.0" text="MVO coördinator">
 					<font>
 						<Font size="21.0" />
 					</font>
 				</CheckBox>
-				<CheckBox fx:id="kiesManager" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Manager">
+				<CheckBox fx:id="kiesManager" mnemonicParsing="false"
+					prefHeight="31.0" prefWidth="296.0" text="Manager">
 					<font>
 						<Font size="21.0" />
 					</font>
 				</CheckBox>
-				<CheckBox fx:id="kiesDirectie" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Directie">
+				<CheckBox fx:id="kiesDirectie" mnemonicParsing="false"
+					prefHeight="31.0" prefWidth="296.0" text="Directie">
 					<font>
 						<Font size="21.0" />
 					</font>
 				</CheckBox>
-				<CheckBox fx:id="kiesStakeholder" mnemonicParsing="false" prefHeight="31.0" prefWidth="296.0" text="Stakeholder">
+				<CheckBox fx:id="kiesStakeholder" mnemonicParsing="false"
+					prefHeight="31.0" prefWidth="296.0" text="Stakeholder">
 					<font>
 						<Font size="21.0" />
 					</font>
@@ -219,64 +263,69 @@
 		</VBox>
 	</left>
 	<right>
-      <VBox BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets left="30.0" />
-         </BorderPane.margin>
-         <children>
-            <CheckBox fx:id="isSubdoelstelling" mnemonicParsing="false" text="Is gekoppeld aan datasource">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </CheckBox>
-      		<HBox fx:id="hboxSubdoelstellingen">
-      			<children>
-      				<VBox alignment="CENTER_LEFT">
-      					<children>
-      						<Label fx:id="lblKiesSub" text="Kies subdoelstellingen:">
-      							<font>
-      								<Font size="21.0" />
-      							</font>
-      						</Label>
-      						<TreeView fx:id="treeKiesSubs" />
-      					</children>
-      				</VBox>
-      				<VBox alignment="CENTER" spacing="10.0">
-      					<children>
-      						<ImageView fx:id="arrow1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-      							<image>
-      								<Image url="@../images/arrow.png" />
-      							</image>
-      							<VBox.margin>
-      								<Insets />
-      							</VBox.margin>
-      						</ImageView>
-      						<ImageView fx:id="arrow2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
-      							<image>
-      								<Image url="@../images/arrow.png" />
-      							</image>
-      							<VBox.margin>
-      								<Insets />
-      							</VBox.margin>
-      						</ImageView>
-      					</children>
-      				</VBox>
-      				<VBox alignment="CENTER_LEFT">
-      					<children>
-      						<Label fx:id="lblSubDoelstellingen" text="Subdoelstellingen:">
-      							<font>
-      								<Font size="21.0" />
-      							</font>
-      						</Label>
-      						<TreeView fx:id="treeGekozenSubs" />
-      					</children>
-      				</VBox>
-      			</children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-      		</HBox>
-         </children>
-      </VBox>
+		<VBox BorderPane.alignment="CENTER">
+			<BorderPane.margin>
+				<Insets left="30.0" />
+			</BorderPane.margin>
+			<children>
+				<CheckBox fx:id="isSubdoelstelling" mnemonicParsing="false"
+					text="Is gekoppeld aan datasource">
+					<font>
+						<Font size="21.0" />
+					</font>
+				</CheckBox>
+				<HBox fx:id="hboxSubdoelstellingen">
+					<children>
+						<VBox alignment="CENTER_LEFT">
+							<children>
+								<Label fx:id="lblKiesSub" text="Kies subdoelstellingen:">
+									<font>
+										<Font size="21.0" />
+									</font>
+								</Label>
+								<TreeView fx:id="treeKiesSubs" />
+							</children>
+						</VBox>
+						<VBox alignment="CENTER" spacing="10.0">
+							<children>
+								<ImageView fx:id="arrow1" fitHeight="30.0"
+									fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../images/arrow.png" />
+									</image>
+									<VBox.margin>
+										<Insets />
+									</VBox.margin>
+								</ImageView>
+								<ImageView fx:id="arrow2" fitHeight="30.0"
+									fitWidth="30.0" pickOnBounds="true" preserveRatio="true"
+									style="-fx-rotate: 180;">
+									<image>
+										<Image url="@../images/arrow.png" />
+									</image>
+									<VBox.margin>
+										<Insets />
+									</VBox.margin>
+								</ImageView>
+							</children>
+						</VBox>
+						<VBox alignment="CENTER_LEFT">
+							<children>
+								<Label fx:id="lblSubDoelstellingen"
+									text="Subdoelstellingen:">
+									<font>
+										<Font size="21.0" />
+									</font>
+								</Label>
+								<TreeView fx:id="treeGekozenSubs" />
+							</children>
+						</VBox>
+					</children>
+					<VBox.margin>
+						<Insets top="20.0" />
+					</VBox.margin>
+				</HBox>
+			</children>
+		</VBox>
 	</right>
 </fx:root>

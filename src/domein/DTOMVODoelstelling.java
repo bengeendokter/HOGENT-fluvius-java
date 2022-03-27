@@ -19,7 +19,7 @@ public class DTOMVODoelstelling
 	public int jaar;
 	
 	// Constructor
-	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal, Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, List<Rol> rollen, SdGoal goal,  Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking
 			,int jaar)
 	{
 		this.naam = naam;
