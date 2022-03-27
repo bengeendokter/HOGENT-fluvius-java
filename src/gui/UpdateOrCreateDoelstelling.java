@@ -275,7 +275,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				if(newValue != null)
 				{
 					choiceSubSdg.setItems(FXCollections.observableList(dc.getSdgs().stream()
-							.filter(sdg -> sdg.getParentSDG().getId() == Integer.valueOf(newValue.getId()))
+							.filter(sdg -> sdg.getParentSDG() != null && sdg.getParentSDG().getId() == Integer.valueOf(newValue.getId()))
 							.toList()));
 				}
 			});
@@ -354,6 +354,10 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							throw new IllegalArgumentException("MVO Doelstelling moet een icoon hebben");
 						}
 						String icoon = iconImage.getUrl();
+					
+				        String woord = "images";
+				        int index = icoon.indexOf(woord);
+				        icoon = "file:src/" + icoon.substring(index);
 						
 						double doelwaarde = 0.0;
 						try

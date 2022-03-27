@@ -23,14 +23,14 @@ public class Leaf extends Component {
 	// EIGEN ATTRIBUTEN
 	// ---------------------------------------------------------------------------------------------------
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(
-	        name="LEAFID", 
-	        nullable=true,
-	        foreignKey = @ForeignKey(
-	                name="FK_leafdata_ID",
-	                foreignKeyDefinition = "FOREIGN KEY (LEAFID) REFERENCES DataSource(id) ON UPDATE CASCADE ON DELETE CASCADE"
-	        )
-	)
+//	@JoinColumn(
+//	        name="LEAFID", 
+//	        nullable=true,
+//	        foreignKey = @ForeignKey(
+//	                name="FK_leafdata_ID",
+//	                foreignKeyDefinition = "FOREIGN KEY (LEAFID) REFERENCES DataSource(id) ON UPDATE CASCADE ON DELETE CASCADE"
+//	        )
+//	)
 	private MVODatasource datasource;
 
 	// CONSTRUCTOREN

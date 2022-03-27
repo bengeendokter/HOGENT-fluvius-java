@@ -19,7 +19,7 @@ public class Orde extends Application{
 			if(DatabaseSelector.ISLOCALHOST)
 			{
 				PopulateDB.run();
-				Thread.sleep(3000);
+				//Thread.sleep(3000);
 			}
 			
 			
