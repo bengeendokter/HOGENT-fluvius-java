@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.RollbackException;
 
@@ -20,6 +21,8 @@ import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
+import repository.ValueDao;
+import repository.ValueDaoJpa;
 
 public class Fluvius
 {
@@ -31,10 +34,15 @@ public class Fluvius
 	private ObservableList<Component> doelstellingen = FXCollections.observableArrayList();
 	private ObservableList<MVODatasource> datasources = FXCollections.observableArrayList();
 	
+	//private List<ComponentValue> values = new ArrayList<>();
+	//private ObservableList<ComponentValue> values = FXCollections.observableArrayList();
+	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
 	private MVODoelstellingDao mvoDoelstellingRepo;
 	private MVODatasourceDao mvoDatasourceRepo;
+	
+	//private ValueDao valueRepo;
 	
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
@@ -44,23 +52,38 @@ public class Fluvius
 	// CONSTRUCTOR
 	// ______________________________________________________________________________________________
 	
-	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa)
+	public Fluvius(CategorieDao categorieDaoJpa, SdGoalDao sdGoalDaoJpa, MVODoelstellingDao mvoDoelstellingDaoJpa, MVODatasourceDao mvoDatasourceDaoJpa
+			)
 	{
 		setCategorieRepo(categorieDaoJpa);
 		setSdGoalRepo(sdGoalDaoJpa);
 		setMVODoelstellingenRepo(mvoDoelstellingDaoJpa);
 		setMVODatasourceRepo(mvoDatasourceDaoJpa);
 		
+		//setValueRepo(valueDaoJpa);
+		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
 		
+		//setValues();
+		
 		
 		
 	}
 	
-	
+//	private void setValues()
+//	{
+//		values.clear();
+//		values.addAll(valueRepo.findAll());
+//	}
+
+//	public void setValueRepo(ValueDao mock)
+//	{
+//		valueRepo = mock;
+//	}
+
 	// SDG
 	// ______________________________________________________________________________________________
 	public void setSdGoalRepo(SdGoalDao mock)
@@ -77,27 +100,15 @@ public class Fluvius
 	public ObservableList<SdGoal> getBeschikbareSdgs()
 	{
 		//TODO filter op beschikbaar
-				categorien.forEach(c -> {
-					List<SdGoal> goals = c.getSdGoals();
-					for(int i = 0; i < goals.size(); i++) {
-						sdGoals.remove(goals.get(i));
-					}
-				});
-				//setSdGoals();
-				List<SdGoal> goalsToRemove = new ArrayList<>();
-				sdGoals.forEach(g -> {
-					if(g.getParentSDG() != null)
-					{
-						if(sdGoals.stream().filter(g2 -> {
-							return g.getParentSDG().getId() == g2.getId();}).findFirst().orElse(null) == null)
-						{
-							goalsToRemove.add(g);
-						}
-					}
-				});
-				goalsToRemove.forEach(g -> sdGoals.remove(g));
-				System.out.println("Beschikbare SdGoals ophalen");
-				return FXCollections.unmodifiableObservableList(sdGoals);
+		categorien.forEach(c -> {
+			List<SdGoal> goals = c.getSdGoals();
+			for(int i = 0; i < goals.size(); i++) {
+				sdGoals.remove(goals.get(i));
+			}
+		});
+		//setSdGoals();
+		System.out.println("Beschikbare SdGoals ophalen");
+		return FXCollections.unmodifiableObservableList(sdGoals);
 	}
 	
 	public ObservableList<SdGoal> getSdgs()
@@ -130,7 +141,7 @@ public class Fluvius
 	public ObservableList<Categorie> getCategorien()
 	{
 		setCategorien();
-		System.out.println("Alle Categoriën ophalen");
+		System.out.println("Alle Categori?n ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>)(Object)categorien);
 	}
 	
@@ -366,8 +377,15 @@ public class Fluvius
 			{
 				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
 			}
+			//historiek
+			Component c = new Leaf(doelstelling);
+			//ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			System.out.println("adding leaf");
+			//System.out.println(cv.toString());
+			//values.add(cv);
 			
-			mvoDoelstellingRepo.insert(new Leaf(doelstelling));
+			
+			mvoDoelstellingRepo.insert(c);
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -398,7 +416,13 @@ public class Fluvius
 				throw new IllegalArgumentException(String.format("MVO Doelstelling met naam %s bestaat al", doelstelling.naam));
 			}
 			
-			mvoDoelstellingRepo.insert(new Composite(doelstelling));
+			Component c = new Composite(doelstelling);
+			//ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			System.out.println("adding value");
+			//System.out.println(cv.toString());
+			//values.add(cv);
+			
+			mvoDoelstellingRepo.insert(c);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -431,14 +455,74 @@ public class Fluvius
 			
 			System.out.printf("MVO Doelstelling %s verwijderen uit databank%n", currentDoelstelling.toString());
 			mvoDoelstellingRepo.startTransaction();
-			Component parent = currentDoelstelling.getParentComponent();
+			/*Component parent = currentDoelstelling.getParentComponent();
+
+			while (parent.getParentComponent() != null) {
+				parent = parent.getParentComponent();
+			}
+			
+			System.out.printf("Dit is de naam van de parent : %s", parent.getNaam());
+			
+			
 			mvoDoelstellingRepo.delete((Component)currentDoelstelling);
 			if(parent != null)
 			{
-				parent.getComponents().remove(currentDoelstelling);
+				currentDoelstelling.getParentComponent().getComponents().remove(currentDoelstelling);
+				
+				
+				
 				mvoDoelstellingRepo.update(parent);
 			}
-			mvoDoelstellingRepo.commitTransaction();	
+			mvoDoelstellingRepo.commitTransaction();*/	
+			
+			//kan sub zijn -> hoogste nivau
+			//kan hoofd zijn -> hoogste niveau
+			//kan sub met hoofd zijn
+			
+			
+			//hoogste niveau
+			Component parent = null;
+			
+			if (currentDoelstelling.getParentComponent() == null) {
+				System.out.println("test");
+				mvoDoelstellingRepo.delete((Component)currentDoelstelling);
+				
+			} 
+			
+			//bevat hoofd
+				else {
+					System.out.println("test1");
+					//verwijderen en alles weer updaten tot hoogste niveau
+					parent = currentDoelstelling.getParentComponent();
+					
+					/*if (!mvoDatasourceRepo.isActive())
+						mvoDoelstellingRepo.startTransaction();*/
+					
+					
+					mvoDoelstellingRepo.delete((Component)currentDoelstelling);
+					parent.getComponents().remove(currentDoelstelling);
+					
+					
+					//mvoDoelstellingRepo.update(parent);
+					
+					//mvoDoelstellingRepo.commitTransaction();
+					
+					/*while (parent != null) {
+						mvoDoelstellingRepo.update(parent);
+						parent = parent.getParentComponent();
+					}*/
+					
+					while (parent.getParentComponent() != null) {
+						parent = parent.getParentComponent();
+					}
+					
+					parent.getBerekendewaarde();
+					mvoDoelstellingRepo.update(parent);
+					
+
+			}
+
+			mvoDoelstellingRepo.commitTransaction();
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -446,6 +530,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een MVO Doelstelling");
 		}
 		
@@ -461,16 +546,31 @@ public class Fluvius
 		{
 			throw new IllegalArgumentException("Er bestaat al een MVO Doelstelling met deze naam");
 		}
+		
+		//verwijder de doelstelling dat al bestaat omdat een nieuwe aangemaakt zal worden
+		/*setCurrentDoelstelling(doelstellingInRepo);
+		verwijderMVODoelstelling();*/
 
 		updateMVODoelstelling(doelstelling);
 	}
 	
 	private void updateMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
+		//bestaande historiek verwijderen
+		//ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
+		//valueRepo.delete(cvc);
+		
+		
+		
+		
 		if(currentDoelstelling == null) throw new IllegalArgumentException("Er is geen MVO Doelstelling geselecteerd");
 		try
 		{
+			
 			mvoDoelstellingRepo.startTransaction();
+		
+			
+			
 			Component comp;
 			if(doelstelling.datasource == null) {
 				comp = new Composite(doelstelling);
@@ -479,17 +579,54 @@ public class Fluvius
 			{
 				comp = new Leaf(doelstelling);
 			}
+			
+			Component original = mvoDoelstellingRepo.get(currentDoelstelling.getDoelstellingID());
+			if(original != null)
+			{
+				comp.setValues(original.getValues());
+			}
+			
+			//delete
+			
+			comp.setParentComponent(currentDoelstelling.getParentComponent());
 			comp.setDoelstellingID(currentDoelstelling.getDoelstellingID());
+			
 			mvoDoelstellingRepo.update(comp);
 			mvoDoelstellingRepo.commitTransaction();
+			
+			Component parent = comp;
+			
+			//parent = parent.getParentComponent();
+			
+			
+			while (parent.getParentComponent() != null) {
+				parent = parent.getParentComponent();
+			}
+			
+			System.out.printf("Dit is de naam van de parent : %s", parent.getNaam());
+	
+			mvoDoelstellingRepo.startTransaction();
+			parent.getBerekendewaarde();
+			mvoDoelstellingRepo.update(parent);
+			mvoDoelstellingRepo.commitTransaction();
+			
+			
+			
 		}
 		catch(Exception e)
 		{
-			mvoDoelstellingRepo.rollbackTransaction();
+			if (mvoDoelstellingRepo.isActive()) {
+				mvoDoelstellingRepo.rollbackTransaction();
+			}
+			
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
+		//System.out.println("After");
+		//System.out.println(values.toString());
 		setDoelstellingen();
+		
 	}
 	
 	
@@ -640,10 +777,8 @@ public class Fluvius
 	public ObservableList<Datasource> getDatasources()
 	{
 		setDatasources();
-		System.out.println("Alle Categoriën ophalen");
+		System.out.println("Alle Categori?n ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Datasource>)(Object)datasources);
 	}
-	
-	
 	
 }

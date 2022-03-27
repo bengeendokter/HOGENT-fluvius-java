@@ -83,7 +83,7 @@ public class DoelstellingTest {
 	       
 	       // Controle
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -106,13 +106,13 @@ public class DoelstellingTest {
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
 		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
-		   Component doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+		   Component doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		 
 		   Mockito.when(mvoDoelstellingRepo
 				   .getByNaam(naam)).thenReturn(doelstelling);
 	       // Controle
 		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	  fluvius.voegMVODoelstellingToeZonderSubs(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	  fluvius.voegMVODoelstellingToeZonderSubs(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -136,12 +136,12 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 			
 	       
 	       // Controle
 	       Assertions.assertDoesNotThrow(() -> {
-	    	   new Leaf(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Leaf(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -163,12 +163,12 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
-		   Doelstelling doelstellingComposite = new Composite(new DTOMVODoelstelling("Composite", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
-		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Doelstelling doelstellingComposite = new Composite(new DTOMVODoelstelling("Composite", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
+		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		   subDoelstellingen.add(doelstellingComposite);
 		   subDoelstellingen.add(doesltellingLeaf);
-		   Doelstelling doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+		   Doelstelling doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	 
 	    
 		   // Controle
@@ -200,7 +200,7 @@ public class DoelstellingTest {
 	       
 	       // Controle
 		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -228,7 +228,7 @@ public class DoelstellingTest {
 	       
 		   // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -255,7 +255,7 @@ public class DoelstellingTest {
 	       
 		   // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -292,7 +292,7 @@ public class DoelstellingTest {
 	       
 	       // Controle
 		   Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+	    	   new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 	       });
 	}
 	
@@ -315,13 +315,13 @@ public class DoelstellingTest {
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
 		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
-		   Doelstelling doelstellingComposite1 = new Composite(new DTOMVODoelstelling("Composite1", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
-		   Doelstelling doelstellingComposite2 = new Composite(new DTOMVODoelstelling("Composite2", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite1), formule));
-		   Doelstelling doelstellingComposite3 = new Composite(new DTOMVODoelstelling("Composite3", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite2), formule));
+		   Doelstelling doelstellingComposite1 = new Composite(new DTOMVODoelstelling("Composite1", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
+		   Doelstelling doelstellingComposite2 = new Composite(new DTOMVODoelstelling("Composite2", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite1), formule, 2020));
+		   Doelstelling doelstellingComposite3 = new Composite(new DTOMVODoelstelling("Composite3", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite2), formule, 2020));
 	    
 		   // Controle
 	       Assertions.assertThrows(IllegalArgumentException.class,() -> {
-	    	   new Composite(new DTOMVODoelstelling("Composite4", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite3), formule));
+	    	   new Composite(new DTOMVODoelstelling("Composite4", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite3), formule, 2020));
 	       });
 	}
 	
@@ -345,7 +345,7 @@ public class DoelstellingTest {
 		   Bewerking formule = new Som();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
 		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
-		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+		   Doelstelling doesltellingLeaf = new Leaf(new DTOMVODoelstelling("Leaf", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		 
 	    
 		   // Controle
