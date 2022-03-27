@@ -75,7 +75,7 @@ public class GenericDaoJpa<T> implements GenericDao<T>
 	@Override
 	public void insert(T object) throws SQLIntegrityConstraintViolationException
 	{
-		em.persist(object);
+		em.persist(em.merge(object));
 	}
 	
 	@Override
