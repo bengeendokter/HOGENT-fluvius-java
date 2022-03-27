@@ -26,7 +26,7 @@ public class DomeinController
 	public DomeinController(Gebruiker aangemeldeGebruiker)
 	{
 		this.aangemeldeGebruiker = aangemeldeGebruiker;
-		setFluvius(new Fluvius(new CategorieDaoJpa(), new SdGoalDaoJpa(),new MVODoelstellingDaoJpa(), new MVODatasourceDaoJpa(), new ValueDaoJpa()));
+		setFluvius(new Fluvius(new CategorieDaoJpa(), new SdGoalDaoJpa(),new MVODoelstellingDaoJpa(), new MVODatasourceDaoJpa()));
 		
 	}
 	

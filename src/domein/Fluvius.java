@@ -35,14 +35,14 @@ public class Fluvius
 	private ObservableList<MVODatasource> datasources = FXCollections.observableArrayList();
 	
 	//private List<ComponentValue> values = new ArrayList<>();
-	private ObservableList<ComponentValue> values = FXCollections.observableArrayList();
+	//private ObservableList<ComponentValue> values = FXCollections.observableArrayList();
 	
 	private CategorieDao categorieRepo;
 	private SdGoalDao sdGoalsRepo;
 	private MVODoelstellingDao mvoDoelstellingRepo;
 	private MVODatasourceDao mvoDatasourceRepo;
 	
-	private ValueDao valueRepo;
+	//private ValueDao valueRepo;
 	
 	private Categorie currentCategorie;
 	private Doelstelling currentDoelstelling;
@@ -53,36 +53,36 @@ public class Fluvius
 	// ______________________________________________________________________________________________
 	
 	public Fluvius(CategorieDaoJpa categorieDaoJpa, SdGoalDaoJpa sdGoalDaoJpa, MVODoelstellingDaoJpa mvoDoelstellingDaoJpa, MVODatasourceDaoJpa mvoDatasourceDaoJpa
-			, ValueDaoJpa valueDaoJpa)
+			)
 	{
 		setCategorieRepo(categorieDaoJpa);
 		setSdGoalRepo(sdGoalDaoJpa);
 		setMVODoelstellingenRepo(mvoDoelstellingDaoJpa);
 		setMVODatasourceRepo(mvoDatasourceDaoJpa);
 		
-		setValueRepo(valueDaoJpa);
+		//setValueRepo(valueDaoJpa);
 		
 		setCategorien();
 		setSdGoals();
 		setDoelstellingen();
 		setDatasources();
 		
-		setValues();
+		//setValues();
 		
 		
 		
 	}
 	
-	private void setValues()
-	{
-		values.clear();
-		values.addAll(valueRepo.findAll());
-	}
+//	private void setValues()
+//	{
+//		values.clear();
+//		values.addAll(valueRepo.findAll());
+//	}
 
-	public void setValueRepo(ValueDao mock)
-	{
-		valueRepo = mock;
-	}
+//	public void setValueRepo(ValueDao mock)
+//	{
+//		valueRepo = mock;
+//	}
 
 	// SDG
 	// ______________________________________________________________________________________________
@@ -379,10 +379,10 @@ public class Fluvius
 			}
 			//historiek
 			Component c = new Leaf(doelstelling);
-			ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			//ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
 			System.out.println("adding leaf");
-			System.out.println(cv.toString());
-			values.add(cv);
+			//System.out.println(cv.toString());
+			//values.add(cv);
 			
 			
 			mvoDoelstellingRepo.insert(c);
@@ -417,10 +417,10 @@ public class Fluvius
 			}
 			
 			Component c = new Composite(doelstelling);
-			ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
+			//ComponentValue cv = c.getComponentValue(c.getJaar(), c.getDoelstellingID());
 			System.out.println("adding value");
-			System.out.println(cv.toString());
-			values.add(cv);
+			//System.out.println(cv.toString());
+			//values.add(cv);
 			
 			mvoDoelstellingRepo.insert(c);
 		}
@@ -557,8 +557,8 @@ public class Fluvius
 	private void updateMVODoelstelling(DTOMVODoelstelling doelstelling)
 	{
 		//bestaande historiek verwijderen
-		/*ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
-		valueRepo.delete(cvc);*/
+		//ComponentValue cvc = values.stream().filter(e -> e.getC().getDoelstellingID() == currentDoelstelling.getDoelstellingID() && e.getDatum() == doelstelling.jaar).collect(Collectors.toList()).get(0);
+		//valueRepo.delete(cvc);
 		
 		
 		
@@ -568,7 +568,7 @@ public class Fluvius
 		{
 			
 			mvoDoelstellingRepo.startTransaction();
-			
+		
 			
 			
 			Component comp;
@@ -579,6 +579,14 @@ public class Fluvius
 			{
 				comp = new Leaf(doelstelling);
 			}
+			
+			Component original = mvoDoelstellingRepo.get(currentDoelstelling.getDoelstellingID());
+			if(original != null)
+			{
+				comp.setValues(original.getValues());
+			}
+			
+			//delete
 			
 			comp.setParentComponent(currentDoelstelling.getParentComponent());
 			comp.setDoelstellingID(currentDoelstelling.getDoelstellingID());
@@ -615,8 +623,8 @@ public class Fluvius
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een doelstelling update");
 		}
 		
-		System.out.println("After");
-		System.out.println(values.toString());
+		//System.out.println("After");
+		//System.out.println(values.toString());
 		setDoelstellingen();
 		
 	}

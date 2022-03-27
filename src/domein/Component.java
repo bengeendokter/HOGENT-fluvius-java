@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -66,21 +67,26 @@ public abstract class Component implements Doelstelling, Serializable{
 	@CollectionTable(name="valueattributes", joinColumns=@JoinColumn(name="doelstellingID"))
 	private Map<String, Double> value;*/
 	
-	@OneToMany(mappedBy="c", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComponentValue> componentValues = new ArrayList<>();
-	@JoinColumn(
-	        name="COMPONENTID", 
-	        nullable=true,
-	        foreignKey = @ForeignKey(
-	                name="FK_CValue_ID",
-	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(id) ON UPDATE CASCADE ON DELETE CASCADE"
-	        )
-	)
+	//@OneToMany(mappedBy="c", cascade = CascadeType.ALL, orphanRemoval = true)
+	//private List<ComponentValue> componentValues = new ArrayList<>();
 	
+	@OneToMany(mappedBy="component",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ComponentData> values = new ArrayList<>();
+//	@JoinColumn(
+//	        name="COMPONENTID", 
+//	        nullable=true,
+//	        foreignKey = @ForeignKey(
+//	                name="FK_CValue_ID",
+//	                foreignKeyDefinition = "FOREIGN KEY (COMPONENTID) REFERENCES ComponentValue(id) ON UPDATE CASCADE ON DELETE CASCADE"
+//	        )
+//	)
+//	
 	
 	//LocalDate.now().getYear()
 	private int jaar;
 	
+
+
 	@ManyToOne
 	private Composite parentComponent = null;
 	
@@ -99,28 +105,28 @@ public abstract class Component implements Doelstelling, Serializable{
 		setJaar(d.jaar);
 		
 		//intieel aanmaken
-		if (componentValues.isEmpty()) {
-			System.out.println("lege aanmaken");
-			System.out.println(getJaar());
-			ComponentValue v1 = new ComponentValue(null, getJaar(), null);
-			v1.setC(this);
-			setComponentValue(v1);
-			System.out.println(componentValues.size());
-			System.out.println( componentValues.get(0).getC().getDoelstellingID());
-			System.out.println( componentValues.get(0).getC().getJaar());
-			System.out.println(  componentValues.get(0).getDatum());
-			
-		}
-		else {
-			//dan wijzigen bij zelfde jaar
-			//getComponentValue(jaar, doelstellingID);
-			
-			//alle velden van component worden aangepast -> ook aangepast bij valueattributes (naam) ?
-		}
+//		if (componentValues.isEmpty()) {
+//			System.out.println("lege aanmaken");
+//			System.out.println(getJaar());
+//			ComponentValue v1 = new ComponentValue(null, getJaar(), null);
+//			v1.setC(this);
+//			setComponentValue(v1);
+//			System.out.println(componentValues.size());
+//			System.out.println( componentValues.get(0).getC().getDoelstellingID());
+//			System.out.println( componentValues.get(0).getC().getJaar());
+//			System.out.println(  componentValues.get(0).getDatum());
+//			
+//		}
+//		else {
+//			//dan wijzigen bij zelfde jaar
+//			//getComponentValue(jaar, doelstellingID);
+//			
+//			//alle velden van component worden aangepast -> ook aangepast bij valueattributes (naam) ?
+//		}
 		
 	}
 	
-	private void setJaar(int jaar) {
+	public void setJaar(int jaar) {
 		this.jaar = jaar;
 		
 	}
@@ -131,14 +137,14 @@ public abstract class Component implements Doelstelling, Serializable{
 		
 	}
 
-	private void setComponentValue(ComponentValue componentValue) {
-		componentValues.add(componentValue);
-		
-	}
-	
-	public ComponentValue getComponentValue(int jaar, int id ) {
-		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum() == jaar)).collect(Collectors.toList()).get(0);
-	}
+//	private void setComponentValue(ComponentValue componentValue) {
+//		componentValues.add(componentValue);
+//		
+//	}
+//	
+//	public ComponentValue getComponentValue(int jaar, int id ) {
+//		return componentValues.stream().filter(e -> (e.getC().getDoelstellingID() == id) && (e.getDatum() == jaar)).collect(Collectors.toList()).get(0);
+//	}
 
 	protected Component() {
 		
@@ -227,16 +233,22 @@ public abstract class Component implements Doelstelling, Serializable{
 		this.formule = bewerking;
 	}
 	
-	/*public void setValue(Map<String, Double> waarde) {
-		this.value = waarde;
+	public void setValue(Map<String, Double> waarde) {
+		ComponentData data = values.stream().filter(v -> jaar == v.getJaar()).findFirst().orElse(null);
+		if(data != null) values.remove(data);
+		System.out.printf("%s : %s%n", naam, jaar);
+		values.forEach(v -> System.out.printf("%s : %s%n ",v.getJaar(),v.getId()));
+		this.values.add(new ComponentData(waarde,this,jaar));
 	}
 	
 	public Map<String, Double> getValue() {
-		//System.out.printf("%s	|	%s%n", naam, formule.toString());
-		value.entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
+		System.out.printf("%s	|	%s%n", naam, formule.toString());
+		ComponentData data = values.stream().filter(v -> jaar == v.getJaar()).findFirst().orElse(null);
+		if(data == null) return new HashMap<>();
+		data.getValue().entrySet().forEach(es -> System.out.printf("%s : %s%n", es.getKey(), es.getValue()));
 		System.out.printf("%n%n");
-		return value;
-	}*/
+		return data.getValue();
+	}
 	
 	// METHODEN DIE OVERAL VOORKOMEN + HEBBEN EEN VERSCHILLENDE IMPLEMENTATIE --> ABSTRACT
 	// ---------------------------------------------------------------------------------------------------
@@ -346,6 +358,15 @@ public abstract class Component implements Doelstelling, Serializable{
 		}
 		
 		return numberOfChildLayers;
+	}
+	
+	
+	public List<ComponentData> getValues() {
+		return values;
+	}
+
+	public void setValues(List<ComponentData> values) {
+		this.values = values;
 	}
 	
 }

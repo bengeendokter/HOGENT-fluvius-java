@@ -85,16 +85,9 @@ public class Leaf extends Component {
 		
 	
 		//historiek
-		//setValue(mapNewName);
+		setValue(mapNewName);
 		
-		//gevallen waarbij value moet veranderen: initeel of bij zelfde datum
-		ComponentValue cv = getComponentValue(getJaar(), getDoelstellingID());
-		if (cv.getValue() == null ||  getJaar() == cv.getDatum()) {
-			getComponentValue(getJaar(), getDoelstellingID()).setValue(mapNewName);
-		}
-		
-		//return getValue();
-		return getComponentValue(getJaar(), getDoelstellingID()).getValue();
+		return getValue();
 	}
 
 
