@@ -431,5 +431,24 @@ public class DatasourceTest {
 	       });
 	}
 	
+	@ParameterizedTest
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	public void maakDatasource_TeKleineKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
+	
 	
 }
