@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class DoelstellingDetailsTest extends BorderPane
 {
@@ -91,6 +92,8 @@ public class DoelstellingDetailsTest extends BorderPane
 	private Label lblJaar;
 	@FXML
 	private Label datapickerJaar;
+	@FXML
+	private VBox vBoxSubDoelstellingen;
 	
 	public DoelstellingDetailsTest(DomeinController dc, Doelstelling huidigeDoelstelling)
 	{
@@ -101,6 +104,7 @@ public class DoelstellingDetailsTest extends BorderPane
 		try
 		{
 			loader.load();
+			
 			datapickerJaar.setText(String.format("%d", huidigeDoelstelling.getJaar()));
 			lblErrorMessage.setVisible(false);
 			lblNaamIngevuld.setText(huidigeDoelstelling.getNaam());
@@ -158,6 +162,12 @@ public class DoelstellingDetailsTest extends BorderPane
 			// vul subdoelstellingen in
 			TreeItem<Doelstelling> rootNode = new TreeItem<Doelstelling>(null);
 			addToTreeItem(rootNode, huidigeDoelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
+			
+			// Als doelstelling een leaf is -> Subdoelstellingen niet tonen
+			if (huidigeDoelstelling.getDatasource() != null) {
+				vBoxSubDoelstellingen.setVisible(false);
+				vBoxSubDoelstellingen.setManaged(false);
+			}
 			
 			treeViewSubDoelstellingen.setRoot(rootNode);
 			treeViewSubDoelstellingen.setShowRoot(false);

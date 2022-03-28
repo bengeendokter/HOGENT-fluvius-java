@@ -233,7 +233,7 @@
       </VBox>
    </left>
    <right>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox fx:id="vBoxSubDoelstellingen" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="lblSubDoelstellingen" text="Subdoelstellingen:">
                <font>
