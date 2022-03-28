@@ -377,6 +377,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			// TODO datasource/suboelen on select change eenheid
 			
 			// TODO move subdoelen tussen kies en gekozen onclick
+				// TODO (bug fixen)
+				// --> Als doelstelling een subdoelstelling (links naar rechts geswitched) wordt en weer uit de composite gedaan wordt (rechts naar links geswitched)
+				// dan komt het niet meer te zien in de overzicht van doelstellingen
 			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 			    handleMouseClicked(event);
 			};
