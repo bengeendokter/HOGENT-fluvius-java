@@ -139,7 +139,7 @@ public class Fluvius
 	public ObservableList<Categorie> getCategorien()
 	{
 		setCategorien();
-		System.out.println("Alle Categori?n ophalen");
+		System.out.println("Alle Categorieën ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>)(Object)categorien);
 	}
 	
@@ -787,7 +787,7 @@ public class Fluvius
 	public ObservableList<Datasource> getDatasources()
 	{
 		setDatasources();
-		System.out.println("Alle Categori?n ophalen");
+		System.out.println("Alle Categorieën ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Datasource>)(Object)datasources);
 	}
 	
