@@ -412,8 +412,9 @@ public class DatasourceTest {
 	 * Foutief scenario:
 	 * Datasource aanmaken met een foutief kolom
 	 */
-	@Test
-	public void maakDatasource_FoutiefKolom()
+	@ParameterizedTest
+	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
+	public void maakDatasource_TeGroteKolomNummer()
 	{
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
