@@ -42,6 +42,6 @@ public abstract class TypeDatasource implements Serializable  {
 	
 	public abstract String toString();
 	
-	public abstract int geefKolomLengte();
+	public abstract int geefKolomLengte() throws IOException;
 	
 }

@@ -254,7 +254,7 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	public void setKolom(int kolom) {
+	public void setKolom(int kolom) throws IOException {
 		if(kolom <=0 )
 		{
 			throw new IllegalArgumentException("De kolom van de Datasource is geen geldige waarde");

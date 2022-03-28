@@ -2,6 +2,7 @@ package domein;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -227,5 +228,141 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 	@Override
 	public String toString() {
 		return "excel";
+	}
+
+	@Override
+	public int geefKolomLengte() throws IOException {
+		if (link.charAt(link.length()-1) == 'x') {
+			return geefKolomLengteXLSX();
+		} 
+		return geefKolomLengteXLS();
+	}
+
+	private int geefKolomLengteXLS() throws IOException {
+		FileInputStream fis=new FileInputStream(new File(link));  
+		@SuppressWarnings("resource")
+		HSSFWorkbook wb=new HSSFWorkbook(fis);   
+		HSSFSheet sheet=wb.getSheetAt(0);    
+		FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();  
+		
+		//xlsx bestaat uit 1 of meerdere kolommen
+    	List<List<String>> lijstGeheel1 = new ArrayList<>();
+		List<String> lijst = new ArrayList<>();
+		
+		int teller = 0;
+		boolean eenKolom = false;
+		
+		for(Row row: sheet)  {  
+			//aantal rijen dat je wilt lezen is teller < x (voor alle rijen teller < 0)
+			if (teller < 0) break;
+	
+			for(Cell cell: row) {      
+	
+				switch(formulaEvaluator.evaluateInCell(cell).getCellTypeEnum())  {
+	  
+					case NUMERIC:    
+						lijst.add(String.valueOf(cell.getNumericCellValue()));
+						break;  
+						
+					case STRING:   		
+						lijst.add(cell.getStringCellValue());
+						break;
+						
+					default:
+						break;  
+				}  
+			} 
+			
+			if (teller == 0 && lijst.size()  == 1) eenKolom = true;
+			if (!eenKolom) {
+				lijstGeheel1.add(lijst);
+				lijst =  new ArrayList<>();
+			}	
+			teller++;
+			
+		}  
+		
+		if (!eenKolom) lijst =  new ArrayList<>();
+		/*List<Double> lijst1 = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+		//kolomnamen verwijderen uit lijst
+		return lijstGeheel1.get(0).size();
+	}
+
+	private int geefKolomLengteXLSX() {
+		List<List<String>> meerdereKolommen = new ArrayList<>();
+		List<String> enkelKolom = new ArrayList<>();
+		
+		try  {  
+			File file = new File(link);     
+			FileInputStream fis = new FileInputStream(file);     
+			 
+			@SuppressWarnings("resource")
+			XSSFWorkbook wb = new XSSFWorkbook(fis);   
+			XSSFSheet sheet = wb.getSheetAt(0);      
+			Iterator<Row> itr = sheet.iterator();
+			
+			//xlsx bestaat uit 1 of meerdere kolommen
+        	List<List<String>> lijstGeheel1 = new ArrayList<>();
+			List<String> lijst = new ArrayList<>();
+			
+			
+			int teller = 0;
+			boolean eenKolom = false;
+			//aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
+			while (itr.hasNext() && teller >=0) {              
+		  
+				Row row = itr.next();  
+				Iterator<Cell> cellIterator = row.cellIterator();     
+				
+				while (cellIterator.hasNext())  {
+		
+					Cell cell = cellIterator.next();  
+					
+					switch (cell.getCellTypeEnum())  {             
+		
+						case STRING:     
+							//System.out.print(cell.getStringCellValue() + "\t\t\t"); 
+							lijst.add(cell.getStringCellValue());
+							break;  
+							
+						case NUMERIC:      
+							
+							lijst.add(String.valueOf(cell.getNumericCellValue()));
+							break;  
+						default:  
+							break;
+					}  
+				}  
+				
+				if (teller == 0 && lijst.size()  == 1) eenKolom = true;
+				if (!eenKolom) {
+					lijstGeheel1.add(lijst);
+					lijst =  new ArrayList<>();
+				}	
+				
+				//System.out.println("");  
+				teller++;
+			}  
+			
+			if (!eenKolom) lijst =  new ArrayList<>();
+				
+
+			//lijst = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).collect(Collectors.toList());
+			
+            meerdereKolommen = lijstGeheel1;
+            enkelKolom = lijst;
+
+			
+		}  
+		catch(Exception e) { 
+			e.printStackTrace();  
+		}  
+		/*List<Double> lijst1 = enkelKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+		//kolomnamen verwijderen uit lijst
+		return meerdereKolommen.get(0).size();
 	}
 }
