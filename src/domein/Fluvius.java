@@ -21,8 +21,6 @@ import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
-import repository.ValueDao;
-import repository.ValueDaoJpa;
 
 public class Fluvius
 {

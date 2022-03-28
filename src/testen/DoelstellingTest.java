@@ -78,7 +78,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -105,7 +105,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Component doelstelling = new Composite(new DTOMVODoelstelling(naam, icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		 
 		   Mockito.when(mvoDoelstellingRepo
@@ -195,7 +195,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -223,7 +223,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = null;
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 		   // Controle
@@ -250,7 +250,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = null;
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 		   // Controle
@@ -287,7 +287,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		 
 	       
 	       // Controle
@@ -314,7 +314,7 @@ public class DoelstellingTest {
 		   SdGoal sdGoal = new SdGoal("sdg 1");
 		   Bewerking formule = new Average();
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
-		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "map/data.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
+		   Datasource datasource = new MVODatasource(new DTODatasource("CategorieTest", "csv", "src/data/csvDouble.csv", "hostnaam", "usernaam", "paswoord", false, "snel","uitstoot",1));
 		   Doelstelling doelstellingComposite1 = new Composite(new DTOMVODoelstelling("Composite1", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		   Doelstelling doelstellingComposite2 = new Composite(new DTOMVODoelstelling("Composite2", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite1), formule, 2020));
 		   Doelstelling doelstellingComposite3 = new Composite(new DTOMVODoelstelling("Composite3", icon, doelwaarde, rollen, sdGoal, datasource, Arrays.asList(doelstellingComposite2), formule, 2020));

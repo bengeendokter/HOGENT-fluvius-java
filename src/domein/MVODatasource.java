@@ -261,8 +261,6 @@ private static final long serialVersionUID = 1L;
 		}
 		
 		if (typeDatasource instanceof CsvDataSourceType || typeDatasource instanceof ExcelDataSourceType) {
-			
-			System.out.println("Hello there");
 			int lengte = typeDatasource.geefKolomLengte();
 			
 			if (kolom > lengte) {
