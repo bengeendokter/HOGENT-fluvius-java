@@ -205,7 +205,7 @@ public class DatasourceTest {
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "excel";
-		   final String LINKNEW = "src/data/csvDouble.csv";
+		   final String LINKNEW = "src/data/xlsxDouble.xlsx";
 		   final boolean CORRUPTNEW = true;
 		   final String WIJZIGBAARHEIDNEW = "snel";
 		   final String MAATNEW = "test1";
@@ -414,7 +414,7 @@ public class DatasourceTest {
 	 */
 	@ParameterizedTest
 	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
-	public void maakDatasource_TeGroteKolomNummer(int KOLOM)
+	public void maakDatasource_CSV_TeGroteKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
@@ -433,7 +433,7 @@ public class DatasourceTest {
 	
 	@ParameterizedTest
 	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
-	public void maakDatasource_TeKleineKolomNummer(int KOLOM)
+	public void maakDatasource_CSV_TeKleineKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
@@ -450,5 +450,41 @@ public class DatasourceTest {
 	       });
 	}
 	
+	@ParameterizedTest
+	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
+	public void maakDatasource_XLSX_TeGroteKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "excel";
+		   final String LINK = "src/data/xlsxDouble.xlsx";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
 	
+	@ParameterizedTest
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	public void maakDatasource_XLSX_TeKleineKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
 }

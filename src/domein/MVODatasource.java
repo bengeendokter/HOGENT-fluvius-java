@@ -260,7 +260,7 @@ private static final long serialVersionUID = 1L;
 			throw new IllegalArgumentException("De kolom van de Datasource is geen geldige waarde");
 		}
 		
-		if (typeDatasource instanceof CsvDataSourceType) {
+		if (typeDatasource instanceof CsvDataSourceType || typeDatasource instanceof ExcelDataSourceType) {
 			int lengte = typeDatasource.geefKolomLengte();
 			
 			if (kolom > lengte) {
