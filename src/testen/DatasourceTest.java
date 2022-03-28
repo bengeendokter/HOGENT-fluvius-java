@@ -414,7 +414,7 @@ public class DatasourceTest {
 	 */
 	@ParameterizedTest
 	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
-	public void maakDatasource_TeGroteKolomNummer()
+	public void maakDatasource_TeGroteKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
@@ -423,7 +423,6 @@ public class DatasourceTest {
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
-		   final int KOLOM = 4;
 
 	       
 	       // Controle
