@@ -111,10 +111,6 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	        catch (Exception e)  {
 	        	e.printStackTrace();
 	        }
-		/*List<Double> lijst1 = eenKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
-		return lijst1;*/
-		
-		//kolomnamen verwijderen uit lijst
 		meerdereKolommen.remove(0);
         
         //elementen uit lijst nemen met index de kolom
@@ -129,6 +125,63 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 
 
     }
+	
+	@Override
+	public int geefKolomLengte() {
+		List<List<String>> meerdereKolommen =  new ArrayList<>();
+    	List<String> eenKolom =  new ArrayList<>();
+		try (
+	            Reader reader = Files.newBufferedReader(Paths.get(link));
+	            CSVReader csvReader = new CSVReader(reader);	
+	        ) {
+	        	
+	        	//csv bestaat uit 1 of meerdere kolommen
+	        	List<List<String>> lijstGeheel1 = new ArrayList<>();
+	        	List<String> lijstGeheel2 =  new ArrayList<>();
+	        	
+	            String[] nextRecord;
+	            int teller = 0;
+	            //aantal lijnen x die je wil lezen -> teller < x (teller >=0 als je alles wil lezen)
+	            while ((nextRecord = csvReader.readNext()) != null && teller >=0) {
+	                
+	                if (nextRecord != null) {
+	                	//kolommen in array van String plaatsen door split (csv kolommen worden onderscheiden van elkaar door ;)
+	                	String[] record = nextRecord[0].split(";");
+	                	
+	                	
+	                	if (!nextRecord[0].contains(";")) {
+	                		if (teller == 0)
+	                			record[0] = record[0].substring(1);
+	                		
+	                		//voor 1 kolom waarde
+	                		//enige kolom toevoegen aan in lijstGeheel
+	                		lijstGeheel2.add(record[0]);
+	                	} else {
+	                		//voor kolommen waarden
+	                		//alle kolomen toevoegen als lijst in lijstGeheel
+	                		lijstGeheel1.add(new ArrayList<>(Arrays.asList(record)));
+	                	}
+	                	
+	                }
+	                teller++;
+	            }
+	            
+	            meerdereKolommen = lijstGeheel1;
+	            eenKolom = lijstGeheel2;
+	            
+	        }
+	        catch (Exception e)  {
+	        	e.printStackTrace();
+	        }
+		/*List<Double> lijst1 = eenKolom.stream().filter(e -> !e.matches(".*[a-z].*")).map(e -> Double.parseDouble(e)).collect(Collectors.toList());
+		return lijst1;*/
+		
+
+        
+        //System.out.println(lijstje);
+        return meerdereKolommen.get(0).size();
+
+	}
 
 	@Override
 	public String toString() {
