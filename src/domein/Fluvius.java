@@ -739,7 +739,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Datasource");
+			throw new IllegalArgumentException("Een datasource die gebruikt wordt kan niet verwijdert worden.");
 		}
 		
 		setDatasources();
