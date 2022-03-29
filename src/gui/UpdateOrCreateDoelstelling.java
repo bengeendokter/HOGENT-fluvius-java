@@ -123,7 +123,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
 	//private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
 	
-	private Doelstelling doelstellingDeleted;
+	private List<Doelstelling> doelstellingDeleted = new ArrayList<>();
 	private DomeinController dc;
 	
 	public UpdateOrCreateDoelstelling(DomeinController dc, Doelstelling doelstellingToUpdate,
@@ -481,40 +481,44 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							}
 						}
 						
-						if (doelstellingDeleted != null) {
-							if (!dc.getDoelstellingen().contains(doelstellingDeleted)) {
-						    	if (doelstellingDeleted.getDatasource() == null) {
-					    		
-					    		dc.voegMVODoelstellingToeMetSubs(
-					    				new DTOMVODoelstelling(
-					    						doelstellingDeleted.getNaam(), 
-					    						doelstellingDeleted.getIcon(), 
-					    						doelstellingDeleted.getDoelwaarde(),
-					    						doelstellingDeleted.getRollen(),
-					    						doelstellingDeleted.getSdGoal(),
-					    						doelstellingDeleted.getDatasource(),
-					    						doelstellingDeleted.getComponents().stream().map(d -> (Doelstelling) d).collect(Collectors.toList()),// subdoelstellingen
-					    						doelstellingDeleted.getFormule(),
-					    						doelstellingDeleted.getJaar()
-					    					)
-						    			);
-						    	} else {
-						    		dc.voegMVODoelstellingToeZonderSubs(
+						if (doelstellingDeleted.size() != 0) {
+							for (Doelstelling d : doelstellingDeleted) {
+								if (!dc.getDoelstellingen().contains(d)) {
+							    	if (d.getDatasource() == null) {
+						    		
+						    		dc.voegMVODoelstellingToeMetSubs(
 						    				new DTOMVODoelstelling(
-						    						doelstellingDeleted.getNaam(), 
-						    						doelstellingDeleted.getIcon(), 
-						    						doelstellingDeleted.getDoelwaarde(),
-						    						doelstellingDeleted.getRollen(),
-						    						doelstellingDeleted.getSdGoal(),
-						    						doelstellingDeleted.getDatasource(),
-													List.of(),// subdoelstellingen
-													doelstellingDeleted.getFormule(),
-													doelstellingDeleted.getJaar()
-												)
-										);
-						    	}
+						    						d.getNaam(), 
+						    						d.getIcon(), 
+						    						d.getDoelwaarde(),
+						    						d.getRollen(),
+						    						d.getSdGoal(),
+						    						d.getDatasource(),
+						    						d.getComponents().stream().map(doels -> (Doelstelling) doels).collect(Collectors.toList()),// subdoelstellingen
+						    						d.getFormule(),
+						    						d.getJaar()
+						    					)
+							    			);
+							    	} else {
+							    		dc.voegMVODoelstellingToeZonderSubs(
+							    				new DTOMVODoelstelling(
+							    						d.getNaam(), 
+							    						d.getIcon(), 
+							    						d.getDoelwaarde(),
+							    						d.getRollen(),
+							    						d.getSdGoal(),
+							    						d.getDatasource(),
+														List.of(),// subdoelstellingen
+														d.getFormule(),
+														d.getJaar()
+													)
+											);
+							    	}
+							}
+							
 						}
 						}
+						
 				    	
 				    	doelstellingDeleted = null;
 						
@@ -522,6 +526,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 					}
 					catch(IllegalArgumentException e)
 					{
+						e.printStackTrace();
 						lblErrorMessage.setText(e.getMessage());
 						lblErrorMessage.setVisible(true);
 					}
@@ -560,6 +565,8 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 		    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeKiesSubs.getSelectionModel().getSelectedItem();
 		    	
+		    	doelstellingDeleted.remove(verwijderde.getValue());
+		    	
 		    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
              	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
              	
@@ -575,7 +582,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 	    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeGekozenSubs.getSelectionModel().getSelectedItem();
 	    	
-	    	doelstellingDeleted = verwijderde.getValue();
+	    	doelstellingDeleted.add(verwijderde.getValue());
 	    	
 	    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
          	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
