@@ -83,6 +83,8 @@ public class UpdateOrCreateDatasourceController<E> extends BorderPane {
 			
 			lblErrorMessage.setText("");
 			lblErrorMessage.setVisible(false);
+			
+			txtAreaLink.setWrapText(true);
 		
 			
 			cBoxType.getSelectionModel().selectedItemProperty()

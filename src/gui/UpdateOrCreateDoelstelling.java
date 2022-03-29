@@ -216,8 +216,12 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				}
 				
 				// subDoelstellingen toevoegen
-				rootNode.getChildren().addAll(doelstellingToUpdate.getComponents().stream()
-						.map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
+//				rootNode.getChildren().addAll(doelstellingToUpdate.getComponents().stream()
+//						.map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
+				
+				
+				addToTreeItem(rootNode, doelstellingToUpdate.getComponents().stream().map(component -> (Doelstelling) component).toList());
+				
 			}
 			else // ga er van uit dat nieuwe sdGoal Composite is
 			{
@@ -602,5 +606,18 @@ public class UpdateOrCreateDoelstelling extends BorderPane
             System.out.println(e.getMessage());
         }
     }
+	
+	private void addToTreeItem(TreeItem<Doelstelling> rootDoelstelling, List<Doelstelling> doelstellingen)
+	{
+		for(Doelstelling doelstelling : doelstellingen)
+		{
+			TreeItem<Doelstelling> parentDoelstelling = new TreeItem<>(doelstelling);
+			
+			addToTreeItem(parentDoelstelling,
+					doelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
+			
+			rootDoelstelling.getChildren().add(parentDoelstelling);
+		}
+	}
 	
 }

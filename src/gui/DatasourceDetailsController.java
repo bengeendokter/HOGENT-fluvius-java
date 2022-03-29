@@ -87,6 +87,8 @@ public class DatasourceDetailsController<E> extends BorderPane {
 			
 			Datasource huideDatasource = ((Datasource) object);
 			
+			areaLink.setWrapText(true);
+			
 			lblNaamIngevuld.setText(huideDatasource.getNaam());
 			lblTypeIngevuld.setText(huideDatasource.getTypeDatasource().toString());
 			lblWijzigSnelheid.setText(huideDatasource.getWijzigbaarheid());

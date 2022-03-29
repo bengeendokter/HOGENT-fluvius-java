@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -18,6 +19,7 @@ import com.opencsv.CSVReader;
 @DiscriminatorValue("C")
 public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	private static final long serialVersionUID = 1L;
+	@Column(length=4000)
 	private String link;
 	
 	protected CsvDataSourceType() {
