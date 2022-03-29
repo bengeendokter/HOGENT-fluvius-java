@@ -374,7 +374,23 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 //			rootNodeKies.getChildren().addAll(
 //					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
 //			
-			// TODO datasource/suboelen on select change eenheid
+			//datasource/suboelen on select change eenheid
+			// Component
+			treeKiesSubs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+				if(newValue != null)
+				{
+					lblEenheid.setText(newValue.getValue().getEenheid());
+				}
+			});;
+			
+			//Leaf
+			choiceDatasource.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+				if(newValue != null)
+				{
+					lblEenheid.setText(newValue.getMaat());
+				}
+			});;
+			
 			
 			// TODO move subdoelen tussen kies en gekozen onclick
 				// TODO (bug fixen)
