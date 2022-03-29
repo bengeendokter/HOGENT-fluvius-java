@@ -1,28 +1,28 @@
 package main;
 
 
+import domein.AanmeldController;
 import domein.PopulateDB;
+import gui.AanmeldenResponsiveController;
 import gui.VolledigPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repository.DatabaseSelector;
+import repository.GebruikerDaoJpa;
 
 
-public class Orde extends Application{
+public class StartupGui extends Application{
  
 	public void start(Stage primaryStage)
 	{
 		try
 		{
-			if(DatabaseSelector.ISLOCALHOST)
-			{
-				PopulateDB.run();
-			}
-			
-			
-			VolledigPanelController root = new VolledigPanelController();
+
+			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST, new GebruikerDaoJpa());
+						
+			AanmeldenResponsiveController root = new AanmeldenResponsiveController(aanmeldController);
 			Scene scene = new Scene(root);
 
 			primaryStage.setResizable(true);
