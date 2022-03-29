@@ -1,18 +1,14 @@
 package gui;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import domein.Average;
 import domein.Bewerking;
-import domein.Categorie;
 import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
@@ -33,12 +29,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -121,13 +115,15 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	@FXML
 	private Label lblJaar;
 	@FXML
-	private Spinner datepickerJaar;
+	private Spinner<Integer> datepickerJaar;
 	
 	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average(), new GeenBewerking()));
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
-	private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
+	//private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
+	
+	private List<Doelstelling> doelstellingDeleted = new ArrayList<>();
 	private DomeinController dc;
 	
 	public UpdateOrCreateDoelstelling(DomeinController dc, Doelstelling doelstellingToUpdate,
@@ -377,6 +373,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			// TODO datasource/suboelen on select change eenheid
 			
 			// TODO move subdoelen tussen kies en gekozen onclick
+				// TODO (bug fixen)
+				// --> Als doelstelling een subdoelstelling (links naar rechts geswitched) wordt en weer uit de composite gedaan wordt (rechts naar links geswitched)
+				// dan komt het niet meer te zien in de overzicht van doelstellingen
 			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 			    handleMouseClicked(event);
 			};
@@ -482,10 +481,52 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							}
 						}
 						
+						if (doelstellingDeleted.size() != 0) {
+							for (Doelstelling d : doelstellingDeleted) {
+								if (!dc.getDoelstellingen().contains(d)) {
+							    	if (d.getDatasource() == null) {
+						    		
+						    		dc.voegMVODoelstellingToeMetSubs(
+						    				new DTOMVODoelstelling(
+						    						d.getNaam(), 
+						    						d.getIcon(), 
+						    						d.getDoelwaarde(),
+						    						d.getRollen(),
+						    						d.getSdGoal(),
+						    						d.getDatasource(),
+						    						d.getComponents().stream().map(doels -> (Doelstelling) doels).collect(Collectors.toList()),// subdoelstellingen
+						    						d.getFormule(),
+						    						d.getJaar()
+						    					)
+							    			);
+							    	} else {
+							    		dc.voegMVODoelstellingToeZonderSubs(
+							    				new DTOMVODoelstelling(
+							    						d.getNaam(), 
+							    						d.getIcon(), 
+							    						d.getDoelwaarde(),
+							    						d.getRollen(),
+							    						d.getSdGoal(),
+							    						d.getDatasource(),
+														List.of(),// subdoelstellingen
+														d.getFormule(),
+														d.getJaar()
+													)
+											);
+							    	}
+							}
+							
+						}
+						}
+						
+				    	
+				    	doelstellingDeleted = null;
+						
 						refreshScherm();
 					}
 					catch(IllegalArgumentException e)
 					{
+						e.printStackTrace();
 						lblErrorMessage.setText(e.getMessage());
 						lblErrorMessage.setVisible(true);
 					}
@@ -523,6 +564,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		 Node node = event.getPickResult().getIntersectedNode();
 		    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 		    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeKiesSubs.getSelectionModel().getSelectedItem();
+		    	
+		    	doelstellingDeleted.remove(verwijderde.getValue());
+		    	
 		    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
              	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
              	
@@ -537,6 +581,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 	    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeGekozenSubs.getSelectionModel().getSelectedItem();
+	    	
+	    	doelstellingDeleted.add(verwijderde.getValue());
+	    	
 	    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
          	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
          	

@@ -21,8 +21,6 @@ import repository.MVODoelstellingDao;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
 import repository.SdGoalDaoJpa;
-import repository.ValueDao;
-import repository.ValueDaoJpa;
 
 public class Fluvius
 {
@@ -141,7 +139,7 @@ public class Fluvius
 	public ObservableList<Categorie> getCategorien()
 	{
 		setCategorien();
-		System.out.println("Alle Categori?n ophalen");
+		System.out.println("Alle Categorieën ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Categorie>)(Object)categorien);
 	}
 	
@@ -535,6 +533,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een MVO Doelstelling");
 		}
@@ -739,7 +738,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
-			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een Datasource");
+			throw new IllegalArgumentException("Een datasource die gebruikt wordt kan niet verwijdert worden.");
 		}
 		
 		setDatasources();
@@ -768,10 +767,17 @@ public class Fluvius
 			mvoDatasourceRepo.update(datas);
 			mvoDatasourceRepo.commitTransaction();
 		}
+		catch (IllegalArgumentException e) {
+			if (mvoDatasourceRepo.isActive()) {
+				mvoDatasourceRepo.rollbackTransaction();
+			}
+			throw e;
+		}
 		catch(Exception e)
 		{
-			
-			mvoDatasourceRepo.rollbackTransaction();
+			if (mvoDatasourceRepo.isActive()) {
+				mvoDatasourceRepo.rollbackTransaction();
+			}
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij een Datasource update");
 		}
 		
@@ -782,7 +788,7 @@ public class Fluvius
 	public ObservableList<Datasource> getDatasources()
 	{
 		setDatasources();
-		System.out.println("Alle Categori?n ophalen");
+		System.out.println("Alle Categorieën ophalen");
 		return FXCollections.unmodifiableObservableList((ObservableList<Datasource>)(Object)datasources);
 	}
 	

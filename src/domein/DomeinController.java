@@ -9,7 +9,6 @@ import repository.CategorieDaoJpa;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDaoJpa;
-import repository.ValueDaoJpa;
 
 public class DomeinController
 {

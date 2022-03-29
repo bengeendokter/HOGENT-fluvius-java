@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="600.0" prefWidth="900.0" type="BorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -205,7 +205,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="lblJaar" prefHeight="31.0" prefWidth="127.0" text="Jaar:">
+                  <Label fx:id="lblJaar" text="Jaar:">
                      <font>
                         <Font size="21.0" />
                      </font>
@@ -213,12 +213,12 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="datapickerJaar" prefHeight="31.0" prefWidth="411.0" text="dummyjaar">
+                  <Label fx:id="datapickerJaar" prefHeight="31.0" prefWidth="136.0" text="dummyjaar">
                      <font>
                         <Font size="21.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="125.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -233,7 +233,7 @@
       </VBox>
    </left>
    <right>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox fx:id="vBoxSubDoelstellingen" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="lblSubDoelstellingen" text="Subdoelstellingen:">
                <font>

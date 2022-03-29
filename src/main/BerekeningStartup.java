@@ -30,15 +30,15 @@ public class BerekeningStartup {
 		   List<Doelstelling> subDoelstellingen = new ArrayList<>();
 		   Datasource datasource = new MVODatasource(new DTODatasource(naam, "csv", "src/data/csvDouble.csv","","","",true,"traag","test",1));
 		   
-		   Doelstelling aantalMannen = new Leaf(new DTOMVODoelstelling("aantal mannen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
-		   Doelstelling aantalVrouwen = new Leaf(new DTOMVODoelstelling("aantal vrouwen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
+		   Doelstelling aantalMannen = new Leaf(new DTOMVODoelstelling("aantal mannen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
+		   Doelstelling aantalVrouwen = new Leaf(new DTOMVODoelstelling("aantal vrouwen", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
 		   
 		   
 		   subDoelstellingen.add(aantalMannen);
 		   subDoelstellingen.add(aantalVrouwen);
 		   
-		   Doelstelling aantalWerknemers = new Composite(new DTOMVODoelstelling("aantal werknemers", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule));
-		   Doelstelling verhouding = new Composite(new DTOMVODoelstelling("verhouding man/vrouw", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, new GeenBewerking()));
+		   Doelstelling aantalWerknemers = new Composite(new DTOMVODoelstelling("aantal werknemers", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, formule, 2020));
+		   Doelstelling verhouding = new Composite(new DTOMVODoelstelling("verhouding man/vrouw", icon, doelwaarde, rollen, sdGoal, datasource, subDoelstellingen, new GeenBewerking(), 2020));
 
 		   aantalWerknemers.getBerekendewaarde();
 		   verhouding.getBerekendewaarde();

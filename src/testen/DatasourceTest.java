@@ -58,7 +58,7 @@ public class DatasourceTest {
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -84,7 +84,7 @@ public class DatasourceTest {
 		   // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -119,7 +119,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = naam;
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -172,7 +172,7 @@ public class DatasourceTest {
 		// Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = type;
-		   final String LINK = "link";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -197,7 +197,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -205,7 +205,7 @@ public class DatasourceTest {
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = "excel";
-		   final String LINKNEW = "map/data.csv";
+		   final String LINKNEW = "src/data/xlsxDouble.xlsx";
 		   final boolean CORRUPTNEW = true;
 		   final String WIJZIGBAARHEIDNEW = "snel";
 		   final String MAATNEW = "test1";
@@ -246,7 +246,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -254,7 +254,7 @@ public class DatasourceTest {
 		   
 		   final String DATASOURCENAAMNEW = naam;
 		   final String TYPENEW = "csv";
-		   final String LINKNEW = "map/data.csv";
+		   final String LINKNEW = "src/data/csvDouble.csv";
 		   final boolean CORRUPTNEW = true;
 		   final String WIJZIGBAARHEIDNEW = "snel";
 		   final String MAATNEW = "test1";
@@ -289,7 +289,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -297,7 +297,7 @@ public class DatasourceTest {
 		   
 		   final String DATASOURCENAAMNEW = "DatasourceTest2";
 		   final String TYPENEW = type;
-		   final String LINKNEW = "map/data.csv";
+		   final String LINKNEW = "src/data/csvDouble.csv";
 		   final boolean CORRUPTNEW = true;
 		   final String WIJZIGBAARHEIDNEW = "snel";
 		   final String MAATNEW = "test1";
@@ -333,7 +333,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -375,7 +375,7 @@ public class DatasourceTest {
 		 // Alles klaarzetten
 		   final String DATASOURCENAAM = "DatasourceTest";
 		   final String TYPE = "csv";
-		   final String LINK = "map/data.csv";
+		   final String LINK = "src/data/csvDouble.csv";
 		   final boolean CORRUPT = false;
 		   final String WIJZIGBAARHEID = "traag";
 		   final String MAAT = "test";
@@ -383,7 +383,7 @@ public class DatasourceTest {
 		   
 		   final String DATASOURCENAAM2 = "DatasourceTest2";
 		   final String TYPE2 = "csv";
-		   final String LINK2 = "map/data.csv";
+		   final String LINK2 = "src/data/csvDouble.csv";
 	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","" ,  CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
 	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","","",   CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
 	       //MVODatasource array[] = {datasource, dataSource2};
@@ -407,6 +407,147 @@ public class DatasourceTest {
 	
 	//eventueel controle voor status, maat en kolom
 	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te grote kolom (CSV)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
+	public void maakDatasource_CSV_TeGroteKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
 	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te kleine kolom (CSV)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	public void maakDatasource_CSV_TeKleineKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
 	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te grote kolom (XLSX)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
+	public void maakDatasource_XLSX_TeGroteKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "excel";
+		   final String LINK = "src/data/xlsxDouble.xlsx";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te kleine kolom (XLSX)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	public void maakDatasource_XLSX_TeKleineKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te grote kolom (XLS)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={4,5,6,7,8,9,10, Integer.MAX_VALUE})
+	public void maakDatasource_XLS_TeGroteKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "excel";
+		   final String LINK = "src/data/xlsDouble.xls";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
+	
+	/**
+	 * Datasource aanmaken
+	 * Foutief scenario:
+	 * Datasource aanmaken met een te kleine kolom (XLS)
+	 */
+	@ParameterizedTest
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	public void maakDatasource_XLS_TeKleineKolomNummer(int KOLOM)
+	{
+		   // Alles klaarzetten
+		   final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/xlsDouble.xls";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+
+	       
+	       // Controle
+	       Assertions.assertThrows(IllegalArgumentException.class, () -> {
+	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
+	       });
+	}
 }

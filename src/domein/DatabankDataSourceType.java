@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,6 +94,11 @@ public class DatabankDataSourceType extends TypeDatasource implements Serializab
 	@Override
 	public String toString() {
 		return "databank";
+	}
+
+	@Override
+	public int geefKolomLengte() throws IOException {
+		return 3; // default returnwaarde voor databanktypes
 	}
 }
 

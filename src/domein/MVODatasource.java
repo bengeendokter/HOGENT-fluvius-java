@@ -254,10 +254,18 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	public void setKolom(int kolom) {
-		if(kolom <=0)
+	public void setKolom(int kolom) throws IOException {
+		if(kolom <=0 )
 		{
 			throw new IllegalArgumentException("De kolom van de Datasource is geen geldige waarde");
+		}
+		
+		if (typeDatasource instanceof CsvDataSourceType || typeDatasource instanceof ExcelDataSourceType) {
+			int lengte = typeDatasource.geefKolomLengte();
+			
+			if (kolom > lengte) {
+				throw new IllegalArgumentException(String.format("De datasource bevat hoogstens %d kolommen", lengte));
+			}
 		}
 		this.kolom = kolom;
 	}
