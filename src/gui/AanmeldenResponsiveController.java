@@ -114,9 +114,9 @@ public class AanmeldenResponsiveController extends BorderPane
 			btnMeldAan.setVisible(false);
 			DomeinController domeinController = aanmeldController.meldAan(txtGebruikersnaam.getText(),
 					pssWachtwoord.getText());
+			VolledigPanelController vs = new VolledigPanelController(domeinController);
 			
-			//OverzichtSchermController vs = new OverzichtSchermController(domeinController);
-			CategorieResponsiveController vs = new CategorieResponsiveController(domeinController);
+
 			Scene scene = new Scene(vs);
 			scene.getStylesheets().add("theme.css");
 			Stage stage = (Stage) this.getScene().getWindow();

@@ -121,8 +121,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
-	//private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
-	
+
 	private List<Doelstelling> doelstellingDeleted = new ArrayList<>();
 	private DomeinController dc;
 	
@@ -216,10 +215,6 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				}
 				
 				// subDoelstellingen toevoegen
-//				rootNode.getChildren().addAll(doelstellingToUpdate.getComponents().stream()
-//						.map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
-				
-				
 				addToTreeItem(rootNode, doelstellingToUpdate.getComponents().stream().map(component -> (Doelstelling) component).toList());
 				
 			}

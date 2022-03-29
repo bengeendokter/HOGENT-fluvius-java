@@ -42,19 +42,12 @@ public class CategorieDetailsController<E> extends BorderPane{
 	private Label lblSdgs;
 	@FXML
 	private Label lblErrorMessage;
-//	private DomeinController dc;
-//	private E object;
+
 	
 	public CategorieDetailsController(DomeinController dc, E object){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CategorieDetails.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-		
-//		this.dc = dc;
-//		this.object = object;
-		
-//		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
-		
 
 		try
 		{
@@ -147,8 +140,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 			treeviewSdgs.setRoot(rootNode);
 			treeviewSdgs.setShowRoot(false);
 			
-//			this.getChildren().addAll(lblErrorMessage, lblDetailsDatasource, lblIcoon, lblNaam, lblNaamIngevuld, lblSdgs, treeviewSdgs, btnAnnuleer, btnOpslaan, imgIcoon);
-		
+
 			btnAnnuleer.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {

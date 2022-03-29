@@ -16,19 +16,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import domein.DTOCategorie;
 import domein.Fluvius;
 import domein.SDGCategorie;
 import domein.SdGoal;
 import repository.CategorieDao;
-import repository.CategorieDaoJpa;
 import repository.MVODatasourceDao;
-import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;
-import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
-import repository.SdGoalDaoJpa;
+
 
 
 @ExtendWith(MockitoExtension.class)

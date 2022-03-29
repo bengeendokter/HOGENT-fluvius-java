@@ -71,15 +71,13 @@ public class DatasourceDetailsController<E> extends BorderPane {
 	private HBox hBoxKolomNummer;
 	@FXML
 	private Label lblStatus;
-//	private DomeinController dc;
-//	private E object;
+
 
 	public DatasourceDetailsController(DomeinController dc, E object) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DatasourceDetails.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-//		this.dc = dc;
-//		this.object = object;
+
 		
 		
 		try {
@@ -101,7 +99,7 @@ public class DatasourceDetailsController<E> extends BorderPane {
 			lblGebruikersnaamIngevuld.setText(huideDatasource.getUsername());
 			lblWachtwoordIngevuld.setText(huideDatasource.getPassword());
 			
-			//System.out.println(((Datasource)object).getTypeDatasource().toString());
+
 			if(huideDatasource.getTypeDatasource().toString().equals("databank")) {
 				vBoxLink.setVisible(false);
 				vBoxLink.setManaged(false);
@@ -146,9 +144,7 @@ public class DatasourceDetailsController<E> extends BorderPane {
 				lblStatus.setText("VEROUDERD");
 				lblStatus.setTextFill(Color.RED);
 			}
-			
-			//this.getChildren().addAll(lblWachtwoordIngevuld, lblGebruikersnaam1,lblDetailsDatasource, lblGebruikersnaam, lblGebruikersnaamIngevuld, lblHostnaam, lblHostnaamIngevuld, lblLink, lblNaam, lblNaamIngevuld, lblType, btnAnnuleer, btnOpslaan, lblTypeIngevuld, errorMessage);
-		
+
 			btnVerwijder.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent evt) {

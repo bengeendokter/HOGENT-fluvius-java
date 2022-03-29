@@ -1,6 +1,5 @@
 package domein;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 import at.gadermaier.argon2.Argon2Factory;

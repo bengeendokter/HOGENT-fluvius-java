@@ -123,7 +123,7 @@ public class DoelstellingDetailsTest extends BorderPane
 			areaSdgIngevuld.setEditable(false);
 			areaSdgIngevuld.setWrapText(true);
 			areaSdgIngevuld.setOpacity(1);
-			//tooltipSDG.setText(huidigeDoelstelling.getSdGoal().getNaam());
+
 			lblDoelWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getDoelwaarde()));
 			lblEenheidIngevuld.setText(huidigeDoelstelling.getEenheid());
 			

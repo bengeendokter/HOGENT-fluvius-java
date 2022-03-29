@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -41,8 +42,7 @@ public class Gebruiker implements Serializable
 		SecureRandom random = new SecureRandom();
 		byte[] array = new byte[16];
 		random.nextBytes(array);
-		
-		salt = new String(array, Charset.forName("UTF-8"));
+		salt = Base64.getEncoder().encodeToString(array);
 	
 		this.wachtwoord = PasswordHasher.hash(wachtwoord,getSalt());
 		this.rol = rol;
@@ -82,7 +82,7 @@ public class Gebruiker implements Serializable
 	
 	public byte[] getSalt()
 	{
-		return salt.getBytes();
+		return Base64.getDecoder().decode(salt);
 	}
 	
 	@Override

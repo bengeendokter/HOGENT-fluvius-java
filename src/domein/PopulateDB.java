@@ -25,7 +25,6 @@ public class PopulateDB {
 	public static void run() throws IOException, SQLIntegrityConstraintViolationException {
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		SdGoalDao sdGoalRepo = new SdGoalDaoJpa();
-		//GenericDao<SdGoal> sdGoalRepo = new GenericDaoJpa<SdGoal>(SdGoal.class);
 		CategorieDao categorieRepo = new CategorieDaoJpa();
 		MVODoelstellingDao doelstellingenRepo = new MVODoelstellingDaoJpa();
 		MVODatasourceDao datasourceRepo = new MVODatasourceDaoJpa();

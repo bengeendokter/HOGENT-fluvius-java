@@ -24,7 +24,7 @@ public class Navigatiebalk extends BorderPane {
 	}
 
 	private void initGui() {
-		//this.setStyle("-fx-background-color: #B2D234;");
+
 		this.setStyle("-fx-background-color: white;");
 		
 		// Logo aanmaken
@@ -61,20 +61,14 @@ public class Navigatiebalk extends BorderPane {
 		lblNaamFunctie.setStyle("-fx-text-fill: #495973;  -fx-font-size: 16;");
 		lblNaamFunctie.setMinWidth(USE_PREF_SIZE);
 		
-		// Mannetje weergeven
-		ImageView imgVentje = new ImageView(new Image(getClass().getResourceAsStream("/images/ventje.png")));
-		
-		// Hoogte en breedte instellen van het ventje
-		imgVentje.setFitWidth(40);
-		imgVentje.setFitHeight(40);
+
 		
 		// Navigatie centreren met HBox
 		HBox navHBox = new HBox(btnCategorie, btnDatasource, btnDoelstelling);
 		// zet breed genoeg (bv zo breed als scherm)
 		navHBox.setAlignment(Pos.CENTER);
 		
-		// BorderPane om logo links, nav in het midden, en naam label recht uit te lijnen
-//		BorderPane navBorderPane = new BorderPane();
+
 		
 		HBox imgMetMarginLeft = new HBox();
 		imgMetMarginLeft.getChildren().addAll(r, imgLogo);
@@ -87,15 +81,7 @@ public class Navigatiebalk extends BorderPane {
 		lblNaamMetMarginRight.getChildren().addAll(lblNaamFunctie, r2);
 		this.setRight(lblNaamMetMarginRight);
 		
-//		this.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() * 0.75);
-		
-		// Toevoegen aan scherm
-//		this.getChildren().addAll(navBorderPane);
 
-		// Ruimte instellen
-		//this.setPadding(new Insets(5));
-		//this.setSpacing(5);
-		//this.setAlignment(Pos.TOP_LEFT);
 
 		// Als er op een knop geklikt wordt
 		btnCategorie.setOnAction(new EventHandler<ActionEvent>() {
@@ -143,22 +129,10 @@ public class Navigatiebalk extends BorderPane {
 		Parent hoofdScherm = Navigatiebalk.this.getParent();
 		
 		if (hoofdScherm instanceof BorderPane) {
-			// Overzicht opvragen adhv het hoofdScherm
-//			Node overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
-//			if (overzicht instanceof PanelOverzicht) {
-//				
-//				((PanelOverzicht) overzicht).initGui(lijst, soort, dc);
-//			}
-//			if(overzicht instanceof PanelOverzichtTreeview) {
-//				((BorderPane) hoofdScherm).setLeft(null);
+
 				((BorderPane) hoofdScherm).setLeft(po);
-//				overzicht = ((VBox) ((BorderPane) hoofdScherm).getLeft());
+
 				po.initGui(lijst, soort, dc);
-//			}
-			
-//			Node details = ((Pane) ((BorderPane) hoofdScherm).getCenter());
-//			((BorderPane) hoofdScherm).setCenter(null);
-			//((CategorieDetailPanel) details).maakLeeg();
 		}
 		
 		
