@@ -79,6 +79,7 @@ public class CategorieDetailsController<E> extends BorderPane{
 	            	pad = pad.replace("\\", "/");
 	            	index = pad.indexOf("/images");
 	            	pad = pad.substring(index);
+	            	System.out.println(pad);
 					Image m = new Image(getClass().getResource(pad).toExternalForm());
 					imgIcoon.setImage(m);
 				}
