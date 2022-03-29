@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -69,7 +70,7 @@ public class DoelstellingDetailsTest extends BorderPane
 	@FXML
 	private Label lblEenheidIngevuld;
 	@FXML
-	private Label lblSdgIngevuld;
+	private TextArea areaSdgIngevuld;
 	@FXML
 	private Label lblDatasourceIngevuld;
 	@FXML
@@ -118,8 +119,11 @@ public class DoelstellingDetailsTest extends BorderPane
 				hBoxDatasource.setVisible(false);;
 			}
 			
-			lblSdgIngevuld.setText(huidigeDoelstelling.getSdGoal().getNaam());
-			tooltipSDG.setText(huidigeDoelstelling.getSdGoal().getNaam());
+			areaSdgIngevuld.setText(huidigeDoelstelling.getSdGoal().getNaam());
+			areaSdgIngevuld.setEditable(false);
+			areaSdgIngevuld.setWrapText(true);
+			areaSdgIngevuld.setOpacity(1);
+			//tooltipSDG.setText(huidigeDoelstelling.getSdGoal().getNaam());
 			lblDoelWaardeIngevuld.setText(Double.toString(huidigeDoelstelling.getDoelwaarde()));
 			lblEenheidIngevuld.setText(huidigeDoelstelling.getEenheid());
 			
