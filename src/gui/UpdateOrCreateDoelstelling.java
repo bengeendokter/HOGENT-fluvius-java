@@ -1,18 +1,14 @@
 package gui;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import domein.Average;
 import domein.Bewerking;
-import domein.Categorie;
 import domein.DTOMVODoelstelling;
 import domein.Datasource;
 import domein.Doelstelling;
@@ -33,12 +29,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -121,13 +115,15 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 	@FXML
 	private Label lblJaar;
 	@FXML
-	private Spinner datepickerJaar;
+	private Spinner<Integer> datepickerJaar;
 	
 	private List<Bewerking> doelTypes = new ArrayList<>(Arrays.asList(new Som(), new Average(), new GeenBewerking()));
 	private List<String> iconen = (List<String>) Arrays
 			.asList(new String[] {"file:src/images/people.png", "file:src/images/partnership.png",
 					"file:src/images/peace.png", "file:src/images/planet.jpg", "file:src/images/prosperity.jpg"});
-	private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
+	//private Map<String, Doelstelling> map = new HashMap<String, Doelstelling>();
+	
+	private Doelstelling doelstellingDeleted;
 	private DomeinController dc;
 	
 	public UpdateOrCreateDoelstelling(DomeinController dc, Doelstelling doelstellingToUpdate,
@@ -485,6 +481,43 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							}
 						}
 						
+						if (doelstellingDeleted != null) {
+							if (!dc.getDoelstellingen().contains(doelstellingDeleted)) {
+						    	if (doelstellingDeleted.getDatasource() == null) {
+					    		
+					    		dc.voegMVODoelstellingToeMetSubs(
+					    				new DTOMVODoelstelling(
+					    						doelstellingDeleted.getNaam(), 
+					    						doelstellingDeleted.getIcon(), 
+					    						doelstellingDeleted.getDoelwaarde(),
+					    						doelstellingDeleted.getRollen(),
+					    						doelstellingDeleted.getSdGoal(),
+					    						doelstellingDeleted.getDatasource(),
+					    						doelstellingDeleted.getComponents().stream().map(d -> (Doelstelling) d).collect(Collectors.toList()),// subdoelstellingen
+					    						doelstellingDeleted.getFormule(),
+					    						doelstellingDeleted.getJaar()
+					    					)
+						    			);
+						    	} else {
+						    		dc.voegMVODoelstellingToeZonderSubs(
+						    				new DTOMVODoelstelling(
+						    						doelstellingDeleted.getNaam(), 
+						    						doelstellingDeleted.getIcon(), 
+						    						doelstellingDeleted.getDoelwaarde(),
+						    						doelstellingDeleted.getRollen(),
+						    						doelstellingDeleted.getSdGoal(),
+						    						doelstellingDeleted.getDatasource(),
+													List.of(),// subdoelstellingen
+													doelstellingDeleted.getFormule(),
+													doelstellingDeleted.getJaar()
+												)
+										);
+						    	}
+						}
+						}
+				    	
+				    	doelstellingDeleted = null;
+						
 						refreshScherm();
 					}
 					catch(IllegalArgumentException e)
@@ -526,6 +559,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		 Node node = event.getPickResult().getIntersectedNode();
 		    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 		    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeKiesSubs.getSelectionModel().getSelectedItem();
+		    	
 		    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
              	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
              	
@@ -540,6 +574,9 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		Node node = event.getPickResult().getIntersectedNode();
 	    if (node instanceof Text || (node instanceof TreeCell && ((TreeCell<?>) node).getText() != null)) {
 	    	TreeItem<Doelstelling> verwijderde = (TreeItem<Doelstelling>)treeGekozenSubs.getSelectionModel().getSelectedItem();
+	    	
+	    	doelstellingDeleted = verwijderde.getValue();
+	    	
 	    	TreeItem<Doelstelling> rootNodeKies = treeKiesSubs.getRoot();
          	TreeItem<Doelstelling> rootNodeGekozen = treeGekozenSubs.getRoot();
          	

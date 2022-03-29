@@ -533,6 +533,7 @@ public class Fluvius
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new IllegalArgumentException("Er is een probleem opgetreden bij het verwijderen van een MVO Doelstelling");
 		}
