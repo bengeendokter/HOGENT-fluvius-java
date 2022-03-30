@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import domein.Categorie;
 import domein.DomeinController;
-import domein.Gebruiker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 

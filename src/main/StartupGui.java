@@ -2,9 +2,7 @@ package main;
 
 
 import domein.AanmeldController;
-import domein.PopulateDB;
 import gui.AanmeldenResponsiveController;
-import gui.VolledigPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -19,7 +17,7 @@ public class StartupGui extends Application{
 	{
 		try
 		{
-
+			// Gebruiker: JanJansens, Wachtwoord: 123456798
 			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST, new GebruikerDaoJpa());
 						
 			AanmeldenResponsiveController root = new AanmeldenResponsiveController(aanmeldController);

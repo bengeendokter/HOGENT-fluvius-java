@@ -1,7 +1,5 @@
 package domein;
 
-import static org.mockito.Mockito.doCallRealMethod;
-
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
@@ -12,8 +10,6 @@ import repository.CategorieDao;
 import repository.CategorieDaoJpa;
 import repository.GebruikerDao;
 import repository.GebruikerDaoJpa;
-import repository.GenericDao;
-import repository.GenericDaoJpa;
 import repository.MVODatasourceDao;
 import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;

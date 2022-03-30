@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.List;
+
 import domein.Doelstelling;
 import domein.DomeinController;
 import javafx.application.Platform;
