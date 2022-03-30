@@ -352,23 +352,63 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			});
 			
 			// TODO filter kies sub doelstellingen
-			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
-			
-			
-			
-			System.out.println(dc.geefDoelstellingenDieGeenSubsHebben());
-			for (Doelstelling d : dc.geefDoelstellingenDieGeenSubsHebben()) {
-				
-	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(d);
-	            rootNodeKies.getChildren().add(empLeaf);
-			}
-			
-			treeKiesSubs.setRoot(rootNodeKies);
-			treeKiesSubs.setShowRoot(false);
+//			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
+//			
+//			
+//			
+//			System.out.println(dc.geefDoelstellingenDieGeenSubsHebben());
+//			for (Doelstelling d : dc.geefDoelstellingenDieGeenSubsHebben()) {
+//				
+//	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(d);
+//	            rootNodeKies.getChildren().add(empLeaf);
+//			}
+//			
+//			treeKiesSubs.setRoot(rootNodeKies);
+//			treeKiesSubs.setShowRoot(false);
 			
 //			rootNodeKies.getChildren().addAll(
 //					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
 //			
+
+			// maak rootNode
+			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
+			
+			// vul rootNode recursief op met doelstellingen
+			List<Doelstelling> rootDoelstellingen;
+			
+			if(doelstellingToUpdate != null) {
+				rootDoelstellingen = dc.getDoelstellingen().stream()
+						.filter(doel -> doel.getParentComponent() == null).filter(doel -> doelstellingToUpdate.getDoelstellingID() != doel.getDoelstellingID()).toList();
+				
+			}else {
+				rootDoelstellingen = dc.getDoelstellingen().stream()
+						.filter(doel -> doel.getParentComponent() == null).toList();
+				
+			}
+		
+			// ERVOOR ZORGEN DAT JE NIET MEER DAN DRIE LAGEN KAN AANMAKEN
+			List<Doelstelling> rootDoelstellingen2 = new ArrayList<>();
+			for(Doelstelling d : rootDoelstellingen) {
+				int aantal = 1;
+				if(d.getComponents() != null) {
+					aantal++;
+				}
+				for(Doelstelling s: d.getComponents()) {
+					if(s.getComponents() != null) {
+						aantal++;
+					}
+				}
+				if(aantal < 3) {
+					rootDoelstellingen2.add(d);
+				}
+			}
+			
+			addToTreeItem(rootNodeKies, rootDoelstellingen2);
+			
+			treeKiesSubs.setRoot(rootNodeKies);
+			treeKiesSubs.setShowRoot(false);
+			
+			
 			//datasource/suboelen on select change eenheid
 			// Component
 			treeKiesSubs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
