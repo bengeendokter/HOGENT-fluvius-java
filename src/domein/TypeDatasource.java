@@ -14,34 +14,31 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "Types")
 @DiscriminatorColumn(name = "Soort")
-public abstract class TypeDatasource implements Serializable  {
-	
+public abstract class TypeDatasource implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "typeNr")
 	private int id;
-	
-	
-	//List<Double>
-	public abstract List<Double> getData(int kolom) throws IOException; 
-	
+
+	public abstract List<Double> getData(int kolom) throws IOException;
+
 	public abstract String getLink();
-	
+
 	public abstract String getHostname();
-	
+
 	public abstract String getUsername();
+
 	public abstract String getPassword();
-	
+
 	public abstract String toString();
-	
+
 	public abstract int geefKolomLengte() throws IOException;
-	
+
 }

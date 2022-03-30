@@ -46,7 +46,6 @@ public class AanmeldController
 		
 		try
 		{
-			//gJpa = new GebruikerDaoJpa();
 			gJpa.startTransaction();
 		}
 		catch(ExceptionInInitializerError e)

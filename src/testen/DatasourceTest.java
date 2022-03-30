@@ -387,13 +387,12 @@ public class DatasourceTest {
 		   final String LINK2 = "src/data/csvDouble.csv";
 	       MVODatasource datasource =   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","" ,  CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
 	       MVODatasource dataSource2 =   new MVODatasource(new DTODatasource(DATASOURCENAAM2, TYPE2, LINK2,"","","",   CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
-	       //MVODatasource array[] = {datasource, dataSource2};
+	       
 	       datasource.setDatasourceID(1);
 	       dataSource2.setDatasourceID(2);
 	       
 	       fluvius.setCurrentDatasource(datasource);
 	       // Het mock object trainen
-	       //Mockito.when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(array)) );
 	       Mockito.when(datasourceRepo.getByNaam(DATASOURCENAAM2)).thenReturn(dataSource2);
 	       
 	       // Uitvoeren
@@ -402,7 +401,6 @@ public class DatasourceTest {
 			});
 	       
 	       // Na de test verifiëren
-	       //Mockito.verify(datasourceRepo).findAll();
 	       Mockito.verify(datasourceRepo).getByNaam(DATASOURCENAAM2);
 	}
 	

@@ -351,24 +351,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 				}
 			});
 			
-			// TODO filter kies sub doelstellingen
-//			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
-//			
-//			
-//			
-//			System.out.println(dc.geefDoelstellingenDieGeenSubsHebben());
-//			for (Doelstelling d : dc.geefDoelstellingenDieGeenSubsHebben()) {
-//				
-//	            TreeItem<Doelstelling> empLeaf = new TreeItem<Doelstelling>(d);
-//	            rootNodeKies.getChildren().add(empLeaf);
-//			}
-//			
-//			treeKiesSubs.setRoot(rootNodeKies);
-//			treeKiesSubs.setShowRoot(false);
-			
-//			rootNodeKies.getChildren().addAll(
-//					dc.getDoelstellingen().stream().map(subDoel -> new TreeItem<>((Doelstelling) subDoel)).toList());
-//			
+
 
 			// maak rootNode
 			TreeItem<Doelstelling> rootNodeKies = new TreeItem<Doelstelling>(null);
@@ -391,13 +374,15 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			for(Doelstelling d : rootDoelstellingen) {
 				int aantal = 1;
 				if(d.getComponents() != null) {
-					aantal++;
-				}
-				for(Doelstelling s: d.getComponents()) {
-					if(s.getComponents() != null) {
-						aantal++;
+					for(Doelstelling s: d.getComponents()) {
+						
+						if(s.getComponents() != null) {
+							s.getComponents().forEach(e -> System.out.println(String.format("%s", s.getNaam())));
+							aantal = 3;
+						}
 					}
 				}
+				
 				if(aantal < 3) {
 					rootDoelstellingen2.add(d);
 				}
@@ -427,10 +412,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			});;
 			
 			
-			// TODO move subdoelen tussen kies en gekozen onclick
-				// TODO (bug fixen)
-				// --> Als doelstelling een subdoelstelling (links naar rechts geswitched) wordt en weer uit de composite gedaan wordt (rechts naar links geswitched)
-				// dan komt het niet meer te zien in de overzicht van doelstellingen
+
 			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 			    handleMouseClicked(event);
 			};
@@ -442,7 +424,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 			treeKiesSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle); 
 			treeGekozenSubs.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle2); 
 			
-			// Opslaan TODO fixen
+
 			btnOpslaan.setOnAction(new EventHandler<ActionEvent>()
 			{
 				@Override
@@ -510,11 +492,6 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 						}
 						// met subs
 						List<Doelstelling> subDoelstellingen = rootNode.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
-						List<Doelstelling> kiesSubdoelstellingen = rootNodeKies.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
-						
-						
-//						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
-//								datasource, subDoelstellingen, bewerking, 2020);
 
 						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal, 
 								datasource, subDoelstellingen, bewerking, jaar );
@@ -563,7 +540,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 							    						d.getRollen(),
 							    						d.getSdGoal(),
 							    						d.getDatasource(),
-														List.of(),// subdoelstellingen
+														List.of(),
 														d.getFormule(),
 														d.getJaar()
 													)
@@ -581,7 +558,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 					}
 					catch(IllegalArgumentException e)
 					{
-						e.printStackTrace();
+						
 						lblErrorMessage.setText(e.getMessage());
 						lblErrorMessage.setVisible(true);
 					}
@@ -663,10 +640,7 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		for(Doelstelling doelstelling : doelstellingen)
 		{
 			TreeItem<Doelstelling> parentDoelstelling = new TreeItem<>(doelstelling);
-			
-//			addToTreeItem(parentDoelstelling,
-//					doelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
-			
+
 			rootDoelstelling.getChildren().add(parentDoelstelling);
 		}
 	}

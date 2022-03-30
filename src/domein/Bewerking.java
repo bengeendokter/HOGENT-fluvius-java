@@ -18,9 +18,7 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = "Soort")
 public abstract class Bewerking implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id

@@ -18,44 +18,40 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SDG")
 @NamedQueries({
-	@NamedQuery(name = "sdGoal.findByNaam", query = "select s from domein.SdGoal s where s.naam = :naam order by s.afbeeldingnaam")})
-public class SdGoal implements Serializable, ListViewInterface
-{
+		@NamedQuery(name = "sdGoal.findByNaam", query = "select s from domein.SdGoal s where s.naam = :naam order by s.afbeeldingnaam") })
+public class SdGoal implements Serializable, ListViewInterface {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idSDG")
 	private int sdGoalID;
-	
+
 	private String afbeeldingnaam;
-	@Column(length=4000)
+	@Column(length = 4000)
 	private String naam;
 	private String icon;
-	
+
 	@ManyToOne
 	private SdGoal parentSDG;
-	
-	@OneToMany(mappedBy="sdGoal")
+
+	@OneToMany(mappedBy = "sdGoal")
 	private List<Component> componenten;
 
-	public SdGoal(String naam)
-	{
+	public SdGoal(String naam) {
 		this.naam = naam;
 	}
-	
-	public SdGoal(String afbeeldingnaam, String naam)
-	{
+
+	public SdGoal(String afbeeldingnaam, String naam) {
 		this.afbeeldingnaam = afbeeldingnaam;
 		this.naam = naam;
 		this.icon = String.format("file:src/images/%s.jpg", afbeeldingnaam);
 	}
 
-	protected SdGoal()
-	{
+	protected SdGoal() {
 
 	}
-	
+
 	public int getId() {
 		return this.sdGoalID;
 	}
@@ -63,61 +59,50 @@ public class SdGoal implements Serializable, ListViewInterface
 	public void setId(int id) {
 		sdGoalID = id;
 	}
-	
-	public String getAfbeeldingnaam()
-	{
+
+	public String getAfbeeldingnaam() {
 		return afbeeldingnaam;
 	}
-	
+
 	public int getAfbeeldingNaamAlsInt() {
 		return Integer.parseInt(afbeeldingnaam);
 	}
 
-	public void setAfbeeldingnaam(String afbeeldingnaam)
-	{
+	public void setAfbeeldingnaam(String afbeeldingnaam) {
 		this.afbeeldingnaam = afbeeldingnaam;
 	}
 
-	public String getIcon()
-	{
+	public String getIcon() {
 		return icon;
 	}
 
-	public void setIcon(String icon)
-	{
+	public void setIcon(String icon) {
 		this.icon = icon;
 	}
 
-	public SdGoal getParentSDG()
-	{
+	public SdGoal getParentSDG() {
 		return parentSDG;
 	}
 
-	public void setParentSDG(SdGoal parentSDG)
-	{
+	public void setParentSDG(SdGoal parentSDG) {
 		this.parentSDG = parentSDG;
 	}
 
-	public String getNaam()
-	{
+	public String getNaam() {
 		return naam;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.hash(naam);
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if(this == obj)
-		{
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if(!(obj instanceof SdGoal))
-		{
+		if (!(obj instanceof SdGoal)) {
 			return false;
 		}
 		SdGoal other = (SdGoal) obj;
@@ -125,8 +110,7 @@ public class SdGoal implements Serializable, ListViewInterface
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return naam;
 	}
 }

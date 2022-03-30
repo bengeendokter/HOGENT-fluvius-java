@@ -20,119 +20,87 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Categorie")
 @NamedQueries({
-	@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.SDGCategorie c where c.naam = :naam")})
-public class SDGCategorie implements Serializable, Categorie
-{
+		@NamedQuery(name = "categorie.findByNaam", query = "select c from domein.SDGCategorie c where c.naam = :naam") })
+public class SDGCategorie implements Serializable, Categorie {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categorieID;
 
-
-	@Column(unique=true)
+	@Column(unique = true)
 	private String naam;
 
 	private String icon;
-	
-	@OneToMany
-	@JoinColumn(
-	        name="CATID", 
-	        nullable=true,
-	        foreignKey = @ForeignKey(
-	                name="FK_SDG_ID",
-	                foreignKeyDefinition = "FOREIGN KEY (CATID) REFERENCES SDGOAL(idSDG) ON UPDATE CASCADE ON DELETE CASCADE"
-	        )
-	)
-	private List<SdGoal> sdGoals;
-	
-//	@OneToMany
-//	private List<Rol> rollen;
 
-	protected SDGCategorie()
-	{
-		
+	@OneToMany
+	@JoinColumn(name = "CATID", nullable = true, foreignKey = @ForeignKey(name = "FK_SDG_ID", foreignKeyDefinition = "FOREIGN KEY (CATID) REFERENCES SDGOAL(idSDG) ON UPDATE CASCADE ON DELETE CASCADE"))
+	private List<SdGoal> sdGoals;
+
+	protected SDGCategorie() {
+
 	}
-	
-	public SDGCategorie(DTOCategorie dca)
-	{
+
+	public SDGCategorie(DTOCategorie dca) {
 		setNaam(dca.naam);
 		setIcon(dca.icon);
 		wijzigSdGoals(dca.sdgoals);
 	}
-	
-	
-	public void setCategorieID(int mock)
-	{
+
+	public void setCategorieID(int mock) {
 		this.categorieID = mock;
 	}
-	
-	public void setIcon(String icon)
-	{
+
+	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	
-	public int getCategorieID()
-	{
+
+	public int getCategorieID() {
 		return categorieID;
 	}
 
-	public final void setNaam(String naam)
-	{
-		if(naam == null || naam.isBlank())
-		{
+	public final void setNaam(String naam) {
+		if (naam == null || naam.isBlank()) {
 			throw new IllegalArgumentException("De naam van de Categorie mag niet leeg zijn");
 		}
-		
+
 		this.naam = naam;
 	}
-	
-	public String getNaam()
-	{
+
+	public String getNaam() {
 		return naam;
 	}
 
-
-	public String getIcon()
-	{
+	public String getIcon() {
 		return icon;
 	}
-	
-	public List<SdGoal> getSdGoals()
-	{
+
+	public List<SdGoal> getSdGoals() {
 		return Collections.unmodifiableList(sdGoals);
 	}
-	
 
-	public void wijzigSdGoals(List<SdGoal> sdGoals)
-	{
-		if(sdGoals.isEmpty() || sdGoals == null)
-		{
+	public void wijzigSdGoals(List<SdGoal> sdGoals) {
+		if (sdGoals.isEmpty() || sdGoals == null) {
 			throw new IllegalArgumentException("Een Categorie moet minstens 1 SdGoal hebben");
 		}
 		System.out.println(sdGoals);
-		//Collections.sort(sdGoals, Comparator.comparing(SdGoal::getAfbeeldingnaam).reversed());
+
 		this.sdGoals = sdGoals;
 		System.out.println(sdGoals);
 
 	}
 
-
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.hash(naam);
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if(this == obj)
-		{
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if(!(obj instanceof SDGCategorie))
-		{
+		if (!(obj instanceof SDGCategorie)) {
 			return false;
 		}
 		SDGCategorie other = (SDGCategorie) obj;
@@ -140,8 +108,7 @@ public class SDGCategorie implements Serializable, Categorie
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return naam;
 	}
 }

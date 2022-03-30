@@ -384,7 +384,7 @@ public class DoelstellingTest {
 		   
 		   
 		   fluvius.setCurrentDoelstelling(hoofddoelstelling);
-	       //eenCategorie.setCategorieID(0);
+	      
 	       // Het mock object trainen
 	       Mockito.when(mvoDoelstellingRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(hoofddoelstelling)));
 	       Mockito.when(mvoDoelstellingRepo.getByNaam(NAAMNEW)).thenReturn(hoofddoelstelling);
@@ -428,7 +428,7 @@ public class DoelstellingTest {
 		   
 		   
 		   fluvius.setCurrentDoelstelling(hoofddoelstelling);
-	       //eenCategorie.setCategorieID(0);
+	       
 	       // Het mock object trainen
 	       Mockito.lenient().when(mvoDoelstellingRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(hoofddoelstelling)));
 	       Mockito.when(mvoDoelstellingRepo.getByNaam(NAAMNEW)).thenReturn(hoofddoelstelling);
