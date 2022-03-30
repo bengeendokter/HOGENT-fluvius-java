@@ -17,7 +17,7 @@ public class StartupGui extends Application{
 	{
 		try
 		{
-			// Gebruiker: JanJansens, Wachtwoord: 123456798
+			// Gebruiker: JanJansens, Wachtwoord: 123456789
 			AanmeldController aanmeldController = new AanmeldController(DatabaseSelector.ISLOCALHOST, new GebruikerDaoJpa());
 						
 			AanmeldenResponsiveController root = new AanmeldenResponsiveController(aanmeldController);
