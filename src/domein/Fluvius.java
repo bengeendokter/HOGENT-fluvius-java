@@ -255,7 +255,7 @@ public class Fluvius
 	
 	public void wijzigCategorie(DTOCategorie categorie)
 	{
-		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
+//		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
 		Categorie c = currentCategorie;
 		SDGCategorie nieuweCategorie = categorieRepo.getByNaam(categorie.naam); 
 		//System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());

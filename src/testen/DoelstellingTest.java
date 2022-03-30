@@ -41,6 +41,7 @@ import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDaoJpa;
 
+@SuppressWarnings("unused")
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DoelstellingTest {

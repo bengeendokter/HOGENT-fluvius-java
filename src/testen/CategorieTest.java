@@ -27,7 +27,7 @@ import repository.MVODoelstellingDao;
 import repository.SdGoalDao;
 
 
-
+@SuppressWarnings("unused")
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class CategorieTest{

@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 
 public class VolledigPanelController extends BorderPane{
 	
-	private DomeinController dc;
+//	private DomeinController dc;
 	
 	public VolledigPanelController(DomeinController dc)
 	{
@@ -17,7 +17,7 @@ public class VolledigPanelController extends BorderPane{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("VolledigPanel.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
-		this.dc = dc;
+//		this.dc = dc;
 		try
 		{
 			loader.load();

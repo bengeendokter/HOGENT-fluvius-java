@@ -40,7 +40,7 @@ public class Leaf extends Component {
 		
 		//historiek
 		//initeel setten
-		Map<String, Double> x = getBerekendewaarde();
+//		Map<String, Double> x = getBerekendewaarde();
 		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
