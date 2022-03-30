@@ -1,7 +1,6 @@
 package domein;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,10 +8,7 @@ import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LEAF")
@@ -44,7 +40,7 @@ public class Leaf extends Component {
 		
 		//historiek
 		//initeel setten
-		Map<String, Double> x = getBerekendewaarde();
+//		Map<String, Double> x = getBerekendewaarde();
 		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);

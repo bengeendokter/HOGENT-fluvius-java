@@ -2,7 +2,6 @@ package domein;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -292,7 +291,7 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 
 	private int geefKolomLengteXLSX() {
 		List<List<String>> meerdereKolommen = new ArrayList<>();
-		List<String> enkelKolom = new ArrayList<>();
+//		List<String> enkelKolom = new ArrayList<>();
 		
 		try  {  
 			File file = new File(link);     
@@ -352,7 +351,7 @@ public class ExcelDataSourceType extends TypeDatasource implements Serializable 
 			//lijst = lijst.stream().filter(e -> !e.matches(".*[a-z].*")).collect(Collectors.toList());
 			
             meerdereKolommen = lijstGeheel1;
-            enkelKolom = lijst;
+//            enkelKolom = lijst;
 
 			
 		}  

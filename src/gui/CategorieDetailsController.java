@@ -110,7 +110,8 @@ public class CategorieDetailsController<E> extends BorderPane{
 	            		else {
 	            			TreeItem<SdGoal> kind2 = depNode;
 	                        rootNode.getChildren().remove(depNode);
-	                        int index = rootNode.getChildren().indexOf(s);
+	                        @SuppressWarnings("unlikely-arg-type")
+							int index = rootNode.getChildren().indexOf(s);
 	                        rootNode.getChildren().get(index).getChildren().add(kind2);
 	            		}
                         

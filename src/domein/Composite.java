@@ -2,7 +2,6 @@ package domein;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,7 +41,7 @@ public class Composite extends Component implements Serializable{
 		//historiek
 		//initeel setten
 		
-		Map<String, Double> x = getBerekendewaarde();
+//		Map<String, Double> x = getBerekendewaarde();
 		//getComponentValue(getJaar(), getDoelstellingID()).setValue(x);
 		//getComponentValue(getJaar(), getDoelstellingID()).setDatum(LocalDate.now(), x);
 		

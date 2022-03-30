@@ -115,7 +115,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 						setGraphic(null);
 					} else {
 						setText(null);
-						imageView.setImage(new Image(name, 25, 25, true, true));
+						imageView.setImage(new Image(name, 40, 40, true, true));
 
 						setGraphic(imageView);
 					}
@@ -134,7 +134,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 
 					String icoonPath = (String) listIcoon.getSelectionModel().getSelectedItem();
 
-					imgIcoon.setImage(new Image(icoonPath, 25, 25, true, true));
+					imgIcoon.setImage(new Image(icoonPath, 250, 250, true, true));
 
 				}
 			});
@@ -247,7 +247,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 		String pad2 = ((Categorie) object).getIcon();
 		int index2 = pad2.indexOf("c");
 		pad2 = pad2.substring(index2 + 1);
-		imgIcoon.setImage(new Image(((Categorie) object).getIcon(), 25, 25, true, true));
+		imgIcoon.setImage(new Image(((Categorie) object).getIcon(), 250, 250, true, true));
 
 
 		for (SdGoal s : ((Categorie) object).getSdGoals()) {

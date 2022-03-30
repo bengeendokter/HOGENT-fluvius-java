@@ -131,7 +131,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	@Override
 	public int geefKolomLengte() {
 		List<List<String>> meerdereKolommen =  new ArrayList<>();
-    	List<String> eenKolom =  new ArrayList<>();
+//    	List<String> eenKolom =  new ArrayList<>();
 		try (
 	            Reader reader = Files.newBufferedReader(Paths.get(link));
 	            CSVReader csvReader = new CSVReader(reader);	
@@ -169,7 +169,7 @@ public class CsvDataSourceType extends TypeDatasource implements Serializable  {
 	            }
 	            
 	            meerdereKolommen = lijstGeheel1;
-	            eenKolom = lijstGeheel2;
+//	            eenKolom = lijstGeheel2;
 	            
 	        }
 	        catch (Exception e)  {

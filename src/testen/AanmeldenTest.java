@@ -17,7 +17,7 @@ import exceptions.GebruikerGeblokkeerdException;
 import exceptions.OngeldigeWachtwoordException;
 import repository.GebruikerDaoJpa;
 
-
+@SuppressWarnings("unused")
 @ExtendWith(MockitoExtension.class)
 public class AanmeldenTest
 {

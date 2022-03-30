@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -138,25 +139,34 @@
          <children>
             <HBox prefHeight="37.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="lblNaam" prefHeight="31.0" prefWidth="129.0" text="Naam:">
+                  <Label fx:id="lblNaam" prefHeight="31.0" text="Naam:">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFNaam" prefHeight="35.0" prefWidth="248.0" />
+                  <TextField fx:id="txtFNaam" prefHeight="26.0" prefWidth="182.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></TextField>
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="78.0" prefWidth="244.0">
+            <HBox minHeight="100.0" prefHeight="78.0" prefWidth="244.0">
                <children>
-                  <Label fx:id="lblIcoon" prefHeight="31.0" prefWidth="178.0" text="Icoon:">
+                  <Label fx:id="lblIcoon" text="Icoon:">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgIcoon" fitHeight="80.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgIcoon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <viewport>
+                        <Rectangle2D minX="100.0" minY="100.0" />
+                     </viewport>
+                     <HBox.margin>
+                        <Insets left="24.0" />
+                     </HBox.margin></ImageView>
                </children>
             </HBox>
             <Label fx:id="lblKiesIcoon" prefHeight="17.0" prefWidth="129.0" text="Kies icoon:">
@@ -164,7 +174,7 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <ListView fx:id="listIcoon" prefHeight="200.0" prefWidth="145.0" />
+            <ListView fx:id="listIcoon" orientation="HORIZONTAL" prefHeight="80.0" prefWidth="282.0" />
          </children>
          <padding>
             <Insets right="10.0" />

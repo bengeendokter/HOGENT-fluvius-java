@@ -3,7 +3,6 @@ package domein;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import repository.CategorieDaoJpa;
 import repository.MVODatasourceDaoJpa;
