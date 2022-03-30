@@ -560,7 +560,7 @@ public class Fluvius {
 		} catch (IllegalArgumentException e) {
 			throw e;
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Een datasource die gebruikt wordt kan niet verwijdert worden.");
+			throw new IllegalArgumentException("Een datasource die gebruikt wordt kan niet verwijderd worden.");
 		}
 
 		setDatasources();
