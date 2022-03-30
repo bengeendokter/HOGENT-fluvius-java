@@ -551,4 +551,81 @@ public class DatasourceTest {
 	    	   new MVODatasource(new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM));
 	       });
 	}
+	
+	/**
+	 * Datasource verwijderen
+	 * Correcte scenario:
+	 * De datasource die verwijdert moet worden, is niet de enigste datasource in de databank
+	 * @throws IOException 
+	 */
+	@Test
+	public void verwijderDatasource_nietEnigste_verwijderd() throws IOException
+	{
+		   // Alles klaarzetten
+			final String DATASOURCENAAM = "DatasourceTest";
+			final String DATASOURCENAAM2 = "DatasourceTest2";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+		   final int KOLOM = 1;
+		   
+		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM);
+		   MVODatasource mvoDatasource = new MVODatasource(datasource);
+		   DTODatasource datasource2 = new DTODatasource(DATASOURCENAAM2, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM);
+		   MVODatasource mvoDatasource2 = new MVODatasource(datasource2);
+		
+	       fluvius.setCurrentDatasource(mvoDatasource);
+
+	       // Het mock object trainen
+	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(mvoDatasource, mvoDatasource2)));
+	       Mockito.lenient().when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
+	       
+	       // Uitvoeren
+	       Assertions.assertDoesNotThrow(
+	    		   () -> fluvius.verwijderMVODatasource());
+	       
+	       // Na de test verifiëren
+
+	       Mockito.verify(datasourceRepo, Mockito.atLeast(2)).findAll();
+	       Mockito.verify(datasourceRepo, Mockito.times(0)).getByNaam(DATASOURCENAAM);
+	}
+	
+	
+	/**
+	 * Datasource verwijderen
+	 * Foutieve scenario:
+	 * De datasource die verwijdert moet worden, is wel de enigste datasource in de databank
+	 * @throws IOException 
+	 */
+	@Test
+	public void verwijderDatasource_enigste_exception() throws IOException
+	{
+		   // Alles klaarzetten
+			final String DATASOURCENAAM = "DatasourceTest";
+		   final String TYPE = "csv";
+		   final String LINK = "src/data/csvDouble.csv";
+		   final boolean CORRUPT = false;
+		   final String WIJZIGBAARHEID = "traag";
+		   final String MAAT = "test";
+		   final int KOLOM = 1;
+		   
+		   DTODatasource datasource = new DTODatasource(DATASOURCENAAM, TYPE, LINK,"","","", CORRUPT, WIJZIGBAARHEID, MAAT, KOLOM);
+		   MVODatasource mvoDatasource = new MVODatasource(datasource);
+		
+	       fluvius.setCurrentDatasource(mvoDatasource);
+
+	       // Het mock object trainen
+	       Mockito.lenient().when(datasourceRepo.findAll()).thenReturn(new ArrayList<>(Arrays.asList(mvoDatasource)));
+	       Mockito.lenient().when(datasourceRepo.getByNaam(DATASOURCENAAM)).thenReturn(mvoDatasource);
+	       
+	       // Uitvoeren
+	       Assertions.assertThrows(IllegalArgumentException.class, 
+	    		   () -> fluvius.verwijderMVODatasource());
+	       
+	       // Na de test verifiëren
+	       Mockito.verify(datasourceRepo, Mockito.atLeast(1)).findAll();
+	       Mockito.verify(datasourceRepo, Mockito.times(0)).getByNaam(DATASOURCENAAM);
+	}
 }
