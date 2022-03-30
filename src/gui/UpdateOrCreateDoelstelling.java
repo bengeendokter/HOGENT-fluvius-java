@@ -510,8 +510,8 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 						}
 						// met subs
 						List<Doelstelling> subDoelstellingen = rootNode.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
-
-
+						List<Doelstelling> kiesSubdoelstellingen = rootNodeKies.getChildren().stream().map(doel ->doel.getValue()).collect(Collectors.toList());
+						
 						
 //						DTOMVODoelstelling doel = new DTOMVODoelstelling(naam, icoon, doelwaarde, rollen, sdGoal,
 //								datasource, subDoelstellingen, bewerking, 2020);
@@ -664,8 +664,8 @@ public class UpdateOrCreateDoelstelling extends BorderPane
 		{
 			TreeItem<Doelstelling> parentDoelstelling = new TreeItem<>(doelstelling);
 			
-			addToTreeItem(parentDoelstelling,
-					doelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
+//			addToTreeItem(parentDoelstelling,
+//					doelstelling.getComponents().stream().map(component -> (Doelstelling) component).toList());
 			
 			rootDoelstelling.getChildren().add(parentDoelstelling);
 		}

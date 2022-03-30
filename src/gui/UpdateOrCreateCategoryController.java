@@ -100,7 +100,8 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 				wijzigBestaandeCategorie(object);
 
 			}
-
+			if(object != null)dc.setCurrentCategorie((Categorie)object);
+			
 			// listIcoon opvullen met iconen
 			listIcoon.setItems(FXCollections.observableList(iconen));
 			listIcoon.setCellFactory(param -> new ListCell<String>() {
@@ -183,7 +184,7 @@ public class UpdateOrCreateCategoryController<E> extends BorderPane {
 			treeviewSdgs.setRoot(rootNode);
 
 			treeviewSdgs.setShowRoot(false);
-
+			
 
 			EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 				handleMouseClicked(event);

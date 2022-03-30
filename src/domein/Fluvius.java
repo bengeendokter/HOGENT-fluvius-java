@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.RollbackException;
 
@@ -14,13 +13,9 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.CategorieDao;
-import repository.CategorieDaoJpa;
 import repository.MVODatasourceDao;
-import repository.MVODatasourceDaoJpa;
 import repository.MVODoelstellingDao;
-import repository.MVODoelstellingDaoJpa;
 import repository.SdGoalDao;
-import repository.SdGoalDaoJpa;
 
 public class Fluvius
 {
@@ -260,7 +255,7 @@ public class Fluvius
 	
 	public void wijzigCategorie(DTOCategorie categorie)
 	{
-		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
+//		SDGCategorie categorieInRepo = categorieRepo.getByNaam(currentCategorie.getNaam()); 
 		Categorie c = currentCategorie;
 		SDGCategorie nieuweCategorie = categorieRepo.getByNaam(categorie.naam); 
 		//System.out.printf("categorieInRepo = %s, currentCategorie = %s", categorieInRepo.getCategorieID(), currentCategorie.getCategorieID());
