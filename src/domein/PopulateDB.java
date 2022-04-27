@@ -952,17 +952,34 @@ public class PopulateDB {
 
 		SdGoal dgoal4 = sdGoalRepo.getByNaam("Kwaliteitsonderwijs");
 		SdGoal dgoal3 = sdGoalRepo.getByNaam("Goede gezondheid en welzijn");
+		
+		SdGoal g13 = sdGoalRepo.getByNaam("Klimaatactie");
+		
+		SdGoal g12 = sdGoalRepo.getByNaam("Verantwoorde consumptie en productie");
+		SdGoal g8 = sdGoalRepo.getByNaam("Waardig werk en economische groei");
+		SdGoal g5 = sdGoalRepo.getByNaam("Gendergelijkheid");
+		
 		// Categorien
 		categorieRepo.insert(new SDGCategorie(new DTOCategorie("Economie", "file:src/images/people.png",
 				new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5)))));
 		categorieRepo.insert(new SDGCategorie(
-				new DTOCategorie("Sociaal", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(dgoal4)))));
+				new DTOCategorie("Sociaal", "file:src/images/peace.png", new ArrayList<>(Arrays.asList(dgoal4, g8, g5)))));
 		categorieRepo.insert(new SDGCategorie(
 				new DTOCategorie("Omgeving", "file:src/images/planet.jpg", new ArrayList<>(Arrays.asList(dgoal3)))));
+		categorieRepo.insert(new SDGCategorie(
+				new DTOCategorie("Ecologie", "file:src/images/planet.jpg", new ArrayList<>(Arrays.asList(g13, g12)))));
+		
 		// Rollen
 		List<Rol> rollen = new ArrayList<>();
-		Rol rol = new Rol("MVO Coördinator");
-		rollen.add(rol);
+		Rol rol1 = new Rol("MVO Coördinator");
+		Rol rol2 = new Rol("Directie");
+		Rol rol3 = new Rol("Manager");
+		Rol rol4 = new Rol("Stakeholder");
+		
+		rollen.add(rol1);
+		rollen.add(rol2);
+		rollen.add(rol3);
+		rollen.add(rol4);
 
 		// Datasources
 		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
@@ -975,48 +992,68 @@ public class PopulateDB {
 		MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
 				null, null, true, "traag", "kg", 2));
 
-		List<MVODatasource> datasources = new ArrayList<>();
-		MVODatasource mvd4 = new MVODatasource(new DTODatasource("Aantal kinderen", "csv", "src/data/csvDouble.csv",
-				null, null, null, true, "snel", "kinderen", 2));
-		datasources.add(mvd1);
-		datasources.add(mvd2);
-		datasources.add(mvd3);
-		datasources.add(mvd4);
+		
+		MVODatasource mvd4 = new MVODatasource(new DTODatasource("Aantal klachten", "csv", "src/data/csvDouble.csv",
+				null, null, null, true, "snel", "klachten", 2));
+		
+		MVODatasource mvd5 = new MVODatasource(new DTODatasource("Steun aan goede doelen", "csv", "src/data/csvDouble.csv",
+				null, null, null, true, "snel", "euro", 2));
+		MVODatasource mvd6 = new MVODatasource(new DTODatasource("Discriminatie meldingen", "csv", "src/data/csvDouble.csv",
+				null, null, null, true, "snel", "meldingen", 2));
+		MVODatasource mvd7 = new MVODatasource(new DTODatasource("Bijscholingen personeel", "csv", "src/data/csvDouble.csv",
+				null, null, null, true, "snel", "bijscholingen", 2));
+		
+//		List<MVODatasource> datasources = new ArrayList<>();
+//		datasources.add(mvd1);
+//		datasources.add(mvd2);
+//		datasources.add(mvd3);
+//		datasources.add(mvd4);
 
 		// Doelstellingen
 
 		List<Doelstelling> lijst1 = new ArrayList<>();
 		List<Doelstelling> lijst2 = new ArrayList<>();
 
-		SdGoal g13 = sdGoalRepo.getByNaam("Klimaatactie");
 		SdGoal g131 = sdGoalRepo.getByNaam(
 				"13.1 Versterking van de veerkracht en het aanpassingsvermogen aan klimaatgerelateerde gevaren en natuurrampen in alle landen");
 
-		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal kinderen", "file:src/images/peace.png", 16, rollen, d1, mvd4,
+		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal klanten klachten", "file:src/images/peace.png", 16, rollen, g8, mvd4,
 				new ArrayList<>(), new Som(), 2020));
-		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 mercedes", "file:src/images/planet.jpg", 50, rollen, g131, mvd1,
+		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 50, rollen, g131, mvd1,
 				new ArrayList<>(), new Average(), 2020));
-		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 audi", "file:src/images/planet.jpg", 40, rollen, g13, mvd2,
+		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 camionette", "file:src/images/planet.jpg", 40, rollen, g13, mvd2,
 				new ArrayList<>(), new Average(), 2020));
-		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 bmw", "file:src/images/planet.jpg", 30, rollen, g13, mvd3,
+		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 persoonswagen", "file:src/images/planet.jpg", 30, rollen, g13, mvd3,
 				new ArrayList<>(), new Average(), 2020));
+		
+		Leaf l5 = new Leaf(new DTOMVODoelstelling("Steun aan goede doelen", "file:src/images/planet.jpg", 30, rollen, d1, mvd5,
+				new ArrayList<>(), new Average(), 2020));
+		Leaf l6 = new Leaf(new DTOMVODoelstelling("Discriminatie meldingen", "file:src/images/planet.jpg", 30, rollen, g5, mvd6,
+				new ArrayList<>(), new Average(), 2020));
+		Leaf l7 = new Leaf(new DTOMVODoelstelling("Bijscholingen personeel", "file:src/images/planet.jpg", 30, rollen, dgoal4, mvd7,
+				new ArrayList<>(), new Average(), 2020));
+		
+		
 
 		doelstellingenRepo.insert(l1);
 		doelstellingenRepo.insert(l2);
 		doelstellingenRepo.insert(l3);
 		doelstellingenRepo.insert(l4);
+		doelstellingenRepo.insert(l5);
+		doelstellingenRepo.insert(l6);
+		doelstellingenRepo.insert(l7);
 
 		lijst1.add(l3);
 		lijst1.add(l4);
 
-		Composite c1 = new Composite(new DTOMVODoelstelling("CO2TrageAuto's", "file:src/images/planet.jpg", 10, rollen,
+		Composite c1 = new Composite(new DTOMVODoelstelling("CO2 personeel transport", "file:src/images/planet.jpg", 10, rollen,
 				g13, null, lijst1, new Average(), 2020));
 
 		doelstellingenRepo.insert(c1);
 
 		lijst2.add(c1);
 		lijst2.add(l2);
-		Composite c2 = new Composite(new DTOMVODoelstelling("CO2NeutraalVervoer", "file:src/images/planet.jpg", 0,
+		Composite c2 = new Composite(new DTOMVODoelstelling("CO2-uitstoot transport", "file:src/images/planet.jpg", 0,
 				rollen, g13, null, lijst2, new Average(), 2020));
 
 		doelstellingenRepo.insert(c2);
