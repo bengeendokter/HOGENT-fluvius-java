@@ -32,17 +32,11 @@ public class Gebruiker implements Serializable
 	private String wachtwoord;
 	private String rol;
 	private String status;
-	private String salt = null;
 	
 	public Gebruiker(String gebruikersnaam, String wachtwoord, String rol, String status)
 	{
 		this.gebruikersnaam = gebruikersnaam;
-		SecureRandom random = new SecureRandom();
-		byte[] array = new byte[16];
-		random.nextBytes(array);
-		salt = Base64.getEncoder().encodeToString(array);
-	
-		this.wachtwoord = PasswordHasher.hash(wachtwoord,getSalt());
+		this.wachtwoord = PasswordHasher.hash(wachtwoord);
 		this.rol = rol;
 		this.status = status;
 		
@@ -55,7 +49,7 @@ public class Gebruiker implements Serializable
 	
 	public boolean controleerWachtwoord(String wachtwoord)
 	{
-		return this.wachtwoord.equals(wachtwoord);
+		return PasswordHasher.verify(this.wachtwoord, wachtwoord);
 	}
 	
 	public String getGebruikersnaam()
@@ -78,10 +72,6 @@ public class Gebruiker implements Serializable
 		return rol;
 	}
 	
-	public byte[] getSalt()
-	{
-		return Base64.getDecoder().decode(salt);
-	}
 	
 	@Override
 	public int hashCode()

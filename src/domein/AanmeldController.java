@@ -79,9 +79,9 @@ public class AanmeldController
 				throw new VerkeerdeRolException();
 			}
 			
-			String hash = PasswordHasher.hash(wachtwoord, gebruiker.getSalt());
+	
 			//wachtwoord fout
-			if(gebruiker.controleerWachtwoord(hash) == false)
+			if(gebruiker.controleerWachtwoord(wachtwoord) == false)
 			{
 				throw new OngeldigeWachtwoordException();
 			}
