@@ -9,6 +9,7 @@ public class DTOMVODoelstelling
 	public String naam;
 	public String icon;
 	public double doelwaarde;
+	public boolean isMax;
 	public List<Rol> rollen;
 	public SdGoal sdGoal;
 	public Datasource datasource;
@@ -25,6 +26,22 @@ public class DTOMVODoelstelling
 		this.naam = naam;
 		this.icon = icon;
 		this.doelwaarde = doelwaarde;
+		this.isMax = true;
+		this.rollen = rollen;
+		this.sdGoal = goal;
+		this.datasource = datasource;
+		this.subDoelstellingen = subDoelstellingen;
+		this.bewerking = bewerking;
+		this.jaar = jaar;
+	}
+	
+	public DTOMVODoelstelling(String naam, String icon, double doelwaarde, boolean isMax, List<Rol> rollen, SdGoal goal,  Datasource datasource, List<Doelstelling> subDoelstellingen, Bewerking bewerking
+			,int jaar)
+	{
+		this.naam = naam;
+		this.icon = icon;
+		this.doelwaarde = doelwaarde;
+		this.isMax = isMax;
 		this.rollen = rollen;
 		this.sdGoal = goal;
 		this.datasource = datasource;

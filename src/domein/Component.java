@@ -46,6 +46,7 @@ public abstract class Component implements Doelstelling, Serializable {
 	private String naam;
 	private String icon;
 	private double doelwaarde;
+	private boolean isMax;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Rol> rollen = new ArrayList<>();
 	@ManyToOne
@@ -71,6 +72,7 @@ public abstract class Component implements Doelstelling, Serializable {
 		setRollen(d.rollen);
 		setSdGoal(d.sdGoal);
 		setFormule(d.bewerking);
+		setMax(d.isMax);
 
 		// historiek
 		setJaar(d.jaar);
@@ -93,8 +95,18 @@ public abstract class Component implements Doelstelling, Serializable {
 
 	// METHODEN DIE OVERAL VOORKOMEN + DEZELFDE IMPLEMENTATIE HEBBEN
 	// ---------------------------------------------------------------------------------------------------
+	
+	
 	public int getDoelstellingID() {
 		return doelstellingID;
+	}
+
+	public boolean isMax() {
+		return isMax;
+	}
+
+	public void setMax(boolean isMax) {
+		this.isMax = isMax;
 	}
 
 	public String getNaam() {
