@@ -1017,21 +1017,21 @@ public class PopulateDB {
 		SdGoal g131 = sdGoalRepo.getByNaam(
 				"13.1 Versterking van de veerkracht en het aanpassingsvermogen aan klimaatgerelateerde gevaren en natuurrampen in alle landen");
 
-		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal klanten klachten", "file:src/images/peace.png", 16, rollen, g8, mvd4,
-				new ArrayList<>(), new Som(), 2020));
-		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 50, rollen, g131, mvd1,
-				new ArrayList<>(), new Average(), 2020));
+		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal klanten klachten", "file:src/images/peace.png", 16, rollen, dgoal3, mvd4,
+				new ArrayList<>(), new Som(), 2022));
+		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 40, rollen, g131, mvd1,
+				new ArrayList<>(), new Average(), 2022));
 		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 camionette", "file:src/images/planet.jpg", 40, rollen, g13, mvd2,
-				new ArrayList<>(), new Average(), 2020));
+				new ArrayList<>(), new Average(), 2022));
 		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 persoonswagen", "file:src/images/planet.jpg", 30, rollen, g13, mvd3,
-				new ArrayList<>(), new Average(), 2020));
+				new ArrayList<>(), new Average(), 2022));
 		
-		Leaf l5 = new Leaf(new DTOMVODoelstelling("Steun aan goede doelen", "file:src/images/planet.jpg", 30, rollen, d1, mvd5,
-				new ArrayList<>(), new Average(), 2020));
+		Leaf l5 = new Leaf(new DTOMVODoelstelling("Steun aan goede doelen", "file:src/images/planet.jpg", 30, false, rollen, d1, mvd5,
+				new ArrayList<>(), new Average(), 2022));
 		Leaf l6 = new Leaf(new DTOMVODoelstelling("Discriminatie meldingen", "file:src/images/planet.jpg", 30, rollen, g5, mvd6,
-				new ArrayList<>(), new Average(), 2020));
-		Leaf l7 = new Leaf(new DTOMVODoelstelling("Bijscholingen personeel", "file:src/images/planet.jpg", 30, rollen, dgoal4, mvd7,
-				new ArrayList<>(), new Average(), 2020));
+				new ArrayList<>(), new Average(), 2022));
+		Leaf l7 = new Leaf(new DTOMVODoelstelling("Bijscholingen personeel", "file:src/images/planet.jpg", 30, false, rollen, dgoal4, mvd7,
+				new ArrayList<>(), new Average(), 2022));
 		
 		
 
@@ -1043,18 +1043,22 @@ public class PopulateDB {
 		doelstellingenRepo.insert(l6);
 		doelstellingenRepo.insert(l7);
 
+//		Leaf l1_2 = new Leaf(new DTOMVODoelstelling("Aantal klanten klachten", "file:src/images/peace.png", 16, rollen, g8, mvd5,
+//				new ArrayList<>(), new Som(), 2021));
+//		doelstellingenRepo.update(l1_2);
+		
 		lijst1.add(l3);
 		lijst1.add(l4);
 
 		Composite c1 = new Composite(new DTOMVODoelstelling("CO2 personeel transport", "file:src/images/planet.jpg", 10, rollen,
-				g13, null, lijst1, new Average(), 2020));
+				g13, null, lijst1, new Som(), 2022));
 
 		doelstellingenRepo.insert(c1);
 
 		lijst2.add(c1);
 		lijst2.add(l2);
-		Composite c2 = new Composite(new DTOMVODoelstelling("CO2-uitstoot transport", "file:src/images/planet.jpg", 0,
-				rollen, g13, null, lijst2, new Average(), 2020));
+		Composite c2 = new Composite(new DTOMVODoelstelling("CO2-uitstoot transport", "file:src/images/planet.jpg", 50,
+				rollen, g13, null, lijst2, new Som(), 2022));
 
 		doelstellingenRepo.insert(c2);
 		gebruikerRepo.commitTransaction();

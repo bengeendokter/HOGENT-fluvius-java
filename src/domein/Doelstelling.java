@@ -12,6 +12,7 @@ public interface Doelstelling extends ListViewInterface {
 	public double getDoelwaarde();
 	public Bewerking getFormule();
 	public List<Rol> getRollen();
+	public boolean isMax();
 	public SdGoal getSdGoal();
 	List<Component> getComponents();
 	public Map<String, Double> getBerekendewaarde() throws IOException;
