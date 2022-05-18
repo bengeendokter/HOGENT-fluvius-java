@@ -189,7 +189,7 @@ public abstract class Component implements Doelstelling, Serializable {
 			values.remove(data);
 		System.out.printf("%s : %s%n", naam, jaar);
 		values.forEach(v -> System.out.printf("%s : %s%n ", v.getJaar(), v.getId()));
-		this.values.add(new ComponentData(waarde, this, jaar));
+		this.values.add(new ComponentData(waarde, this, jaar, doelwaarde));
 	}
 
 	public Map<String, Double> getValue() {

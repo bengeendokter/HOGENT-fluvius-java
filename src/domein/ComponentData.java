@@ -34,12 +34,19 @@ public class ComponentData implements Serializable {
 	private Component component;
 
 	private int jaar;
+	
+	private double doelwaarde;
 
-	public ComponentData(Map<String, Double> values, Component component, int jaar) {
+	public ComponentData(Map<String, Double> values, Component component, int jaar, double doelwaarde) {
 
 		this.component = component;
 		this.values = values;
 		this.jaar = jaar;
+		this.doelwaarde = doelwaarde;
+	}
+
+	public double getDoelwaarde() {
+		return doelwaarde;
 	}
 
 	public int getJaar() {
