@@ -19,6 +19,7 @@ import repository.SdGoalDaoJpa;
 
 public class PopulateDB {
 	public static void run() throws IOException, SQLIntegrityConstraintViolationException {
+		
 		GebruikerDao gebruikerRepo = new GebruikerDaoJpa();
 		SdGoalDao sdGoalRepo = new SdGoalDaoJpa();
 		CategorieDao categorieRepo = new CategorieDaoJpa();
@@ -32,9 +33,10 @@ public class PopulateDB {
 
 		// Gebruikers
 		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
-		gebruikerRepo.insert(new Gebruiker("JanJansens2", "123456789", "MVO coördinator", "ACTIEF"));
-		gebruikerRepo.insert(new Gebruiker("block", "123456789", "MVO coördinator", "GEBLOKKEERD"));
-
+		gebruikerRepo.insert(new Gebruiker("Manager", "123456789", "Manager", "ACTIEF"));
+		gebruikerRepo.insert(new Gebruiker("StakeHolder", "123456789", "Stakeholder", "ACTIEF"));
+		gebruikerRepo.insert(new Gebruiker("Directeur", "123456789", "Directeur", "ACTIEF"));
+		
 		// SdGoals
 		// SDGOAL 1
 		SdGoal goal1 = new SdGoal("1", "Geen armoede");
@@ -982,29 +984,122 @@ public class PopulateDB {
 		rollen.add(rol4);
 
 		// Datasources
-		datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
-				"test", "test123", false, "traag", "vrouwen", 1)));
+		//datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
+				//"test", "test123", false, "traag", "vrouwen", 1)));
 
-		MVODatasource mvd1 = new MVODatasource(new DTODatasource("CO2 mercedes", "csv", "src/data/csvDouble.csv", null,
-				null, null, false, "snel", "kg", 1));
-		MVODatasource mvd2 = new MVODatasource(new DTODatasource("CO2 audi", "excel", "src/data/xlsDouble.xls", null,
-				null, null, true, "traag", "kg", 2));
-		MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
-				null, null, true, "traag", "kg", 2));
+		MVODatasource VW2018 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2018", "csv", "src/data/csvDouble2.csv", null,
+				null, null, false, "snel", "ton CO2", 1));
+		
+		MVODatasource VW2019 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2019", "csv", "src/data/csvDouble2.csv", null,
+				null, null, false, "snel", "ton CO2", 2));
+		
+		MVODatasource VW2020 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2020", "csv", "src/data/csvDouble2.csv", null,
+				null, null, false, "snel", "ton CO2", 3));
+		
+		MVODatasource VW2021 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2021", "csv", "src/data/csvDouble2.csv", null,
+				null, null, false, "snel", "ton CO2", 4));
+		
+		MVODatasource VW2022 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2022", "csv", "src/data/csvDouble2.csv", null,
+				null, null, false, "snel", "ton CO2", 5));
+		datasourceRepo.insert(VW2019);
+		datasourceRepo.insert(VW2020);
+		datasourceRepo.insert(VW2021);
+		datasourceRepo.insert(VW2022);
+		
+		
+		
+		//MVODatasource mvd2 = new MVODatasource(new DTODatasource("CO2 audi", "excel", "src/data/xlsDouble.xls", null,
+				//null, null, true, "traag", "kg", 2));
+		MVODatasource PW2018 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2018", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 6));
+		
+		MVODatasource PW2019 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2019", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 7));
+		
+		MVODatasource PW2020 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2020", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 8));
+		
+		MVODatasource PW2021 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2021", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 9));
+		
+		MVODatasource PW2022 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2022", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 10));
+		datasourceRepo.insert(PW2019);
+		datasourceRepo.insert(PW2020);
+		datasourceRepo.insert(PW2021);
+		datasourceRepo.insert(PW2022);
+		
+		//MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
+				//null, null, true, "traag", "kg", 2));
+		MVODatasource C2018 = new MVODatasource(new DTODatasource("Uitstoot camionette 2018", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 11));
+		
+		MVODatasource C2019 = new MVODatasource(new DTODatasource("Uitstoot camionette 2019", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 12));
+		
+		MVODatasource C2020 = new MVODatasource(new DTODatasource("Uitstoot camionette 2020", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 13));
+		
+		MVODatasource C2021 = new MVODatasource(new DTODatasource("Uitstoot camionette 2021", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 14));
+		
+		MVODatasource C2022 = new MVODatasource(new DTODatasource("Uitstoot camionette 2022", "csv", "src/data/UitstootTransport.csv", null,
+				null, null, false, "snel", "ton CO2", 15));
+		datasourceRepo.insert(C2022);
+		datasourceRepo.insert(C2019);
+		datasourceRepo.insert(C2020);
+		datasourceRepo.insert(C2021);
+		
+		MVODatasource Steun2019 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2019", "csv", "src/data/SteunGoedeDoelen.csv",
+				null, null, null, true, "snel", "miljoen euro", 1));
+		
+		MVODatasource Steun2020 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2020", "csv", "src/data/SteunGoedeDoelen.csv",
+				null, null, null, true, "snel", "miljoen euro", 2));
+		
+		MVODatasource Steun2021 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2021", "csv", "src/data/SteunGoedeDoelen.csv",
+				null, null, null, true, "snel", "miljoen euro", 3));
+		
+		MVODatasource Steun2022 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2022", "csv", "src/data/SteunGoedeDoelen.csv",
+				null, null, null, true, "snel", "miljoen euro", 4));
 
+		datasourceRepo.insert(Steun2020);
+		datasourceRepo.insert(Steun2021);
+		datasourceRepo.insert(Steun2022);
 		
-		MVODatasource mvd4 = new MVODatasource(new DTODatasource("Aantal klachten", "csv", "src/data/csvDouble.csv",
-				null, null, null, true, "snel", "klachten", 2));
+		MVODatasource D2021 = new MVODatasource(new DTODatasource("Discriminatie meldingen 2021", "csv", "src/data/Discriminatie.csv",
+				null, null, null, true, "snel", "meldingen", 1));
 		
-		MVODatasource mvd5 = new MVODatasource(new DTODatasource("Steun aan goede doelen", "csv", "src/data/csvDouble.csv",
-				null, null, null, true, "snel", "euro", 2));
-		MVODatasource mvd6 = new MVODatasource(new DTODatasource("Discriminatie meldingen", "csv", "src/data/csvDouble.csv",
+		MVODatasource D2022 = new MVODatasource(new DTODatasource("Discriminatie meldingen 2022", "csv", "src/data/Discriminatie.csv",
 				null, null, null, true, "snel", "meldingen", 2));
-		MVODatasource mvd7 = new MVODatasource(new DTODatasource("Bijscholingen personeel", "csv", "src/data/csvDouble.csv",
+		
+		datasourceRepo.insert(D2022);
+		
+		MVODatasource K2018 = new MVODatasource(new DTODatasource("Aantal klachten 2018", "csv", "src/data/Klachten.csv",
+				null, null, null, true, "snel", "klachten", 1));
+		MVODatasource K2019 = new MVODatasource(new DTODatasource("Aantal klachten 2019", "csv", "src/data/Klachten.csv",
+				null, null, null, true, "snel", "klachten", 2));
+		MVODatasource K2020 = new MVODatasource(new DTODatasource("Aantal klachten 2020", "csv", "src/data/Klachten.csv",
+				null, null, null, true, "snel", "klachten", 3));
+		MVODatasource K2021 = new MVODatasource(new DTODatasource("Aantal klachten 2021", "csv", "src/data/Klachten.csv",
+				null, null, null, true, "snel", "klachten", 4));
+		MVODatasource K2022 = new MVODatasource(new DTODatasource("Aantal klachten 2022", "csv", "src/data/Klachten.csv",
+				null, null, null, true, "snel", "klachten", 5));
+		datasourceRepo.insert(K2019);
+		datasourceRepo.insert(K2020);
+		datasourceRepo.insert(K2021);
+		datasourceRepo.insert(K2022);
+		
+		MVODatasource B2020 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2020", "csv", "src/data/Bijscholingen.csv",
+				null, null, null, true, "snel", "bijscholingen", 1));
+		MVODatasource B2021 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2021", "csv", "src/data/Bijscholingen.csv",
 				null, null, null, true, "snel", "bijscholingen", 2));
+		MVODatasource B2022 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2022", "csv", "src/data/Bijscholingen.csv",
+				null, null, null, true, "snel", "bijscholingen", 3));
+		datasourceRepo.insert(B2021);
+		datasourceRepo.insert(B2022);
 		
 //		List<MVODatasource> datasources = new ArrayList<>();
-//		datasources.add(mvd1);
+//		datasources.add(mvd1)
 //		datasources.add(mvd2);
 //		datasources.add(mvd3);
 //		datasources.add(mvd4);
@@ -1017,21 +1112,21 @@ public class PopulateDB {
 		SdGoal g131 = sdGoalRepo.getByNaam(
 				"13.1 Versterking van de veerkracht en het aanpassingsvermogen aan klimaatgerelateerde gevaren en natuurrampen in alle landen");
 
-		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal klanten klachten", "file:src/images/peace.png", 16, rollen, dgoal3, mvd4,
-				new ArrayList<>(), new Som(), 2022));
-		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 40, rollen, g131, mvd1,
-				new ArrayList<>(), new Average(), 2022));
-		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 camionette", "file:src/images/planet.jpg", 40, rollen, g13, mvd2,
-				new ArrayList<>(), new Average(), 2022));
-		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 persoonswagen", "file:src/images/planet.jpg", 30, rollen, g13, mvd3,
-				new ArrayList<>(), new Average(), 2022));
+		Leaf l1 = new Leaf(new DTOMVODoelstelling("Aantal klachten klanten", "file:src/images/peace.png", 6500,true, rollen, dgoal3, K2018,
+				new ArrayList<>(), new Som(), 2018));
+		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 20,true, rollen, g131, VW2018,
+				new ArrayList<>(), new Som(), 2018));
+		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 camionette", "file:src/images/planet.jpg", 15,true, rollen, g13, C2018,
+				new ArrayList<>(), new Som(), 2018));
+		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 persoonswagen", "file:src/images/planet.jpg", 10,true, rollen, g13, PW2018,
+				new ArrayList<>(), new Som(), 2018));
 		
-		Leaf l5 = new Leaf(new DTOMVODoelstelling("Steun aan goede doelen", "file:src/images/planet.jpg", 30, false, rollen, d1, mvd5,
-				new ArrayList<>(), new Average(), 2022));
-		Leaf l6 = new Leaf(new DTOMVODoelstelling("Discriminatie meldingen", "file:src/images/planet.jpg", 30, rollen, g5, mvd6,
-				new ArrayList<>(), new Average(), 2022));
-		Leaf l7 = new Leaf(new DTOMVODoelstelling("Bijscholingen personeel", "file:src/images/planet.jpg", 30, false, rollen, dgoal4, mvd7,
-				new ArrayList<>(), new Average(), 2022));
+		Leaf l5 = new Leaf(new DTOMVODoelstelling("Steun aan goede doelen", "file:src/images/planet.jpg", 0.5, false, rollen, d1, Steun2019,
+				new ArrayList<>(), new Som(), 2019));
+		Leaf l6 = new Leaf(new DTOMVODoelstelling("Discriminatie meldingen", "file:src/images/planet.jpg", 15,true, rollen, g5, D2021,
+				new ArrayList<>(), new Som(), 2021));
+		Leaf l7 = new Leaf(new DTOMVODoelstelling("Bijscholingen personeel", "file:src/images/planet.jpg", 7500, false, rollen, dgoal4, B2020,
+				new ArrayList<>(), new Som(), 2020));
 		
 		
 
@@ -1050,15 +1145,15 @@ public class PopulateDB {
 		lijst1.add(l3);
 		lijst1.add(l4);
 
-		Composite c1 = new Composite(new DTOMVODoelstelling("CO2 personeel transport", "file:src/images/planet.jpg", 10, rollen,
-				g13, null, lijst1, new Som(), 2022));
+		Composite c1 = new Composite(new DTOMVODoelstelling("CO2 personeel transport", "file:src/images/planet.jpg", 30,true, rollen,
+				g13, null, lijst1, new Som(), 2018));
 
 		doelstellingenRepo.insert(c1);
 
 		lijst2.add(c1);
 		lijst2.add(l2);
-		Composite c2 = new Composite(new DTOMVODoelstelling("CO2-uitstoot transport", "file:src/images/planet.jpg", 50,
-				rollen, g13, null, lijst2, new Som(), 2022));
+		Composite c2 = new Composite(new DTOMVODoelstelling("CO2-uitstoot transport", "file:src/images/planet.jpg", 50,true,
+				rollen, g13, null, lijst2, new Som(), 2018));
 
 		doelstellingenRepo.insert(c2);
 		gebruikerRepo.commitTransaction();
