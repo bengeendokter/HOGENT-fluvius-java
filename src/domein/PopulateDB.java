@@ -988,19 +988,19 @@ public class PopulateDB {
 				//"test", "test123", false, "traag", "vrouwen", 1)));
 
 		MVODatasource VW2018 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2018", "csv", "src/data/csvDouble2.csv", null,
-				null, null, false, "snel", "ton CO2", 1));
+				null, null, false, "snel", "ton CO2", 0));
 		
 		MVODatasource VW2019 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2019", "csv", "src/data/csvDouble2.csv", null,
-				null, null, false, "snel", "ton CO2", 2));
+				null, null, false, "snel", "ton CO2", 1));
 		
 		MVODatasource VW2020 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2020", "csv", "src/data/csvDouble2.csv", null,
-				null, null, false, "snel", "ton CO2", 3));
+				null, null, false, "snel", "ton CO2", 2));
 		
 		MVODatasource VW2021 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2021", "csv", "src/data/csvDouble2.csv", null,
-				null, null, false, "snel", "ton CO2", 4));
+				null, null, false, "snel", "ton CO2", 3));
 		
 		MVODatasource VW2022 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2022", "csv", "src/data/csvDouble2.csv", null,
-				null, null, false, "snel", "ton CO2", 5));
+				null, null, false, "snel", "ton CO2", 4));
 		datasourceRepo.insert(VW2019);
 		datasourceRepo.insert(VW2020);
 		datasourceRepo.insert(VW2021);
@@ -1011,19 +1011,19 @@ public class PopulateDB {
 		//MVODatasource mvd2 = new MVODatasource(new DTODatasource("CO2 audi", "excel", "src/data/xlsDouble.xls", null,
 				//null, null, true, "traag", "kg", 2));
 		MVODatasource PW2018 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2018", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 6));
+				null, null, false, "snel", "ton CO2", 5));
 		
 		MVODatasource PW2019 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2019", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 7));
+				null, null, false, "snel", "ton CO2", 6));
 		
 		MVODatasource PW2020 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2020", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 8));
+				null, null, false, "snel", "ton CO2", 7));
 		
 		MVODatasource PW2021 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2021", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 9));
+				null, null, false, "snel", "ton CO2", 8));
 		
 		MVODatasource PW2022 = new MVODatasource(new DTODatasource("Uitstoot persoonswagens 2022", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 10));
+				null, null, false, "snel", "ton CO2", 9));
 		datasourceRepo.insert(PW2019);
 		datasourceRepo.insert(PW2020);
 		datasourceRepo.insert(PW2021);
@@ -1032,69 +1032,69 @@ public class PopulateDB {
 		//MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
 				//null, null, true, "traag", "kg", 2));
 		MVODatasource C2018 = new MVODatasource(new DTODatasource("Uitstoot camionette 2018", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 11));
+				null, null, false, "snel", "ton CO2", 10));
 		
 		MVODatasource C2019 = new MVODatasource(new DTODatasource("Uitstoot camionette 2019", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 12));
+				null, null, false, "snel", "ton CO2", 11));
 		
 		MVODatasource C2020 = new MVODatasource(new DTODatasource("Uitstoot camionette 2020", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 13));
+				null, null, false, "snel", "ton CO2", 12));
 		
 		MVODatasource C2021 = new MVODatasource(new DTODatasource("Uitstoot camionette 2021", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 14));
+				null, null, false, "snel", "ton CO2", 13));
 		
 		MVODatasource C2022 = new MVODatasource(new DTODatasource("Uitstoot camionette 2022", "csv", "src/data/UitstootTransport.csv", null,
-				null, null, false, "snel", "ton CO2", 15));
+				null, null, false, "snel", "ton CO2", 14));
 		datasourceRepo.insert(C2022);
 		datasourceRepo.insert(C2019);
 		datasourceRepo.insert(C2020);
 		datasourceRepo.insert(C2021);
 		
 		MVODatasource Steun2019 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2019", "csv", "src/data/SteunGoedeDoelen.csv",
-				null, null, null, true, "snel", "miljoen euro", 1));
+				null, null, null, true, "snel", "miljoen euro", 0));
 		
 		MVODatasource Steun2020 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2020", "csv", "src/data/SteunGoedeDoelen.csv",
-				null, null, null, true, "snel", "miljoen euro", 2));
+				null, null, null, true, "snel", "miljoen euro", 1));
 		
 		MVODatasource Steun2021 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2021", "csv", "src/data/SteunGoedeDoelen.csv",
-				null, null, null, true, "snel", "miljoen euro", 3));
+				null, null, null, true, "snel", "miljoen euro", 2));
 		
 		MVODatasource Steun2022 = new MVODatasource(new DTODatasource("Steun aan goede doelen 2022", "csv", "src/data/SteunGoedeDoelen.csv",
-				null, null, null, true, "snel", "miljoen euro", 4));
+				null, null, null, true, "snel", "miljoen euro", 3));
 
 		datasourceRepo.insert(Steun2020);
 		datasourceRepo.insert(Steun2021);
 		datasourceRepo.insert(Steun2022);
 		
 		MVODatasource D2021 = new MVODatasource(new DTODatasource("Discriminatie meldingen 2021", "csv", "src/data/Discriminatie.csv",
-				null, null, null, true, "snel", "meldingen", 1));
+				null, null, null, true, "snel", "meldingen", 0));
 		
 		MVODatasource D2022 = new MVODatasource(new DTODatasource("Discriminatie meldingen 2022", "csv", "src/data/Discriminatie.csv",
-				null, null, null, true, "snel", "meldingen", 2));
+				null, null, null, true, "snel", "meldingen", 1));
 		
 		datasourceRepo.insert(D2022);
 		
 		MVODatasource K2018 = new MVODatasource(new DTODatasource("Aantal klachten 2018", "csv", "src/data/Klachten.csv",
-				null, null, null, true, "snel", "klachten", 1));
+				null, null, null, true, "snel", "klachten", 0));
 		MVODatasource K2019 = new MVODatasource(new DTODatasource("Aantal klachten 2019", "csv", "src/data/Klachten.csv",
-				null, null, null, true, "snel", "klachten", 2));
+				null, null, null, true, "snel", "klachten", 1));
 		MVODatasource K2020 = new MVODatasource(new DTODatasource("Aantal klachten 2020", "csv", "src/data/Klachten.csv",
-				null, null, null, true, "snel", "klachten", 3));
+				null, null, null, true, "snel", "klachten", 2));
 		MVODatasource K2021 = new MVODatasource(new DTODatasource("Aantal klachten 2021", "csv", "src/data/Klachten.csv",
-				null, null, null, true, "snel", "klachten", 4));
+				null, null, null, true, "snel", "klachten", 3));
 		MVODatasource K2022 = new MVODatasource(new DTODatasource("Aantal klachten 2022", "csv", "src/data/Klachten.csv",
-				null, null, null, true, "snel", "klachten", 5));
+				null, null, null, true, "snel", "klachten", 4));
 		datasourceRepo.insert(K2019);
 		datasourceRepo.insert(K2020);
 		datasourceRepo.insert(K2021);
 		datasourceRepo.insert(K2022);
 		
 		MVODatasource B2020 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2020", "csv", "src/data/Bijscholingen.csv",
-				null, null, null, true, "snel", "bijscholingen", 1));
+				null, null, null, true, "snel", "bijscholingen", 0));
 		MVODatasource B2021 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2021", "csv", "src/data/Bijscholingen.csv",
-				null, null, null, true, "snel", "bijscholingen", 2));
+				null, null, null, true, "snel", "bijscholingen", 1));
 		MVODatasource B2022 = new MVODatasource(new DTODatasource("Bijscholingen personeel 2022", "csv", "src/data/Bijscholingen.csv",
-				null, null, null, true, "snel", "bijscholingen", 3));
+				null, null, null, true, "snel", "bijscholingen", 2));
 		datasourceRepo.insert(B2021);
 		datasourceRepo.insert(B2022);
 		
