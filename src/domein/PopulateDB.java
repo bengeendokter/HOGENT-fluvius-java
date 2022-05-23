@@ -987,19 +987,19 @@ public class PopulateDB {
 		//datasourceRepo.insert(new MVODatasource(new DTODatasource("Aantal vrouwen", "databank", null, "localhost",
 				//"test", "test123", false, "traag", "vrouwen", 1)));
 
-		MVODatasource VW2018 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2018", "csv", "src/data/csvDouble2.csv", null,
+		MVODatasource VW2018 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2018", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 0));
 		
-		MVODatasource VW2019 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2019", "csv", "src/data/csvDouble2.csv", null,
+		MVODatasource VW2019 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2019", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 1));
 		
-		MVODatasource VW2020 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2020", "csv", "src/data/csvDouble2.csv", null,
+		MVODatasource VW2020 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2020", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 2));
 		
-		MVODatasource VW2021 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2021", "csv", "src/data/csvDouble2.csv", null,
+		MVODatasource VW2021 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2021", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 3));
 		
-		MVODatasource VW2022 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2022", "csv", "src/data/csvDouble2.csv", null,
+		MVODatasource VW2022 = new MVODatasource(new DTODatasource("Uitstoot vrachtwagens 2022", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 4));
 		datasourceRepo.insert(VW2019);
 		datasourceRepo.insert(VW2020);

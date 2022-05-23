@@ -219,7 +219,7 @@ public class MVODatasource implements Serializable, Datasource {
 	}
 
 	public void setKolom(int kolom) throws IOException {
-		if (kolom <= 0) {
+		if (kolom < 0) {
 			throw new IllegalArgumentException("De kolom van de datasource is geen geldige waarde");
 		}
 
