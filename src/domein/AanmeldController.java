@@ -74,7 +74,7 @@ public class AanmeldController
 			}
 			
 			//rol van gebruiker is onjuist
-			if(gebruiker.getRol().equals("MVO coördinator") == false)
+			if(gebruiker.getRol().equals("MVO-coördinator") == false)
 			{
 				throw new VerkeerdeRolException();
 			}

@@ -32,7 +32,7 @@ public class PopulateDB {
 		datasourceRepo.startTransaction();
 
 		// Gebruikers
-		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF"));
+		gebruikerRepo.insert(new Gebruiker("JanJansens", "123456789", "MVO-coördinator", "ACTIEF"));
 		gebruikerRepo.insert(new Gebruiker("Manager", "123456789", "Manager", "ACTIEF"));
 		gebruikerRepo.insert(new Gebruiker("StakeHolder", "123456789", "Stakeholder", "ACTIEF"));
 		gebruikerRepo.insert(new Gebruiker("Directeur", "123456789", "Directeur", "ACTIEF"));
@@ -973,7 +973,7 @@ public class PopulateDB {
 		
 		// Rollen
 		List<Rol> rollen = new ArrayList<>();
-		Rol rol1 = new Rol("MVO Coördinator");
+		Rol rol1 = new Rol("MVO-coördinator");
 		Rol rol2 = new Rol("Directie");
 		Rol rol3 = new Rol("Manager");
 		Rol rol4 = new Rol("Stakeholder");
@@ -1031,19 +1031,19 @@ public class PopulateDB {
 		
 		//MVODatasource mvd3 = new MVODatasource(new DTODatasource("CO2 bmw", "excel", "src/data/xlsxDouble.xlsx", null,
 				//null, null, true, "traag", "kg", 2));
-		MVODatasource C2018 = new MVODatasource(new DTODatasource("Uitstoot camionette 2018", "csv", "src/data/UitstootTransport.csv", null,
+		MVODatasource C2018 = new MVODatasource(new DTODatasource("Uitstoot bestelwagens 2018", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 10));
 		
-		MVODatasource C2019 = new MVODatasource(new DTODatasource("Uitstoot camionette 2019", "csv", "src/data/UitstootTransport.csv", null,
+		MVODatasource C2019 = new MVODatasource(new DTODatasource("Uitstoot bestelwagens 2019", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 11));
 		
-		MVODatasource C2020 = new MVODatasource(new DTODatasource("Uitstoot camionette 2020", "csv", "src/data/UitstootTransport.csv", null,
+		MVODatasource C2020 = new MVODatasource(new DTODatasource("Uitstoot bestelwagens 2020", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 12));
 		
-		MVODatasource C2021 = new MVODatasource(new DTODatasource("Uitstoot camionette 2021", "csv", "src/data/UitstootTransport.csv", null,
+		MVODatasource C2021 = new MVODatasource(new DTODatasource("Uitstoot bestelwagens 2021", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 13));
 		
-		MVODatasource C2022 = new MVODatasource(new DTODatasource("Uitstoot camionette 2022", "csv", "src/data/UitstootTransport.csv", null,
+		MVODatasource C2022 = new MVODatasource(new DTODatasource("Uitstoot bestelwagens 2022", "csv", "src/data/UitstootTransport.csv", null,
 				null, null, false, "snel", "ton CO2", 14));
 		datasourceRepo.insert(C2022);
 		datasourceRepo.insert(C2019);
@@ -1116,7 +1116,7 @@ public class PopulateDB {
 				new ArrayList<>(), new Som(), 2018));
 		Leaf l2 = new Leaf(new DTOMVODoelstelling("CO2 vrachtwagens", "file:src/images/planet.jpg", 20,true, rollen, g131, VW2018,
 				new ArrayList<>(), new Som(), 2018));
-		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 camionette", "file:src/images/planet.jpg", 15,true, rollen, g13, C2018,
+		Leaf l3 = new Leaf(new DTOMVODoelstelling("CO2 bestelwagens", "file:src/images/planet.jpg", 15,true, rollen, g13, C2018,
 				new ArrayList<>(), new Som(), 2018));
 		Leaf l4 = new Leaf(new DTOMVODoelstelling("CO2 persoonswagen", "file:src/images/planet.jpg", 10,true, rollen, g13, PW2018,
 				new ArrayList<>(), new Som(), 2018));

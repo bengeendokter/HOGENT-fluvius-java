@@ -236,7 +236,7 @@
 					</font>
 				</Label>
 				<CheckBox fx:id="kiesCoordinator" mnemonicParsing="false"
-					prefHeight="31.0" prefWidth="296.0" text="MVO coördinator">
+					prefHeight="31.0" prefWidth="296.0" text="MVO-coördinator">
 					<font>
 						<Font size="21.0" />
 					</font>
