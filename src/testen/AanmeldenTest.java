@@ -33,7 +33,7 @@ public class AanmeldenTest
 	@CsvSource({"JanJansens, 123456789"})
 	public void meldAan_bestaandGebruikerJuisteGegevens_Login(String naam, String paswoord)
 	{
-		Gebruiker gebruiker = new Gebruiker("JanJansens", "123456789", "MVO coördinator", "ACTIEF");
+		Gebruiker gebruiker = new Gebruiker("JanJansens", "123456789", "MVO-coördinator", "ACTIEF");
 		Mockito.when(gebruikerjpa.getByName("JanJansens")).thenReturn(gebruiker);
 		Assertions.assertDoesNotThrow(() -> {
 			aanmeldController.meldAan(naam, paswoord);
@@ -45,7 +45,7 @@ public class AanmeldenTest
 	@CsvSource({"JanJansens, 1234"})
 	public void meldAan_bestaandGebruikerFouteGegevens_Exception(String naam, String paswoord)
 	{
-		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO coördinator", "ACTIEF");
+		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO-coördinator", "ACTIEF");
 		Mockito.when(gebruikerjpa.getByName(naam)).thenThrow(new OngeldigeWachtwoordException());
 		
 		Assertions.assertThrows(OngeldigeWachtwoordException.class, () -> aanmeldController.meldAan(naam, paswoord));
@@ -56,7 +56,7 @@ public class AanmeldenTest
 	@CsvSource({"block, 123456789"})
 	public void meldAan_geblokkeerdGebruiker_Exception(String naam, String paswoord)
 	{
-		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO coördinator", "ACTIEF");
+		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO-coördinator", "ACTIEF");
 		Mockito.when(gebruikerjpa.getByName(naam)).thenThrow(new GebruikerGeblokkeerdException());
 		Assertions.assertThrows(GebruikerGeblokkeerdException.class, () -> aanmeldController.meldAan(naam, paswoord));
 		Mockito.verify(gebruikerjpa).getByName(naam);
@@ -66,7 +66,7 @@ public class AanmeldenTest
 	@CsvSource({"Jan, 1234"})
 	public void meldAan_onbestaandGebruiker_Exception(String naam, String paswoord)
 	{
-		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO coördinator", "ACTIEF");
+		Gebruiker gebruiker = new Gebruiker(naam, paswoord, "MVO-coördinator", "ACTIEF");
 		Mockito.when(gebruikerjpa.getByName(naam)).thenThrow(new GebruikerBestaatNietException());
 		Assertions.assertThrows(GebruikerBestaatNietException.class, () -> {
 			aanmeldController.meldAan(naam, paswoord);
