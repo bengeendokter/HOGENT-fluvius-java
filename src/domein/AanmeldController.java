@@ -90,9 +90,13 @@ public class AanmeldController
 			
 			//insert geslaagde aanmeld poging
 			GenericDaoJpa<AanmeldPoging> aanmeldPogingDao = new GenericDaoJpa<>(AanmeldPoging.class);
+			
+			aanmeldPogingDao.startTransaction();
 			aanmeldPogingDao.insert(
 					new AanmeldPoging(gebruiker, new Date(), true, gebruiker.getRol(), gebruiker.getStatus(), 0));
-			gJpa.commitTransaction();
+			
+			if (aanmeldPogingDao.isActive()) aanmeldPogingDao.commitTransaction();
+			if (gJpa.isActive()) gJpa.commitTransaction();
 			System.out.println(gebruiker.toString());
 			
 			return new DomeinController(gebruiker);
@@ -142,12 +146,10 @@ public class AanmeldController
 			aanmeldPogingnummer += ap.getPoging();
 		}
 		
-		System.out.printf("%d", aanmeldPogingnummer);
-		
 		if(aanmeldPogingnummer >= 3)//blokkeer gebruiker
 		{
 			gebruiker.setStatus("GEBLOKKEERD");
-			System.out.println("box box");
+			
 		}
 		
 		
