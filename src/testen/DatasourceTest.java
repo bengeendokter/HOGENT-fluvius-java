@@ -436,7 +436,7 @@ public class DatasourceTest {
 	 * Datasource aanmaken met een te kleine kolom (CSV)
 	 */
 	@ParameterizedTest
-	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1})
 	public void maakDatasource_CSV_TeKleineKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
@@ -484,7 +484,7 @@ public class DatasourceTest {
 	 * Datasource aanmaken met een te kleine kolom (XLSX)
 	 */
 	@ParameterizedTest
-	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1})
 	public void maakDatasource_XLSX_TeKleineKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
@@ -532,7 +532,7 @@ public class DatasourceTest {
 	 * Datasource aanmaken met een te kleine kolom (XLS)
 	 */
 	@ParameterizedTest
-	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1, 0})
+	@ValueSource(ints={Integer.MIN_VALUE, -10, -8, -4, -2, -1})
 	public void maakDatasource_XLS_TeKleineKolomNummer(int KOLOM)
 	{
 		   // Alles klaarzetten
