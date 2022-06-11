@@ -135,20 +135,28 @@ public class AanmeldController
 		AanmeldPogingDaoJpa aanmeldpogingDao = new AanmeldPogingDaoJpa();
 		AanmeldPoging ap = aanmeldpogingDao.getLaatsteAanmeldPogingByGebruikersnaam(gebruiker);
 		
+		
 		int aanmeldPogingnummer = 1;
 		if(ap != null)
 		{
 			aanmeldPogingnummer += ap.getPoging();
 		}
 		
+		System.out.printf("%d", aanmeldPogingnummer);
+		
 		if(aanmeldPogingnummer >= 3)//blokkeer gebruiker
 		{
 			gebruiker.setStatus("GEBLOKKEERD");
+			System.out.println("box box");
 		}
 		
+		
+		aanmeldpogingDao.startTransaction();
 		aanmeldpogingDao.insert(new AanmeldPoging(gebruiker, new Date(), false, gebruiker.getRol(),
 				gebruiker.getStatus(), aanmeldPogingnummer));
-		gJpa.commitTransaction();
+		if (aanmeldpogingDao.isActive()) aanmeldpogingDao.commitTransaction();
+		if (gJpa.isActive()) gJpa.commitTransaction();
+		
 	}
 	
 	public void sluitPersistentie()
